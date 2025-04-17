@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Blog</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        />
+        <link rel="stylesheet" href="/css/font.css"
+    </head>
+
+    <body class="bg-light" style="padding-top: 56px">
+        <nav class="navbar navbar-expand bg-white border-bottom fixed-top">
+            <div
+                class="container d-flex justify-content-between align-items-center"
+                style="max-width: 50%"
+            >
+                <!-- Left: 로고 + 메뉴 -->
+                <div class="d-flex align-items-center gap-4">
+                    <a class="navbar-brand text-primary fw-bold" href="#"
+                        >WWY</a
+                    >
+                    <ul class="navbar-nav flex-row gap-3">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold" href="#"
+                                >채용</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold" href="#"
+                                >이력서</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold" href="#"
+                                >커뮤니티</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+
+                <ul class="navbar-nav d-flex flex-row gap-2">
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary btn-sm" href="#">회원가입/로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-secondary btn-sm" href="#">마이페이지</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-danger btn-sm" href="#">로그아웃</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container mt-4 mb-5" style="max-width: 60%">
+            <div class="d-flex gap-4 align-items-top justify-content-between">
+                <!-- 왼쪽 박스 -->
+                <div class="flex-fill" style="max-width: 25%">
+                    <div
+                        class="bg-white border rounded p-3 overflow-auto"
+                        style="height: 800px"
+                    >
+                        <h5 class="ms-3 fw-bold mt-4">이름</h5>
+                        <ul class="navbar-nav flex-column gap-2 mb-5 ps-3">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark ps-4">문정준</a>
+                            </li>
+                        </ul>
+
+                        <h5 class="ms-3 fw-bold mt-4">전화번호</h5>
+                        <ul class="navbar-nav flex-column gap-2 mb-5 ps-3">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark ps-4"
+                                    >01012345678</a
+                                >
+                            </li>
+                        </ul>
+
+                        <h5 class="ms-3 fw-bold mt-4">이메일</h5>
+                        <ul class="navbar-nav flex-column gap-2 mb-5 ps-3">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark ps-4"
+                                    >ssar@nate.com</a
+                                >
+                            </li>
+                        </ul>
+
+                        <h5 class="ms-3 fw-bold mt-4">희망 근무지역</h5>
+                        <ul class="navbar-nav flex-column gap-2 mb-5 ps-3">
+                            <li class="nav-item">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark ps-4"
+                                        >서울</a
+                                    >
+                                </li>
+                            </li>
+                        </ul>
+
+                        <h5 class="ms-3 fw-bold mt-4">희망 직무</h5>
+                        <ul class="navbar-nav flex-column gap-2 mb-5 ps-3">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark ps-4"
+                                        >웹 풀스택 개발자</a
+                                    >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+
+                <!-- 오른쪽 박스 -->
+                <div class="flex-fill" style="max-width: 75%">
+                    <form href="/#">
+
+                        <div class="bg-white border rounded p-4">
+                            <div class="d-flex justify-content-between">
+                                <h4 class="fw-bold">이력서 작성하기</h4>
+                            </div>
+                            <br />
+                            <!-- 경력 입력 -->
+                            <div class="container mb-5 align-items-center">
+                                <h5 class="fw-semibold">경력</h5>
+                                <div class="d-flex ms-3">
+                                    <!-- 신입 라디오 버튼 -->
+                                    <div class="d-flex align-items-center me-4">
+                                        <div class="form-check m-0">
+                                            <input
+                                                class="form-check-input"
+                                                type="radio"
+                                                name="personalHistory"
+                                                id="inexperienced"
+                                                value="inexperienced"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="inexperienced"
+                                                >신입</label
+                                            >
+                                        </div>
+                                    </div>
+    
+                                    <!-- 경력 라디오 버튼 + 셀렉트 박스 -->
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="form-check m-0">
+                                            <input
+                                                class="form-check-input"
+                                                type="radio"
+                                                name="personalHistory"
+                                                id="experienced"
+                                                value="experienced"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="experienced"
+                                                >경력</label
+                                            >
+                                        </div>
+    
+                                        <select
+                                            class="form-select form-select-sm"
+                                            style="width: 120px"
+                                            name="experiencedDate"
+                                        >
+                                            <option value="1">1 ~ 3년 차</option>
+                                            <option value="2">3 ~ 5년 차</option>
+                                            <option value="3">5 ~ 7년 차</option>
+                                            <option value="4">7 ~ 9년 차</option>
+                                            <option value="5">10년 이상</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 학력 및 학교명 입력 -->
+                            <div class="container mb-5">
+                                <h5 class="fw-semibold">학력</h5>
+                                <div class="row g-3">
+                                    <!-- 카드 1: 학력 -->
+                                    <div class="col-md-6">
+                                        <div class="card h-100 border-0">
+                                            <div class="card-body">
+                                                <h6
+                                                    class="card-title fw-semibold mb-3"
+                                                >
+                                                    학력
+                                                </h6>
+                                                <select
+                                                    class="form-select form-select-sm"
+                                                >
+                                                    <option
+                                                        value=""
+                                                        disabled
+                                                        selected
+                                                    >
+                                                        학력을 선택하세요
+                                                    </option>
+                                                    <option value="univ_graduated">
+                                                        대학교 / 졸업
+                                                    </option>
+                                                    <option value="univ_enrolled">
+                                                        대학교 / 재학
+                                                    </option>
+                                                    <option
+                                                        value="highschool_graduated"
+                                                    >
+                                                        고등학교 / 졸업
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <!-- 카드 2: 학교명 -->
+                                    <div class="col-md-6">
+                                        <div class="card h-100 border-0">
+                                            <div class="card-body">
+                                                <h6
+                                                    class="card-title fw-semibold mb-3"
+                                                >
+                                                    학교명
+                                                </h6>
+                                                <input
+                                                    type="text"
+                                                    class="form-control form-control-sm"
+                                                    placeholder="학교명을 입력하세요"
+                                                    name="schoolName"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <!-- 기술스택 -->
+                            <div class="container mb-5">
+                                <h5 class="fw-semibold">기술스택</h5>
+                                <div class="row row-cols-2 row-cols-md-5 g-2 ps-2">
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                id="stack1"
+                                                name="stack"
+                                                value="Java"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="stack1"
+                                                >Java</label
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                id="stack2"
+                                                name="stack"
+                                                value="HTML"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="stack2"
+                                                >HTML</label
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                id="stack3"
+                                                name="stack"
+                                                value="CSS"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="stack3"
+                                                >CSS</label
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                id="stack4"
+                                                name="stack"
+                                                value="JavaScript"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="stack4"
+                                                >JavaScript</label
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                id="stack5"
+                                                name="stack"
+                                                value="Python"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="stack5"
+                                                >Python</label
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                id="stack6"
+                                                name="stack"
+                                                value="C++"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="stack6"
+                                                >C++</label
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                id="stack7"
+                                                name="stack"
+                                                value="Spring"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="stack7"
+                                                >Spring</label
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                id="stack8"
+                                                name="stack"
+                                                value="React"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="stack8"
+                                                >React</label
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                id="stack9"
+                                                name="stack"
+                                                value="Node.js"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="stack9"
+                                                >Node.js</label
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                id="stack10"
+                                                name="stack"
+                                                value="MySQL"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="stack10"
+                                                >MySQL</label
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <!-- 수상/자격증 -->
+                            <div class="container mb-5">
+                                <h5 class="fw-semibold">수상/자격증</h5>
+                                <input
+                                    type="text"
+                                    class="form-control form-control-sm mt-2"
+                                    placeholder="수상 내역이나 자격증을 입력하세요"
+                                    name="certificate"
+                                />
+                            </div>
+    
+                            <!-- 대외활동 -->
+                            <div class="container mb-5">
+                                <h5 class="fw-semibold">대외활동</h5>
+                                <input
+                                    type="text"
+                                    class="form-control form-control-sm mt-2"
+                                    placeholder="대외활동 내용을 입력하세요"
+                                    name="activity"
+                                />
+                            </div>
+    
+                            <!-- 외국어 -->
+                            <div class="container mb-5">
+                                <h5 class="fw-semibold">외국어</h5>
+                                <input
+                                    type="text"
+                                    class="form-control form-control-sm mt-2"
+                                    placeholder="외국어 능력을 입력하세요"
+                                    name="language"
+                                />
+                            </div>
+    
+                            <!-- 자기소개서 -->
+                            <div class="container mb-5">
+                                <h5 class="fw-semibold">자기소개서</h5>
+                                <textarea
+                                    class="form-control"
+                                    rows="5"
+                                    name="content"
+                                ></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 fw-semibold">저장하기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer class="bg-white py-5 border-top">
+            <div class="container text-center" style="max-width: 60%">
+                <h4>Copyright 2025. WWY All rights reserved.</h4>
+                <h5>📧 a32176740@gmail.com</h5>
+                <div>그린컴퓨터아카데미 부산</div>
+                <div>Made By KDTC3-G3</div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/css/job-update.css" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+    <body>
+        <!-- 채용공고 작성 -->
+
+        <nav class="navbar navbar-expand bg-white border-bottom fixed-top">
+            <div
+                class="container d-flex justify-content-between align-items-center"
+                style="max-width: 50%"
+            >
+                <!-- Left: 로고 + 메뉴 -->
+                <div class="d-flex align-items-center gap-4">
+                    <a class="navbar-brand text-primary fw-bold" href="#"
+                        >WWY</a
+                    >
+                    <ul class="navbar-nav flex-row gap-3">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold" href="#"
+                                >채용</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold" href="#"
+                                >이력서</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold" href="#"
+                                >커뮤니티</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+
+                <ul class="navbar-nav d-flex flex-row gap-2">
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary btn-sm" href="#"
+                            >회원가입/로그인</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-secondary btn-sm" href="#"
+                            >마이페이지</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-danger btn-sm" href="#">로그아웃</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main>
+            <section>
+                <div class="container mt-4 mb-5 p-5 rounded">
+                    <form action="" class="d-flex flex-column gap-3">
+                        <div class="title-wrap d-flex flex-column gap-3">
+                            <label for="" class="fs-3 fw-medium"
+                                >공고수정</label
+                            >
+                            <input
+                                type="text"
+                                name="title"
+                                required
+                                placeholder="제목을 입력해 주세요."
+                                class="border-0 p-3 fs-5 rounded"
+                            />
+                        </div>
+                        <!-- .title-wrap end -->
+                        <div class="select-wrap bg-white rounded p-5">
+                            <div
+                                class="checkbox-set-1 d-flex flex-column gap-3 mb-5"
+                            >
+                                <label for="" class="fs-4 fw-medium"
+                                    >개발 직무</label
+                                >
+                                <div class="d-flex flex-wrap gap-3">
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value="Frontend Developer"
+                                            id="jobRole1"
+                                            style="padding: 5px 0"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="jobRole1"
+                                            >Frontend Developer</label
+                                        >
+                                    </div>
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value="Backend Developer"
+                                            id="jobRole2"
+                                            style="padding: 5px 0"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="jobRole2"
+                                            >Backend Developer</label
+                                        >
+                                    </div>
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value="Full Stack Developer"
+                                            id="jobRole3"
+                                            style="padding: 5px 0"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="jobRole3"
+                                            >Full Stack Developer</label
+                                        >
+                                    </div>
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value="DevOps Engineer"
+                                            id="jobRole4"
+                                            style="padding: 5px 0"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="jobRole4"
+                                            >DevOps Engineer</label
+                                        >
+                                    </div>
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value="Data Scientist"
+                                            id="jobRole5"
+                                            style="padding: 5px 0"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="jobRole5"
+                                            >Data Scientist</label
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- .checkbox-set-1 end -->
+                            <div
+                                class="checkbox-set-2 d-flex flex-column gap-3 mb-5"
+                            >
+                                <label for="" class="fs-4 fw-medium"
+                                    >기술 스택</label
+                                >
+                                <div class="d-flex flex-wrap gap-3">
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value="Java"
+                                            id="techStack1"
+                                            style="padding: 5px 0"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="techStack1"
+                                            >Java</label
+                                        >
+                                    </div>
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value="HTML"
+                                            id="techStack2"
+                                            style="padding: 5px 0"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="techStack2"
+                                            >HTML</label
+                                        >
+                                    </div>
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value="CSS"
+                                            id="techStack3"
+                                            style="padding: 5px 0"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="techStack3"
+                                            >CSS</label
+                                        >
+                                    </div>
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value="JavaScript"
+                                            id="techStack4"
+                                            style="padding: 5px 0"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="techStack4"
+                                            >JavaScript</label
+                                        >
+                                    </div>
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value="Python"
+                                            id="techStack5"
+                                            style="padding: 5px 0"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="techStack5"
+                                            >Python</label
+                                        >
+                                    </div>
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value="C++"
+                                            id="techStack6"
+                                            style="padding: 5px 0"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="techStack6"
+                                            >C++</label
+                                        >
+                                    </div>
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value="Spring"
+                                            id="techStack7"
+                                            style="padding: 5px 0"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="techStack7"
+                                            >Spring</label
+                                        >
+                                    </div>
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value="React"
+                                            id="techStack8"
+                                            style="padding: 5px 0"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="techStack8"
+                                            >React</label
+                                        >
+                                    </div>
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value="Node.js"
+                                            id="techStack9"
+                                            style="padding: 5px 0"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="techStack9"
+                                            >Node.js</label
+                                        >
+                                    </div>
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value="MySQL"
+                                            id="techStack10"
+                                            style="padding: 5px 0"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="techStack10"
+                                            >MySQL</label
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- .checkbox-set-2 end -->
+                            <div class="tag-wrap">
+                                <div class="job-requirements mb-4">
+                                    <div
+                                        class="d-flex justify-content-between align-items-center"
+                                    >
+                                        <h3 class="mb-0">주요업무</h3>
+                                        <button
+                                            type="button"
+                                            class="btn btn-primary"
+                                        >
+                                            추가
+                                        </button>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <input
+                                            type="text"
+                                            class="form-control py-2"
+                                            placeholder="주요업무 1"
+                                        />
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <input
+                                            type="text"
+                                            class="form-control py-2"
+                                            placeholder="주요업무 2"
+                                        />
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <input
+                                            type="text"
+                                            class="form-control py-2"
+                                            placeholder="주요업무 3"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="job-qualifications mb-4">
+                                    <div
+                                        class="d-flex justify-content-between align-items-center"
+                                    >
+                                        <h3 class="mb-0">자격요건</h3>
+                                        <button
+                                            type="button"
+                                            class="btn btn-primary"
+                                        >
+                                            추가
+                                        </button>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <input
+                                            type="text"
+                                            class="form-control py-2"
+                                            placeholder="자격요건 1"
+                                        />
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <input
+                                            type="text"
+                                            class="form-control py-2"
+                                            placeholder="자격요건 2"
+                                        />
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <input
+                                            type="text"
+                                            class="form-control py-2"
+                                            placeholder="자격요건 3"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- .tag-wrap end -->
+                            <div>
+                                <div
+                                    class="job-details mb-4 d-flex flex-column gap-3"
+                                >
+                                    <div class="form-group mt-2">
+                                        <h3 class="mb-0">근무시간</h3>
+                                        <input
+                                            type="text"
+                                            class="form-control py-2 mt-1"
+                                            placeholder="근무시간"
+                                        />
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <h3 class="mb-0">급여</h3>
+                                        <input
+                                            type="text"
+                                            class="form-control py-2 mt-1"
+                                            placeholder="급여"
+                                        />
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <h3 class="mb-0">채용절차</h3>
+                                        <input
+                                            type="text"
+                                            class="form-control py-2 mt-1"
+                                            placeholder="채용절차"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-group mt-4">
+                                    <h3 class="mb-0">경력</h3>
+                                    <div
+                                        class="d-flex align-items-center gap-3 mt-2"
+                                    >
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="radio"
+                                                name="experience"
+                                                id="newbie"
+                                                value="newbie"
+                                                checked
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="newbie"
+                                            >
+                                                신입
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="radio"
+                                                name="experience"
+                                                id="experienced"
+                                                value="experienced"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="experienced"
+                                            >
+                                                경력
+                                            </label>
+                                        </div>
+                                        <select
+                                            class="form-select w-auto"
+                                            id="experience-years"
+                                        >
+                                            <option value="" selected>
+                                                년차 선택
+                                            </option>
+                                            <option value="1">1년차</option>
+                                            <option value="2">2년차</option>
+                                            <option value="3">3년차</option>
+                                            <option value="4">4년차</option>
+                                            <option value="5">5년차</option>
+                                            <option value="6">6년차</option>
+                                            <option value="7">7년차</option>
+                                            <option value="8">8년차</option>
+                                            <option value="9">9년차</option>
+                                            <option value="10">
+                                                10년차 이상
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <h3 class="mb-0">학력</h3>
+                                    <div
+                                        class="d-flex align-items-center gap-3 mt-2"
+                                    >
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="radio"
+                                                name="education"
+                                                id="highschool"
+                                                value="highschool"
+                                                checked
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="highschool"
+                                            >
+                                                대졸
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="radio"
+                                                name="education"
+                                                id="bachelor"
+                                                value="bachelor"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="bachelor"
+                                            >
+                                                초대졸
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="radio"
+                                                name="education"
+                                                id="master"
+                                                value="master"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="master"
+                                            >
+                                                고졸
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="d-flex justify-content-start mt-4 gap-3"
+                            >
+                                <div class="form-group" style="flex: 3">
+                                    <h3 class="mb-0">마감일</h3>
+                                    <input
+                                        type="date"
+                                        class="form-control mt-2"
+                                        name="deadline"
+                                        value=""
+                                        id="deadline"
+                                    />
+                                </div>
+                                <div class="form-group" style="flex: 7">
+                                    <h3 class="mb-0">근무지역</h3>
+                                    <select
+                                        class="form-select mt-2"
+                                        name="workLocation"
+                                    >
+                                        <option value="seoul">서울</option>
+                                        <option value="gyeonggi">경기도</option>
+                                        <option value="gangwon">강원도</option>
+                                        <option value="chungbuk">
+                                            충청북도
+                                        </option>
+                                        <option value="chungnam">
+                                            충청남도
+                                        </option>
+                                        <option value="jeonbuk">
+                                            전라북도
+                                        </option>
+                                        <option value="jeonnam">
+                                            전라남도
+                                        </option>
+                                        <option value="gyeongbuk">
+                                            경상북도
+                                        </option>
+                                        <option value="gyeongnam">
+                                            경상남도
+                                        </option>
+                                        <option value="jeju">제주도</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center mt-4">
+                                <button
+                                    type="submit"
+                                    class="btn btn-outline-primary w-25"
+                                >
+                                    저장하기
+                                </button>
+                            </div>
+                        </div>
+                        <!-- .select-wrap end -->
+                    </form>
+                </div>
+                <!-- .container end -->
+            </section>
+        </main>
+
+        <footer class="bg-white py-5 border-top">
+            <div class="container text-center" style="max-width: 60%">
+                <h4>Copyright 2025. WWY All rights reserved.</h4>
+                <h5>📧 a32176740@gmail.com</h5>
+                <div>그린컴퓨터아카데미 부산</div>
+                <div>Made By KDTC3-G3</div>
+            </div>
+        </footer>
+    </body>
+</html>

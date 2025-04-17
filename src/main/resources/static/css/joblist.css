@@ -1,0 +1,103 @@
+@charset "utf-8";
+@import "reset.css";
+@import url("font.css");
+
+header {
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #c0c0c0;
+}
+
+/* ✅ 헤더 스타일은 임시로 넣어놓은 것, 나중에 공통 css 넣고나면 삭제 예정 */
+
+.inner {
+    width: 1400px;
+    margin: 0 auto;
+    gap: 16px;
+}
+
+/* .filter-wrap */
+.checkbox-area {
+    width: 100%;
+    padding: 40px 200px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 8px;
+}
+
+/* list */
+.card-wrap {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12.5px;
+}
+
+.card-1 {
+    width: 100%;
+    gap: 8px;
+}
+
+.recommend-img {
+    height: 160px;
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.recommend-img img {
+    width: 100%;
+}
+
+.recommend-content {
+    gap: 18px;
+    border: 1px solid #c0c0c0;
+    padding: 12px 8px;
+}
+
+.fs-6 {
+    font-weight: 500;
+}
+
+.job-list .bottom {
+    gap: 12px;
+}
+
+.job-list .bottom p {
+    font-size: 14px;
+    color: #888;
+}
+
+.job-list .bottom ul {
+    gap: 16px;
+}
+
+.job-list .bottom li {
+    display: flex;
+    gap: 4px;
+}
+
+.job-list .bottom img {
+    width: 14px;
+    height: 14px;
+}
+
+.duty {
+    gap: 6px;
+}
+
+.duty li {
+    padding: 6px 8px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+}
+
+.duty p {
+    font-weight: 500;
+    color: #555;
+}
+
+/* .pagging */
+.pagging {
+    width: 100%;
+    padding: 56px 0;
+}
