@@ -2,6 +2,7 @@ package com.example.recruit_page_wwy;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class HelloController {
@@ -29,6 +30,11 @@ public class HelloController {
     @GetMapping("/community/1/update-form")
     public String communityUpdateForm() {
         return "community/update-form";
+    }
+
+    @PostMapping("/community/1/delete")
+    public String deleteBoard() {
+        return "redirect:/community";
     }
 
     @GetMapping("/mypage/job")
@@ -71,6 +77,16 @@ public class HelloController {
         return "mypage/index";
     }
 
+    @GetMapping("/mypage/apply")
+    public String applyList() {
+        return "resume/apply-list";
+    }
+
+    @GetMapping("/mypage/apply/com")
+    public String applyManageList() {
+        return "resume/com-apply-list";
+    }
+
     @GetMapping("/match")
     public String matchList() {
         return "match/list";
@@ -78,7 +94,7 @@ public class HelloController {
 
     @GetMapping("/match/com")
     public String matchComList() {
-        return "match/com-match";
+        return "match/com-list";
     }
 
     @GetMapping("/mypage/resume")
@@ -124,6 +140,16 @@ public class HelloController {
     @GetMapping("/logout")
     public String logout() {
         return "redirect:/";
+    }
+
+    @PostMapping("/login")
+    public String login() {
+        return "redirect:/";
+    }
+
+    @PostMapping("/join")
+    public String join() {
+        return "redirect:/login-form";
     }
 
 }

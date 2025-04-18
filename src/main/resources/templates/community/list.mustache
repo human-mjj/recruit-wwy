@@ -21,15 +21,15 @@
 
 <div class="container p-5">
 	<div class="mb-3 d-flex justify-content-end">
-		<form class="d-flex">
-			<input
-					class="form-control me-2"
-					type="text"
-					placeholder="검색..."
-			/>
-			<button class="btn btn-primary" type="button">
+		<form class="d-flex gap-2 align-items-center">
+			<input class="form-control form-control-sm" type="text" placeholder="검색..."/>
+			<button class="btn btn-primary btn-sm" type="button" style="height: 30px; width: 60px;">
 				Search
 			</button>
+			<a href="/community/save-form" class="btn btn-success btn-sm"
+			   style="width: 60px; height: 30px; display: inline-flex; justify-content: center; align-items: center; white-space: nowrap;">
+				글쓰기
+			</a>
 		</form>
 	</div>
 
@@ -39,9 +39,7 @@
 				<h4 class="card-title mb-3">제목2</h4>
 				<div class="d-flex align-items-start"></div>
 			</div>
-			<a href="/community/1" class="btn btn-primary"
-			>상세보기</a
-			>
+			<a href="/community/1" class="btn btn-primary">상세보기</a>
 		</div>
 	</div>
 
@@ -51,17 +49,13 @@
 				<h4 class="card-title mb-3">제목1</h4>
 				<div class="d-flex align-items-start"></div>
 			</div>
-			<a href="/community/1" class="btn btn-primary"
-			>상세보기</a
-			>
+			<a href="/community/1" class="btn btn-primary">상세보기</a>
 		</div>
 	</div>
 
 	<ul class="pagination d-flex justify-content-center">
 		<li class="page-item">
-			<a class="page-link" href="?page=0"
-			>Previous</a
-			>
+			<a class="page-link" href="?page=0">Previous</a>
 		</li>
 		<li class="page-item">
 			<a class="page-link" href="?page=1">1</a>

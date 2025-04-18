@@ -17,12 +17,15 @@ body {
     /* font-family: "Noto Sans KR", sans-serif; */
 }
 
+.felx-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .form-box {
     width: 400px;
-    position: absolute;
-    top: 42%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: 75px;
 }
 
 .save {
@@ -50,6 +53,11 @@ input[type="text"] {
     position: relative;
 }
 
+.button-box {
+    border-left: 1px solid #000;
+    border: none;
+}
+
 .input-header {
     font-size: 12px;
     margin-top: 10px;
@@ -61,10 +69,10 @@ input[type="text"] {
     top: 50%;
     transform: translateY(-50%);
     padding: 5px 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    border: 0px solid #ccc;
     background: white;
     cursor: pointer;
+    border-left: 1px solid #ccc;
 }
 
 .save-box {

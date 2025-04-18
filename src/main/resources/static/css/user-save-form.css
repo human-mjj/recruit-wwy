@@ -17,14 +17,15 @@ body {
     align-items: center;
 }
 
-.form-box {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0 auto;
+.felx-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.form-box {
     width: 400px;
+    margin: 75px;
 }
 
 .save {
@@ -41,7 +42,13 @@ input[type="text"] {
 }
 
 .input-box {
+
     position: relative;
+}
+
+.input-box > button {
+    border-left: 1px solid #000;
+    border: none;
 }
 
 .input-header {
@@ -55,10 +62,10 @@ input[type="text"] {
     top: 50%;
     transform: translateY(-50%);
     padding: 5px 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    border: 0px solid #ccc;
     background: white;
     cursor: pointer;
+    border-left: 1px solid #ccc;
 }
 
 .save-box {

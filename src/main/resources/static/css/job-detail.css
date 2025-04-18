@@ -20,12 +20,6 @@ body {
     gap: 16px;
 }
 
-.toggle-btn {
-    width: 24px;
-    height: 24px;
-    background-color: #000;
-}
-
 /* .doc-wrap */
 .doc-wrap {
     width: calc(68% - 8px);
@@ -68,4 +62,9 @@ body {
     height: 430px;
     position: sticky;
     top: 100px;
+}
+
+.logo-wrap figure {
+    width: 40px;
+    height: 40px;
 }

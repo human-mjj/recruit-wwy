@@ -15,17 +15,7 @@
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	/>
 	<link rel="stylesheet" href="/css/font.css"/>
-	<style>
-		.my-like-heart {
-			font-size: 24px;
-			color: gray;
-			cursor: pointer;
-		}
-
-		.my-like-heart.liked {
-			color: red;
-		}
-	</style>
+	
 </head>
 
 {{> layout/header}}
@@ -34,7 +24,7 @@
 	<div class="card">
 		<div class="card-header"><b>글쓰기 화면입니다</b></div>
 		<div class="card-body">
-			<form action="/board/save" method="post">
+			<form action="/community/save" method="post">
 				<div class="mb-3">
 					<input
 							type="text"
