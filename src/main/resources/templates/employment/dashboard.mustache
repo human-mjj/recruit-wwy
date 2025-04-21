@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>유저 스크랩</title>
+	<title>Blog</title>
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -14,11 +14,11 @@
 			rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	/>
-	<link rel="stylesheet" href="/css/user-scrap.css">
+	<link rel="stylesheet" href="/css/job-dashboard.css">
 </head>
 
-
 {{> layout/header}}
+
 
 <!-- 왼쪽 박스 -->
 {{> layout/sidebar}}
@@ -27,39 +27,40 @@
 <div class="flex-fill" style="max-width: 75%">
 	<div class="bg-white border rounded p-4">
 		<div class="d-flex justify-content-between align-items-center mb-4">
-			<h3 class="fs-4 fw-medium">스크랩</h3>
-		</div>
+			<h3 class="fs-4 fw-medium">채용공고 관리</h3>
+			<a href="/employment/save-form">
+				<button class="btn btn-primary">채용공고 작성</button>
+			</a>
 
+		</div>
 		<div class="job-list">
 			<ul class="card-wrap row row-gap-3" style="gap: calc(4% / 3);">
 				<li class="card-1">
-					<a href="/job/1" class="d-flex flex-column gap-2 recommend-card-box">
+					<a href="/employment/1" class="d-flex flex-column gap-2">
 						<figure
 								class="recommend-img overflow-hidden d-flex align-items-center border rounded"
 						>
-							<img class="w-100" src="/img/Screenshot_14.png" alt="임시이미지"/>
+							<img class="w-100 h-100 object-fit-cover" src="/img/job_dummy.jpg" alt=""/>
 						</figure>
 						<div
 								class="recommend-content d-flex flex-column border rounded gap-3 py-3 px-3"
 						>
 							<div class="top d-flex justify-content-between">
 								<h3 class="fs-6 fw-medium mb-0">채용공고명</h3>
-								<i id="favoriteIcon" class="fa fa-star" style="
-                                        font-size: 24px;
-                                        color: yellow;
-                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
-                                    " onclick=""></i>
+								<a href="/employment/1/update-form">
+									<button class="btn btn-outline-secondary btn-sm px-1">수정</button>
+								</a>
 							</div>
 							<!-- .top end -->
 							<div class="bottom d-flex flex-column gap-3">
 								<p class="fs-6">회사명</p>
 								<ul class="d-flex justify-content-start flex-column gap-1">
 									<li class="d-flex align-items-center gap-1">
-										<img src="/img/icon00.png" alt="임시아이콘"/>
+										<img src="/img/star_01.png" alt=""/>
 										<p class="fs-6">경력</p>
 									</li>
 									<li class="d-flex align-items-center gap-1">
-										<img src="/img/icon00.png" alt="임시아이콘"/>
+										<img src="/img/marker_01.png" alt=""/>
 										<p class="fs-6">서울특별시 마포구</p>
 									</li>
 								</ul>
@@ -77,35 +78,33 @@
 						<!-- .recommend-content end -->
 					</a>
 				</li>
-
+				<!-- .card-1 end -->
 				<li class="card-1">
-					<a href="/job/1" class="d-flex flex-column gap-2 recommend-card-box">
+					<a href="/employment/1" class="d-flex flex-column gap-2">
 						<figure
 								class="recommend-img overflow-hidden d-flex align-items-center border rounded"
 						>
-							<img class="w-100" src="/img/Screenshot_14.png" alt="임시이미지"/>
+							<img class="w-100 h-100 object-fit-cover" src="/img/job_dummy.jpg" alt=""/>
 						</figure>
 						<div
 								class="recommend-content d-flex flex-column border rounded gap-3 py-3 px-3"
 						>
 							<div class="top d-flex justify-content-between">
 								<h3 class="fs-6 fw-medium mb-0">채용공고명</h3>
-								<i id="favoriteIcon" class="fa fa-star" style="
-                                        font-size: 24px;
-                                        color: yellow;
-                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
-                                    " onclick=""></i>
+								<a href="/employment/1/update-form">
+									<button class="btn btn-outline-secondary btn-sm px-1">수정</button>
+								</a>
 							</div>
 							<!-- .top end -->
 							<div class="bottom d-flex flex-column gap-3">
 								<p class="fs-6">회사명</p>
 								<ul class="d-flex justify-content-start flex-column gap-1">
 									<li class="d-flex align-items-center gap-1">
-										<img src="/img/icon00.png" alt="임시아이콘"/>
+										<img src="/img/star_01.png" alt=""/>
 										<p class="fs-6">경력</p>
 									</li>
 									<li class="d-flex align-items-center gap-1">
-										<img src="/img/icon00.png" alt="임시아이콘"/>
+										<img src="/img/marker_01.png" alt=""/>
 										<p class="fs-6">서울특별시 마포구</p>
 									</li>
 								</ul>
@@ -123,35 +122,33 @@
 						<!-- .recommend-content end -->
 					</a>
 				</li>
-
+				<!-- .card-1 end -->
 				<li class="card-1">
-					<a href="/job/1" class="d-flex flex-column gap-2 recommend-card-box">
+					<a href="/employment/1" class="d-flex flex-column gap-2">
 						<figure
 								class="recommend-img overflow-hidden d-flex align-items-center border rounded"
 						>
-							<img class="w-100" src="/img/Screenshot_14.png" alt="임시이미지"/>
+							<img class="w-100 h-100 object-fit-cover" src="/img/job_dummy.jpg" alt=""/>
 						</figure>
 						<div
 								class="recommend-content d-flex flex-column border rounded gap-3 py-3 px-3"
 						>
 							<div class="top d-flex justify-content-between">
 								<h3 class="fs-6 fw-medium mb-0">채용공고명</h3>
-								<i id="favoriteIcon" class="fa fa-star" style="
-                                        font-size: 24px;
-                                        color: yellow;
-                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
-                                    " onclick=""></i>
+								<a href="/employment/1/update-form">
+									<button class="btn btn-outline-secondary btn-sm px-1">수정</button>
+								</a>
 							</div>
 							<!-- .top end -->
 							<div class="bottom d-flex flex-column gap-3">
 								<p class="fs-6">회사명</p>
 								<ul class="d-flex justify-content-start flex-column gap-1">
 									<li class="d-flex align-items-center gap-1">
-										<img src="/img/icon00.png" alt="임시아이콘"/>
+										<img src="/img/star_01.png" alt=""/>
 										<p class="fs-6">경력</p>
 									</li>
 									<li class="d-flex align-items-center gap-1">
-										<img src="/img/icon00.png" alt="임시아이콘"/>
+										<img src="/img/marker_01.png" alt=""/>
 										<p class="fs-6">서울특별시 마포구</p>
 									</li>
 								</ul>
@@ -169,35 +166,33 @@
 						<!-- .recommend-content end -->
 					</a>
 				</li>
-
+				<!-- .card-1 end -->
 				<li class="card-1">
-					<a href="/job/1" class="d-flex flex-column gap-2 recommend-card-box">
+					<a href="/employment/1" class="d-flex flex-column gap-2">
 						<figure
 								class="recommend-img overflow-hidden d-flex align-items-center border rounded"
 						>
-							<img class="w-100" src="../img/Screenshot_14.png" alt="임시이미지"/>
+							<img class="w-100 h-100 object-fit-cover" src="/img/job_dummy.jpg" alt=""/>
 						</figure>
 						<div
 								class="recommend-content d-flex flex-column border rounded gap-3 py-3 px-3"
 						>
 							<div class="top d-flex justify-content-between">
 								<h3 class="fs-6 fw-medium mb-0">채용공고명</h3>
-								<i id="favoriteIcon" class="fa fa-star" style="
-                                        font-size: 24px;
-                                        color: yellow;
-                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
-                                    " onclick=""></i>
+								<a href="/employment/1/update-form">
+									<button class="btn btn-outline-secondary btn-sm px-1">수정</button>
+								</a>
 							</div>
 							<!-- .top end -->
 							<div class="bottom d-flex flex-column gap-3">
 								<p class="fs-6">회사명</p>
 								<ul class="d-flex justify-content-start flex-column gap-1">
 									<li class="d-flex align-items-center gap-1">
-										<img src="/img/icon00.png" alt="임시아이콘"/>
+										<img src="/img/star_01.png" alt=""/>
 										<p class="fs-6">경력</p>
 									</li>
 									<li class="d-flex align-items-center gap-1">
-										<img src="/img/icon00.png" alt="임시아이콘"/>
+										<img src="/img/marker_01.png" alt=""/>
 										<p class="fs-6">서울특별시 마포구</p>
 									</li>
 								</ul>
@@ -215,35 +210,33 @@
 						<!-- .recommend-content end -->
 					</a>
 				</li>
-
+				<!-- .card-1 end -->
 				<li class="card-1">
-					<a href="/job/1" class="d-flex flex-column gap-2 recommend-card-box">
+					<a href="/employment/1" class="d-flex flex-column gap-2">
 						<figure
 								class="recommend-img overflow-hidden d-flex align-items-center border rounded"
 						>
-							<img class="w-100" src="/img/Screenshot_14.png" alt="임시이미지"/>
+							<img class="w-100 h-100 object-fit-cover" src="/img/job_dummy.jpg" alt=""/>
 						</figure>
 						<div
 								class="recommend-content d-flex flex-column border rounded gap-3 py-3 px-3"
 						>
 							<div class="top d-flex justify-content-between">
 								<h3 class="fs-6 fw-medium mb-0">채용공고명</h3>
-								<i id="favoriteIcon" class="fa fa-star" style="
-                                        font-size: 24px;
-                                        color: yellow;
-                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
-                                    " onclick=""></i>
+								<a href="/employment/1/update-form">
+									<button class="btn btn-outline-secondary btn-sm px-1">수정</button>
+								</a>
 							</div>
 							<!-- .top end -->
 							<div class="bottom d-flex flex-column gap-3">
 								<p class="fs-6">회사명</p>
 								<ul class="d-flex justify-content-start flex-column gap-1">
 									<li class="d-flex align-items-center gap-1">
-										<img src="/img/icon00.png" alt="임시아이콘"/>
+										<img src="/img/star_01.png" alt=""/>
 										<p class="fs-6">경력</p>
 									</li>
 									<li class="d-flex align-items-center gap-1">
-										<img src="/img/icon00.png" alt="임시아이콘"/>
+										<img src="/img/marker_01.png" alt=""/>
 										<p class="fs-6">서울특별시 마포구</p>
 									</li>
 								</ul>
@@ -261,6 +254,7 @@
 						<!-- .recommend-content end -->
 					</a>
 				</li>
+				<!-- .card-1 end -->
 			</ul>
 			<!-- .card-wrap end -->
 			<div class="pagging d-flex justify-content-center">

@@ -12,64 +12,64 @@ public class HelloController {
         return "index";
     }
 
-    @GetMapping("/community/1")
-    public String communityDetail() {
-        return "community/detail";
+    @GetMapping("/board/1")
+    public String boardDetail() {
+        return "board/detail";
     }
 
-    @GetMapping("/community")
-    public String communityList() {
-        return "community/list";
+    @GetMapping("/board")
+    public String boardList() {
+        return "board/list";
     }
 
-    @GetMapping("/community/save-form")
-    public String communitySaveForm() {
-        return "community/save-form";
+    @GetMapping("/board/save-form")
+    public String boardSaveForm() {
+        return "board/save-form";
     }
 
-    @GetMapping("/community/1/update-form")
-    public String communityUpdateForm() {
-        return "community/update-form";
+    @GetMapping("/board/1/update-form")
+    public String boardUpdateForm() {
+        return "board/update-form";
     }
 
-    @PostMapping("/community/1/delete")
+    @PostMapping("/board/1/delete")
     public String deleteBoard() {
-        return "redirect:/community";
+        return "redirect:/board";
     }
 
-    @GetMapping("/mypage/job")
-    public String jobDashboard() {
-        return "job/dashboard";
+    @GetMapping("/mypage/employment")
+    public String employmentDashboard() {
+        return "employment/dashboard";
     }
 
-    @GetMapping("/job/1")
-    public String jobDetail() {
-        return "job/detail";
+    @GetMapping("/employment/1")
+    public String employmentDetail() {
+        return "employment/detail";
     }
 
-    @GetMapping("/job")
-    public String jobList() {
-        return "job/list";
+    @GetMapping("/employment")
+    public String employmentList() {
+        return "employment/list";
     }
 
-    @GetMapping("/job/save-form")
-    public String jobSaveForm() {
-        return "job/save-form";
+    @GetMapping("/employment/save-form")
+    public String employmentSaveForm() {
+        return "employment/save-form";
     }
 
-    @GetMapping("/job/1/update-form")
-    public String jobUpdateForm() {
-        return "job/update-form";
+    @GetMapping("/employment/1/update-form")
+    public String employmentUpdateForm() {
+        return "employment/update-form";
     }
 
     @GetMapping("/mypage/scrap/com")
     public String scrapComList() {
-        return "mypage/com-scrap";
+        return "scrap/com-scrap";
     }
 
     @GetMapping("/mypage/scrap")
     public String scrapList() {
-        return "mypage/user-scrap";
+        return "scrap/user-scrap";
     }
 
     @GetMapping("/mypage")
