@@ -20,4 +20,9 @@ public class UserService {
     public void joinCom(UserRequest.ComDTO reqDTO) {
         userRepository.saveCom(reqDTO.toEntity());
     }
+
+    public User login(UserRequest.LoginDTO reqDTO) {
+        User user = userRepository.findByEmail(reqDTO.getEmail());
+        return user;
+    }
 }

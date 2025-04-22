@@ -45,4 +45,11 @@ public class UserRequest {
                     .build();
         }
     }
+
+    @Data
+    public static class LoginDTO {
+        private String email;
+        private String password;
+        private int role;
+    }
 }

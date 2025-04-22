@@ -1,5 +1,6 @@
 package com.example.recruit_page_wwy.user;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserController {
     private final UserService userService;
+    private final HttpSession session;
 
     // JoinWayPage
     @GetMapping("/join-form")
@@ -45,8 +47,15 @@ public class UserController {
 
     // LoginPage
     @GetMapping("/login-form")
-    public String login() {
+    public String loginForm() {
         return "user/login-form";
     }
 
+    @PostMapping("/login")
+    public String login(UserRequest.LoginDTO reqDTO, HttpSession session) {
+        User sessionUser = userService.login(reqDTO);
+        session.setAttribute("model", sessionUser);
+        System.out.println(sessionUser);
+        return "redirect:/";
+    }
 }

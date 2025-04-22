@@ -27,7 +27,6 @@ public class User {
     private String comName;
     private Integer industryId;
 
-
     @Builder
     private User(int id, String username, String email, String phone, String password, String imgUrl, int role, String comName, Integer industryId) {
         this.id = id;
