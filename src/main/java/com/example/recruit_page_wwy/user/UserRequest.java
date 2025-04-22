@@ -39,7 +39,7 @@ public class UserRequest {
                     .email(email)
                     .phone(phone)
                     .password(password)
-                    .role(role)
+                    .role(1)
                     .comName(comName)
                     .industryId(industryId)
                     .build();

@@ -117,11 +117,6 @@ public class HelloController {
         return "resume/update-form";
     }
 
-    @GetMapping("/login-form")
-    public String loginForm() {
-        return "user/login-form";
-    }
-
     @GetMapping("/logout")
     public String logout() {
         return "redirect:/";

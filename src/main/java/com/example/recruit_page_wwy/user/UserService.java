@@ -13,10 +13,11 @@ public class UserService {
     @Transactional
     public void joinUser(UserRequest.UserDTO reqDTO) {
         userRepository.saveUser(reqDTO.toEntity());
+
     }
 
     @Transactional
     public void joinCom(UserRequest.ComDTO reqDTO) {
-        userRepository.saveUser(reqDTO.toEntity());
+        userRepository.saveCom(reqDTO.toEntity());
     }
 }

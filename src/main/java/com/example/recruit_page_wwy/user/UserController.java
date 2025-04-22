@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
     private final UserService userService;
 
-
     // JoinWayPage
     @GetMapping("/join-form")
     public String joinSelectForm() {
@@ -24,23 +23,30 @@ public class UserController {
     }
 
     // UserJoin
-    @PostMapping("/join")
+    @PostMapping("/join-user")
     public String userJoin(UserRequest.UserDTO reqDTO) {
         userService.joinUser(reqDTO);
-        System.out.println(reqDTO);
         return "redirect:/login-form";
     }
 
     // ComJoinPage
     @GetMapping("/join-form/com")
-    public String comJoinForm(UserRequest.ComDTO reqDTO) {
-        userService.joinCom(reqDTO);
+    public String comJoinForm() {
         return "user/com-join-form";
     }
 
-    @PostMapping("/login")
+    // ComJoin
+    @PostMapping("/join-com")
+    public String comJoin(UserRequest.ComDTO reqDTO) {
+        userService.joinCom(reqDTO);
+        System.out.println(reqDTO);
+        return "redirect:/login-form";
+    }
+
+    // LoginPage
+    @GetMapping("/login-form")
     public String login() {
-        return "redirect:/";
+        return "user/login-form";
     }
 
 }
