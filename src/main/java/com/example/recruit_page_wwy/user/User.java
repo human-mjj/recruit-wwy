@@ -2,6 +2,7 @@ package com.example.recruit_page_wwy.user;
 
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,4 +26,19 @@ public class User {
     // 기업용 : 구직자는 null 처리해야 함
     private String comName;
     private Integer industryId;
+
+
+    @Builder
+    private User(int id, String username, String email, String phone, String password, String imgUrl, int role, String comName, Integer industryId) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.imgUrl = null;
+        this.role = role;
+        this.comName = comName;
+        this.industryId = industryId;
+    }
+
 }

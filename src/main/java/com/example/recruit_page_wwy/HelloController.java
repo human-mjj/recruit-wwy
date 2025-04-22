@@ -122,21 +122,6 @@ public class HelloController {
         return "user/login-form";
     }
 
-    @GetMapping("/join-form")
-    public String joinSelectForm() {
-        return "user/joinway-form";
-    }
-
-    @GetMapping("/join-form/user")
-    public String userJoinForm() {
-        return "user/user-join-form";
-    }
-
-    @GetMapping("/join-form/com")
-    public String comJoinForm() {
-        return "user/com-join-form";
-    }
-
     @GetMapping("/logout")
     public String logout() {
         return "redirect:/";
