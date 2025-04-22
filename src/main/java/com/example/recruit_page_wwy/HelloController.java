@@ -117,39 +117,9 @@ public class HelloController {
         return "resume/update-form";
     }
 
-    @GetMapping("/login-form")
-    public String loginForm() {
-        return "user/login-form";
-    }
-
-    @GetMapping("/join-form")
-    public String joinSelectForm() {
-        return "user/joinway-form";
-    }
-
-    @GetMapping("/join-form/user")
-    public String userJoinForm() {
-        return "user/user-join-form";
-    }
-
-    @GetMapping("/join-form/com")
-    public String comJoinForm() {
-        return "user/com-join-form";
-    }
-
     @GetMapping("/logout")
     public String logout() {
         return "redirect:/";
-    }
-
-    @PostMapping("/login")
-    public String login() {
-        return "redirect:/";
-    }
-
-    @PostMapping("/join")
-    public String join() {
-        return "redirect:/login-form";
     }
 
 }
