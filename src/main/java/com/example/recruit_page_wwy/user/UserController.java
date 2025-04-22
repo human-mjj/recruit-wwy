@@ -51,10 +51,11 @@ public class UserController {
         return "user/login-form";
     }
 
+    // Login
     @PostMapping("/login")
     public String login(UserRequest.LoginDTO reqDTO, HttpSession session) {
         User sessionUser = userService.login(reqDTO);
-        session.setAttribute("model", sessionUser);
+        session.setAttribute("sessionUser", sessionUser);
         System.out.println(sessionUser);
         return "redirect:/";
     }
