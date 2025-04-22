@@ -31,13 +31,13 @@ public class User {
     @Builder
     private User(int id, String username, String email, String phone, String password, String imgUrl, int role, String comName, Integer industryId) {
         this.id = id;
-        this.username = username;
         this.email = email;
-        this.phone = phone;
         this.password = password;
         this.imgUrl = null;
         this.role = role;
+        this.phone = phone;
         this.comName = comName;
+        this.username = username;
         this.industryId = industryId;
     }
 

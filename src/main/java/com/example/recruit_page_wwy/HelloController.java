@@ -127,14 +127,4 @@ public class HelloController {
         return "redirect:/";
     }
 
-    @PostMapping("/login")
-    public String login() {
-        return "redirect:/";
-    }
-
-    @PostMapping("/join")
-    public String join() {
-        return "redirect:/login-form";
-    }
-
 }
