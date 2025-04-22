@@ -11,22 +11,37 @@ public class ResumeRequest {
         private String exp;
         private String edu;
         private Integer job_id;
+        private String region;
+        private String regionDetail;
         private String location;
         private String qualified;
         private String activity;
         private String img_url;
 
-        public SaveDTO(Integer user_id, String title, String exp, String edu, Integer job_id, String location, String qualified, String activity, String img_url) {
+
+        public SaveDTO(Integer user_id, String title, String exp, String edu, Integer job_id, String qualified, String activity, String img_url) {
             this.user_id = user_id;
             this.title = title;
             this.exp = exp;
             this.edu = edu;
             this.job_id = job_id;
-            this.location = location;
+            this.location = location(region, regionDetail);
             this.qualified = qualified;
             this.activity = activity;
             this.img_url = img_url;
         }
+
+        public String location(String region, String regionDetail) {
+            if (regionDetail != null && !regionDetail.isBlank()) {
+                return region != null && !region.isBlank()
+                        ? region + " " + regionDetail
+                        : regionDetail;
+            } else {
+                return region != null ? region : "";
+            }
+
+        }
     }
+
 
 }
