@@ -1,11 +1,11 @@
-package com.example.recruit_page_wwy.employment;
+package com.example.recruit_page_wwy.employstack;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 
 @RequiredArgsConstructor
 @Controller
-public class EmploymentController {
-    private final EmploymentService employmentService;
+public class EmployStackController {
+    private final EmployStackService employStackService;
 
 }

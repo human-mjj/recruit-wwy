@@ -1,4 +1,4 @@
-package com.example.recruit_page_wwy.employment;
+package com.example.recruit_page_wwy.employstack;
 
-public class EmploymentResponse {
+public class EmployStackResponse {
 }

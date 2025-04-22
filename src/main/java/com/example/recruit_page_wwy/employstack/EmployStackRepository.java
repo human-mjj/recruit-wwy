@@ -1,4 +1,4 @@
-package com.example.recruit_page_wwy.employment;
+package com.example.recruit_page_wwy.employstack;
 
 
 import jakarta.persistence.EntityManager;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor
 @Repository
-public class EmploymentRepository {
+public class EmployStackRepository {
     private final EntityManager em;
 
 }
