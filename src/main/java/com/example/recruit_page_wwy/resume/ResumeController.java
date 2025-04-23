@@ -32,8 +32,10 @@ public class ResumeController {
     public String resumeSave(ResumeRequest.SaveDTO saveDTO) {
         // 임시 테스트 user_id 설정
         saveDTO.setUser_id(1);
+        System.out.println("입력값: " + saveDTO);
         resumeService.save(saveDTO);
-        return "redirect:/resume/list";
+
+        return "resume/list";
     }
 
     @GetMapping("/resume/1/update-form")
