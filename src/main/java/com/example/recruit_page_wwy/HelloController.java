@@ -97,39 +97,29 @@ public class HelloController {
         return "match/com-list";
     }
 
-    @GetMapping("/login-form")
-    public String loginForm() {
-        return "user/login-form";
+    @GetMapping("/mypage/resume")
+    public String resumeList() {
+        return "resume/list";
     }
 
-    @GetMapping("/join-form")
-    public String joinSelectForm() {
-        return "user/joinway-form";
+    @GetMapping("/resume/1")
+    public String resumeDetail() {
+        return "resume/detail";
     }
 
-    @GetMapping("/join-form/user")
-    public String userJoinForm() {
-        return "user/user-join-form";
+    @GetMapping("/resume/save-form")
+    public String resumeSaveForm() {
+        return "resume/save-form";
     }
 
-    @GetMapping("/join-form/com")
-    public String comJoinForm() {
-        return "user/com-join-form";
+    @GetMapping("/resume/1/update-form")
+    public String resumeUpdateForm() {
+        return "resume/update-form";
     }
 
     @GetMapping("/logout")
     public String logout() {
         return "redirect:/";
-    }
-
-    @PostMapping("/login")
-    public String login() {
-        return "redirect:/";
-    }
-
-    @PostMapping("/join")
-    public String join() {
-        return "redirect:/login-form";
     }
 
 }
