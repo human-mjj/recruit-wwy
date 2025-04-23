@@ -29,6 +29,11 @@ public class UserService {
         if (!user.getPassword().equals(reqDTO.getPassword())) {
             throw new RuntimeException("아이디 혹은 비밀번호가 틀렸습니다.");
         }
+
+        if (user.getRole() != reqDTO.getRole()) {
+            throw new RuntimeException("구분이 틀렸습니다.");
+        }
+
         return user;
     }
 }

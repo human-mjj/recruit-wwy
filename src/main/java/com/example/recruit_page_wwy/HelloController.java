@@ -1,5 +1,7 @@
 package com.example.recruit_page_wwy;
 
+import com.example.recruit_page_wwy.user.User;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,7 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class HelloController {
 
     @GetMapping("/")
-    public String index() {
+    public String index(HttpSession session) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        System.out.println(sessionUser);
+
         return "index";
     }
 
@@ -115,11 +120,6 @@ public class HelloController {
     @GetMapping("/resume/1/update-form")
     public String resumeUpdateForm() {
         return "resume/update-form";
-    }
-
-    @GetMapping("/logout")
-    public String logout() {
-        return "redirect:/";
     }
 
 }
