@@ -28,7 +28,7 @@ public class ResumeRepository {
     }
 
     public List<Resume> findAll(Integer user_id) {
-        Query query = em.createNativeQuery("select * from resume_tb where user_id=? order by id desc", Resume.class);
+        Query query = em.createNativeQuery("select * from resume_tb where user_id = ? order by id desc", Resume.class);
         query.setParameter(1, user_id);
         return query.getResultList();
     }

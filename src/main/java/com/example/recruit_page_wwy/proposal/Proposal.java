@@ -1,9 +1,13 @@
 package com.example.recruit_page_wwy.proposal;
 
 
+import com.example.recruit_page_wwy.employment.Employment;
+import com.example.recruit_page_wwy.resume.Resume;
+import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
@@ -15,8 +19,16 @@ public class Proposal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int userId;
-    private int resumeId;
-    private int employmentId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Resume resume;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employment employment;
+
+    @CreationTimestamp
     private Timestamp createdAt;
 }

@@ -1,3 +1,113 @@
+-- 기술 스택 테이블 dummy
+insert into stack_tb(skill)
+values ('java');
+insert into stack_tb(skill)
+values ('spring boot');
+insert into stack_tb(skill)
+values ('mysql');
+insert into stack_tb(skill)
+values ('javascript');
+insert into stack_tb(skill)
+values ('react');
+insert into stack_tb(skill)
+values ('html');
+insert into stack_tb(skill)
+values ('css');
+insert into stack_tb(skill)
+values ('node.js');
+insert into stack_tb(skill)
+values ('typescript');
+insert into stack_tb(skill)
+values ('python');
+insert into stack_tb(skill)
+values ('postgresql');
+insert into stack_tb(skill)
+values ('aws');
+insert into stack_tb(skill)
+values ('git');
+insert into stack_tb(skill)
+values ('figma');
+insert into stack_tb(skill)
+values ('next.js');
+insert into stack_tb(skill)
+values ('tailwind css');
+
+-- 직무 테이블 dummy
+insert into job_tb(name)
+values ('백엔드 개발자');
+insert into job_tb(name)
+values ('프론트엔드 개발자');
+insert into job_tb(name)
+values ('풀스택 개발자');
+insert into job_tb(name)
+values ('데이터 엔지니어');
+insert into job_tb(name)
+values ('ai 엔지니어');
+insert into job_tb(name)
+values ('웹 퍼블리셔');
+insert into job_tb(name)
+values ('앱 개발자');
+insert into job_tb(name)
+values ('qa 엔지니어');
+insert into job_tb(name)
+values ('devops 엔지니어');
+insert into job_tb(name)
+values ('보안 엔지니어');
+insert into job_tb(name)
+values ('프로덕트 매니저');
+insert into job_tb(name)
+values ('ui 디자이너');
+insert into job_tb(name)
+values ('ux 디자이너');
+insert into job_tb(name)
+values ('데이터 분석가');
+insert into job_tb(name)
+values ('기획자');
+
+-- 산업명 테이블 dummy
+insert into industry_tb(name)
+values ('IT, 콘텐츠');
+insert into industry_tb(name)
+values ('판매, 유통');
+insert into industry_tb(name)
+values ('제조');
+insert into industry_tb(name)
+values ('기타 서비스업');
+insert into industry_tb(name)
+values ('전문, 과학기술');
+insert into industry_tb(name)
+values ('금융');
+insert into industry_tb(name)
+values ('교육');
+insert into industry_tb(name)
+values ('예술, 스포츠, 여가');
+insert into industry_tb(name)
+values ('물류, 운송');
+insert into industry_tb(name)
+values ('부동산');
+insert into industry_tb(name)
+values ('게임');
+insert into industry_tb(name)
+values ('보건, 사회복지');
+insert into industry_tb(name)
+values ('건설');
+insert into industry_tb(name)
+values ('사업지원');
+insert into industry_tb(name)
+values ('숙박, 음식점');
+insert into industry_tb(name)
+values ('상수도, 환경');
+insert into industry_tb(name)
+values ('농림어업');
+insert into industry_tb(name)
+values ('공공행정, 국방');
+insert into industry_tb(name)
+values ('전기, 가스');
+insert into industry_tb(name)
+values ('가사, 가정');
+insert into industry_tb(name)
+values ('국제, 외국기관');
+
 -- 유저 테이블 dummy
 insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
 values ('손영민', 'ssar@nate.com', '01012345678', '1234', null, 0, null, null);
@@ -110,116 +220,6 @@ values (4, 4, '댓글5', now());
 insert into reply_tb(board_id, user_id, content, created_at)
 values (5, 4, '댓글6', now());
 
--- 기술 스택 테이블 dummy
-insert into stack_tb(skill)
-values ('java');
-insert into stack_tb(skill)
-values ('spring boot');
-insert into stack_tb(skill)
-values ('mysql');
-insert into stack_tb(skill)
-values ('javascript');
-insert into stack_tb(skill)
-values ('react');
-insert into stack_tb(skill)
-values ('html');
-insert into stack_tb(skill)
-values ('css');
-insert into stack_tb(skill)
-values ('node.js');
-insert into stack_tb(skill)
-values ('typescript');
-insert into stack_tb(skill)
-values ('python');
-insert into stack_tb(skill)
-values ('postgresql');
-insert into stack_tb(skill)
-values ('aws');
-insert into stack_tb(skill)
-values ('git');
-insert into stack_tb(skill)
-values ('figma');
-insert into stack_tb(skill)
-values ('next.js');
-insert into stack_tb(skill)
-values ('tailwind css');
-
--- 직무 테이블 dummy
-insert into job_tb(name)
-values ('백엔드 개발자');
-insert into job_tb(name)
-values ('프론트엔드 개발자');
-insert into job_tb(name)
-values ('풀스택 개발자');
-insert into job_tb(name)
-values ('데이터 엔지니어');
-insert into job_tb(name)
-values ('ai 엔지니어');
-insert into job_tb(name)
-values ('웹 퍼블리셔');
-insert into job_tb(name)
-values ('앱 개발자');
-insert into job_tb(name)
-values ('qa 엔지니어');
-insert into job_tb(name)
-values ('devops 엔지니어');
-insert into job_tb(name)
-values ('보안 엔지니어');
-insert into job_tb(name)
-values ('프로덕트 매니저');
-insert into job_tb(name)
-values ('ui 디자이너');
-insert into job_tb(name)
-values ('ux 디자이너');
-insert into job_tb(name)
-values ('데이터 분석가');
-insert into job_tb(name)
-values ('기획자');
-
--- 산업명 테이블 dummy
-insert into industry_tb(name)
-values ('IT, 콘텐츠');
-insert into industry_tb(name)
-values ('판매, 유통');
-insert into industry_tb(name)
-values ('제조');
-insert into industry_tb(name)
-values ('기타 서비스업');
-insert into industry_tb(name)
-values ('전문, 과학기술');
-insert into industry_tb(name)
-values ('금융');
-insert into industry_tb(name)
-values ('교육');
-insert into industry_tb(name)
-values ('예술, 스포츠, 여가');
-insert into industry_tb(name)
-values ('물류, 운송');
-insert into industry_tb(name)
-values ('부동산');
-insert into industry_tb(name)
-values ('게임');
-insert into industry_tb(name)
-values ('보건, 사회복지');
-insert into industry_tb(name)
-values ('건설');
-insert into industry_tb(name)
-values ('사업지원');
-insert into industry_tb(name)
-values ('숙박, 음식점');
-insert into industry_tb(name)
-values ('상수도, 환경');
-insert into industry_tb(name)
-values ('농림어업');
-insert into industry_tb(name)
-values ('공공행정, 국방');
-insert into industry_tb(name)
-values ('전기, 가스');
-insert into industry_tb(name)
-values ('가사, 가정');
-insert into industry_tb(name)
-values ('국제, 외국기관');
-
 -- 채용공고-스택 테이블 dummy
 insert into employ_stack_tb(employment_id, skill)
 values (1, 'java'),
@@ -239,7 +239,7 @@ values (1, 'java'),
        (5, 'java'),
        (5, 'spring boot'),
        (5, 'mysql'),
-       (5, 'mysql'),
+       (5, 'jsp'),
        (5, 'git'),
        (6, 'java'),
        (6, 'spring boot'),
