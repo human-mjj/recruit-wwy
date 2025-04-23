@@ -39,23 +39,22 @@
                     class="input-box"
                     type="email"
                     placeholder="이메일을 입력해주세요."
+                    name="email"
                     value="ssar@nate.com"
             />
             <input
                     class="input-box"
                     type="password"
                     placeholder="비밀번호를 입력해주세요."
+                    name="password"
                     value="1234"
             />
 
             <div class="options">
                 <label><input type="checkbox"/> 로그인 유지</label>
                 <div class="radio-group">
-                    <label
-                    ><input type="radio" name="type" checked/>
-                        구직자</label
-                    >
-                    <label><input type="radio" name="type"/> 기업</label>
+                    <label><input type="radio" name="role" value="0" checked/>구직자</label>
+                    <label><input type="radio" name="role" value="1"/> 기업</label>
                 </div>
             </div>
 

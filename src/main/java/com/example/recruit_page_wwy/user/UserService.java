@@ -22,7 +22,18 @@ public class UserService {
     }
 
     public User login(UserRequest.LoginDTO reqDTO) {
-        User user = userRepository.findByEmail(reqDTO.getEmail());
+        User user = userRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword());
+
+        if (user == null) throw new RuntimeException("아이디 혹은 비밀번호가 틀렸습니다.");
+
+        if (!user.getPassword().equals(reqDTO.getPassword())) {
+            throw new RuntimeException("아이디 혹은 비밀번호가 틀렸습니다.");
+        }
+
+        if (user.getRole() != reqDTO.getRole()) {
+            throw new RuntimeException("구분이 틀렸습니다.");
+        }
+
         return user;
     }
 }
