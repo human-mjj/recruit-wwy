@@ -1,16 +1,19 @@
 package com.example.recruit_page_wwy.resume;
 
 
+import com.example.recruit_page_wwy.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
 @RequiredArgsConstructor
 @Service
 public class ResumeService {
     private final ResumeRepository resumeRepository;
+
 
     @Transactional
     public void save(ResumeRequest.SaveDTO saveDTO) {
@@ -25,4 +28,26 @@ public class ResumeService {
         return resumes;
     }
 
+    public ResumeResponse.DetailDTO Detail(Integer id) {
+        Resume resume = resumeRepository.findByResumeId(id);
+        User user = resume.getUser();
+
+        
+        return new ResumeResponse.DetailDTO(
+                resume.getUserId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPhone(),
+                resume.getTitle(),
+                resume.getExp(),
+                resume.getEdu(),
+                resume.getJobId(),
+                resume.getLocation(),
+                resume.getQualified(),
+                resume.getActivity(),
+                resume.getImgUrl(),
+                resume.getLetter()
+
+        );
+    }
 }

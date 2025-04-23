@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.resume;
 
 
+import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "resume_tb")
 @Entity
+
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +18,7 @@ public class Resume {
     private String title;
 
     // 작성자 ID
+    @Column(name = "user_id")  //
     private int userId;
 
     private String exp;
@@ -29,4 +32,9 @@ public class Resume {
     private String activity;
     private String letter;
     private String imgUrl;
+
+    @Transient
+    private User user;  // DB에 저장되지 않고 JPA가 관리하지 않음
+
+
 }
