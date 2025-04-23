@@ -13,14 +13,16 @@ import java.util.List;
 public class EmploymentRepository {
     private final EntityManager em;
 
-    public List<Employment> findByUserId(Integer userId) {
-        Query query = em.createQuery(
-                "SELECT e.title, u.comName, e.exp, e.location, j.name, e.imgUrl " +
-                        "FROM Employment e " +
-                        "JOIN e.user u " +
-                        "JOIN e.job j " +
-                        "WHERE e.user.id = :userId");
-        query.setParameter("userId", userId);
-        return query.getResultList();
+    public List<Employment> findAllByUserId(Integer userId) {
+        String jpql = """
+            SELECT e FROM Employment e
+            JOIN FETCH e.user
+            JOIN FETCH e.job
+            WHERE e.user.id = :userId
+            ORDER BY e.id DESC
+        """;
+        return em.createQuery(jpql, Employment.class)
+                .setParameter("userId", userId)
+                .getResultList();
     }
 }

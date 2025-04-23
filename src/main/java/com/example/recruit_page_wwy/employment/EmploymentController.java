@@ -15,8 +15,15 @@ public class EmploymentController {
 
     @GetMapping("/mypage/employment")
     public String manageEmployment(HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        request.setAttribute("models", employmentService.employmentList(sessionUser.getId()));
+
+        // 마이페이지에서 아직 세션 정보 불러와지지 않음. 유저id 임시로 4 줌
+        //User sessionUser = (User) session.getAttribute("sessionUser");
+        //request.setAttribute("models", employmentService.employmentList(sessionUser.getId()));
+
+        // TODO
+        // 세션 받아오는 코드로 변경 필요
+        int testUserId = 4;
+        request.setAttribute("models", employmentService.employmentList(testUserId));
         return "employment/dashboard";
     }
 }
