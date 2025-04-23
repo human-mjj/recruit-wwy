@@ -122,4 +122,10 @@ public class HelloController {
         return "resume/update-form";
     }
 
+
+    @GetMapping("/logout")
+    public String logout() {
+        return "redirect:/";
+    }
+
 }
