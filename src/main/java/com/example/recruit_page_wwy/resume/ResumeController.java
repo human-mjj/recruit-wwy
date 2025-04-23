@@ -17,7 +17,6 @@ public class ResumeController {
     @GetMapping("/mypage/resume")
     public String resumeList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        session.setAttribute("sessionUser", sessionUser);
         request.setAttribute("models", resumeService.findAll(sessionUser.getId()));
         return "resume/list";
     }
@@ -35,11 +34,10 @@ public class ResumeController {
 
     @PostMapping("/resume/save")
     public String resumeSave(ResumeRequest.SaveDTO saveDTO) {
-        // 임시 테스트 user_id 설정
-        saveDTO.setUser_id(1);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        saveDTO.setUser_id(sessionUser.getId());
         resumeService.save(saveDTO);
-
-        return "resume/list";
+        return "redirect:/mypage/resume";
     }
 
     @GetMapping("/resume/1/update-form")

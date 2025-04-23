@@ -20,9 +20,9 @@ public class ResumeService {
     }
 
 
-    public ResumeResponse.MainDTO findAll(Integer userId) {
+    public List<Resume> findAll(Integer userId) {
         List<Resume> resumes = resumeRepository.findAll(userId);
-        return new ResumeResponse.MainDTO(resumes);
+        return resumes;
     }
 
 }
