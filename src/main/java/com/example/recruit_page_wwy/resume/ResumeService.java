@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class ResumeService {
@@ -16,4 +18,11 @@ public class ResumeService {
                 saveDTO.getActivity(), saveDTO.getImg_url());
 
     }
+
+
+    public ResumeResponse.MainDTO findAll(Integer userId) {
+        List<Resume> resumes = resumeRepository.findAll(userId);
+        return new ResumeResponse.MainDTO(resumes);
+    }
+
 }

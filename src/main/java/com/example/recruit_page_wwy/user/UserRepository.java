@@ -19,6 +19,17 @@ public class UserRepository {
     }
 
 
+    public User findByEmailAndPassword(String email, String password) {
+        try {
+            return em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password= :password", User.class)
+                    .setParameter("email", email)
+                    .setParameter("password", password)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public User findByEmail(String email) {
         try {
             return em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
