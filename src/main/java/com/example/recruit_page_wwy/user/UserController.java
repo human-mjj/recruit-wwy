@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 @Controller
 public class UserController {
-g    private final UserService userService;
+    private final UserService userService;
     private final HttpSession session;
 
     // JoinWayPage
