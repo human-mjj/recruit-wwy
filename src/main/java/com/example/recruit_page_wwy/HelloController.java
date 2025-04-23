@@ -96,27 +96,7 @@ public class HelloController {
     public String matchComList() {
         return "match/com-list";
     }
-
-    @GetMapping("/mypage/resume")
-    public String resumeList() {
-        return "resume/list";
-    }
-
-    @GetMapping("/resume/1")
-    public String resumeDetail() {
-        return "resume/detail";
-    }
-
-    @GetMapping("/resume/save-form")
-    public String resumeSaveForm() {
-        return "resume/save-form";
-    }
-
-    @GetMapping("/resume/1/update-form")
-    public String resumeUpdateForm() {
-        return "resume/update-form";
-    }
-
+    
     @GetMapping("/logout")
     public String logout() {
         return "redirect:/";
