@@ -37,13 +37,15 @@ public class UserService {
         return user;
     }
 
-    public User mypage(String email) {
-        User user = userRepository.findByEmail(email);
+    @Transactional
+    public void userupdate(UserRequest.UpdateDTO reqDTO, Integer sessionId) {
+        User userPS = userRepository.findById(sessionId);
 
-        if (user == null) {
-            throw new RuntimeException("로그인 후 사용해주세요.");
-        }
+        // 더티 체킹
+        userPS.update(reqDTO.getUsername(), reqDTO.getEmail(), reqDTO.getPhone(), reqDTO.getPassword());
+    }
 
-        return user;
+    public User mypage(int id) {
+        return userRepository.findById(id);
     }
 }

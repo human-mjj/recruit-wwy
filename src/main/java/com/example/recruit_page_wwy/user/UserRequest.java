@@ -5,6 +5,23 @@ import lombok.Data;
 public class UserRequest {
 
     @Data
+    public static class UpdateDTO {
+        private String username;
+        private String email;
+        private String phone;
+        private String password;
+
+        public User toEntity(User user) {
+            return User.builder()
+                    .username(username)
+                    .email(email)
+                    .phone(phone)
+                    .password(password)
+                    .build();
+        }
+    }
+
+    @Data
     public static class UserDTO {
         private String username;
         private String email;

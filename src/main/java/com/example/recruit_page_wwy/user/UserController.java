@@ -15,16 +15,24 @@ public class UserController {
 
     // MyPage
     @GetMapping("/mypage")
-    public String mypage(HttpServletRequest request, UserResponse.MyPageDTO reqDTO) {
+    public String myPage(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User myPageDTO = userService.mypage(sessionUser.getEmail());
+        User user = userService.mypage(sessionUser.getId());
+        request.setAttribute("model", user);
 
-        request.setAttribute("model", myPageDTO);
+        System.out.println(user.getEmail());
+        System.out.println(sessionUser.getEmail());
 
-        System.out.println(myPageDTO.getUsername());
+        return "/mypage/index";
+    }
 
+    // MyPageUpdate
+    @PostMapping("/mypage/update")
+    public String userUpdate(UserRequest.UpdateDTO reqDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        userService.userupdate(reqDTO, sessionUser.getId());
 
-        return "mypage/index";
+        return "redirect:/mypage";
     }
 
     // JoinWayPage
