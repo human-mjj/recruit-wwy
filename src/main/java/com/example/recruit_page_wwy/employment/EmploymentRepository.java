@@ -25,4 +25,16 @@ public class EmploymentRepository {
                 .setParameter("userId", userId)
                 .getResultList();
     }
+
+    public List<Employment> findTop4ByOrderByIdDesc() {
+        String jpql = """
+            SELECT e FROM Employment e
+            JOIN FETCH e.user
+            JOIN FETCH e.job
+            ORDER BY e.id DESC
+        """;
+        return em.createQuery(jpql, Employment.class)
+                .setMaxResults(4)
+                .getResultList();
+    }
 }
