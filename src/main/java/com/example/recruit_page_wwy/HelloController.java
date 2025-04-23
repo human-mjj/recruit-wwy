@@ -12,6 +12,8 @@ public class HelloController {
     @GetMapping("/")
     public String index(HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        session.setAttribute("sessionUser", sessionUser);
+
         System.out.println(sessionUser);
 
         return "index";
@@ -77,10 +79,6 @@ public class HelloController {
         return "scrap/user-scrap";
     }
 
-    @GetMapping("/mypage")
-    public String mypage() {
-        return "mypage/index";
-    }
 
     @GetMapping("/mypage/apply")
     public String applyList() {

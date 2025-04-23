@@ -1,5 +1,6 @@
 package com.example.recruit_page_wwy.user;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,20 @@ public class UserController {
     private final UserService userService;
     private final HttpSession session;
 
+    // MyPage
+    @GetMapping("/mypage")
+    public String mypage(HttpServletRequest request, UserResponse.MyPageDTO reqDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User myPageDTO = userService.mypage(sessionUser.getEmail());
+
+        request.setAttribute("model", myPageDTO);
+
+        System.out.println(myPageDTO.getUsername());
+
+
+        return "mypage/index";
+    }
+
     // JoinWayPage
     @GetMapping("/join-form")
     public String joinSelectForm() {
@@ -20,7 +35,7 @@ public class UserController {
 
     // UserJoinPage
     @GetMapping("/join-form/user")
-    public String userJoinForm(UserRequest.UserDTO reqDTO) {
+    public String userJoinForm() {
         return "user/user-join-form";
     }
 
@@ -56,7 +71,7 @@ public class UserController {
     public String login(UserRequest.LoginDTO reqDTO, HttpSession session) {
         User sessionUser = userService.login(reqDTO);
         session.setAttribute("sessionUser", sessionUser);
-        System.out.println(sessionUser.getUsername());
+//        System.out.println(sessionUser.getUsername());
         return "redirect:/";
     }
 

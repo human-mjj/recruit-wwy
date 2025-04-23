@@ -36,4 +36,14 @@ public class UserService {
 
         return user;
     }
+
+    public User mypage(String email) {
+        User user = userRepository.findByEmail(email);
+
+        if (user == null) {
+            throw new RuntimeException("로그인 후 사용해주세요.");
+        }
+
+        return user;
+    }
 }
