@@ -42,10 +42,10 @@ public class HelloController {
         return "redirect:/board";
     }
 
-    @GetMapping("/mypage/employment")
-    public String employmentDashboard() {
-        return "employment/dashboard";
-    }
+//    @GetMapping("/mypage/employment")
+//    public String employmentDashboard() {
+//        return "employment/dashboard";
+//    }
 
     @GetMapping("/employment/1")
     public String employmentDetail() {
