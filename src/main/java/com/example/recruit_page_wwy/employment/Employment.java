@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class Employment {
     private List<EmployStack> employStackList;
 
     // 직무
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Job job;
 
     private String duty;
@@ -42,6 +43,6 @@ public class Employment {
     private Integer sal;
     private String workingTime;
     private String location;
-    private Timestamp endDate;
+    private Date endDate;
     private String imgUrl;
 }

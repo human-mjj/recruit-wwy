@@ -32,7 +32,7 @@ public class Resume {
     private List<ResumeStack> resumeStackList;
 
     // 희망 직무 번호
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Job job;
 
     private String location;

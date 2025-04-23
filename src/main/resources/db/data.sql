@@ -232,19 +232,7 @@ values (1, 'java'),
        (3, 'javascript'),
        (3, 'mysql'),
        (3, 'node.js'),
-       (3, 'git'),
-       (4, 'html'),
-       (4, 'css'),
-       (4, 'javascript'),
-       (5, 'java'),
-       (5, 'spring boot'),
-       (5, 'mysql'),
-       (5, 'jsp'),
-       (5, 'git'),
-       (6, 'java'),
-       (6, 'spring boot'),
-       (6, 'mysql'),
-       (6, 'git');
+       (3, 'git');
 
 -- 이력서-스택 테이블 dummy
 insert into resume_stack_tb(resume_id, skill)
