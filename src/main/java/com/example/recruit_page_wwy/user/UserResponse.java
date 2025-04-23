@@ -11,7 +11,7 @@ public class UserResponse {
 
         public MyPageDTO(User sessionUser) {
             this.sessionUser = sessionUser;
-            this.isCompanyUser = sessionUser.getRole() == 1;
+            this.isCompanyUser = sessionUser.getRole() == 1 ? true : false;
         }
     }
 

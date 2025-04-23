@@ -15,11 +15,12 @@ public class UserController {
 
     // MyPage
     @GetMapping("/mypage")
-    public String myPage(HttpServletRequest request) {
+    public String myPage(HttpServletRequest request, UserResponse.MyPageDTO mypageDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userService.mypage(sessionUser.getId());
+        User user = userService.mypage(mypageDTO.getSessionUser().getId());
         request.setAttribute("model", user);
 
+        
         System.out.println(user.getEmail());
         System.out.println(sessionUser.getEmail());
 
