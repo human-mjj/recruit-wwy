@@ -51,6 +51,14 @@ public class UserController {
         return "user/login-form";
     }
 
+    @PostMapping("/login")
+    public String login(UserRequest.LoginDTO reqDTO, HttpSession session) {
+        User sessionUser = userService.login(reqDTO);
+        session.setAttribute("sessionUser", sessionUser);
+        System.out.println(sessionUser.getUsername());
+        return "redirect:/";
+    }
+
     // Logout
     @GetMapping("/logout")
     public String logout() {
@@ -58,12 +66,4 @@ public class UserController {
         return "redirect:/";
     }
 
-
-    @PostMapping("/login")
-    public String login(UserRequest.LoginDTO reqDTO, HttpSession session) {
-        User sessionUser = userService.login(reqDTO);
-        session.setAttribute("model", sessionUser);
-        System.out.println(sessionUser);
-        return "redirect:/";
-    }
 }
