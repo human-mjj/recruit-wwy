@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy;
 
 import com.example.recruit_page_wwy.user.User;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class HelloController {
 
     @GetMapping("/")
-    public String index(HttpSession session) {
+    public String index(HttpSession session, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        request.setAttribute("sessionUser", sessionUser);
         System.out.println(sessionUser);
 
         return "index";
@@ -91,16 +93,5 @@ public class HelloController {
     public String applyManageList() {
         return "resume/com-apply-list";
     }
-
-    @GetMapping("/match")
-    public String matchList() {
-        return "match/list";
-    }
-
-    @GetMapping("/match/com")
-    public String matchComList() {
-        return "match/com-list";
-    }
-
-
+    
 }
