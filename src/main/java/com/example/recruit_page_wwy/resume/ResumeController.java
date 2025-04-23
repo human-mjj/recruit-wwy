@@ -1,5 +1,7 @@
 package com.example.recruit_page_wwy.resume;
 
+import com.example.recruit_page_wwy.user.User;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,11 +15,10 @@ public class ResumeController {
     private final HttpSession session;
 
     @GetMapping("/mypage/resume")
-    public String resumeList(ResumeRequest.SaveDTO saveDTO) {
-        // 임시 테스트 user_id 설정
-        saveDTO.setUser_id(1);
-        resumeService.findAll(1);
-        request.setAttribute("model", ResumeService.findAll(saveDTO.getUser_id()));
+    public String resumeList(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        session.setAttribute("sessionUser", sessionUser);
+        request.setAttribute("models", resumeService.findAll(sessionUser.getId()));
         return "resume/list";
     }
 

@@ -6,9 +6,12 @@ public class ResumeResponse {
 
     public static class MainDTO {
         private List<Resume> resumes;
-    }
 
-    public ResumeResponse() {
-        this.
+
+        public MainDTO(List<Resume> resumes) {
+            this.resumes = resumes;
+            
+        }
+
     }
 }
