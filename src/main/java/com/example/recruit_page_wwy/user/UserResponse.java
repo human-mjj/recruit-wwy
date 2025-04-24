@@ -14,6 +14,4 @@ public class UserResponse {
             this.isCompanyUser = sessionUser.getRole() == 1 ? true : false;
         }
     }
-
-
 }

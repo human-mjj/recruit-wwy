@@ -1,10 +1,10 @@
 package com.example.recruit_page_wwy.employment;
 
+<<<<<<< HEAD
 import com.example.recruit_page_wwy.resume.Resume;
+=======
+>>>>>>> master
 import lombok.Data;
-
-import java.util.Date;
-import java.util.List;
 
 public class EmploymentResponse {
     @Data
@@ -48,6 +48,7 @@ public class EmploymentResponse {
             this.imgUrl = e.getImgUrl();
         }
     }
+<<<<<<< HEAD
 
     @Data
     public static class DetailDTO {
@@ -109,4 +110,6 @@ public class EmploymentResponse {
             this.resumeList = resumeList;
         }
     }
+=======
+>>>>>>> master
 }

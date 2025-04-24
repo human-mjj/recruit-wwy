@@ -1,34 +1,21 @@
 package com.example.recruit_page_wwy;
 
 
+<<<<<<< HEAD
 import com.example.recruit_page_wwy.employment.Employment;
+=======
+>>>>>>> master
 import com.example.recruit_page_wwy.employment.EmploymentRepository;
-import com.example.recruit_page_wwy.user.User;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
 public class HelloController {
 
     private final EmploymentRepository employmentRepository;
-
-    @GetMapping("/")
-    public String index(HttpSession session, HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        System.out.println(sessionUser);
-
-        List<Employment> jobs = employmentRepository.findTop4ByOrderByIdDesc();
-        request.setAttribute("models", jobs);
-
-        return "index";
-    }
 
     @GetMapping("/board/1")
     public String boardDetail() {
@@ -55,6 +42,14 @@ public class HelloController {
         return "redirect:/board";
     }
 
+<<<<<<< HEAD
+=======
+    @GetMapping("/employment/1")
+    public String employmentDetail() {
+        return "employment/detail";
+    }
+
+>>>>>>> master
     @GetMapping("/employment/save-form")
     public String employmentSaveForm() {
         return "employment/save-form";
@@ -84,16 +79,5 @@ public class HelloController {
     public String applyManageList() {
         return "resume/com-apply-list";
     }
-
-    @GetMapping("/match")
-    public String matchList() {
-        return "match/list";
-    }
-
-    @GetMapping("/match/com")
-    public String matchComList() {
-        return "match/com-list";
-    }
-
 
 }

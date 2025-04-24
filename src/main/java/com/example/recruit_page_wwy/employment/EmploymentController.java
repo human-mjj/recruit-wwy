@@ -8,14 +8,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 public class EmploymentController {
     private final EmploymentService employmentService;
     private final HttpSession session;
 
+    @GetMapping("/")
+    public String index(HttpSession session, HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+//        request.setAttribute("sessionUser", sessionUser);
+//        System.out.println(sessionUser);
+
+        List<Employment> jobs = employmentService.viewEmployList();
+        request.setAttribute("models", jobs);
+
+        return "index";
+    }
+
     @GetMapping("/mypage/employment")
     public String manageEmployment(HttpServletRequest request) {
+
 
         // 마이페이지에서 아직 세션 정보 불러와지지 않음. 유저id 임시로 4 줌
         //User sessionUser = (User) session.getAttribute("sessionUser");
@@ -29,7 +44,11 @@ public class EmploymentController {
     }
 
     // TODO
+<<<<<<< HEAD
     // 검색필터, 페이징 구현 필요
+=======
+    // 필터, 페이징 구현 필요
+>>>>>>> master
     @GetMapping("/employment")
     public String employmentList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -37,6 +56,7 @@ public class EmploymentController {
         request.setAttribute("models", employmentService.emplymentAllList(userId));
         return "employment/list";
     }
+<<<<<<< HEAD
 
     @GetMapping("/employment/{id}")
     public String employmentDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
@@ -48,4 +68,6 @@ public class EmploymentController {
 
         return "employment/detail";
     }
+=======
+>>>>>>> master
 }

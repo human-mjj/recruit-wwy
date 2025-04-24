@@ -45,6 +45,10 @@ public class EmploymentService {
         return dtoList;
     }
 
+    public List<Employment> viewEmployList() {
+        return employmentRepository.findTop4ByOrderByIdDesc();
+    }
+
     public EmploymentResponse.DetailDTO findEmploymentDetail(Integer employmentId, Integer sessionUserId) {
 
         // 채용 공고 데이터 조회
