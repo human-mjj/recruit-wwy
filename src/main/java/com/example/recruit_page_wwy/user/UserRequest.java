@@ -1,5 +1,6 @@
 package com.example.recruit_page_wwy.user;
 
+import com.example.recruit_page_wwy.industry.Industry;
 import lombok.Data;
 
 public class UserRequest {
@@ -69,7 +70,7 @@ public class UserRequest {
                     .password(password)
                     .role(1)
                     .comName(comName)
-                    .industryId(industryId)
+                    .industry(Industry.builder().id(industryId).build())
                     .build();
         }
     }

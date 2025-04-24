@@ -1,20 +1,35 @@
 package com.example.recruit_page_wwy;
 
+
 import com.example.recruit_page_wwy.user.User;
 import jakarta.servlet.http.HttpSession;
+
+import com.example.recruit_page_wwy.employment.Employment;
+import com.example.recruit_page_wwy.employment.EmploymentRepository;
+import com.example.recruit_page_wwy.user.User;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
+@RequiredArgsConstructor
 @Controller
 public class HelloController {
 
-    @GetMapping("/")
-    public String index(HttpSession session) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        session.setAttribute("sessionUser", sessionUser);
+    private final EmploymentRepository employmentRepository;
 
+    @GetMapping("/")
+    public String index(HttpSession session, HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
         System.out.println(sessionUser);
+
+        List<Employment> jobs = employmentRepository.findTop4ByOrderByIdDesc();
+        request.setAttribute("models", jobs);
 
         return "index";
     }
@@ -44,10 +59,10 @@ public class HelloController {
         return "redirect:/board";
     }
 
-    @GetMapping("/mypage/employment")
-    public String employmentDashboard() {
-        return "employment/dashboard";
-    }
+//    @GetMapping("/mypage/employment")
+//    public String employmentDashboard() {
+//        return "employment/dashboard";
+//    }
 
     @GetMapping("/employment/1")
     public String employmentDetail() {

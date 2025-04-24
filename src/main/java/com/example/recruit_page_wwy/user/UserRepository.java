@@ -30,6 +30,7 @@ public class UserRepository {
         }
     }
 
+
     public User findById(Integer sessionId) {
         return em.find(User.class, sessionId);
     }

@@ -1,5 +1,7 @@
 package com.example.recruit_page_wwy.resume;
 
+import com.example.recruit_page_wwy.user.User;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,7 +15,9 @@ public class ResumeController {
     private final HttpSession session;
 
     @GetMapping("/mypage/resume")
-    public String resumeList() {
+    public String resumeList(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        request.setAttribute("models", resumeService.findAll(sessionUser.getId()));
         return "resume/list";
     }
 
@@ -30,12 +34,10 @@ public class ResumeController {
 
     @PostMapping("/resume/save")
     public String resumeSave(ResumeRequest.SaveDTO saveDTO) {
-        // 임시 테스트 user_id 설정
-        saveDTO.setUser_id(1);
-        System.out.println("입력값: " + saveDTO);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        saveDTO.setUser_id(sessionUser.getId());
         resumeService.save(saveDTO);
-
-        return "resume/list";
+        return "redirect:/mypage/resume";
     }
 
     @GetMapping("/resume/1/update-form")
