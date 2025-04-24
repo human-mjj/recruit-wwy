@@ -26,6 +26,7 @@ public class EmploymentRepository {
                 .getResultList();
     }
 
+
     public List<Employment> findTop4ByOrderByIdDesc() {
         String jpql = """
             SELECT e FROM Employment e
@@ -37,4 +38,5 @@ public class EmploymentRepository {
                 .setMaxResults(4)
                 .getResultList();
     }
+
 }
