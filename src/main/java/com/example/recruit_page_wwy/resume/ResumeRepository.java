@@ -39,4 +39,11 @@ public class ResumeRepository {
         query.setParameter(1, id);
         return (Resume) query.getSingleResult();
     }
+
+    public List<Resume> findByUserId(Integer userId) {
+        String sql = "SELECT * FROM resume_tb WHERE user_id = ?";
+        return em.createNativeQuery(sql, Resume.class)
+                .setParameter(1, userId)
+                .getResultList();
+    }
 }
