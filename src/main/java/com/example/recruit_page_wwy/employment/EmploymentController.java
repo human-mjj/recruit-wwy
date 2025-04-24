@@ -26,4 +26,14 @@ public class EmploymentController {
         request.setAttribute("models", employmentService.employmentList(testUserId));
         return "employment/dashboard";
     }
+
+    // TODO
+    // 필터, 페이징 구현 필요
+    @GetMapping("/employment")
+    public String employmentList(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        Integer userId = (sessionUser != null) ? sessionUser.getId() : null; // 로그인 안해도 접근할 수 있게
+        request.setAttribute("models", employmentService.emplymentAllList(userId));
+        return "employment/list";
+    }
 }

@@ -2,7 +2,6 @@ package com.example.recruit_page_wwy.employment;
 
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -15,14 +14,25 @@ public class EmploymentRepository {
 
     public List<Employment> findAllByUserId(Integer userId) {
         String jpql = """
-            SELECT e FROM Employment e
-            JOIN FETCH e.user
-            JOIN FETCH e.job
-            WHERE e.user.id = :userId
-            ORDER BY e.id DESC
-        """;
+                    SELECT e FROM Employment e
+                    JOIN FETCH e.user
+                    JOIN FETCH e.job
+                    WHERE e.user.id = :userId
+                    ORDER BY e.id DESC
+                """;
         return em.createQuery(jpql, Employment.class)
                 .setParameter("userId", userId)
+                .getResultList();
+    }
+
+    public List<Employment> findAll() {
+        String jpql = """
+                    SELECT e FROM Employment e 
+                    JOIN FETCH e.user
+                    JOIN FETCH e.job
+                    ORDER BY e.id DESC
+                """;
+        return em.createQuery(jpql, Employment.class)
                 .getResultList();
     }
 }
