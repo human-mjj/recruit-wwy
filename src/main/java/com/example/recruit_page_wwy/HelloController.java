@@ -1,10 +1,6 @@
 package com.example.recruit_page_wwy;
 
 
-<<<<<<< HEAD
-import com.example.recruit_page_wwy.employment.Employment;
-=======
->>>>>>> master
 import com.example.recruit_page_wwy.employment.EmploymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -42,14 +38,6 @@ public class HelloController {
         return "redirect:/board";
     }
 
-<<<<<<< HEAD
-=======
-    @GetMapping("/employment/1")
-    public String employmentDetail() {
-        return "employment/detail";
-    }
-
->>>>>>> master
     @GetMapping("/employment/save-form")
     public String employmentSaveForm() {
         return "employment/save-form";

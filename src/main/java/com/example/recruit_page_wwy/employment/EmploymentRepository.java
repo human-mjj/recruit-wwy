@@ -38,10 +38,7 @@ public class EmploymentRepository {
         return em.createQuery(jpql, Employment.class)
                 .getResultList();
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> master
     public List<Employment> findTop4ByOrderByIdDesc() {
         String jpql = """
                     SELECT e FROM Employment e
@@ -53,7 +50,6 @@ public class EmploymentRepository {
                 .setMaxResults(4)
                 .getResultList();
     }
-<<<<<<< HEAD
 
     public Object findDetailRawById(Integer id) {
         String sql = """
@@ -99,6 +95,4 @@ public class EmploymentRepository {
         Long count = ((Number) query.getSingleResult()).longValue();
         return count > 0;
     }
-=======
->>>>>>> master
 }

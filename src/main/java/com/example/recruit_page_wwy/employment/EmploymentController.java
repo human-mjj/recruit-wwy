@@ -44,11 +44,7 @@ public class EmploymentController {
     }
 
     // TODO
-<<<<<<< HEAD
     // 검색필터, 페이징 구현 필요
-=======
-    // 필터, 페이징 구현 필요
->>>>>>> master
     @GetMapping("/employment")
     public String employmentList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -56,7 +52,6 @@ public class EmploymentController {
         request.setAttribute("models", employmentService.emplymentAllList(userId));
         return "employment/list";
     }
-<<<<<<< HEAD
 
     @GetMapping("/employment/{id}")
     public String employmentDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
@@ -68,6 +63,4 @@ public class EmploymentController {
 
         return "employment/detail";
     }
-=======
->>>>>>> master
 }
