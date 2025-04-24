@@ -72,15 +72,15 @@
             </div>
             <div class="container mb-5">
                 <h5 class="fw-semibold">이름</h5>
-                <div class="ps-4">test</div>
+                <div class="ps-4">{{Username}}</div>
             </div>
             <div class="container mb-5">
                 <h5 class="fw-semibold">이메일</h5>
-                <div class="ps-4">test@nate.com</div>
+                <div class="ps-4">{{email}}</div>
             </div>
             <div class="container mb-5">
                 <h5 class="fw-semibold">전화번호</h5>
-                <div class="ps-4">01012345678</div>
+                <div class="ps-4">{{phone}}</div>
             </div>
             <div class="container mb-5">
                 <h5 class="fw-semibold">경력</h5>
@@ -92,12 +92,16 @@
             </div>
             <div class="container mb-5">
                 <h5 class="fw-semibold">희망 직무</h5>
-                <div class="ps-4">{{job_id}}</div>
+                <div class="ps-4">{{job.name}}</div>
             </div>
-            <!--        <div class="container mb-5">-->
-            <!--            <h5 class="fw-semibold">기술스택</h5>-->
-            <!--            <div class="ps-4">Java, HTML, JavaScript</div>-->
-            <!--        </div>-->
+
+            <div class="container mb-5">
+                <h5 class="fw-semibold">기술스택</h5>
+                <div class="ps-4">  {{#resumeStack}}
+                    <li>{{skill}}</li>
+                {{/resumeStack}}</div>
+            </div>
+
             <div class="container mb-5">
                 <h5 class="fw-semibold">희망 근무 지역</h5>
                 <div class="ps-4">{{Location}}</div>

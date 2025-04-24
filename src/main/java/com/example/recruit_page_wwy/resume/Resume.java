@@ -35,7 +35,6 @@ public class Resume {
     // 희망 직무 번호
     @ManyToOne(fetch = FetchType.LAZY)
     private Job job;
-    private int jobId;
 
     private String location;
     private String qualified;

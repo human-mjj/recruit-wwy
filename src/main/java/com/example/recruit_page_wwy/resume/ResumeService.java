@@ -30,16 +30,16 @@ public class ResumeService {
         Resume resume = resumeRepository.findByResumeId(id);
         User user = resume.getUser();
 
-
         return new ResumeResponse.DetailDTO(
                 resume.getUser().getId(),             // 유저 ID
+                resume.getJob(),
+                resume.getResumeStackList(),
                 resume.getUser().getUsername(),       // 유저 이름
                 resume.getUser().getEmail(),          // 이메일
                 resume.getUser().getPhone(),          // 전화번호
                 resume.getTitle(),
                 resume.getExp(),
                 resume.getEdu(),
-                resume.getJobId(),                    // 이건 아래 추가 설명
                 resume.getLocation(),
                 resume.getQualified(),
                 resume.getActivity(),
