@@ -121,7 +121,7 @@ values ('문정준', 'a32176740@gmail.com', '01032176740', '1234', null, 1, 'WWY
 -- 채용 공고 테이블 dummy
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('Spring 백엔드 개발자 모집', 4, '1년 이상', '대졸 이상', '정규직', 1,
+VALUES ('Spring 백엔드 개발자 모집', 4, '1년 이상', '대졸 이상', '정규직', 3,
         'REST API 개발 및 유지보수', 'Java/Spring 경력 1년 이상, MySQL 경험 우대', 4200,
         '09:30 ~ 18:30', '서울특별시 강남구', '2025-05-31', NULL);
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
@@ -131,9 +131,15 @@ VALUES ('프론트엔드 React 개발자 채용', 4, '신입~3년', '무관', '�
         '10:00 ~ 19:00', '서울특별시 마포구', '2025-06-15', NULL);
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('신입 백엔드 인턴 모집', 4, '신입', '초대졸 이상', '인턴', 1,
+VALUES ('신입 백엔드 인턴 모집', 4, '신입', '초대졸 이상', '인턴', 2,
         'Spring 기반 서비스 API 개발 및 문서화', '개발 열정, 깃허브 활동 확인 예정', 2500,
         '09:00 ~ 17:00', '서울특별시 종로구', '2025-06-01', NULL);
+
+-- job_id: 1 => 데이터 분석
+INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
+                           end_date, img_url)
+VALUES ('데이터 분석가 채용', 4, '1년 이상', '대졸 이상', '정규직', 1, '데이터 시각화 및 분석', 'Python, Pandas 경험', 4500, '09:00 ~ 18:00',
+        '서울특별시 성동구', '2025-06-30', NULL);
 
 -- 이력서 테이블 dummy
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
@@ -149,12 +155,13 @@ insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, act
 values ('웹 퍼블리셔 + 프론트엔드 복합 지원서', 2, 'HTML/CSS 퍼블리싱 1년 경험', '동서대학교 미디어학부 재학', 2, '인천', 'GTQ 1급', '디자인 공모전 참가', NULL);
 
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('프론트와 백엔드를 넘나드는 풀스택 꿈나무', 3, 'Node.js와 Vue.js 활용 토이 프로젝트', '부경대학교 컴퓨터공학과 졸업', 2, '대전', '정보처리기사', '교내 개발동아리 회장',
+values ('프론트와 백엔드를 넘나드는 풀스택 꿈나무', 3, 'Node.js와 Vue.js 활용 토이 프로젝트', '부경대학교 컴퓨터공학과 졸업', 3, '대전', '정보처리기사', '교내 개발동아리 회장',
         NULL);
 
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
 values ('REST API 설계 및 DB 모델링 경험 중심', 3, 'Django + PostgreSQL 프로젝트', '부경대학교 컴퓨터공학과 졸업', 1, '부산', 'SQLD',
         '캡스톤디자인 우수상 수상', NULL);
+
 
 -- 스크랩 테이블 dummy
 insert into scrap_tb(user_id, employment_id, resume_id)
@@ -222,17 +229,23 @@ values (5, 4, '댓글6', now());
 
 -- 채용공고-스택 테이블 dummy
 insert into employ_stack_tb(employment_id, skill)
-values (1, 'java'),
-       (1, 'spring boot'),
-       (1, 'mysql'),
-       (2, 'html'),
-       (2, 'css'),
-       (2, 'javascript'),
-       (2, 'figma'),
-       (3, 'javascript'),
-       (3, 'mysql'),
-       (3, 'node.js'),
-       (3, 'git');
+values
+--     (1, 'java'),
+--        (1, 'spring boot'),
+--        (1, 'mysql'),
+(1, 'react'),
+(2, 'html'),
+(2, 'css'),
+(2, 'javascript'),
+(2, 'figma'),
+(3, 'javascript'),
+(3, 'mysql'),
+(3, 'node.js'),
+(3, 'git'),
+(4, 'python'),
+(4, 'pandas'),
+(4, 'powerbi'),
+(4, 'excel');
 
 -- 이력서-스택 테이블 dummy
 insert into resume_stack_tb(resume_id, skill)
