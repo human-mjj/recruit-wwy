@@ -6,6 +6,8 @@ import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Repository
 public class ResumeRepository {
@@ -23,5 +25,11 @@ public class ResumeRepository {
         query.setParameter(8, activity);
         query.setParameter(9, img_url);
         query.executeUpdate();
+    }
+
+    public List<Resume> findAll(Integer user_id) {
+        Query query = em.createNativeQuery("select * from resume_tb where user_id = ? order by id desc", Resume.class);
+        query.setParameter(1, user_id);
+        return query.getResultList();
     }
 }

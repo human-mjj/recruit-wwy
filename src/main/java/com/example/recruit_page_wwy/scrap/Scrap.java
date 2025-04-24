@@ -1,6 +1,9 @@
 package com.example.recruit_page_wwy.scrap;
 
 
+import com.example.recruit_page_wwy.employment.Employment;
+import com.example.recruit_page_wwy.resume.Resume;
+import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,10 +16,15 @@ public class Scrap {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int userId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
     // 1. employmentId == null when resumeId != null
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Resume resume;
+
     // 2. resumeId == null when employmentId != null
-    private Integer resumeId;
-    private Integer employmentId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employment employment;
 }
