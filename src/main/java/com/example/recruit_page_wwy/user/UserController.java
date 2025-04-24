@@ -16,14 +16,13 @@ public class UserController {
     // MyPage
     @GetMapping("/mypage")
     public String myPage(HttpServletRequest request) {
+
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
         request.setAttribute("model", myDTO);
 
         System.out.println(myDTO.getIsCompanyUser());
-
-
         return "/mypage/index";
     }
 
@@ -89,5 +88,4 @@ public class UserController {
         session.invalidate();
         return "redirect:/";
     }
-
 }

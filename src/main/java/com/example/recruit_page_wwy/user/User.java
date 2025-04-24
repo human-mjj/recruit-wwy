@@ -26,7 +26,7 @@ public class User {
 
     // 기업용 : 구직자는 null 처리해야 함
     private String comName;
-  
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Industry industry;
 
@@ -40,7 +40,7 @@ public class User {
         this.role = role;
         this.phone = phone;
         this.comName = comName;
-        this.industry = Industry.builder().id(industryId).build();
+        this.industry = industryId == null ? null : Industry.builder().id(industryId).build();
     }
 
     public void update(String username, String email, String phone, String password) {
@@ -49,6 +49,5 @@ public class User {
         this.phone = phone;
         this.password = password;
     }
-
 
 }
