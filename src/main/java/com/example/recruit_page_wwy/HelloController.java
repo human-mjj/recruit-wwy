@@ -2,6 +2,7 @@ package com.example.recruit_page_wwy;
 
 
 import com.example.recruit_page_wwy.user.User;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import com.example.recruit_page_wwy.employment.Employment;
@@ -26,6 +27,7 @@ public class HelloController {
     @GetMapping("/")
     public String index(HttpSession session, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        request.setAttribute("sessionUser", sessionUser);
         System.out.println(sessionUser);
 
         List<Employment> jobs = employmentRepository.findTop4ByOrderByIdDesc();
@@ -93,16 +95,5 @@ public class HelloController {
     public String applyManageList() {
         return "resume/com-apply-list";
     }
-
-    @GetMapping("/match")
-    public String matchList() {
-        return "match/list";
-    }
-
-    @GetMapping("/match/com")
-    public String matchComList() {
-        return "match/com-list";
-    }
-
-
+    
 }
