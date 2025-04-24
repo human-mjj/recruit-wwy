@@ -33,19 +33,18 @@ public class UserService {
         if (user.getRole() != reqDTO.getRole()) {
             throw new RuntimeException("구분이 틀렸습니다.");
         }
-
         return user;
     }
 
     @Transactional
-    public void userupdate(UserRequest.UpdateDTO reqDTO, Integer sessionId) {
+    public void userUpdate(UserRequest.UpdateDTO reqDTO, Integer sessionId) {
         User userPS = userRepository.findById(sessionId);
 
         // 더티 체킹
         userPS.update(reqDTO.getUsername(), reqDTO.getEmail(), reqDTO.getPhone(), reqDTO.getPassword());
     }
 
-    public User mypage(int id) {
+    public User mypage(Integer id) {
         return userRepository.findById(id);
     }
 }

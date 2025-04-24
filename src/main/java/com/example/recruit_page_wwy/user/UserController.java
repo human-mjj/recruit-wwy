@@ -15,14 +15,15 @@ public class UserController {
 
     // MyPage
     @GetMapping("/mypage")
-    public String myPage(HttpServletRequest request, UserResponse.MyPageDTO mypageDTO) {
+    public String myPage(HttpServletRequest request) {
+        System.out.println(1);
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userService.mypage(mypageDTO.getSessionUser().getId());
-        request.setAttribute("model", user);
+        request.setAttribute("model", sessionUser);
+//        System.out.println(4);
 
-        
-        System.out.println(user.getEmail());
-        System.out.println(sessionUser.getEmail());
+
+//        System.out.println(user.getEmail());
+//        System.out.println(sessionUser.getEmail());
 
         return "/mypage/index";
     }
@@ -31,7 +32,7 @@ public class UserController {
     @PostMapping("/mypage/update")
     public String userUpdate(UserRequest.UpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        userService.userupdate(reqDTO, sessionUser.getId());
+        userService.userUpdate(reqDTO, sessionUser.getId());
 
         return "redirect:/mypage";
     }

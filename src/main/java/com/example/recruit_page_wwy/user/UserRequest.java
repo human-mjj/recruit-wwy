@@ -4,6 +4,17 @@ import lombok.Data;
 
 public class UserRequest {
 
+//    @Data
+//    public static class MyPageDTO {
+//        private User sessionUser;
+//        private Boolean isCompanyUser;
+//
+//        public MyPageDTO(User sessionUser) {
+//            this.sessionUser = sessionUser;
+//            this.isCompanyUser = sessionUser.getRole() == 1 ? true : false;
+//        }
+//    }
+
     @Data
     public static class UpdateDTO {
         private String username;
@@ -11,7 +22,7 @@ public class UserRequest {
         private String phone;
         private String password;
 
-        public User toEntity(User user) {
+        public User toEntity() {
             return User.builder()
                     .username(username)
                     .email(email)
