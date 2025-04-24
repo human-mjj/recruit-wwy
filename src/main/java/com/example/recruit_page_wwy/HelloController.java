@@ -59,19 +59,9 @@ public class HelloController {
         return "redirect:/board";
     }
 
-//    @GetMapping("/mypage/employment")
-//    public String employmentDashboard() {
-//        return "employment/dashboard";
-//    }
-
     @GetMapping("/employment/1")
     public String employmentDetail() {
         return "employment/detail";
-    }
-
-    @GetMapping("/employment")
-    public String employmentList() {
-        return "employment/list";
     }
 
     @GetMapping("/employment/save-form")
@@ -93,7 +83,6 @@ public class HelloController {
     public String scrapList() {
         return "scrap/user-scrap";
     }
-
 
     @GetMapping("/mypage/apply")
     public String applyList() {
