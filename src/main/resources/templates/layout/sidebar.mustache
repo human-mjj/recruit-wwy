@@ -12,26 +12,29 @@
 
                 <h5 class="ms-3 fw-bold mt-4">채용</h5>
                 <ul class="navbar-nav flex-column gap-2 mb-5 ps-3">
+                    {{^model.isCompanyUser}}
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold ps-4" href="/mypage/apply">지원 현황</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold ps-4" href="/mypage/apply/com">지원 관리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold ps-4" href="/match">기업 추천(구직자)</a>
+                        </li>
+                    {{/model.isCompanyUser}}
+                    {{#model.isCompanyUser}}
 
-                    
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-semibold ps-4" href="/mypage/scrap/com">기업 스크랩</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-semibold ps-4" href="/mypage/employment">채용 현황 관리</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-semibold ps-4" href="/mypage/apply">지원 현황</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-semibold ps-4" href="/mypage/apply/com">지원 관리</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-semibold ps-4" href="/match">기업 추천(구직자)</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-semibold ps-4" href="/match/com">구직자 추천(기업)</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold ps-4" href="/mypage/scrap/com">기업 스크랩</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold ps-4" href="/mypage/employment">채용 현황 관리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold ps-4" href="/match/com">구직자 추천(기업)</a>
+                        </li>
+                    {{/model.isCompanyUser}}
                 </ul>
             </div>
         </div>
