@@ -15,18 +15,27 @@ public class EmploymentRepository {
 
     public List<Employment> findAllByUserId(Integer userId) {
         String jpql = """
-            SELECT e FROM Employment e
-            JOIN FETCH e.user
-            JOIN FETCH e.job
-            WHERE e.user.id = :userId
-            ORDER BY e.id DESC
-        """;
+                    SELECT e FROM Employment e
+                    JOIN FETCH e.user
+                    JOIN FETCH e.job
+                    WHERE e.user.id = :userId
+                    ORDER BY e.id DESC
+                """;
         return em.createQuery(jpql, Employment.class)
                 .setParameter("userId", userId)
                 .getResultList();
     }
 
-
+    public List<Employment> findAll() {
+        String jpql = """
+                    SELECT e FROM Employment e 
+                    JOIN FETCH e.user
+                    JOIN FETCH e.job
+                    ORDER BY e.id DESC
+                """;
+        return em.createQuery(jpql, Employment.class)
+                .getResultList();
+    }
     public List<Employment> findTop4ByOrderByIdDesc() {
         String jpql = """
             SELECT e FROM Employment e
@@ -38,5 +47,4 @@ public class EmploymentRepository {
                 .setMaxResults(4)
                 .getResultList();
     }
-
 }
