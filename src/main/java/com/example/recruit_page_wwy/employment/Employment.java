@@ -5,11 +5,11 @@ import com.example.recruit_page_wwy.employstack.EmployStack;
 import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 
 @NoArgsConstructor
@@ -45,4 +45,23 @@ public class Employment {
     private String location;
     private Date endDate;
     private String imgUrl;
+
+    @Builder
+    public Employment(int id, String title, User user, String exp, String edu, String shift, List<EmployStack> employStackList, Job job, String duty, String qualification, Integer sal, String workingTime, String location, Date endDate, String imgUrl) {
+        this.id = id;
+        this.title = title;
+        this.user = user;
+        this.exp = exp;
+        this.edu = edu;
+        this.shift = shift;
+        this.employStackList = employStackList;
+        this.job = job;
+        this.duty = duty;
+        this.qualification = qualification;
+        this.sal = sal;
+        this.workingTime = workingTime;
+        this.location = location;
+        this.endDate = endDate;
+        this.imgUrl = imgUrl;
+    }
 }

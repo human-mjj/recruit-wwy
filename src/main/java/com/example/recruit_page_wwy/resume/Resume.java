@@ -5,6 +5,7 @@ import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.resumestack.ResumeStack;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -41,4 +42,20 @@ public class Resume {
     private String activity;
     private String letter;
     private String imgUrl;
+
+    @Builder
+    public Resume(int id, String title, User user, String exp, String edu, List<ResumeStack> resumeStackList, Job job, String location, String qualified, String activity, String letter, String imgUrl) {
+        this.id = id;
+        this.title = title;
+        this.user = user;
+        this.exp = exp;
+        this.edu = edu;
+        this.resumeStackList = resumeStackList;
+        this.job = job;
+        this.location = location;
+        this.qualified = qualified;
+        this.activity = activity;
+        this.letter = letter;
+        this.imgUrl = imgUrl;
+    }
 }
