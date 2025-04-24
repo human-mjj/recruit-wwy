@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.user;
 
 
+import com.example.recruit_page_wwy.industry.Industry;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,19 +26,29 @@ public class User {
 
     // 기업용 : 구직자는 null 처리해야 함
     private String comName;
-    private Integer industryId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Industry industry;
 
     @Builder
-    private User(int id, String username, String email, String phone, String password, String imgUrl, int role, String comName, Integer industryId) {
+    public User(int id, String username, String email, String phone, String password, String imgUrl, int role, String comName, Integer industryId) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.imgUrl = null;
+        this.imgUrl = imgUrl;
         this.role = role;
         this.phone = phone;
         this.comName = comName;
-        this.industryId = industryId;
+        this.industry = industryId == null ? null : Industry.builder().id(industryId).build();
     }
+
+    public void update(String username, String email, String phone, String password) {
+        this.username = username;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+    }
+
 
 }

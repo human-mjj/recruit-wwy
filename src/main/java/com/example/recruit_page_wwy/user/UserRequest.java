@@ -4,6 +4,34 @@ import lombok.Data;
 
 public class UserRequest {
 
+//    @Data
+//    public static class MyPageDTO {
+//        private User sessionUser;
+//        private Boolean isCompanyUser;
+//
+//        public MyPageDTO(User sessionUser) {
+//            this.sessionUser = sessionUser;
+//            this.isCompanyUser = sessionUser.getRole() == 1 ? true : false;
+//        }
+//    }
+
+    @Data
+    public static class UpdateDTO {
+        private String username;
+        private String email;
+        private String phone;
+        private String password;
+
+        public User toEntity() {
+            return User.builder()
+                    .username(username)
+                    .email(email)
+                    .phone(phone)
+                    .password(password)
+                    .build();
+        }
+    }
+
     @Data
     public static class UserDTO {
         private String username;
@@ -18,7 +46,7 @@ public class UserRequest {
                     .email(email)
                     .phone(phone)
                     .password(password)
-                    .role(role)
+                    .role(0)
                     .build();
         }
     }

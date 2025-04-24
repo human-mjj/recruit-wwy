@@ -1,11 +1,16 @@
 package com.example.recruit_page_wwy.employment;
 
 
+import com.example.recruit_page_wwy.employstack.EmployStack;
+import com.example.recruit_page_wwy.job.Job;
+import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -17,21 +22,27 @@ public class Employment {
     private int id;
     private String title;
 
-    // 작성자 ID
-    private int userId;
+    // 작성자 정보
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
     private String exp;
     private String edu;
     private String shift;
 
-    // 직무 번호
-    private int jobId;
+    // 기술 스택 리스트
+    @OneToMany(mappedBy = "employment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<EmployStack> employStackList;
+
+    // 직무
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Job job;
 
     private String duty;
     private String qualification;
     private Integer sal;
     private String workingTime;
     private String location;
-    private Timestamp endDate;
+    private Date endDate;
     private String imgUrl;
 }
