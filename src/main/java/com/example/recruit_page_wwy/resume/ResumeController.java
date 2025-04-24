@@ -43,9 +43,16 @@ public class ResumeController {
         return "redirect:/mypage/resume";
     }
 
-    @GetMapping("/resume/1/update-form")
+    @GetMapping("/resume/{id}/update-form")
     public String resumeUpdateForm() {
         return "resume/update-form";
+    }
+
+    @PostMapping("/resume/Update")
+    public String resumeUpdate(@PathVariable("id") Integer id, ResumeRequest.SaveDTO saveDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        resumeService.update(sessionUser.getId());
+        return "redirect:/mypage/resume";
     }
 
 

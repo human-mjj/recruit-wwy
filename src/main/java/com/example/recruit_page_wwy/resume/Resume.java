@@ -41,4 +41,8 @@ public class Resume {
     private String activity;
     private String letter;
     private String imgUrl;
+
+    public void update() {
+
+    }
 }

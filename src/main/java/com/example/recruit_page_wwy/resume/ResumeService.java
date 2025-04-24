@@ -47,4 +47,14 @@ public class ResumeService {
                 resume.getLetter()
         );
     }
+
+    @Transactional
+    public void update(Integer id, ResumeRequest.UpdateDTO updateDTO) {
+        Resume resume = resumeRepository.findByResumeId(id);
+
+        resumeRepository.update(updateDTO.getId(), updateDTO.getTitle(), updateDTO.getExp(), updateDTO.getEdu(), updateDTO.getJob_id(),
+                updateDTO.getLocation(), updateDTO.getQualified(), updateDTO.getActivity());
+
+
+    }
 }

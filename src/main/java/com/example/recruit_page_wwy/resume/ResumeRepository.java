@@ -39,4 +39,17 @@ public class ResumeRepository {
         query.setParameter(1, id);
         return (Resume) query.getSingleResult();
     }
+
+    public void update(Integer id, String title, String exp, String edu, Integer job_id, String location, String qualified, String activity) {
+        Query query = em.createNativeQuery("update resume_tb  set TITLE = ?, EXP = ?, EDU = ?, JOB_ID = ?, LOCATION = ?, QUALIFIED = ?, ACTIVITY = ? where r.id = ?", Resume.class);
+        query.setParameter(1, id);
+        query.setParameter(2, title);
+        query.setParameter(3, exp);
+        query.setParameter(4, edu);
+        query.setParameter(5, job_id);
+        query.setParameter(6, location);
+        query.setParameter(7, qualified);
+        query.setParameter(8, activity);
+        query.executeUpdate();
+    }
 }

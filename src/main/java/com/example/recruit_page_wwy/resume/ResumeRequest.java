@@ -123,5 +123,28 @@ public class ResumeRequest {
 
     }
 
+    @Data
+    public static class UpdateDTO {
+        private Integer id;
+        private String title;
+        private String exp;
+        private String edu;
+        private Integer job_id;
+        private String location;
+        private String qualified;
+        private String activity;
+
+        public UpdateDTO(String activity, String qualified, String location, Integer job_id, String edu, String exp, String title, Integer id) {
+            this.activity = activity;
+            this.qualified = qualified;
+            this.location = location;
+            this.job_id = job_id;
+            this.edu = edu;
+            this.exp = exp;
+            this.title = title;
+            this.id = id;
+        }
+    }
+
 
 }
