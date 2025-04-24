@@ -134,8 +134,6 @@ INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualif
 VALUES ('신입 백엔드 인턴 모집', 4, '신입', '초대졸 이상', '인턴', 2,
         'Spring 기반 서비스 API 개발 및 문서화', '개발 열정, 깃허브 활동 확인 예정', 2500,
         '09:00 ~ 17:00', '서울특별시 종로구', '2025-06-01', NULL);
-
--- job_id: 1 => 데이터 분석
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
 VALUES ('데이터 분석가 채용', 4, '1년 이상', '대졸 이상', '정규직', 1, '데이터 시각화 및 분석', 'Python, Pandas 경험', 4500, '09:00 ~ 18:00',
