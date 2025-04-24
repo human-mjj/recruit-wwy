@@ -33,7 +33,6 @@
 {{> layout/sidebar}}
 
 <!-- 오른쪽 박스 -->
-
 <div class="flex-fill" style="max-width: 75%">
     <div class="bg-white border rounded p-4">
         <div class="content-h1">계정관리</div>
@@ -47,6 +46,45 @@
                 </div>
 
                 <form action="/mypage/update" method="post">
+
+                    {{#model.isCompanyUser}}
+                        <div>
+                            <div class="input-header">기업명</div>
+                            <div class="input-box">
+                                <input type="text" placeholder="해당 유저 기업명" name="comName"/>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="input-header">산업 선택</div>
+                            <div class="input-box">
+                                <select id="gieob" name="industryId" class="select-box">
+                                    <option selected>산업을 선택해주세요</option>
+                                    <option value="1">IT, 콘텐츠</option>
+                                    <option value="2">판매, 유통</option>
+                                    <option value="3">제조</option>
+                                    <option value="4">기타 서비스업</option>
+                                    <option value="5">전문, 과학기술</option>
+                                    <option value="6">금융</option>
+                                    <option value="7">교육</option>
+                                    <option value="8">예술, 스포츠, 여가</option>
+                                    <option value="9">물류, 운송</option>
+                                    <option value="10">부동산</option>
+                                    <option value="11">게임</option>
+                                    <option value="12">보건, 사회복지</option>
+                                    <option value="13">건설</option>
+                                    <option value="14">사업지원</option>
+                                    <option value="15">숙박, 음식점</option>
+                                    <option value="16">상수도, 환경</option>
+                                    <option value="17">농림어업</option>
+                                    <option value="18">공공행정, 국방</option>
+                                    <option value="19">전기, 가스</option>
+                                    <option value="20">가사, 가정</option>
+                                    <option value="21">국제, 외국기관</option>
+                                </select>
+                            </div>
+                        </div>
+                    {{/model.isCompanyUser}}
                     <div>
                         <div class="input-header">이름</div>
                         <div class="input-box">
