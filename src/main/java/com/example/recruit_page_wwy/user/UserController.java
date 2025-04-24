@@ -90,16 +90,4 @@ public class UserController {
         return "redirect:/";
     }
 
-        System.out.println(sessionUser.getUsername());
-        return "redirect:/";
-    }
-
-    // Logout
-    @GetMapping("/logout")
-    public String logout() {
-        session.invalidate();
-        return "redirect:/";
-    }
-
-
 }
