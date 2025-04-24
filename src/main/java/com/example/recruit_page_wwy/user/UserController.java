@@ -15,15 +15,13 @@ public class UserController {
 
     // MyPage
     @GetMapping("/mypage")
-    public String myPage(UserResponse.MyPageDTO respDTO, HttpServletRequest request) {
+    public String myPage(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
+        UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
+        request.setAttribute("model", myDTO);
 
-        User myPageDTO = userService.mypage(sessionUser.getId());
-        request.setAttribute("model", myPageDTO);
-        System.out.println();
-//        User sessionUser = userService.login(reqDTO);
-//        session.setAttribute("sessionUser", sessionUser);
+        System.out.println(myDTO.getIsCompanyUser());
 
 
         return "/mypage/index";
