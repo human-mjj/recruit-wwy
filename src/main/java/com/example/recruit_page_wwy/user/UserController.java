@@ -15,15 +15,16 @@ public class UserController {
 
     // MyPage
     @GetMapping("/mypage")
-    public String myPage(HttpServletRequest request) {
-        System.out.println(1);
+    public String myPage(UserResponse.MyPageDTO respDTO, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        request.setAttribute("model", sessionUser);
-//        System.out.println(4);
 
 
-//        System.out.println(user.getEmail());
-//        System.out.println(sessionUser.getEmail());
+        User myPageDTO = userService.mypage(sessionUser.getId());
+        request.setAttribute("model", myPageDTO);
+        System.out.println();
+//        User sessionUser = userService.login(reqDTO);
+//        session.setAttribute("sessionUser", sessionUser);
+
 
         return "/mypage/index";
     }
@@ -78,10 +79,9 @@ public class UserController {
 
     // Login
     @PostMapping("/login")
-    public String login(UserRequest.LoginDTO reqDTO, HttpSession session) {
+    public String login(UserRequest.LoginDTO reqDTO) {
         User sessionUser = userService.login(reqDTO);
         session.setAttribute("sessionUser", sessionUser);
-//        System.out.println(sessionUser.getUsername());
         return "redirect:/";
     }
 
