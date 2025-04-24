@@ -44,14 +44,15 @@ public class ResumeController {
     }
 
     @GetMapping("/resume/{id}/update-form")
-    public String resumeUpdateForm() {
+    public String resumeUpdateForm(@PathVariable("id") Integer id, HttpServletRequest request) {
+        Resume resume = resumeService.findById(id);
+        request.setAttribute("model", resume);
         return "resume/update-form";
     }
 
-    @PostMapping("/resume/Update")
-    public String resumeUpdate(@PathVariable("id") Integer id, ResumeRequest.SaveDTO saveDTO) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        resumeService.update(sessionUser.getId());
+    @PostMapping("/resume/{id}/update")
+    public String resumeUpdate(@PathVariable("id") Integer id, ResumeRequest.UpdateDTO updateDTO) {
+        resumeService.update(id, updateDTO);
         return "redirect:/mypage/resume";
     }
 

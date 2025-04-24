@@ -16,7 +16,7 @@ public class ResumeService {
     @Transactional
     public void save(ResumeRequest.SaveDTO saveDTO) {
         resumeRepository.save(saveDTO.getUser_id(), saveDTO.getTitle(), saveDTO.getExp(), saveDTO.getEdu(), saveDTO.getJob_id(), saveDTO.getLocation(), saveDTO.getQualified(),
-                saveDTO.getActivity(), saveDTO.getImg_url());
+                saveDTO.getActivity(), saveDTO.getImg_url(), saveDTO.getSkills());
 
     }
 
@@ -50,11 +50,22 @@ public class ResumeService {
 
     @Transactional
     public void update(Integer id, ResumeRequest.UpdateDTO updateDTO) {
-        Resume resume = resumeRepository.findByResumeId(id);
 
-        resumeRepository.update(updateDTO.getId(), updateDTO.getTitle(), updateDTO.getExp(), updateDTO.getEdu(), updateDTO.getJob_id(),
-                updateDTO.getLocation(), updateDTO.getQualified(), updateDTO.getActivity());
+        resumeRepository.update(
+                id,
+                updateDTO.getTitle(),
+                updateDTO.getExp(),
+                updateDTO.getEdu(),
+                updateDTO.getJob_id(),
+                updateDTO.getLocation(),
+                updateDTO.getQualified(),
+                updateDTO.getActivity()
+        );
 
 
+    }
+
+    public Resume findById(Integer id) {
+        return resumeRepository.findByResumeId(id);
     }
 }
