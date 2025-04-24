@@ -1,5 +1,6 @@
 package com.example.recruit_page_wwy.user;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,30 @@ public class UserController {
     private final UserService userService;
     private final HttpSession session;
 
+    // MyPage
+    @GetMapping("/mypage")
+    public String myPage(HttpServletRequest request) {
+        System.out.println(1);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        request.setAttribute("model", sessionUser);
+//        System.out.println(4);
+
+
+//        System.out.println(user.getEmail());
+//        System.out.println(sessionUser.getEmail());
+
+        return "/mypage/index";
+    }
+
+    // MyPageUpdate
+    @PostMapping("/mypage/update")
+    public String userUpdate(UserRequest.UpdateDTO reqDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        userService.userUpdate(reqDTO, sessionUser.getId());
+
+        return "redirect:/mypage";
+    }
+
     // JoinWayPage
     @GetMapping("/join-form")
     public String joinSelectForm() {
@@ -20,7 +45,7 @@ public class UserController {
 
     // UserJoinPage
     @GetMapping("/join-form/user")
-    public String userJoinForm(UserRequest.UserDTO reqDTO) {
+    public String userJoinForm() {
         return "user/user-join-form";
     }
 
@@ -56,6 +81,17 @@ public class UserController {
     public String login(UserRequest.LoginDTO reqDTO, HttpSession session) {
         User sessionUser = userService.login(reqDTO);
         session.setAttribute("sessionUser", sessionUser);
+//        System.out.println(sessionUser.getUsername());
+        return "redirect:/";
+    }
+
+    // Logout
+    @GetMapping("/logout")
+    public String logout() {
+        session.invalidate();
+        return "redirect:/";
+    }
+
         System.out.println(sessionUser.getUsername());
         return "redirect:/";
     }
@@ -66,5 +102,6 @@ public class UserController {
         session.invalidate();
         return "redirect:/";
     }
+
 
 }

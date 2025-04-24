@@ -1,11 +1,16 @@
 package com.example.recruit_page_wwy;
 
+
+import com.example.recruit_page_wwy.user.User;
+import jakarta.servlet.http.HttpSession;
+
 import com.example.recruit_page_wwy.employment.Employment;
 import com.example.recruit_page_wwy.employment.EmploymentRepository;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -89,10 +94,6 @@ public class HelloController {
         return "scrap/user-scrap";
     }
 
-    @GetMapping("/mypage")
-    public String mypage() {
-        return "mypage/index";
-    }
 
     @GetMapping("/mypage/apply")
     public String applyList() {
