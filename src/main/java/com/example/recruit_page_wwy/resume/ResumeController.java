@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @RequiredArgsConstructor
@@ -22,8 +23,10 @@ public class ResumeController {
     }
 
 
-    @GetMapping("/resume/1")
-    public String resumeDetail() {
+    @GetMapping("/resume/{id}")
+    public String resumeDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
+        ResumeResponse.DetailDTO detailDTO = resumeService.Detail(id);
+        request.setAttribute("models", detailDTO);
         return "resume/detail";
     }
 
