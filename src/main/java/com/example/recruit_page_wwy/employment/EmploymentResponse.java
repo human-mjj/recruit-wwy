@@ -51,10 +51,10 @@ public class EmploymentResponse {
 
     @Data
     public static class DetailDTO {
-        private Integer sessionUserId; // 로그인한 유저 아이디
-        private Integer sessionUserRole; // 로그인한 유저 역할 기업/구직자
-        private Boolean isOwner; // 로그인한 유저가 공고 작성자인지
-        private Boolean isApplicant; // 로그인한 유저가 구직자인지
+        private Integer sessionUserId;
+        private Integer sessionUserRole;
+        private Boolean isOwner;
+        private Boolean isApplicant;
 
         private Integer id;
         private String userImgUrl; // user_tb 테이블
@@ -67,11 +67,12 @@ public class EmploymentResponse {
         private String workingTime;
         private String location;
         private Date endDate;
-        private List<String> duty; // 화면에 여러개 순차적으로 뿌려짐
-        private List<String> qualification; // 화면에 여러개 순차적으로 뿌려짐
-        private String jobName; // job_tb 테이블
-        private List<String> stack; // 화면에 여러개 순차적으로 뿌려짐
-        private List<ResumeDTO> resumeList; // 이력서 선택 시 필요한 데이터
+        private List<String> duty;
+        private List<String> qualification;
+        private String jobName;
+        private List<String> stack;
+        private String stackStr;
+        private List<ResumeDTO> resumeList;
 
         @Data
         public static class ResumeDTO {
@@ -84,7 +85,7 @@ public class EmploymentResponse {
             }
         }
 
-        public DetailDTO(Integer sessionUserId, Integer sessionUserRole, Boolean isOwner, Boolean isApplicant, Integer id, String userImgUrl, String title, String comName, String exp, String edu, String shift, Integer sal, String workingTime, String location, Date endDate, List<String> duty, List<String> qualification, String jobName, List<String> stack, List<ResumeDTO> resumeList) {
+        public DetailDTO(Integer sessionUserId, Integer sessionUserRole, Boolean isOwner, Boolean isApplicant, Integer id, String userImgUrl, String title, String comName, String exp, String edu, String shift, Integer sal, String workingTime, String location, Date endDate, List<String> duty, List<String> qualification, String jobName, List<String> stack, String stackStr, List<ResumeDTO> resumeList) {
             this.sessionUserId = sessionUserId;
             this.sessionUserRole = sessionUserRole;
             this.isOwner = isOwner;
@@ -104,6 +105,7 @@ public class EmploymentResponse {
             this.qualification = qualification;
             this.jobName = jobName;
             this.stack = stack;
+            this.stackStr = stackStr;
             this.resumeList = resumeList;
         }
     }

@@ -6,10 +6,12 @@ import com.example.recruit_page_wwy.resume.Resume;
 import com.example.recruit_page_wwy.resume.ResumeRepository;
 import com.example.recruit_page_wwy.user.User;
 import com.example.recruit_page_wwy.user.UserRepository;
+import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -43,95 +45,94 @@ public class EmploymentService {
         return dtoList;
     }
 
-    public EmploymentResponse.DetailDTO findEmploymentDetail(Integer userId, Integer sessionUserId) {
+    public EmploymentResponse.DetailDTO findEmploymentDetail(Integer employmentId, Integer sessionUserId) {
 
-        // 1. 채용공고, 유저, 잡, 스택 조인해서 들고오기
-        Employment e = employmentRepository.findByIdWithJoins(userId);
-        if (e == null) {
-            throw new RuntimeException("해당 공고가 존재하지 않습니다.");
-        }
+        // 채용 공고 데이터 조회
+        Object[] result = (Object[]) employmentRepository.findDetailRawById(employmentId);
 
-        // 2. duty 리스트 만들기
-        List<String> dutyList = new ArrayList<>();
-        if (e.getDuty() != null && !e.getDuty().isEmpty()) {
-            String[] dutyArray = e.getDuty().split("\n");
-            for (String d : dutyArray) {
-                dutyList.add(d.trim());
+        Integer id = (Integer) result[0];
+        String userImgUrl = (String) result[1];
+        String title = (String) result[2];
+        String comName = (String) result[3];
+        String exp = (String) result[4];
+        String edu = (String) result[5];
+        String shift = (String) result[6];
+        Integer sal = (Integer) result[7];
+        String workingTime = (String) result[8];
+        String location = (String) result[9];
+        Date endDate = (Date) result[10];
+        String jobName = (String) result[11];
+        String dutyStr = (String) result[12];
+        String qualificationStr = (String) result[13];
+
+        List<String> duty = new ArrayList<>();
+        if (dutyStr != null && !dutyStr.isBlank()) {
+            String[] dutyArr = dutyStr.split(",");
+            for (String d : dutyArr) {
+                duty.add(d.trim());
             }
         }
 
-        // 3. qualification 리스트 만들기
-        List<String> qualificationList = new ArrayList<>();
-        if (e.getQualification() != null && !e.getQualification().isEmpty()) {
-            String[] qualificationArray = e.getQualification().split("\n");
-            for (String q : qualificationArray) {
-                qualificationList.add(q.trim());
+        List<String> qualification = new ArrayList<>();
+        if (qualificationStr != null && !qualificationStr.isBlank()) {
+            String[] qualArr = qualificationStr.split(",");
+            for (String q : qualArr) {
+                qualification.add(q.trim());
             }
         }
 
-        // 4. 기술 스택 리스트 만들기
-        List<String> stackList = new ArrayList<>();
-        List<EmployStack> employStackList = e.getEmployStackList();
-        for (EmployStack es : employStackList) {
-            stackList.add(es.getSkill());
-        }
-
-        // 5. 로그인 유저 정보 처리
-        Integer sessionUserRole = null;
-        Boolean isOwner = false;
-        Boolean isApplicant = false;
+        // 이력서 리스트 (구직자 로그인 시에만 보]이게)
         List<EmploymentResponse.DetailDTO.ResumeDTO> resumeList = new ArrayList<>();
-
-        //세션유저 데이터가 있을 때
         if (sessionUserId != null) {
-            User sessionUser = userRepository.findById(sessionUserId);
-            if (sessionUser != null) {
-                sessionUserRole = sessionUser.getRole(); // 0 or 1
-
-                // 세션 유저 아이디가 채용공고 작성자와 같을 때 => 수정삭제버튼
-                if (sessionUserId.equals(e.getUser().getId())) {
-                    isOwner = true;
-                }
-
-                // 세션유저가 구직자일때 이력서 선택가능, 지원하기 버튼 클릭 가능
-                if (sessionUserRole == 0) {
-                    isApplicant = true;
-
-                    List<Resume> resumes = resumeRepository.findByUserId(sessionUserId);
-                    for (Resume r : resumes) {
-                        EmploymentResponse.DetailDTO.ResumeDTO resumeDTO =
-                                new EmploymentResponse.DetailDTO.ResumeDTO(r);
-                        resumeList.add(resumeDTO);
-                    }
-                }
+            List<Resume> resumes = resumeRepository.findByUserId(sessionUserId);
+            for (Resume resume : resumes) {
+                resumeList.add(new EmploymentResponse.DetailDTO.ResumeDTO(resume));
             }
         }
 
-        // 6. DTO 생성 및 리턴
-        EmploymentResponse.DetailDTO dto = new EmploymentResponse.DetailDTO(
+        // 스택 리스트
+        List<String> stackList = employmentRepository.findStackByEmploymentId(employmentId);
+        String stackStr = String.join(", ", stackList);
+
+        // 로그인 유저 체크
+        User sessionUser = null;
+        Integer sessionUserRole = null;
+        boolean isOwner = false;
+        boolean isApplicant = false;
+
+        if (sessionUserId != null) {
+            sessionUser = userRepository.findById(sessionUserId);
+
+            if (sessionUser != null) {
+                sessionUserRole = sessionUser.getRole(); // 0 = 구직자, 1 = 기업
+                isApplicant = (sessionUserRole == 0);
+
+                isOwner = employmentRepository.isOwner(employmentId, sessionUserId);
+            }
+        }
+
+        return new EmploymentResponse.DetailDTO(
                 sessionUserId,
                 sessionUserRole,
                 isOwner,
                 isApplicant,
-                e.getId(),
-                e.getUser().getImgUrl(),
-                e.getTitle(),
-                e.getUser().getComName(),
-                e.getExp(),
-                e.getEdu(),
-                e.getShift(),
-                e.getSal(),
-                e.getWorkingTime(),
-                e.getLocation(),
-                e.getEndDate(),
-                dutyList,
-                qualificationList,
-                e.getJob().getName(),
+                id,
+                userImgUrl,
+                title,
+                comName,
+                exp,
+                edu,
+                shift,
+                sal,
+                workingTime,
+                location,
+                endDate,
+                duty,
+                qualification,
+                jobName,
                 stackList,
-                (resumeList != null) ? resumeList : new ArrayList<>()
+                stackStr,
+                resumeList
         );
-
-        // 리턴
-        return dto;
     }
 }

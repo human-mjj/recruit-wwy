@@ -40,10 +40,10 @@ public class ResumeRepository {
         return (Resume) query.getSingleResult();
     }
 
-    public List<Resume> findByUserId(Integer userId) {
-        String sql = "SELECT * FROM resume_tb WHERE user_id = ?";
-        return em.createNativeQuery(sql, Resume.class)
-                .setParameter(1, userId)
-                .getResultList();
+    public List<Resume> findByUserId(Integer userId) { // employment에서 이력서 작성자 찾기
+        String sql = "select * from resume_tb where user_id = ?";
+        Query query = em.createNativeQuery(sql, Resume.class);
+        query.setParameter(1, userId);
+        return query.getResultList();
     }
 }
