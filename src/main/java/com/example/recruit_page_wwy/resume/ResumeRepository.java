@@ -34,8 +34,8 @@ public class ResumeRepository {
     }
 
     public Resume findByResumeId(Integer id) {
-        Query query = em.createNativeQuery("SELECT r.id as r.user_id, u.username, u.email, u.phone, r.title, r.exp, r.edu, r.job_id, r.location, " +
-                "r.qualified, r.activity, r.img_url, r.letter FROM resume_tb r INNER JOIN user_tb u ON r.user_id = u.id WHERE r.id = ?", Resume.class);
+        Query query = em.createNativeQuery("select * from resume_tb r inner join user_tb u on r.id = u,id" +
+                "where r.id = ?", Resume.class);
         query.setParameter(1, id);
         return (Resume) query.getSingleResult();
     }
