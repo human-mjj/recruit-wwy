@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 @Table(name = "resume_tb")
 @Entity
+
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

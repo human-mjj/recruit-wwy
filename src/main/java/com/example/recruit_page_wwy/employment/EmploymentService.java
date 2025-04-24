@@ -23,7 +23,6 @@ public class EmploymentService {
 
         return dtoList;
     }
-
     public List<EmploymentResponse.PublicListDTO> emplymentAllList(Integer userId) {
         List<Employment> employmentAllList = employmentRepository.findAll();
 
