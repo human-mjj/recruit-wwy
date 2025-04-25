@@ -63,14 +63,4 @@ public class HelloController {
         return "scrap/user-scrap";
     }
 
-    @GetMapping("/mypage/apply")
-    public String applyList() {
-        return "resume/apply-list";
-    }
-
-    @GetMapping("/mypage/apply/com")
-    public String applyManageList() {
-        return "resume/com-apply-list";
-    }
-
 }

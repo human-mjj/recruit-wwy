@@ -9,6 +9,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class ApplyService {
@@ -26,5 +28,15 @@ public class ApplyService {
         // employment 함수 만들면 null 없애기
         Apply apply = saveDTO.toEntity(sessionUser, resume, null);
         applyRepository.save(apply);
+    }
+
+    public List<ApplyResponse.UserApplyDTO> findUserApply(User sessionUser) {
+        List<ApplyResponse.UserApplyDTO> userApplyDTO = applyRepository.findUserApplyById(sessionUser.getId());
+        return userApplyDTO;
+    }
+
+    public List<ApplyResponse.ComApplyDTO> findComApply(User sessionUser) {
+        List<ApplyResponse.ComApplyDTO> comApplyDTO = applyRepository.findComApplyById(sessionUser.getId());
+        return comApplyDTO;
     }
 }
