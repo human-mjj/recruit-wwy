@@ -137,6 +137,19 @@ VALUES ('프론트엔드 React 개발자 채용', 4, '신입~3년', '무관',
         'React 사용 가능자$포트폴리오 필수$HTML/CSS/JS 기본 지식$Git 사용 가능자',
         3800, '10:00 ~ 19:00', '서울특별시 마포구', '2025-06-15', NULL);
 
+
+INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
+                           end_date, img_url)
+VALUES ('웹 프론트엔드 인턴 채용', 5, '신입', '학력무관', '인턴', 3,
+        'React 기반 UI 개발 및 유지보수', '포트폴리오 제출 필수, 협업 경험 우대', 2200,
+        '10:00 ~ 18:00', '서울특별시 강남구', '2025-06-10', NULL);
+
+INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
+                           end_date, img_url)
+VALUES ('데이터 분석 인턴 모집', 5, '신입', '대졸 이상', '인턴', 4,
+        'Python을 이용한 데이터 수집 및 시각화', 'SQL, Pandas 사용 경험자 우대', 2300,
+        '09:30 ~ 18:30', '서울특별시 마포구', '2025-05-20', NULL);
+
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
 VALUES ('신입 백엔드 인턴 모집', 4, '신입', '초대졸 이상',
