@@ -29,4 +29,9 @@ public class EmployStack {
         this.employment = employment;
         this.skill = skill;
     }
+
+    public EmployStack(Employment employment, String skill) {
+        this.employment = employment;
+        this.skill = skill;
+    }
 }

@@ -31,6 +31,11 @@ public class ApplyResponse {
         private String createdAt;
         private String progress;
 
+        private boolean isWaiting;
+        private boolean isInProgress;
+        private boolean isDone;
+        private boolean isRejected;
+
         public ComApplyDTO(Integer id, String title, String username, String name, String createdAt, String progress) {
             this.id = id;
             this.title = title;
@@ -38,6 +43,11 @@ public class ApplyResponse {
             this.name = name;
             this.createdAt = createdAt;
             this.progress = progress;
+
+            this.isWaiting = "대기".equals(progress);
+            this.isInProgress = "진행 중".equals(progress);
+            this.isDone = "완료".equals(progress);
+            this.isRejected = "반려".equals(progress);
         }
     }
 }

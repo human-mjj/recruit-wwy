@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -62,5 +63,18 @@ public class EmploymentController {
         request.setAttribute("models", detailDTO);
 
         return "employment/detail";
+    }
+
+    @PostMapping("/employment/save")
+    public String employmentSave(EmploymentRequest.SaveDTO saveDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        // TODO 수정 필요함
+        //employmentService.saveEmployment(saveDTO, sessionUser);
+        return "redirect:/employment";
+    }
+
+    @GetMapping("/employment/save-form")
+    public String employmentSaveForm() {
+        return "employment/save-form";
     }
 }
