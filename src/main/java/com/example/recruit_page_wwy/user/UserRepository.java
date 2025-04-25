@@ -34,4 +34,8 @@ public class UserRepository {
     public User findById(Integer sessionId) {
         return em.find(User.class, sessionId);
     }
+
+    public User findUserById(Integer id) { // employment에서 유저 정보찾기
+        return em.find(User.class, id);
+    }
 }

@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -43,12 +44,23 @@ public class EmploymentController {
     }
 
     // TODO
-    // 필터, 페이징 구현 필요
+    // 검색필터, 페이징 구현 필요
     @GetMapping("/employment")
     public String employmentList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         Integer userId = (sessionUser != null) ? sessionUser.getId() : null; // 로그인 안해도 접근할 수 있게
         request.setAttribute("models", employmentService.emplymentAllList(userId));
         return "employment/list";
+    }
+
+    @GetMapping("/employment/{id}")
+    public String employmentDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        Integer sessionUserId = (sessionUser != null) ? sessionUser.getId() : null;
+
+        EmploymentResponse.DetailDTO detailDTO = employmentService.findEmploymentDetail(id, sessionUserId);
+        request.setAttribute("models", detailDTO);
+
+        return "employment/detail";
     }
 }
