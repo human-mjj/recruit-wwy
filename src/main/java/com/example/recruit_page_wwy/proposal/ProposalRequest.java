@@ -12,11 +12,11 @@ public class ProposalRequest {
         private int resumeId;
         private int employmentId;
 
-        public Proposal toEntity(User sessionUser) {
+        public Proposal toEntity(User sessionUser, Resume resume, Employment employment) {
             return Proposal.builder()
                     .user(sessionUser)
-                    .resume(Resume.builder().id(resumeId).build())
-                    .employment(Employment.builder().id(employmentId).build())
+                    .resume(resume)
+                    .employment(employment)
                     .build();
         }
     }
