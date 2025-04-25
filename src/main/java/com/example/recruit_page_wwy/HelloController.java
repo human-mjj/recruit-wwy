@@ -38,11 +38,6 @@ public class HelloController {
         return "redirect:/board";
     }
 
-    @GetMapping("/employment/1")
-    public String employmentDetail() {
-        return "employment/detail";
-    }
-
     @GetMapping("/employment/save-form")
     public String employmentSaveForm() {
         return "employment/save-form";
@@ -61,16 +56,6 @@ public class HelloController {
     @GetMapping("/mypage/scrap")
     public String scrapList() {
         return "scrap/user-scrap";
-    }
-
-    @GetMapping("/mypage/apply")
-    public String applyList() {
-        return "resume/apply-list";
-    }
-
-    @GetMapping("/mypage/apply/com")
-    public String applyManageList() {
-        return "resume/com-apply-list";
     }
 
 }

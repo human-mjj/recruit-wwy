@@ -43,11 +43,24 @@ public class ResumeController {
         return "redirect:/mypage/resume";
     }
 
-    @GetMapping("/resume/1/update-form")
-    public String resumeUpdateForm() {
+    @GetMapping("/resume/{id}/update-form")
+    public String resumeUpdateForm(@PathVariable("id") Integer id, HttpServletRequest request) {
+        Resume resume = resumeService.findById(id);
+        request.setAttribute("model", resume);
         return "resume/update-form";
     }
 
+    @PostMapping("/resume/{id}/update")
+    public String resumeUpdate(@PathVariable("id") Integer id, ResumeRequest.UpdateDTO updateDTO) {
+        resumeService.update(id, updateDTO);
+        return "redirect:/mypage/resume";
+    }
+
+    @PostMapping("/resume/{id}/delete")
+    public String resumeDelete(@PathVariable("id") Integer resumeId) {
+        resumeService.delete(resumeId);
+        return "redirect:/mypage/resume";
+    }
 
 }
 

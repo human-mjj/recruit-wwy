@@ -23,6 +23,16 @@ public class ApplyService {
     private final EmploymentRepository employmentRepository;
     private final ResumeRepository resumeRepository;
 
+    public List<ApplyResponse.UserApplyDTO> findUserApply(User sessionUser) {
+        List<ApplyResponse.UserApplyDTO> userApplyDTO = applyRepository.findUserApplyById(sessionUser.getId());
+        return userApplyDTO;
+    }
+
+    public List<ApplyResponse.ComApplyDTO> findComApply(User sessionUser) {
+        List<ApplyResponse.ComApplyDTO> comApplyDTO = applyRepository.findComApplyById(sessionUser.getId());
+        return comApplyDTO;
+    }
+
     @Transactional
     public void apply(User sessionUser, ApplyRequest.SaveDTO saveDTO, int employmentId) {
         Resume resume = resumeRepository.findByResumeId(saveDTO.getResumeId());
