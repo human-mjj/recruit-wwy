@@ -1,17 +1,15 @@
 package com.example.recruit_page_wwy.employment;
 
 
-import com.example.recruit_page_wwy.employstack.EmployStack;
 import com.example.recruit_page_wwy.resume.Resume;
 import com.example.recruit_page_wwy.resume.ResumeRepository;
 import com.example.recruit_page_wwy.user.User;
 import com.example.recruit_page_wwy.user.UserRepository;
-import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -71,7 +69,7 @@ public class EmploymentService {
 
         List<String> duty = new ArrayList<>();
         if (dutyStr != null && !dutyStr.isBlank()) {
-            String[] dutyArr = dutyStr.split(",");
+            String[] dutyArr = dutyStr.split("\\$");
             for (String d : dutyArr) {
                 duty.add(d.trim());
             }
@@ -79,7 +77,7 @@ public class EmploymentService {
 
         List<String> qualification = new ArrayList<>();
         if (qualificationStr != null && !qualificationStr.isBlank()) {
-            String[] qualArr = qualificationStr.split(",");
+            String[] qualArr = qualificationStr.split("\\$");
             for (String q : qualArr) {
                 qualification.add(q.trim());
             }

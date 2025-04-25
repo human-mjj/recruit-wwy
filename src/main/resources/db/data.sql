@@ -121,25 +121,36 @@ values ('문정준', 'a32176740@gmail.com', '01032176740', '1234', null, 1, 'WWY
 -- 채용 공고 테이블 dummy
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('Spring 백엔드 개발자 모집', 4, '1년 이상', '대졸 이상', '정규직', 3,
-        'REST API 개발 및 유지보수', 'Java/Spring 경력 1년 이상, MySQL 경험 우대', 4200,
-        '09:30 ~ 18:30', '서울특별시 강남구', '2025-05-31', NULL);
+VALUES ('Spring 백엔드 개발자 모집', 4, '1년 이상', '대졸 이상',
+        '정규직', 3,
+        'REST API 개발 및 유지보수$기존 서비스 코드 리팩토링$MySQL 기반 데이터 처리$협업을 위한 문서화',
+        'Java/Spring 경력 1년 이상$MySQL 경험 우대$협업 및 커뮤니케이션 능력$Git 사용 가능자',
+        4200, '09:30 ~ 18:30', '서울특별시 강남구', '2025-05-31', NULL);
+
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('프론트엔드 React 개발자 채용', 4, '신입~3년', '무관', '정규직', 2,
-        '웹 서비스 프론트 개발', 'React 사용 가능자, 포트폴리오 필수', 3800,
-        '10:00 ~ 19:00', '서울특별시 마포구', '2025-06-15', NULL);
+VALUES ('프론트엔드 React 개발자 채용', 4, '신입~3년', '무관',
+        '정규직', 2,
+        '웹 서비스 프론트 개발$반응형 UI 구현$API 연동 작업$컴포넌트 단위 개발 및 유지보수',
+        'React 사용 가능자$포트폴리오 필수$HTML/CSS/JS 기본 지식$Git 사용 가능자',
+        3800, '10:00 ~ 19:00', '서울특별시 마포구', '2025-06-15', NULL);
+
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('신입 백엔드 인턴 모집', 4, '신입', '초대졸 이상', '인턴', 2,
-        'Spring 기반 서비스 API 개발 및 문서화', '개발 열정, 깃허브 활동 확인 예정', 2500,
-        '09:00 ~ 17:00', '서울특별시 종로구', '2025-06-01', NULL);
+VALUES ('신입 백엔드 인턴 모집', 4, '신입', '초대졸 이상',
+        '인턴', 2,
+        'Spring 기반 서비스 API 개발 및 문서화$기초적인 테스트 코드 작성$코드 리뷰 참여$팀 프로젝트 참여',
+        '개발 열정$깃허브 활동 확인 예정$기초적인 Java/Spring 이해$학습 능력',
+        2500, '09:00 ~ 17:00', '서울특별시 종로구', '2025-06-01', NULL);
 
 -- job_id: 1 => 데이터 분석
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('데이터 분석가 채용', 4, '1년 이상', '대졸 이상', '정규직', 1, '데이터 시각화 및 분석', 'Python, Pandas 경험', 4500, '09:00 ~ 18:00',
-        '서울특별시 성동구', '2025-06-30', NULL);
+VALUES ('데이터 분석가 채용', 4, '1년 이상', '대졸 이상',
+        '정규직', 1,
+        '데이터 시각화 및 분석$비즈니스 인사이트 도출$통계 기반 리포트 작성$대시보드 개발 및 유지',
+        'Python, Pandas 경험$SQL 활용 가능자$통계적 분석 이해$문제 해결 능력',
+        4500, '09:00 ~ 18:00', '서울특별시 성동구', '2025-06-30', NULL);
 
 -- 이력서 테이블 dummy
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)

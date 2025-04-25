@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
 @RequiredArgsConstructor
 @Repository
 public class EmploymentRepository {
@@ -53,26 +51,26 @@ public class EmploymentRepository {
 
     public Object findDetailRawById(Integer id) {
         String sql = """
-        SELECT 
-            e.id,
-            u.img_url,
-            e.title,
-            u.com_name,
-            e.exp,
-            e.edu,
-            e.shift,
-            e.sal,
-            e.working_time,
-            e.location,
-            e.end_date,
-            j.name,
-            e.duty,
-            e.qualification
-        FROM employment_tb e
-        JOIN user_tb u ON e.user_id = u.id
-        JOIN job_tb j ON e.job_id = j.id
-        WHERE e.id = ?
-    """;
+                    SELECT 
+                        e.id,
+                        u.img_url,
+                        e.title,
+                        u.com_name,
+                        e.exp,
+                        e.edu,
+                        e.shift,
+                        e.sal,
+                        e.working_time,
+                        e.location,
+                        e.end_date,
+                        j.name,
+                        e.duty,
+                        e.qualification
+                    FROM employment_tb e
+                    JOIN user_tb u ON e.user_id = u.id
+                    JOIN job_tb j ON e.job_id = j.id
+                    WHERE e.id = ?
+                """;
 
         Query query = em.createNativeQuery(sql);
         query.setParameter(1, id);

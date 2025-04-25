@@ -5,13 +5,16 @@ import com.example.recruit_page_wwy.employstack.EmployStack;
 import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 
+@AllArgsConstructor
+@Builder
 @NoArgsConstructor
 @Getter
 @Table(name = "employment_tb")

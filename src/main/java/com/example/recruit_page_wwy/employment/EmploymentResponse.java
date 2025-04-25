@@ -3,7 +3,7 @@ package com.example.recruit_page_wwy.employment;
 import com.example.recruit_page_wwy.resume.Resume;
 import lombok.Data;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public class EmploymentResponse {
