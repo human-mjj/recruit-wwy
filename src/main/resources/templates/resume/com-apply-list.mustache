@@ -44,72 +44,26 @@
 			</tr>
 			</thead>
 			<tbody thead class="text-center">
-			<tr>
-				<td>1</td>
-				<td>
-					<a href="/employment/1">프론트엔드개발자 모집</a>
-				</td>
-				<td>김철수</td>
-				<td>프론트엔드 개발자</td>
-				<td>2025. 03. 11</td>
-				<td>대기</td>
-				<td>
-					<select
-							class="form-select form-select-sm"
-					>
-						<option value="대기">대기</option>
-						<option value="진행 중">
-							진행 중
-						</option>
-						<option value="완료">완료</option>
-						<option value="반려">반려</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>
-					<a href="/employment/1">웹 풀스택 개발자 모집</a>
-				</td>
-				<td>김영희</td>
-				<td>웹 풀스택 개발자</td>
-				<td>2025. 04. 01</td>
-				<td>대기</td>
-				<td>
-					<select
-							class="form-select form-select-sm"
-					>
-						<option value="대기">대기</option>
-						<option value="진행 중">
-							진행 중
-						</option>
-						<option value="완료">완료</option>
-						<option value="반려">반려</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>3</td>
-				<td><a href="/employment/1">백엔드 개발자 모집</a></td>
-				<td>Steve</td>
-				<td>Backend Developer</td>
-				<td>2025. 04. 11</td>
-				<td>반려</td>
-				<td>
-					<select
-							class="form-select form-select-sm"
-					>
-						<option value="대기">대기</option>
-						<option value="진행 중">
-							진행 중
-						</option>
-						<option value="완료">완료</option>
-						<option value="반려" selected>
-							반려
-						</option>
-					</select>
-				</td>
-			</tr>
+			{{#models}}
+				<tr>
+					<td>{{id}}</td>
+					<td>
+						<a href="/employment/1">{{title}}</a>
+					</td>
+					<td>{{username}}</td>
+					<td>{{name}}</td>
+					<td>{{createdAt}}</td>
+					<td>{{progress}}</td>
+					<td>
+						<select class="form-select form-select-sm">
+							<option value="대기" {{#isWaiting}}selected{{/isWaiting}}>대기</option>
+							<option value="진행 중" {{#isInProgress}}selected{{/isInProgress}}>진행 중</option>
+							<option value="완료" {{#isDone}}selected{{/isDone}}>완료</option>
+							<option value="반려" {{#isRejected}}selected{{/isRejected}}>반려</option>
+						</select>
+					</td>
+				</tr>
+			{{/models}}
 			</tbody>
 		</table>
 	</div>

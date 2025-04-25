@@ -117,6 +117,8 @@ insert into user_tb(username, email, phone, password, img_url, role, com_name, i
 values ('편준민', 'love@nate.com', '01013572468', '1234', null, 0, null, null);
 insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
 values ('문정준', 'a32176740@gmail.com', '01032176740', '1234', null, 1, 'WWY', 1);
+insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
+values ('홍길동', '1234@nate.com', '01022223333', '1234', null, 1, 'HOG', 1);
 
 -- 채용 공고 테이블 dummy
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
@@ -203,6 +205,8 @@ INSERT INTO apply_tb (user_id, resume_id, employment_id, created_at, progress)
 VALUES (3, 3, 3, NOW(), '진행 중');
 INSERT INTO apply_tb (user_id, resume_id, employment_id, created_at, progress)
 VALUES (1, 1, 2, NOW(), '완료');
+INSERT INTO apply_tb (user_id, resume_id, employment_id, created_at, progress)
+VALUES (1, 1, 5, NOW(), '대기');
 
 -- 제안 테이블 dummy
 insert into proposal_tb(user_id, resume_id, employment_id, created_at)
