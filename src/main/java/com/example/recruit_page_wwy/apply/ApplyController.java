@@ -1,10 +1,12 @@
 package com.example.recruit_page_wwy.apply;
 
 import com.example.recruit_page_wwy.user.User;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -35,10 +37,10 @@ public class ApplyController {
         return "resume/com-apply-list";
     }
 
-    @PostMapping("/apply")
-    public String apply(ApplyRequest.SaveDTO saveDTO) {
+    @PostMapping("/employment/{id}/apply")
+    public String apply(@PathVariable("id") int employmentId, ApplyRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        applyService.apply(sessionUser, saveDTO);
+        applyService.apply(sessionUser, saveDTO, employmentId);
         return "redirect:/mypage/apply";
     }
 }

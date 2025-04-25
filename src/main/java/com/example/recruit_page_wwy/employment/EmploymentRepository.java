@@ -93,4 +93,8 @@ public class EmploymentRepository {
         Long count = ((Number) query.getSingleResult()).longValue();
         return count > 0;
     }
+
+    public Employment findByEmploymentId(int employmentId) {
+        return em.find(Employment.class, employmentId);
+    }
 }
