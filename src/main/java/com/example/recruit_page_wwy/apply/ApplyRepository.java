@@ -10,4 +10,7 @@ import org.springframework.stereotype.Repository;
 public class ApplyRepository {
     private final EntityManager em;
 
+    public void save(Apply apply) {
+        em.persist(apply);
+    }
 }
