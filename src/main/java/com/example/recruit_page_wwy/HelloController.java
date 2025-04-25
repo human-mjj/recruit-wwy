@@ -48,14 +48,4 @@ public class HelloController {
         return "employment/update-form";
     }
 
-    @GetMapping("/mypage/scrap/com")
-    public String scrapComList() {
-        return "scrap/com-scrap";
-    }
-
-    @GetMapping("/mypage/scrap")
-    public String scrapList() {
-        return "scrap/user-scrap";
-    }
-
 }
