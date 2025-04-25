@@ -1,12 +1,16 @@
 package com.example.recruit_page_wwy.employment;
 
 
+import com.example.recruit_page_wwy.employstack.EmployStack;
+import com.example.recruit_page_wwy.employstack.EmployStackRepository;
+import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.resume.Resume;
 import com.example.recruit_page_wwy.resume.ResumeRepository;
 import com.example.recruit_page_wwy.user.User;
 import com.example.recruit_page_wwy.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -18,6 +22,7 @@ public class EmploymentService {
     private final EmploymentRepository employmentRepository;
     private final UserRepository userRepository;
     private final ResumeRepository resumeRepository;
+    private final EmployStackRepository employStackRepository;
 
     public List<EmploymentResponse.ListDTO> employmentList(Integer userId) {
         List<Employment> employmentList = employmentRepository.findAllByUserId(userId);
@@ -136,5 +141,16 @@ public class EmploymentService {
                 stackStr,
                 resumeList
         );
+    }
+
+    @Transactional
+    public void saveEmployment(EmploymentRequest.SaveDTO dto, User user, Job job) {
+        Employment employment = dto.toEntity(user, job);
+        employmentRepository.save(employment);
+
+        for (String skill : dto.getStack()) {
+            EmployStack es = new EmployStack(employment, skill);
+            employStackRepository.save(es);
+        }
     }
 }
