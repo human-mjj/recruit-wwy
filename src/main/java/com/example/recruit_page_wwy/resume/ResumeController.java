@@ -56,6 +56,11 @@ public class ResumeController {
         return "redirect:/mypage/resume";
     }
 
+    @PostMapping("/resume/{id}/delete")
+    public String resumeDelete(@PathVariable("id") Integer resumeId) {
+        resumeService.delete(resumeId);
+        return "redirect:/mypage/resume";
+    }
 
 }
 

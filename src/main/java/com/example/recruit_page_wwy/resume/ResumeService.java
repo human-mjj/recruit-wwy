@@ -2,6 +2,8 @@ package com.example.recruit_page_wwy.resume;
 
 
 import com.example.recruit_page_wwy.user.User;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +14,9 @@ import java.util.List;
 @Service
 public class ResumeService {
     private final ResumeRepository resumeRepository;
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Transactional
     public void save(ResumeRequest.SaveDTO saveDTO) {
@@ -59,7 +64,8 @@ public class ResumeService {
                 updateDTO.getJob_id(),
                 updateDTO.getLocation(),
                 updateDTO.getQualified(),
-                updateDTO.getActivity()
+                updateDTO.getActivity(),
+                updateDTO.getSkills()
         );
 
 
@@ -67,5 +73,13 @@ public class ResumeService {
 
     public Resume findById(Integer id) {
         return resumeRepository.findByResumeId(id);
+    }
+
+    @Transactional
+    public void delete(int resumeId) {
+        Resume resume = em.find(Resume.class, resumeId);
+        if (resume != null) {
+            em.remove(resume);
+        }
     }
 }

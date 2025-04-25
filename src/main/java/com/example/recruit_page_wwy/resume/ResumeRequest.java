@@ -45,6 +45,7 @@ public class ResumeRequest {
             this.qualified = qualified;
             this.activity = activity;
             this.img_url = img_url;
+
             this.skills = skills;
         }
 
@@ -152,7 +153,9 @@ public class ResumeRequest {
         private String qualified;
         private String activity;
 
-        public UpdateDTO(Integer id, String title, String exp, String edu, String job, String location, String qualified, String activity) {
+        private List<String> skills;
+
+        public UpdateDTO(Integer id, String title, String exp, String edu, String job, String location, String qualified, String activity, List<String> skills) {
             this.id = id;
             this.title = title;
             this.exp = exp;
@@ -162,6 +165,7 @@ public class ResumeRequest {
             this.location = location;
             this.qualified = qualified;
             this.activity = activity;
+            this.skills = skills;
         }
 
 
