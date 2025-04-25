@@ -39,11 +39,11 @@ public class EmploymentRepository {
 
     public List<Employment> findTop4ByOrderByIdDesc() {
         String jpql = """
-            SELECT e FROM Employment e
-            JOIN FETCH e.user
-            JOIN FETCH e.job
-            ORDER BY e.id DESC
-        """;
+                    SELECT e FROM Employment e
+                    JOIN FETCH e.user
+                    JOIN FETCH e.job
+                    ORDER BY e.id DESC
+                """;
         return em.createQuery(jpql, Employment.class)
                 .setMaxResults(4)
                 .getResultList();
@@ -92,5 +92,9 @@ public class EmploymentRepository {
 
         Long count = ((Number) query.getSingleResult()).longValue();
         return count > 0;
+    }
+
+    public Employment findByEmploymentId(int employmentId) {
+        return em.find(Employment.class, employmentId);
     }
 }
