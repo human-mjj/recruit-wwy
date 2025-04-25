@@ -48,10 +48,17 @@ public class ResumeRepository {
     }
 
     public Resume findByResumeId(Integer id) {
-        Query query = em.createNativeQuery("select r.ID, r.TITLE,  u.USERNAME,  u.PHONE,  u.EMAIL, r.EXP,  r.EDU, r.JOB_ID,  r.LOCATION,   r.QUALIFIED,   r.ACTIVITY,  r.IMG_URL,  r.LETTER, r.USER_ID from resume_tb r inner join user_tb u on r.user_id = u.id " +
+        Query query = em.createNativeQuery("select r.ID, r.TITLE,  u.USERNAME,  u.PHONE,  u.EMAIL, r.EXP,  r.EDU, r.JOB_ID,  r.LOCATION,   r.QUALIFIED,   r.ACTIVITY,  r.IMG_URL,  r.LETTER, r.USER_ID from resume_tb r inner join user_tb u on r.id = u.id " +
                 "where r.id = ?", Resume.class);
         query.setParameter(1, id);
         return (Resume) query.getSingleResult();
+    }
+
+    public List<Resume> findByUserId(Integer userId) { // employment에서 이력서 작성자 찾기
+        String sql = "select * from resume_tb where user_id = ?";
+        Query query = em.createNativeQuery(sql, Resume.class);
+        query.setParameter(1, userId);
+        return query.getResultList();
     }
 
     public void update(Integer id, String title, String exp, String edu, Integer job_id, String location, String qualified, String activity, List<String> resumeStack) {

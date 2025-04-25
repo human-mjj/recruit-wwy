@@ -20,20 +20,20 @@ public class MatchRepository {
                 FROM employment_tb e
                 JOIN user_tb u ON e.user_id = u.id
                 WHERE e.job_id IN (
-                    SELECT r.job_tb
-                    FROM resume_tb r
-                    WHERE r.user_id = ?
-                )
-                OR e.id IN (
-                    SELECT est.employment_id
-                    FROM employment_stack_tb est
-                    WHERE est.skill IN (
-                        SELECT rst.skill
+                        SELECT r.job_id
                         FROM resume_tb r
-                        JOIN resume_stack_tb rst ON r.id = rst.resume_id
                         WHERE r.user_id = ?
                     )
-                )
+                    OR e.id IN (
+                        SELECT est.employment_id
+                        FROM employ_stack_tb est
+                        WHERE est.skill IN (
+                            SELECT rst.skill
+                            FROM resume_tb r
+                            JOIN resume_stack_tb rst ON r.id = rst.resume_id
+                            WHERE r.user_id = ?
+                        )
+                    )
                 """;
 
         Query query = em.createNativeQuery(sql);
@@ -62,7 +62,7 @@ public class MatchRepository {
                 FROM resume_tb r
                 JOIN resume_stack_tb rst ON r.id = rst.resume_id
                 JOIN user_tb u ON r.user_id = u.id
-                WHERE (r.job_tb IN (
+                WHERE (r.job_id IN (
                            SELECT e.job_id
                            FROM employment_tb e
                            WHERE e.user_id = ?
@@ -70,7 +70,7 @@ public class MatchRepository {
                    OR rst.skill IN (
                            SELECT est.skill
                            FROM employment_tb e
-                           JOIN employment_stack_tb est ON e.id = est.employment_id
+                           JOIN employ_stack_tb est ON e.id = est.employment_id
                            WHERE e.user_id = ?
                        ))
                 """;
