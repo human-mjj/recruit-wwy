@@ -2,12 +2,33 @@ package com.example.recruit_page_wwy.board;
 
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Repository
 public class BoardRepository {
     private final EntityManager em;
 
+    public void save(Integer userId, String title, String content) {
+        Query query = em.createNativeQuery("insert into board_tb(user_id, title, content) values (?, ?, ?)");
+        query.setParameter(1, userId);
+        query.setParameter(2, title);
+        query.setParameter(3, content);
+        query.executeUpdate();
+    }
+
+    public List<Board> findAll() {
+        Query query = em.createNativeQuery("select * from board_tb", Board.class);
+        return query.getResultList();
+    }
+
+    public Board findByBoardId(Integer boardId) {
+        Query query = em.createNativeQuery("select * from board_tb where board_id = ?", Board.class);
+        query.setParameter(1, boardId);
+        return (Board) query.getResultList();
+    }
 }
