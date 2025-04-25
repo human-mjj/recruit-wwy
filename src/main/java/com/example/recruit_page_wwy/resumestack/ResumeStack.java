@@ -17,6 +17,7 @@ public class ResumeStack {
 
     // 이력서 ID
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "resume_id", nullable = false, foreignKey = @ForeignKey(name = "fk_resume_stack_to_resume"))
     private Resume resume;
 
     // 이력서에 작성할 기술 스택
