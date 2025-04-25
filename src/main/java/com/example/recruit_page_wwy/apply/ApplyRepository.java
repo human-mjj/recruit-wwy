@@ -6,7 +6,6 @@ import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +21,13 @@ public class ApplyRepository {
     // UserApply
     public List<ApplyResponse.UserApplyDTO> findUserApplyById(int userId) {
         String sql = """
-                SELECT DISTINCT u.com_name, e.job_id, a.created_at, a.progress
+                SELECT DISTINCT u.com_name, j.name, FORMATDATETIME(a.created_at, 'yyyy-MM-dd'), a.progress
                 FROM APPLY_TB a
                 INNER JOIN EMPLOYMENT_TB e ON a.EMPLOYMENT_ID = e.id
                 INNER JOIN RESUME_TB r ON a.RESUME_ID  = r.id
                 INNER JOIN user_tb u ON e.user_id=u.id
+                
+                INNER JOIN JOB_TB j ON e.job_id=j.id
                 where a.user_id = ?
                 """;
         Query query = em.createNativeQuery(sql);
@@ -37,10 +38,10 @@ public class ApplyRepository {
 
         for (Object[] row : applyList) {
             String comName = (String) row[0];
-            Integer jobId = (Integer) row[1];
-            Timestamp createdAt = (Timestamp) row[2];
+            String name = (String) row[1];
+            String createdAt = (String) row[2];
             String progress = (String) row[3];
-            result.add(new ApplyResponse.UserApplyDTO(comName, jobId, createdAt, progress));
+            result.add(new ApplyResponse.UserApplyDTO(comName, name, createdAt, progress));
         }
 
         return result;
@@ -49,11 +50,12 @@ public class ApplyRepository {
     // ComApply
     public List<ApplyResponse.ComApplyDTO> findComApplyById(int userId) {
         String sql = """
-                SELECT a.id, e.title, u.username, e.job_id,  a.created_at, a.PROGRESS
+                SELECT a.id, e.title, u.username, j.name, FORMATDATETIME(a.created_at, 'yyyy-MM-dd'), a.PROGRESS
                 FROM APPLY_TB a
                 INNER JOIN EMPLOYMENT_TB e ON a.EMPLOYMENT_ID = e.id
                 INNER JOIN RESUME_TB r ON a.RESUME_ID  = r.id
                 INNER JOIN user_tb u ON r.user_id=u.id
+                INNER JOIN JOB_TB j ON e.job_id=j.id
                 where e.user_id = ?
                 """;
         Query query = em.createNativeQuery(sql);
@@ -66,10 +68,10 @@ public class ApplyRepository {
             Integer ApplyId = (Integer) row[0];
             String title = (String) row[1];
             String username = (String) row[2];
-            Integer jobId = (Integer) row[3];
-            Timestamp createdAt = (Timestamp) row[4];
+            String name = (String) row[3];
+            String createdAt = (String) row[4];
             String progress = (String) row[5];
-            result.add(new ApplyResponse.ComApplyDTO(ApplyId, title, username, jobId, createdAt, progress));
+            result.add(new ApplyResponse.ComApplyDTO(ApplyId, title, username, name, createdAt, progress));
         }
 
         return result;
