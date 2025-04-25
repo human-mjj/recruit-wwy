@@ -29,12 +29,13 @@
                                 class="title-wrap d-flex gap-4 align-items-center"
                         >
                             <figure class="doc-logo">
-                                <img src="/img/naver_logo_basic.png" alt=""/>
+                                <img src="{{#imgUrl}}{{imgUrl}}{{/imgUrl}}{{^imgUrl}}/img/naver_logo_basic.png{{/imgUrl}}"
+                                     alt=""/>
                             </figure>
                             <!-- .doc-logo end -->
                             <div class="d-flex flex-column gap-2">
-                                <h3 class="title">채용공고 제목</h3>
-                                <p class="description">회사명</p>
+                                <h3 class="title">{{models.title}}</h3>
+                                <p class="description">{{models.comName}}</p>
                             </div>
                         </div>
                         <div class="btn-wrap mt-1">
@@ -48,14 +49,16 @@
                         </div>
                         <!-- .toggle-btn end -->
                     </div>
-                    <div class="btn-wrap d-flex justify-content-end">
-                        <a href="/job/1/update-form" class="btn btn-warning me-1"
-                        >수정</a
-                        >
-                        <form action="/job/1/delete" method="post">
-                            <button class="btn btn-danger">삭제</button>
-                        </form>
-                    </div>
+                    {{#isOwner}}
+                        <div class="btn-wrap d-flex justify-content-end">
+                            <a href="/job/1/update-form" class="btn btn-warning me-1"
+                            >수정</a
+                            >
+                            <form action="/job/1/delete" method="post">
+                                <button class="btn btn-danger">삭제</button>
+                            </form>
+                        </div>
+                    {{/isOwner}}
                 </div>
                 <!-- .doc-info1 end -->
                 <div
@@ -68,7 +71,7 @@
                             >
                                 <h4 class="fs-6 fw-semibold">경력</h4>
                                 <span class="fs-6 fw-semibold"
-                                >내용</span
+                                >{{models.exp}}</span
                                 >
                             </div>
                             <div
@@ -78,7 +81,7 @@
                                     학력
                                 </h4>
                                 <span class="fs-6 fw-semibold"
-                                >내용</span
+                                >{{models.edu}}</span
                                 >
                             </div>
                         </div>
@@ -91,7 +94,7 @@
                                     근무 형태
                                 </h4>
                                 <span class="fs-6 fw-semibold"
-                                >내용</span
+                                >{{models.shift}}</span
                                 >
                             </div>
                             <div
@@ -99,7 +102,7 @@
                             >
                                 <h4 class="fs-6 fw-semibold">급여</h4>
                                 <span class="fs-6 fw-semibold"
-                                >내용</span
+                                >{{models.sal}}</span
                                 >
                             </div>
                         </div>
@@ -112,7 +115,7 @@
                                     근무시간
                                 </h4>
                                 <span class="fs-6 fw-semibold"
-                                >내용</span
+                                >{{models.workingTime}}</span
                                 >
                             </div>
                             <div
@@ -120,7 +123,7 @@
                             >
                                 <h4 class="fs-6 fw-semibold">근무지역</h4>
                                 <span class="fs-6 fw-semibold"
-                                >내용</span
+                                >{{models.location}}</span
                                 >
                             </div>
                         </div>
@@ -131,7 +134,7 @@
                             >
                                 <h4 class="fs-6 fw-semibold">마감일</h4>
                                 <span class="fs-6 fw-semibold"
-                                >내용</span
+                                >{{models.endDate}}</span
                                 >
                             </div>
                         </div>
@@ -141,34 +144,26 @@
                 <ul class="d-flex flex-column mt-5 pt-5">
                     <li class="d-flex flex-column mb-5">
                         <h4 class="fs-4 fw-semibold mb-3">주요 업무</h4>
-                        <p class="fs-6">
-                            - 자사 웹 서비스 및 관리 시스템의 프론트엔드
-                            개발<br/>
-                            - UI/UX 개선을 위한 기획 및 구현<br/>
-                            - 디자이너 및 백엔드 개발자와의 협업<br/>
-                            - 다양한 브라우저 및 디바이스 대응을 위한
-                            반응형 개발<br/>
-                            - 성능 최적화 및 웹 접근성 향상
-                        </p>
+                        <ul>
+                            {{#models.duty}}
+                                <li class="fs-6" style="list-style:disc outside none">{{.}}</li>
+                            {{/models.duty}}
+                        </ul>
                     </li>
                     <li class="d-flex flex-column mb-5">
                         <h4 class="fs-4 fw-semibold mb-3">자격 요건</h4>
-                        <p class="fs-6">
-                            - 프론트엔드 개발 경험 (HTML, CSS, JavaScript, React, Vue.js 등) UI/UX 설계 및 개선 경험<br />
-                            - 웹 성능 최적화 및 웹 접근성 향상 경험<br />
-                            - 다양한 브라우저 및 디바이스에서 반응형 웹 개발 경험<br />
-                            - 디자이너 및 백엔드 개발자와의 원활한 협업 경험<br />
-                            - Git, GitHub 등 버전 관리 시스템 사용 경험<br />
-                            - 문제 해결 능력<br />
-                            - 최신 웹 기술에 대한 관심과 학습 의지
-                        </p>
+                        <ul>
+                            {{#models.qualification}}
+                                <li class="fs-6" style="list-style:disc outside none">{{.}}</li>
+                            {{/models.qualification}}
+                        </ul>
                     </li>
                 </ul>
                 <ul class="point-wrap d-flex flex-column gap-2">
                     <li class="w100 rounded border p-5 d-flex">
                         <h4 class="fs-5 fw-semibold w-25">직무</h4>
                         <p class="fs-6 fw-medium px-3">
-                            프론트엔드 웹/앱
+                            {{models.jobName}}
                         </p>
                     </li>
                     <li class="w100 rounded border p-5 d-flex">
@@ -176,8 +171,7 @@
                             기술 스택
                         </h4>
                         <p class="fs-6 fw-medium px-3">
-                            Linux, Docker, Python, React, TypeScript,
-                            Next.js, css3
+                            {{models.stackStr}}
                         </p>
                     </li>
                 </ul>
@@ -188,39 +182,42 @@
                     class="apply-wrap border rounded p-5 d-flex flex-column gap-3"
             >
                 <div class="logo-wrap">
-                    <figure><img src="/img/naver_logo_basic.png" alt="" class="w-100"/></figure>
+                    <figure><img src="{{#imgUrl}}{{imgUrl}}{{/imgUrl}}{{^imgUrl}}/img/naver_logo_basic.png{{/imgUrl}}"
+                                 alt="" class="w-100"/></figure>
                 </div>
                 <ul class="info-wrap">
-                    <li class="fs-4 fw-bold">채용공고 제목</li>
-                    <li>회사명</li>
+                    <li class="fs-4 fw-bold">{{models.title}}</li>
+                    <li>{{models.comName}}</li>
                 </ul>
                 <div class="select-wrap d-flex flex-column gap-2">
-                    <div class="dropdown">
-                        <button
-                                type="button"
-                                class="btn btn-outline-primary dropdown-toggle w-100"
-                                data-bs-toggle="dropdown"
-                        >
-                            이력서 선택
-                        </button>
-                        <ul class="dropdown-menu w-100">
-                            <li>
-                                <a class="dropdown-item" href="#"
-                                >이력서1</a
-                                >
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#"
-                                >이력서2</a
-                                >
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="btn-wrap w-100">
-                    <button type="button" class="btn btn-primary w-100">
-                        지원하기
-                    </button>
+                    <form method="post" action="/employment/{{id}}/apply">
+                        <div class="dropdown">
+                            <button
+                                    type="button"
+                                    class="btn btn-outline-primary dropdown-toggle w-100"
+                                    data-bs-toggle="dropdown"
+                                    id="resumeSelectButton">
+                                이력서 선택
+                            </button>
+                            <ul class="dropdown-menu w-100">
+                                {{#resumeList}}
+                                    <li>
+                                        <a class="dropdown-item" href="#"
+                                           onclick="selectResume('{{id}}', '{{title}}')">{{title}}</a>
+                                    </li>
+                                {{/resumeList}}
+                            </ul>
+                        </div>
+
+                        <!-- 실제 데이터 담는코드. 지우지마세요. -->
+                        <input type="hidden" name="resumeId" id="resumeIdInput">
+
+                        <div class="btn-wrap w-100 mt-3">
+                            <button type="submit" class="btn btn-primary w-100">
+                                지원하기
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </aside>
             <!-- .apply-wrap end -->
@@ -228,5 +225,12 @@
         <!-- .inner end -->
     </section>
 </main>
+
+<script>
+    function selectResume(id, title) {
+        document.getElementById('resumeIdInput').value = id;
+        document.getElementById('resumeSelectButton').innerText = title;
+    }
+</script>
 
 {{> layout/footer}}
