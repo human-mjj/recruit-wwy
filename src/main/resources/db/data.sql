@@ -137,7 +137,6 @@ VALUES ('프론트엔드 React 개발자 채용', 4, '신입~3년', '무관',
         'React 사용 가능자$포트폴리오 필수$HTML/CSS/JS 기본 지식$Git 사용 가능자',
         3800, '10:00 ~ 19:00', '서울특별시 마포구', '2025-06-15', NULL);
 
-
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
 VALUES ('웹 프론트엔드 인턴 채용', 5, '신입', '학력무관', '인턴', 3,
