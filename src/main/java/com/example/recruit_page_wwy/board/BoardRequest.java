@@ -18,4 +18,15 @@ public class BoardRequest {
         }
 
     }
+
+    @Data
+    public static class UpdateDTO {
+        private String title;
+        private String content;
+
+        public UpdateDTO(Integer id, String title, String content) {
+            this.title = title;
+            this.content = content;
+        }
+    }
 }

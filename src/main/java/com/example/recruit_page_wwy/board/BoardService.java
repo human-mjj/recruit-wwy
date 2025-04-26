@@ -35,4 +35,9 @@ public class BoardService {
                 board.getContent()
         );
     }
+
+    @Transactional
+    public void boardUpdate(Integer id, BoardRequest.UpdateDTO updateDTO) {
+        boardRepository.boardUpdate(id, updateDTO.getTitle(), updateDTO.getContent());
+    }
 }

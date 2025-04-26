@@ -43,9 +43,15 @@ public class BoardController {
     }
 
 
-    @GetMapping("/board/1/update-form")
-    public String boardUpdateForm() {
+    @GetMapping("/board/{id}/update-form")
+    public String boardUpdateForm(@PathVariable("id") Integer id) {
         return "board/update-form";
+    }
+
+    @PostMapping("/board/{id}/update")
+    public String boardUpdate(@PathVariable("id") Integer id, BoardRequest.UpdateDTO updateDTO) {
+        boardService.boardUpdate(id, updateDTO);
+        return "redirect:/board";
     }
 
     @PostMapping("/board/1/delete")
