@@ -117,6 +117,8 @@ insert into user_tb(username, email, phone, password, img_url, role, com_name, i
 values ('편준민', 'love@nate.com', '01013572468', '1234', null, 0, null, null);
 insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
 values ('문정준', 'a32176740@gmail.com', '01032176740', '1234', null, 1, 'WWY', 1);
+insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
+values ('홍길동', '1234@nate.com', '01022223333', '1234', null, 1, 'HOG', 1);
 
 -- 채용 공고 테이블 dummy
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
@@ -134,6 +136,19 @@ VALUES ('프론트엔드 React 개발자 채용', 4, '신입~3년', '무관',
         '웹 서비스 프론트 개발$반응형 UI 구현$API 연동 작업$컴포넌트 단위 개발 및 유지보수',
         'React 사용 가능자$포트폴리오 필수$HTML/CSS/JS 기본 지식$Git 사용 가능자',
         3800, '10:00 ~ 19:00', '서울특별시 마포구', '2025-06-15', NULL);
+
+
+INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
+                           end_date, img_url)
+VALUES ('웹 프론트엔드 인턴 채용', 5, '신입', '학력무관', '인턴', 3,
+        'React 기반 UI 개발 및 유지보수', '포트폴리오 제출 필수, 협업 경험 우대', 2200,
+        '10:00 ~ 18:00', '서울특별시 강남구', '2025-06-10', NULL);
+
+INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
+                           end_date, img_url)
+VALUES ('데이터 분석 인턴 모집', 5, '신입', '대졸 이상', '인턴', 4,
+        'Python을 이용한 데이터 수집 및 시각화', 'SQL, Pandas 사용 경험자 우대', 2300,
+        '09:30 ~ 18:30', '서울특별시 마포구', '2025-05-20', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
@@ -203,6 +218,8 @@ INSERT INTO apply_tb (user_id, resume_id, employment_id, created_at, progress)
 VALUES (3, 3, 3, NOW(), '진행 중');
 INSERT INTO apply_tb (user_id, resume_id, employment_id, created_at, progress)
 VALUES (1, 1, 2, NOW(), '완료');
+INSERT INTO apply_tb (user_id, resume_id, employment_id, created_at, progress)
+VALUES (1, 1, 5, NOW(), '대기');
 
 -- 제안 테이블 dummy
 insert into proposal_tb(user_id, resume_id, employment_id, created_at)
