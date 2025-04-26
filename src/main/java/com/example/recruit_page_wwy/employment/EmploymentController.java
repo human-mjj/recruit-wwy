@@ -67,10 +67,10 @@ public class EmploymentController {
 
     @PostMapping("/employment/save")
     public String employmentSave(EmploymentRequest.SaveDTO saveDTO) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        // TODO 수정 필요함
-        //employmentService.saveEmployment(saveDTO, sessionUser);
-        return "redirect:/employment";
+//        User sessionUser = (User) session.getAttribute("sessionUser");
+//        saveDTO.setUser_id(sessionUser.getId());
+//        employmentService.save(saveDTO);
+        return "redirect:/mypage/employment";
     }
 
     @GetMapping("/employment/save-form")
