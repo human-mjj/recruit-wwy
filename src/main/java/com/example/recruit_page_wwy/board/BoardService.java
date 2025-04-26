@@ -23,13 +23,14 @@ public class BoardService {
         return boards;
     }
 
-    public BoardResponse.DetailDTO boardDetail(Integer boardId) {
-        Board board = boardRepository.findByBoardId(boardId);
+    public BoardResponse.DetailDTO boardDetail(Integer id) {
+        Board board = boardRepository.findByBoardId(id);
 
         User user = board.getUser();
 
         return new BoardResponse.DetailDTO(
                 board.getUser().getId(),
+                board.getUser().getUsername(),
                 board.getTitle(),
                 board.getContent()
         );

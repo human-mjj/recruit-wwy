@@ -22,13 +22,13 @@ public class BoardRepository {
     }
 
     public List<Board> findAll() {
-        Query query = em.createNativeQuery("select * from board_tb", Board.class);
+        Query query = em.createNativeQuery("select * from board_tb order by id desc", Board.class);
         return query.getResultList();
     }
 
-    public Board findByBoardId(Integer boardId) {
-        Query query = em.createNativeQuery("select * from board_tb where board_id = ?", Board.class);
-        query.setParameter(1, boardId);
-        return (Board) query.getResultList();
+    public Board findByBoardId(Integer id) {
+        Query query = em.createNativeQuery("select * from board_tb where id = ?", Board.class);
+        query.setParameter(1, id);
+        return (Board) query.getSingleResult();
     }
 }
