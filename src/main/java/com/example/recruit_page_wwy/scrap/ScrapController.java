@@ -16,18 +16,20 @@ public class ScrapController {
     private final HttpSession session;
 
     @GetMapping("/mypage/scrap")
-    public String scrapList(HttpServletRequest requset) {
+    public String scrapUserList(HttpServletRequest requset) {
         User sessinUser = (User) session.getAttribute("sessionUser");
-        List<ScrapRequest.ScrapDTO> scrapList = scrapService.find(sessinUser);
+        List<ScrapRequest.UserScrapDTO> scrapList = scrapService.ScrapUserfind(sessinUser);
         requset.setAttribute("models", scrapList);
 
         return "scrap/user-scrap";
     }
 
-
     @GetMapping("/mypage/scrap/com")
-    public String scrapComList() {
+    public String scrapComList(HttpServletRequest requset) {
+        User sessinUser = (User) session.getAttribute("sessionUser");
+        List<ScrapRequest.ComScrapDTO> scrapList = scrapService.ScrapComfind(sessinUser);
+        requset.setAttribute("models", scrapList);
+
         return "scrap/com-scrap";
     }
-
 }
