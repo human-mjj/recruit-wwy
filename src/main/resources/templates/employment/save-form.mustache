@@ -423,57 +423,29 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group mt-4">
+                        <div class="form-group mt-3">
                             <h3 class="mb-0">학력</h3>
-                            <div
-                                    class="d-flex align-items-center gap-3 mt-2"
-                            >
-                                <div class="form-check">
-                                    <input
-                                            class="form-check-input"
-                                            type="radio"
-                                            name="education"
-                                            id="highschool"
-                                            value="highschool"
-                                            checked
-                                    />
-                                    <label
-                                            class="form-check-label"
-                                            for="highschool"
-                                    >
-                                        대졸
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input
-                                            class="form-check-input"
-                                            type="radio"
-                                            name="education"
-                                            id="bachelor"
-                                            value="bachelor"
-                                    />
-                                    <label
-                                            class="form-check-label"
-                                            for="bachelor"
-                                    >
-                                        초대졸
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input
-                                            class="form-check-input"
-                                            type="radio"
-                                            name="education"
-                                            id="master"
-                                            value="master"
-                                    />
-                                    <label
-                                            class="form-check-label"
-                                            for="master"
-                                    >
-                                        고졸
-                                    </label>
-                                </div>
+                            <div class="d-flex gap-3 mt-2">
+                                <select class="form-select" name="education">
+                                    <option value="seoul"
+                                            disabled
+                                            selected>학력을 선택하세요</option>
+                                    <option value="univ_graduated">
+                                    대학교 / 졸업
+                                    </option>
+                                    <option value="univ_enrolled">
+                                        대학교 / 재학
+                                    </option>
+                                    <option value="highschool_graduated">
+                                        고등학교 / 졸업
+                                    </option>
+                                </select>
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        name="schoolName"
+                                        placeholder="학교명을 입력하세요"
+                                />
                             </div>
                         </div>
                     </div>

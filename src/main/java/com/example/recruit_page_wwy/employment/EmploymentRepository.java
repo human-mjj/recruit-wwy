@@ -99,7 +99,7 @@ public class EmploymentRepository {
 //        em.persist(employment);
 //    }
 //
-//    public Employment findByEmploymentId(int employmentId) {
-//        return em.find(Employment.class, employmentId);
-//    }
+    public Employment findByEmploymentId(int employmentId) {
+        return em.find(Employment.class, employmentId);
+    }
 }
