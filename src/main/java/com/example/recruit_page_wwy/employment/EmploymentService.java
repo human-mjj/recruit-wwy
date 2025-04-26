@@ -157,4 +157,15 @@ public class EmploymentService {
 //                saveDTO.getImg_url(), saveDTO.getSkills());
 //
 //    }
+
+    @Transactional
+    public void saveEmployment(EmploymentRequest.SaveDTO dto, User user, Job job) {
+        Employment employment = dto.toEntity(user, job);
+        employmentRepository.save(employment);
+
+        for (String skill : dto.getStack()) {
+            EmployStack es = new EmployStack(employment, skill);
+            employStackRepository.save(es);
+        }
+    }
 }
