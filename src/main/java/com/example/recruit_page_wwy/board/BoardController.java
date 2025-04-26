@@ -54,8 +54,9 @@ public class BoardController {
         return "redirect:/board";
     }
 
-    @PostMapping("/board/1/delete")
-    public String deleteBoard() {
+    @PostMapping("/board/{id}/delete")
+    public String deleteBoard(@PathVariable("id") Integer id) {
+        boardService.boardDelete(id);
         return "redirect:/board";
     }
 

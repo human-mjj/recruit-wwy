@@ -2,6 +2,8 @@ package com.example.recruit_page_wwy.board;
 
 
 import com.example.recruit_page_wwy.user.User;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +14,9 @@ import java.util.List;
 @Service
 public class BoardService {
     private final BoardRepository boardRepository;
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Transactional
     public void boardSave(BoardRequest.SaveDTO saveDTO) {
@@ -39,5 +44,13 @@ public class BoardService {
     @Transactional
     public void boardUpdate(Integer id, BoardRequest.UpdateDTO updateDTO) {
         boardRepository.boardUpdate(id, updateDTO.getTitle(), updateDTO.getContent());
+    }
+
+    @Transactional
+    public void boardDelete(Integer id) {
+        Board board = em.find(Board.class, id);
+        if (board != null) {
+            em.remove(board);
+        }
     }
 }

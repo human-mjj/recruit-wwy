@@ -39,4 +39,5 @@ public class BoardRepository {
         query.setParameter(3, id);
         query.executeUpdate();
     }
+    
 }
