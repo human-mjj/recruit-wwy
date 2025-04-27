@@ -1,5 +1,6 @@
 package com.example.recruit_page_wwy.employment;
 
+import com.example.recruit_page_wwy.employstack.EmployStack;
 import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.user.User;
 import lombok.Data;
@@ -22,7 +23,7 @@ public class EmploymentRequest {
         private List<String> duty;
         private List<String> qualification;
         private String jobName;
-        private List<String> stack;
+        private List<EmployStack> stack;
 
         public Employment toEntity(User user, Job job) {
             return Employment.builder()
@@ -38,6 +39,7 @@ public class EmploymentRequest {
                     .qualification(String.join("$", qualification))
                     .job(job)
                     .user(user)
+                    .employStackList(stack)
                     .build();
         }
     }
