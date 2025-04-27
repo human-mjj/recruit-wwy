@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.util.List;
 
 public class EmploymentResponse {
+
     @Data
     public static class ListDTO {
         private Integer id;
@@ -16,6 +17,7 @@ public class EmploymentResponse {
         private String location;
         private String jobName;
         private String imgUrl;
+
 
         public ListDTO(Employment e) {
             this.id = e.getId();
@@ -46,6 +48,7 @@ public class EmploymentResponse {
             this.location = e.getLocation();
             this.jobName = e.getJob().getName();
             this.imgUrl = e.getImgUrl();
+
         }
     }
 
