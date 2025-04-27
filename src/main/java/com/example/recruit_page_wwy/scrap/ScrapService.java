@@ -4,6 +4,7 @@ package com.example.recruit_page_wwy.scrap;
 import com.example.recruit_page_wwy.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,5 +21,12 @@ public class ScrapService {
     public List<ScrapRequest.ComScrapDTO> ScrapComfind(User sessinUser) {
         List<ScrapRequest.ComScrapDTO> comScrapList = scrapRepository.findAllComScrapById(sessinUser.getId());
         return comScrapList;
+    }
+
+    @Transactional
+    public ScrapResponse.SaveDTO Save(ScrapRequest.SaveDTO reqDTO, Integer sessionUserId) {
+        Scrap scrapPS = scrapRepository.save(reqDTO.toEntity(sessionUserId));
+
+        return new ScrapResponse.SaveDTO(scrapPS.getId());
     }
 }

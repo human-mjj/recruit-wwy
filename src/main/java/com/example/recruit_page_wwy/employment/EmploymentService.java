@@ -1,17 +1,13 @@
 package com.example.recruit_page_wwy.employment;
 
 
-import com.example.recruit_page_wwy.employstack.EmployStack;
 import com.example.recruit_page_wwy.employstack.EmployStackRepository;
-import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.resume.Resume;
 import com.example.recruit_page_wwy.resume.ResumeRepository;
-import com.example.recruit_page_wwy.resume.ResumeRequest;
 import com.example.recruit_page_wwy.user.User;
 import com.example.recruit_page_wwy.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.ArrayList;

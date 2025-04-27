@@ -59,4 +59,9 @@ public class ScrapRepository {
         }
         return result;
     }
+
+    public Scrap save(Scrap scrap) {
+        em.persist(scrap);
+        return scrap;
+    }
 }

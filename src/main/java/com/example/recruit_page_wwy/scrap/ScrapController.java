@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -33,5 +35,15 @@ public class ScrapController {
         return "scrap/com-scrap";
     }
 
+    @PostMapping("/api/scrap")
+    public Object saveLove(@RequestBody ScrapRequest.SaveDTO reqDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
 
+        if (sessionUser == null) {
+            throw new RuntimeException("로그인 해주세요");
+        }
+
+        ScrapResponse.SaveDTO respDTO = scrapService.Save(reqDTO, sessionUser.getId());
+        return respDTO;
+    }
 }

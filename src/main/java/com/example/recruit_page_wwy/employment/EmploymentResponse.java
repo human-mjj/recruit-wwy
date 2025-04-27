@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.util.List;
 
 public class EmploymentResponse {
+
     @Data
     public static class ListDTO {
         private Integer id;

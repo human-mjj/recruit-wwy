@@ -81,6 +81,7 @@ public class EmploymentController {
 
         EmploymentResponse.DetailDTO detailDTO = employmentService.findEmploymentDetail(id, sessionUserId);
         request.setAttribute("models", detailDTO);
+        System.out.println(detailDTO.getId());
 
 
         return "employment/detail";
@@ -98,4 +99,5 @@ public class EmploymentController {
     public String employmentSaveForm() {
         return "employment/save-form";
     }
+
 }
