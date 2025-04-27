@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.board;
 
 
+import com.example.recruit_page_wwy.reply.Reply;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -8,15 +9,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+
 public class BoardService {
     private final BoardRepository boardRepository;
 
     @PersistenceContext
     private EntityManager em;
+
 
     @Transactional
     public void boardSave(BoardRequest.SaveDTO saveDTO) {
@@ -29,16 +33,34 @@ public class BoardService {
     }
 
     public BoardResponse.DetailDTO boardDetail(Integer id) {
-        Board board = boardRepository.findByBoardId(id);
+        Board board = em.find(Board.class, id);
+
+        List<Reply> replyList = em.createQuery("select r from Reply r where r.board.id = :id", Reply.class)
+                .setParameter("id", id)
+                .getResultList();
 
         User user = board.getUser();
 
-        return new BoardResponse.DetailDTO(
-                board.getUser().getId(),
-                board.getUser().getUsername(),
-                board.getTitle(),
-                board.getContent()
-        );
+
+        List<BoardResponse.DetailDTO.ReplyDTO> replyDTOList = new ArrayList<>();
+
+        for (Reply reply : replyList) {
+            BoardResponse.DetailDTO.ReplyDTO replyDTO = new BoardResponse.DetailDTO.ReplyDTO(
+                    reply.getId(),
+                    reply.getUser().getId(),
+                    reply.getContent(),
+                    reply.getCreatedAt()
+            );
+            replyDTOList.add(replyDTO);
+        }
+
+        return BoardResponse.DetailDTO.builder()
+                .userId(board.getId())  // 게시글 ID
+                .title(board.getTitle())
+                .content(board.getContent())
+                .username(board.getUser().getUsername())
+                .replyList(replyDTOList)  // 댓글 리스트 추가
+                .build();
     }
 
     @Transactional
