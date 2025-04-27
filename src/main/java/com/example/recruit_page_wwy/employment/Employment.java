@@ -48,4 +48,9 @@ public class Employment {
     private String location;
     private Date endDate;
     private String imgUrl;
+
+    @Builder
+    public Employment(int id) {
+        this.id = id;
+    }
 }

@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="/css/job-list.css"/>
 </head>
 <!-- 채용공고 리스트 -->
-
 {{> layout/header}}
 
 <main>
@@ -144,69 +143,41 @@
                 <ul class="card-wrap row">
                     {{#models}}
                         <li class="card-1 col-3 mb-3">
-                            <a
-                                    href="/employment/{{id}}"
-                                    class="d-flex flex-column gap-2 w-100"
-                            >
-                                <figure
-                                        class="recommend-img overflow-hidden d-flex align-items-center border rounded"
-                                >
-                                    <img
-                                            class="w-100"
-                                            src="{{#imgUrl}}{{imgUrl}}{{/imgUrl}}{{^imgUrl}}/img/job_dummy.jpg{{/imgUrl}}"
-                                            alt="임시이미지"
-                                    />
+                            <a href="/employment/{{id}}" class="d-flex flex-column gap-2 w-100">
+                                <figure class="recommend-img overflow-hidden d-flex align-items-center border rounded">
+                                    <img class="w-100"
+                                         src="{{#imgUrl}}{{imgUrl}}{{/imgUrl}}{{^imgUrl}}/img/job_dummy.jpg{{/imgUrl}}"
+                                         alt="임시이미지"/>
                                 </figure>
-                                <div
-                                        class="recommend-content d-flex flex-column border rounded gap-3 py-3 px-3"
-                                >
-                                    <div
-                                            class="top d-flex justify-content-between"
-                                    >
-                                        <h3 class="fs-6 fw-medium">
-                                            {{title}}
-                                        </h3>
-                                        <div class="toggle-btn">
-                                            <i id="favoriteIcon" class="fa fa-star" style="
-                                        font-size: 24px;
-                                        color: yellow;
-                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
-                                    " onclick=""></i>
-                                        </div>
+                                <div class="recommend-content d-flex flex-column border rounded gap-3 py-3 px-3">
+                                    <div class="top d-flex justify-content-between">
+                                        <h3 class="fs-6 fw-medium">{{title}}</h3>
+                                        {{#ComCheck.isCompanyUser}}
+
+                                        {{/ComCheck.isCompanyUser}}
+                                        {{^ComCheck.isCompanyUser}}
+                                            <div class="toggle-btn">
+                                                <i id="favoriteIcon" class="fa fa-star"
+                                                   style="font-size: 24px; color: yellow; text-shadow: 0 0 1px #000, 0 0 1px #000;"
+                                                   onclick=""></i>
+                                            </div>
+                                        {{/ComCheck.isCompanyUser}}
                                         <!-- .toggle-btn end -->
                                     </div>
                                     <!-- .top end -->
-                                    <div
-                                            class="bottom d-flex flex-column gap-3"
-                                    >
+                                    <div class="bottom d-flex flex-column gap-3">
                                         <p class="fs-6">{{comName}}</p>
-                                        <ul
-                                                class="d-flex justify-content-start gap-4"
-                                        >
-                                            <li
-                                                    class="d-flex align-items-center gap-1"
-                                            >
-                                                <img
-                                                        src="/img/star_01.png"
-                                                        alt=""
-                                                />
+                                        <ul class="d-flex justify-content-start gap-4">
+                                            <li class="d-flex align-items-center gap-1">
+                                                <img src="/img/star_01.png" alt=""/>
                                                 <p class="fs-6">{{exp}}</p>
                                             </li>
-                                            <li
-                                                    class="d-flex align-items-center gap-1"
-                                            >
-                                                <img
-                                                        src="/img/marker_01.png"
-                                                        alt=""
-                                                />
-                                                <p class="fs-6">
-                                                    {{location}}
-                                                </p>
+                                            <li class="d-flex align-items-center gap-1">
+                                                <img src="/img/marker_01.png" alt=""/>
+                                                <p class="fs-6">{{location}}</p>
                                             </li>
                                         </ul>
-                                        <ul
-                                                class="duty d-flex justify-content-start gap-1"
-                                        >
+                                        <ul class="duty d-flex justify-content-start gap-1">
                                             <li class="p-2 rounded">
                                                 <p class="fs-6 fw-medium">
                                                     {{jobName}}
@@ -248,5 +219,7 @@
         </div>
     </section>
 </main>
+
+
 
 {{> layout/footer}}

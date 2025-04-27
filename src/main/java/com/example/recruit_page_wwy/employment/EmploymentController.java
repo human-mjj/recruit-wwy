@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.employment;
 
 import com.example.recruit_page_wwy.user.User;
+import com.example.recruit_page_wwy.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -49,18 +50,39 @@ public class EmploymentController {
     @GetMapping("/employment")
     public String employmentList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+
+        // 유저일 경우에만 스크랩 버튼 보이게 함 (로그인을 안해도 스크랩 버튼 보임)
+        if (sessionUser != null) {
+            UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
+            request.setAttribute("ComCheck", myDTO);
+        } else {
+            request.setAttribute("ComCheck", null); // 로그인 안 한 경우
+        }
+
         Integer userId = (sessionUser != null) ? sessionUser.getId() : null; // 로그인 안해도 접근할 수 있게
         request.setAttribute("models", employmentService.emplymentAllList(userId));
+
         return "employment/list";
     }
 
     @GetMapping("/employment/{id}")
     public String employmentDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+
+        // 유저일 경우에만 스크랩 버튼 보이게 함 (로그인을 안해도 스크랩 버튼 보임)
+        if (sessionUser != null) {
+            UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
+            request.setAttribute("ComCheck", myDTO);
+        } else {
+            request.setAttribute("ComCheck", null); // 로그인 안 한 경우
+        }
+
         Integer sessionUserId = (sessionUser != null) ? sessionUser.getId() : null;
 
         EmploymentResponse.DetailDTO detailDTO = employmentService.findEmploymentDetail(id, sessionUserId);
         request.setAttribute("models", detailDTO);
+        System.out.println(detailDTO.getId());
+
 
         return "employment/detail";
     }
@@ -77,4 +99,5 @@ public class EmploymentController {
     public String employmentSaveForm() {
         return "employment/save-form";
     }
+
 }

@@ -207,6 +207,8 @@ insert into scrap_tb(user_id, employment_id, resume_id)
 values (4, null, 2);
 insert into scrap_tb(user_id, employment_id, resume_id)
 values (4, null, 3);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (5, null, 3);
 
 -- 지원 테이블 dummy
 INSERT INTO apply_tb (user_id, resume_id, employment_id, created_at, progress)

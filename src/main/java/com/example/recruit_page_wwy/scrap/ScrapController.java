@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -16,18 +18,32 @@ public class ScrapController {
     private final HttpSession session;
 
     @GetMapping("/mypage/scrap")
-    public String scrapList(HttpServletRequest requset) {
+    public String scrapUserList(HttpServletRequest requset) {
         User sessinUser = (User) session.getAttribute("sessionUser");
-        List<ScrapRequest.ScrapDTO> scrapList = scrapService.find(sessinUser);
+        List<ScrapRequest.UserScrapDTO> scrapList = scrapService.ScrapUserfind(sessinUser);
         requset.setAttribute("models", scrapList);
 
         return "scrap/user-scrap";
     }
 
-
     @GetMapping("/mypage/scrap/com")
-    public String scrapComList() {
+    public String scrapComList(HttpServletRequest requset) {
+        User sessinUser = (User) session.getAttribute("sessionUser");
+        List<ScrapRequest.ComScrapDTO> scrapList = scrapService.ScrapComfind(sessinUser);
+        requset.setAttribute("models", scrapList);
+
         return "scrap/com-scrap";
     }
 
+    @PostMapping("/api/scrap")
+    public Object saveLove(@RequestBody ScrapRequest.SaveDTO reqDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+
+        if (sessionUser == null) {
+            throw new RuntimeException("로그인 해주세요");
+        }
+
+        ScrapResponse.SaveDTO respDTO = scrapService.Save(reqDTO, sessionUser.getId());
+        return respDTO;
+    }
 }
