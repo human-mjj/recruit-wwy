@@ -38,15 +38,19 @@
                                 <p class="description">{{models.comName}}</p>
                             </div>
                         </div>
-                        <div class="btn-wrap mt-1">
-                            <div class="toggle-btn">
-                                <i id="favoriteIcon" class="fa fa-star" style="
+                        {{#ComCheck.isCompanyUser}}
+                        {{/ComCheck.isCompanyUser}}
+                        {{^ComCheck.isCompanyUser}}
+                            <div class="btn-wrap mt-1">
+                                <div class="toggle-btn">
+                                    <i id="favoriteIcon" class="fa fa-star" style="
                                         font-size: 24px;
                                         color: yellow;
                                         text-shadow: 0 0 1px #000, 0 0 1px #000;
-                                    " onclick=""></i>
+                                    " onclick="saveScrap()"></i>
+                                </div>
                             </div>
-                        </div>
+                        {{/ComCheck.isCompanyUser}}
                         <!-- .toggle-btn end -->
                     </div>
                     {{#isOwner}}

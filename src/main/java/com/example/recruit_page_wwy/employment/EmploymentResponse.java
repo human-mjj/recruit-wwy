@@ -17,6 +17,7 @@ public class EmploymentResponse {
         private String jobName;
         private String imgUrl;
 
+
         public ListDTO(Employment e) {
             this.id = e.getId();
             this.title = e.getTitle();
@@ -46,6 +47,7 @@ public class EmploymentResponse {
             this.location = e.getLocation();
             this.jobName = e.getJob().getName();
             this.imgUrl = e.getImgUrl();
+
         }
     }
 

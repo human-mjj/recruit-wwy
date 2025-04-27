@@ -32,4 +32,6 @@ public class ScrapController {
 
         return "scrap/com-scrap";
     }
+
+
 }
