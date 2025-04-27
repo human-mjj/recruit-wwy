@@ -4,6 +4,7 @@ package com.example.recruit_page_wwy.board;
 import com.example.recruit_page_wwy.reply.Reply;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,7 +19,7 @@ import java.util.List;
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String title;
     private String content;
 
@@ -30,4 +31,13 @@ public class Board {
 
     @CreationTimestamp
     private Timestamp createdAt;
+
+    @Builder
+    public Board(Integer id, String title, String content, User user, Timestamp createdAt) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.user = user;
+        this.createdAt = createdAt;
+    }
 }
