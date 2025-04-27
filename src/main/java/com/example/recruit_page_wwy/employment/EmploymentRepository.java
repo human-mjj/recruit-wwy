@@ -95,10 +95,10 @@ public class EmploymentRepository {
     }
 
     // 저장(작성/수정)
-    public void save(Employment employment) {
-        em.persist(employment);
-    }
-
+//    public void save(Employment employment) {
+//        em.persist(employment);
+//    }
+//
     public Employment findByEmploymentId(int employmentId) {
         return em.find(Employment.class, employmentId);
     }

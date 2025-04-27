@@ -6,6 +6,7 @@ import com.example.recruit_page_wwy.employstack.EmployStackRepository;
 import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.resume.Resume;
 import com.example.recruit_page_wwy.resume.ResumeRepository;
+import com.example.recruit_page_wwy.resume.ResumeRequest;
 import com.example.recruit_page_wwy.user.User;
 import com.example.recruit_page_wwy.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -143,14 +144,28 @@ public class EmploymentService {
         );
     }
 
-    @Transactional
-    public void saveEmployment(EmploymentRequest.SaveDTO dto, User user, Job job) {
-        Employment employment = dto.toEntity(user, job);
-        employmentRepository.save(employment);
+//    public void save(EmploymentRequest.SaveDTO saveDTO) {
+//        employmentRepository.save(
+//                saveDTO.getUser_id(),
+//                saveDTO.getTitle(),
+//                saveDTO.getExp(),
+//                saveDTO.getEdu(),
+//                saveDTO.getJob_id(),
+//                saveDTO.getLocation(),
+//                saveDTO.getQualified(),
+//                saveDTO.getActivity(),
+//                saveDTO.getImg_url(), saveDTO.getSkills());
+//
+//    }
 
-        for (String skill : dto.getStack()) {
-            EmployStack es = new EmployStack(employment, skill);
-            employStackRepository.save(es);
-        }
-    }
+//    @Transactional
+//    public void saveEmployment(EmploymentRequest.SaveDTO dto, User user, Job job) {
+//        Employment employment = dto.toEntity(user, job);
+//        employmentRepository.save(employment);
+//
+//        for (String skill : dto.getStack()) {
+//            EmployStack es = new EmployStack(employment, skill);
+//            employStackRepository.save(es);
+//        }
+//    }
 }
