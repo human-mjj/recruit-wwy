@@ -14,7 +14,18 @@ import java.util.List;
 public class ScrapRepository {
     private final EntityManager em;
 
-    public List<ScrapRequest.ScrapDTO> findAll(int id) {
+    public Scrap findByUserIdAndEmployId(Integer sessionUserId, Integer employmentId) {
+        Query query = em.createQuery("select s from Scrap s where s.user.id = :sessionUserId and s.employment.id = :employmentId", Scrap.class);
+        query.setParameter("sessionUserId", sessionUserId);
+        query.setParameter("employmentId", employmentId);
+        try {
+            return (Scrap) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<ScrapRequest.UserScrapDTO> findAllUserScrapById(int id) {
         String sql = """
                 SELECT e.title, u.com_name, e.exp, e.location, j.name
                 FROM SCRAP_TB s\s
@@ -27,15 +38,51 @@ public class ScrapRepository {
         query.setParameter(1, id);
 
         List<Object[]> scrapList = query.getResultList();
-        List<ScrapRequest.ScrapDTO> result = new ArrayList<>();
+        List<ScrapRequest.UserScrapDTO> result = new ArrayList<>();
         for (Object[] row : scrapList) {
             String title = (String) row[0];
             String comName = (String) row[1];
             String exp = (String) row[2];
             String location = (String) row[3];
             String name = (String) row[4];
-            result.add(new ScrapRequest.ScrapDTO(title, comName, exp, location, name));
+            result.add(new ScrapRequest.UserScrapDTO(title, comName, exp, location, name));
         }
         return result;
+    }
+
+    public List<ScrapRequest.ComScrapDTO> findAllComScrapById(int id) {
+        String sql = """
+                SELECT r.title, u.username\s
+                FROM SCRAP_TB s\s
+                INNER JOIN RESUME_TB r ON S.RESUME_ID = R.ID
+                INNER JOIN USER_TB u ON s.RESUME_ID = u.id
+                where s.user_id = ?
+                """;
+        Query query = em.createNativeQuery(sql);
+        query.setParameter(1, id);
+
+        List<Object[]> scrapList = query.getResultList();
+        List<ScrapRequest.ComScrapDTO> result = new ArrayList<>();
+        for (Object[] row : scrapList) {
+            String title = (String) row[0];
+            String username = (String) row[1];
+            result.add(new ScrapRequest.ComScrapDTO(title, username));
+        }
+        return result;
+    }
+
+    public Scrap save(Scrap scrap) {
+        em.persist(scrap);
+        return scrap;
+    }
+
+    public Scrap findById(Integer id) {
+        return em.find(Scrap.class, id);
+    }
+
+    public void deleteById(Integer id) {
+        Query query = em.createQuery("delete from Scrap s where s.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 }
