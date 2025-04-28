@@ -4,6 +4,8 @@ package com.example.recruit_page_wwy.employment;
 import com.example.recruit_page_wwy.employstack.EmployStackRepository;
 import com.example.recruit_page_wwy.resume.Resume;
 import com.example.recruit_page_wwy.resume.ResumeRepository;
+import com.example.recruit_page_wwy.scrap.Scrap;
+import com.example.recruit_page_wwy.scrap.ScrapRepository;
 import com.example.recruit_page_wwy.user.User;
 import com.example.recruit_page_wwy.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ public class EmploymentService {
     private final UserRepository userRepository;
     private final ResumeRepository resumeRepository;
     private final EmployStackRepository employStackRepository;
+    private final ScrapRepository scrapRepository;
 
     public List<EmploymentResponse.ListDTO> employmentList(Integer userId) {
         List<Employment> employmentList = employmentRepository.findAllByUserId(userId);
@@ -115,6 +118,10 @@ public class EmploymentService {
             }
         }
 
+        Scrap scrap = scrapRepository.findByUserIdAndEmployId(sessionUserId, employmentId);
+        Boolean isScrap = scrap == null ? false : true;
+        Integer scrapId = scrap == null ? null : scrap.getId();
+
         return new EmploymentResponse.DetailDTO(
                 sessionUserId,
                 sessionUserRole,
@@ -136,7 +143,9 @@ public class EmploymentService {
                 jobName,
                 stackList,
                 stackStr,
-                resumeList
+                resumeList,
+                isScrap,
+                scrapId
         );
     }
 

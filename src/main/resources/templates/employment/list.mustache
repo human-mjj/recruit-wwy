@@ -152,16 +152,34 @@
                                 <div class="recommend-content d-flex flex-column border rounded gap-3 py-3 px-3">
                                     <div class="top d-flex justify-content-between">
                                         <h3 class="fs-6 fw-medium">{{title}}</h3>
-                                        {{#ComCheck.isCompanyUser}}
-
-                                        {{/ComCheck.isCompanyUser}}
-                                        {{^ComCheck.isCompanyUser}}
-                                            <div class="toggle-btn">
-                                                <i id="favoriteIcon" class="fa fa-star"
-                                                   style="font-size: 24px; color: yellow; text-shadow: 0 0 1px #000, 0 0 1px #000;"
-                                                   onclick=""></i>
-                                            </div>
-                                        {{/ComCheck.isCompanyUser}}
+                                        {{#sessionUser}}
+                                            {{^ComCheck.isCompanyUser}}
+                                                {{#models.isScrap}}
+                                                    <div class="btn-wrap mt-1">
+                                                        <div class="toggle-btn">
+                                                            <i id="scrapIcon" class="fa fa-star" style="
+                                        font-size: 24px;
+                                        color: yellow;
+                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
+                                  " onclick="deleteScrap({{models.scrapId}})"></i>
+                                                        </div>
+                                                    </div>
+                                                {{/models.isScrap}}
+                                                {{^models.isScrap}}
+                                                    <div class="btn-wrap mt-1">
+                                                        <div class="toggle-btn">
+                                                            <i id="scrapIcon" class="fa fa-star" style="
+                                        font-size: 24px;
+                                        color: black;
+                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
+                                  " onclick="saveScrap()"></i>
+                                                        </div>
+                                                    </div>
+                                                {{/models.isScrap}}
+                                            {{/ComCheck.isCompanyUser}}
+                                        {{/sessionUser}}
+                                        {{^sessionUser}}
+                                        {{/sessionUser}}
                                         <!-- .toggle-btn end -->
                                     </div>
                                     <!-- .top end -->
@@ -220,6 +238,38 @@
     </section>
 </main>
 
+<script>
+    let employmentId = document.querySelector("#employmentId").value;
 
+    async function saveScrap() {
+        let requestBody = {employmentId: employmentId};
+        let response = await fetch(`/api/scrap`, {
+            method: "POST",
+            body: JSON.stringify(requestBody),
+            headers: {"Content-Type": "application/json"}
+        });
+
+        let responseBody = await response.json(); // {scrapId}
+        console.log(responseBody);
+
+        // DOM 업데이트
+        let scrapIcon = document.querySelector('#scrapIcon');
+        scrapIcon.style.color = 'yellow';
+        scrapIcon.setAttribute('onclick', `deleteScrap(${responseBody.scrapId})`);
+    }
+
+    async function deleteScrap(scrapId) {
+        let response = await fetch(`/api/scrap/${scrapId}`, {
+            method: "DELETE"
+        });
+        let responseBody = await response.json(); // response.text();
+        console.log(responseBody);
+
+        // DOM 업데이트
+        let scrapIcon = document.querySelector('#scrapIcon');
+        scrapIcon.style.color = 'black';
+        scrapIcon.setAttribute('onclick', `saveScrap()`);
+    }
+</script>
 
 {{> layout/footer}}
