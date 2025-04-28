@@ -99,6 +99,9 @@ public class EmploymentResponse {
         private String stackStr;
         private List<ResumeDTO> resumeList;
 
+        private Boolean isScrap;
+        private Integer scrapId;
+
         @Data
         public static class ResumeDTO {
             private Integer id;
@@ -135,6 +138,8 @@ public class EmploymentResponse {
             this.stack = stackList;
             this.stackStr = stackStr;
             this.resumeList = resumeList;
+            // this.isScrap = isScrap;
+            // this.scrapId = scrapId;
         }
 
         // ✅ 파싱 함수 추가
