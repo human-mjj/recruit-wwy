@@ -14,6 +14,17 @@ import java.util.List;
 public class ScrapRepository {
     private final EntityManager em;
 
+    public Scrap findByUserIdAndEmployId(Integer sessionUserId, Integer employmentId) {
+        Query query = em.createQuery("select s from Scrap s where s.user.id = :sessionUserId and s.employment.id = :employmentId", Scrap.class);
+        query.setParameter("sessionUserId", sessionUserId);
+        query.setParameter("employmentId", employmentId);
+        try {
+            return (Scrap) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public List<ScrapRequest.UserScrapDTO> findAllUserScrapById(int id) {
         String sql = """
                 SELECT e.title, u.com_name, e.exp, e.location, j.name
@@ -63,5 +74,15 @@ public class ScrapRepository {
     public Scrap save(Scrap scrap) {
         em.persist(scrap);
         return scrap;
+    }
+
+    public Scrap findById(Integer id) {
+        return em.find(Scrap.class, id);
+    }
+
+    public void deleteById(Integer id) {
+        Query query = em.createQuery("delete from Scrap s where s.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 }
