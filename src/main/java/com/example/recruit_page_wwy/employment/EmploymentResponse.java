@@ -4,9 +4,58 @@ import com.example.recruit_page_wwy.resume.Resume;
 import lombok.Data;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmploymentResponse {
+
+    @Data
+    public static class EmploymentPageDTO {
+        private List<PublicListDTO> employments;
+        private Integer prev;
+        private Integer next;
+
+        private Integer size;
+        private Integer totalCount;
+        private Integer totalPage;
+        private Integer current;
+        private Boolean isFirst;
+        private Boolean isLast;
+        private List<Integer> numbers;
+
+        public EmploymentPageDTO(List<EmploymentResponse.PublicListDTO> employments, Integer current, Integer totalCount) {
+            this.size = 16;
+            this.employments = employments;
+            this.totalCount = totalCount;
+            this.totalPage = makeTotalPage(totalCount, size);
+            this.current = current;
+            this.prev = current - 1;
+            this.next = current + 1;
+
+            this.isFirst = current == 0;
+            this.isLast = (current - 1) == totalCount;
+            this.numbers = makeNumbers(current, totalPage);
+        }
+
+        private Integer makeTotalPage(int totalCount, int size) {
+            int rest = totalCount % size > 0 ? 1 : 0;
+            return totalCount / size + rest;
+        }
+
+        private List<Integer> makeNumbers(int current, int totalPage) {
+            List<Integer> numbers = new ArrayList<>();
+
+            int start = (current / 5) * 5;
+            int end = Math.min(start + 5, totalPage);
+
+            for (int i = start; i < end; i++) {
+                numbers.add(i + 1);
+            }
+
+            return numbers;
+        }
+    }
+
     @Data
     public static class ListDTO {
         private Integer id;

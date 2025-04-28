@@ -27,15 +27,24 @@ public class EmploymentRepository {
                 .getResultList();
     }
 
-    public List<Employment> findAll() {
+    public Long totalCount() {
+        String jpql = "SELECT COUNT(e) FROM Employment e";
+        Query query = em.createQuery(jpql, Long.class);
+        return (Long) query.getSingleResult();
+    }
+
+    public List<Employment> findAll(int page) {
         String jpql = """
                     SELECT e FROM Employment e 
                     JOIN FETCH e.user
                     JOIN FETCH e.job
-                    ORDER BY e.id DESC
+                    ORDER BY function('RAND')
                 """;
-        return em.createQuery(jpql, Employment.class)
-                .getResultList();
+        Query query = em.createQuery(jpql, Employment.class);
+        query.setFirstResult(page * 16);
+        query.setMaxResults(16);
+
+        return query.getResultList();
     }
 
     public List<Employment> findTop4ByOrderByIdDesc() {

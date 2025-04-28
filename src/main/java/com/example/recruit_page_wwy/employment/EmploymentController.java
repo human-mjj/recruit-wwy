@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -44,13 +45,14 @@ public class EmploymentController {
         return "employment/dashboard";
     }
 
-    // TODO
-    // 검색필터, 페이징 구현 필요
     @GetMapping("/employment")
-    public String employmentList(HttpServletRequest request) {
+    public String employmentList(HttpServletRequest request,
+                                 @RequestParam(required = false, value = "page", defaultValue = "0") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         Integer userId = (sessionUser != null) ? sessionUser.getId() : null; // 로그인 안해도 접근할 수 있게
-        request.setAttribute("models", employmentService.emplymentAllList(userId));
+
+        EmploymentResponse.EmploymentPageDTO model = employmentService.employmentList(userId, page);
+        request.setAttribute("model", model);
         return "employment/list";
     }
 

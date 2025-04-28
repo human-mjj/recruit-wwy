@@ -1,12 +1,10 @@
 package com.example.recruit_page_wwy.employment;
 
 
-import com.example.recruit_page_wwy.employstack.EmployStack;
 import com.example.recruit_page_wwy.employstack.EmployStackRepository;
 import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.resume.Resume;
 import com.example.recruit_page_wwy.resume.ResumeRepository;
-import com.example.recruit_page_wwy.resume.ResumeRequest;
 import com.example.recruit_page_wwy.user.User;
 import com.example.recruit_page_wwy.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,16 +35,17 @@ public class EmploymentService {
         return dtoList;
     }
 
-    public List<EmploymentResponse.PublicListDTO> emplymentAllList(Integer userId) {
-        List<Employment> employmentAllList = employmentRepository.findAll();
+    // 채용공고 리스트, paging
+    public EmploymentResponse.EmploymentPageDTO employmentList(Integer userId, Integer page) {
+        Long totalCount = employmentRepository.totalCount();
+        List<Employment> employmentList = employmentRepository.findAll(page);
 
         List<EmploymentResponse.PublicListDTO> dtoList = new ArrayList<>();
-        for (Employment e : employmentAllList) {
-            EmploymentResponse.PublicListDTO dto = new EmploymentResponse.PublicListDTO(e);
-            dtoList.add(dto);
+        for (Employment e : employmentList) {
+            dtoList.add(new EmploymentResponse.PublicListDTO(e));
         }
 
-        return dtoList;
+        return new EmploymentResponse.EmploymentPageDTO(dtoList, page, totalCount.intValue());
     }
 
     public List<Employment> viewEmployList() {
