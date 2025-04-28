@@ -49,9 +49,9 @@ public class EmploymentController {
     public String employmentList(HttpServletRequest request,
                                  @RequestParam(required = false, value = "page", defaultValue = "0") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Integer userId = (sessionUser != null) ? sessionUser.getId() : null; // 로그인 안해도 접근할 수 있게
+        if (sessionUser == null) throw new RuntimeException("401 Unauthorized");
 
-        EmploymentResponse.EmploymentPageDTO model = employmentService.employmentList(userId, page);
+        EmploymentResponse.EmploymentPageDTO model = employmentService.employmentList(sessionUser, page);
         request.setAttribute("model", model);
         return "employment/list";
     }

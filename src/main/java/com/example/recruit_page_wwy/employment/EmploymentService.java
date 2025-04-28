@@ -36,7 +36,7 @@ public class EmploymentService {
     }
 
     // 채용공고 리스트, paging
-    public EmploymentResponse.EmploymentPageDTO employmentList(Integer userId, Integer page) {
+    public EmploymentResponse.EmploymentPageDTO employmentList(User sessionUser, Integer page) {
         Long totalCount = employmentRepository.totalCount();
         List<Employment> employmentList = employmentRepository.findAll(page);
 
@@ -45,7 +45,7 @@ public class EmploymentService {
             dtoList.add(new EmploymentResponse.PublicListDTO(e));
         }
 
-        return new EmploymentResponse.EmploymentPageDTO(dtoList, page, totalCount.intValue());
+        return new EmploymentResponse.EmploymentPageDTO(dtoList, page, totalCount.intValue(), sessionUser);
     }
 
     public List<Employment> viewEmployList() {
