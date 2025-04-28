@@ -131,7 +131,7 @@ public class EmploymentRepository {
                 .setParameter("employmentId", employmentId)
                 .getResultList();
     }
-    
+
     public void updateStack(int employmentId, List<String> stackList) {
         em.remove(em.find(Employment.class, employmentId));
 
