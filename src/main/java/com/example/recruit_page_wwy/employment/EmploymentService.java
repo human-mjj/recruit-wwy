@@ -2,12 +2,14 @@ package com.example.recruit_page_wwy.employment;
 
 
 import com.example.recruit_page_wwy.employstack.EmployStackRepository;
+import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.resume.Resume;
 import com.example.recruit_page_wwy.resume.ResumeRepository;
 import com.example.recruit_page_wwy.scrap.Scrap;
 import com.example.recruit_page_wwy.scrap.ScrapRepository;
 import com.example.recruit_page_wwy.user.User;
 import com.example.recruit_page_wwy.user.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +39,7 @@ public class EmploymentService {
     }
 
     // 채용공고 리스트, paging
-    public EmploymentResponse.EmploymentPageDTO employmentList(User sessionUser, Integer page) {
+    public EmploymentResponse.EmploymentPageDTO employmentAllList(User sessionUser, Integer page) {
         Long totalCount = employmentRepository.totalCount();
         List<Employment> employmentList = employmentRepository.findAll(page);
 
@@ -46,7 +48,7 @@ public class EmploymentService {
             dtoList.add(new EmploymentResponse.PublicListDTO(e));
         }
 
-        return new EmploymentResponse.EmploymentPageDTO(dtoList, page, totalCount.intValue(), sessionUser);
+        return new EmploymentResponse.EmploymentPageDTO(dtoList, page, totalCount.intValue());
     }
 
     public List<Employment> viewEmployList() {

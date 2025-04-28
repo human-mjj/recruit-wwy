@@ -49,7 +49,8 @@ public class EmploymentController {
     @GetMapping("/employment")
     public String employmentList(HttpServletRequest request,
                                  @RequestParam(required = false, value = "page", defaultValue = "0") Integer page) {
-        EmploymentResponse.EmploymentPageDTO model = employmentService.employmentList(sessionUser, page);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        EmploymentResponse.EmploymentPageDTO model = employmentService.employmentAllList(sessionUser, page);
         request.setAttribute("model", model);
         return "employment/list";
     }

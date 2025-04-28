@@ -123,9 +123,6 @@ public class EmploymentResponse {
         private String stackStr;
         private List<ResumeDTO> resumeList;
 
-        private Boolean isScrap;
-        private Integer scrapId;
-
         @Data
         public static class ResumeDTO {
             private Integer id;
@@ -137,7 +134,7 @@ public class EmploymentResponse {
             }
         }
 
-        public DetailDTO(Integer sessionUserId, Integer sessionUserRole, Boolean isOwner, Boolean isApplicant, Integer id, String userImgUrl, String title, String comName, String exp, String edu, String shift, Integer sal, String workingTime, String location, Date endDate, List<String> duty, List<String> qualification, String jobName, List<String> stack, String stackStr, List<ResumeDTO> resumeList, Boolean isScrap, Integer scrapId) {
+        public DetailDTO(Integer sessionUserId, Integer sessionUserRole, Boolean isOwner, Boolean isApplicant, Integer id, String userImgUrl, String title, String comName, String exp, String edu, String shift, Integer sal, String workingTime, String location, Date endDate, List<String> duty, List<String> qualification, String jobName, List<String> stack, String stackStr, List<ResumeDTO> resumeList) {
             this.sessionUserId = sessionUserId;
             this.sessionUserRole = sessionUserRole;
             this.isOwner = isOwner;
@@ -159,8 +156,6 @@ public class EmploymentResponse {
             this.stack = stack;
             this.stackStr = stackStr;
             this.resumeList = resumeList;
-            this.isScrap = isScrap;
-            this.scrapId = scrapId;
         }
     }
 }
