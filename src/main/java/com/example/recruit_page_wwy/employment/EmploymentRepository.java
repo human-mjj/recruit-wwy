@@ -43,7 +43,7 @@ public class EmploymentRepository {
                     SELECT e FROM Employment e
                     JOIN FETCH e.user
                     JOIN FETCH e.job
-                    ORDER BY e.id DESC
+                    ORDER BY e.endDate DESC
                 """;
         return em.createQuery(jpql, Employment.class)
                 .setMaxResults(4)
