@@ -71,9 +71,6 @@ public class EmploymentService {
             }
         }
 
-        // 스택 문자열
-        String stackStr = String.join(", ", stackList);
-
         boolean isScrap = false;
         Integer scrapId = null;
 
@@ -91,7 +88,7 @@ public class EmploymentService {
         }
 
         // 최종 DTO 생성 (우리가 만든 깔끔한 생성자 사용)
-        return new EmploymentResponse.DetailDTO(sessionUser, employment, resumeList, stackList, stackStr, isScrap, scrapId);
+        return new EmploymentResponse.DetailDTO(sessionUser, employment, resumeList, stackList, isScrap, scrapId);
     }
 
     public EmploymentResponse.TableDTO viewJobAndStackList() {

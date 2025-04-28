@@ -222,7 +222,7 @@ VALUES ('보안 엔지니어 팀원 채용합니다', 4, '신입', '초대졸 �
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
 VALUES ('웹 프론트엔드 인턴 채용', 5, '신입', '학력무관', '인턴', 3,
-        'React 기반 UI 개발 및 유지보수', '포트폴리오 제출 필수, 협업 경험 우대', 2200,
+        'React 기반 UI 개발 및 유지보수', '포트폴리오 제출 필수$협업 경험 우대', 2200,
         '10:00 ~ 18:00', '서울특별시 강남구', '2025-06-10', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
@@ -772,50 +772,53 @@ values (5, 4, '댓글6', now());
 -- 채용공고-스택 테이블 dummy
 insert into employ_stack_tb(employment_id, skill)
 values
---     (1, 'java'),
---        (1, 'spring boot'),
---        (1, 'mysql'),
-(1, 'react'),
-(2, 'html'),
-(2, 'css'),
-(2, 'javascript'),
-(2, 'figma'),
-(3, 'javascript'),
-(3, 'mysql'),
-(3, 'node.js'),
-(3, 'git'),
-(4, 'python'),
-(4, 'pandas'),
-(4, 'powerbi'),
-(4, 'excel');
+    (1, 'java'),
+    (1, 'spring boot'),
+    (1, 'mysql'),
+
+    (2, 'javascript'),
+    (2, 'react'),
+    (2, 'html'),
+
+    (3, 'react'),
+    (3, 'javascript'),
+    (3, 'css'),
+
+    (4, 'python'),
+    (4, 'mysql'),
+    (4, 'git'),
+
+    (5, 'java'),
+    (5, 'spring boot'),
+    (5, 'git'),
+
+    (6, 'python'),
+    (6, 'mysql'),
+    (6, 'git');
 
 -- 이력서-스택 테이블 dummy
 insert into resume_stack_tb(resume_id, skill)
-values (1, 'java'),
-       (1, 'spring boot'),
-       (1, 'mysql'),
-       (1, 'git'),
-       (2, 'html'),
-       (2, 'css'),
-       (2, 'javascript'),
-       (2, 'react'),
-       (2, 'figma'),
-       (3, 'javascript'),
-       (3, 'mysql'),
-       (3, 'node.js'),
-       (3, 'python'),
-       (3, 'git'),
-       (4, 'html'),
-       (4, 'css'),
-       (4, 'javascript'),
-       (5, 'java'),
-       (5, 'spring boot'),
-       (5, 'mysql'),
-       (5, 'django'),
-       (5, 'mysql'),
-       (5, 'git'),
-       (6, 'java'),
-       (6, 'spring boot'),
-       (6, 'mysql'),
-       (6, 'aws'),
-       (6, 'git');
+values
+    (1, 'java'),
+    (1, 'spring boot'),
+    (1, 'mysql'),
+
+    (2, 'html'),
+    (2, 'css'),
+    (2, 'javascript'),
+
+    (3, 'javascript'),
+    (3, 'react'),
+    (3, 'git'),
+
+    (4, 'html'),
+    (4, 'css'),
+    (4, 'javascript'),
+
+    (5, 'java'),
+    (5, 'spring boot'),
+    (5, 'mysql'),
+
+    (6, 'python'),
+    (6, 'mysql'),
+    (6, 'git');

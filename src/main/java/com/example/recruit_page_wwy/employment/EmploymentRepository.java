@@ -143,7 +143,9 @@ public class EmploymentRepository {
     }
 
     public void updateStack(int employmentId, List<String> stackList) {
-        em.remove(em.find(Employment.class, employmentId));
+        em.createNativeQuery("delete from employ_stack_tb where employment_id = ?")
+                .setParameter(1, employmentId)
+                .executeUpdate();
 
         for (String s : stackList) {
             em.createNativeQuery("insert into employ_stack_tb(employment_id, skill) values(?, ?)")
