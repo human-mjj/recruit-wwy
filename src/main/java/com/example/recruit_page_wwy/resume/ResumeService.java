@@ -1,6 +1,8 @@
 package com.example.recruit_page_wwy.resume;
 
 
+import com.example.recruit_page_wwy.scrap.Scrap;
+import com.example.recruit_page_wwy.scrap.ScrapRepository;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -14,6 +16,7 @@ import java.util.List;
 @Service
 public class ResumeService {
     private final ResumeRepository resumeRepository;
+    private final ScrapRepository scrapRepository;
 
     @PersistenceContext
     private EntityManager em;
@@ -35,14 +38,19 @@ public class ResumeService {
         Resume resume = resumeRepository.findByResumeId(id);
         User user = resume.getUser();
 
+        Scrap scrap = scrapRepository.findByUserIdAndresumeId(id, resume.getId());
+        Boolean isScrap = scrap == null ? false : true;
+        Integer scrapId = scrap == null ? null : scrap.getId();
+
         return new ResumeResponse.DetailDTO(
                 resume.getId(),
-                resume.getUser().getId(),             // 유저 ID
-                resume.getJob(),
-                resume.getResumeStackList(),
                 resume.getUser().getUsername(),       // 유저 이름
                 resume.getUser().getEmail(),          // 이메일
                 resume.getUser().getPhone(),          // 전화번호
+                resume.getUser().getId(),             // 유저 ID
+                resume.getJob(),
+                resume.getResumeStackList(),
+                resume.getJob().getId(),
                 resume.getTitle(),
                 resume.getExp(),
                 resume.getEdu(),
@@ -50,7 +58,9 @@ public class ResumeService {
                 resume.getQualified(),
                 resume.getActivity(),
                 resume.getImgUrl(),
-                resume.getLetter()
+                resume.getLetter(),
+                isScrap,
+                scrapId
         );
     }
 

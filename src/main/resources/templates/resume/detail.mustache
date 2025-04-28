@@ -29,8 +29,6 @@
 <!-- 오른쪽 박스 -->
 
 <input type="hidden" id="resumeId" value="{{models.id}}">
-
-
 <div class="flex-fill" style="max-width: 75%">
     <div class="bg-white border rounded p-4">
         <div class="d-flex justify-content-between">
@@ -169,6 +167,7 @@
         let scrapIcon = document.querySelector('#scrapIcon');
         scrapIcon.style.color = 'yellow';
         scrapIcon.setAttribute('onclick', `deleteScrap(${responseBody.scrapId})`);
+
     }
 
     async function deleteScrap(scrapId) {

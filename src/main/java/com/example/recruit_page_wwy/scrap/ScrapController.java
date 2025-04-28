@@ -92,6 +92,7 @@ public class ScrapController {
         }
 
         ScrapResponse.ComSaveDTO respDTO = scrapService.comScrapSave(reqDTO, sessionUser.getId());
+        System.out.println(respDTO.getScrapId());
 
         return respDTO;
     }

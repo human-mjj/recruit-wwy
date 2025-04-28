@@ -44,13 +44,23 @@ public class EmploymentController {
 
 
         // 마이페이지에서 아직 세션 정보 불러와지지 않음. 유저id 임시로 4 줌
-        //User sessionUser = (User) session.getAttribute("sessionUser");
-        //request.setAttribute("models", employmentService.employmentList(sessionUser.getId()));
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        request.setAttribute("models", employmentService.employmentList(sessionUser.getId()));
 
         // TODO
         // 세션 받아오는 코드로 변경 필요
-        int testUserId = 4;
-        request.setAttribute("models", employmentService.employmentList(testUserId));
+//        int testUserId = 4;
+//        request.setAttribute("models", employmentService.employmentList(testUserId));
+
+        // 구직자로 로그인 시 이력서 nav / 기업으로 로그인 시 추천 nav
+        if (sessionUser != null) {
+            UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
+            request.setAttribute("comCheck", myDTO);
+            System.out.println(myDTO.getIsCompanyUser());
+        } else {
+            request.setAttribute("comCheck", null); // 로그인 안 한 경우
+        }
+
         return "employment/dashboard";
     }
 

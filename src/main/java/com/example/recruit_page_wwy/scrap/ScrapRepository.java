@@ -25,6 +25,17 @@ public class ScrapRepository {
         }
     }
 
+    public Scrap findByUserIdAndresumeId(Integer sessionUserId, Integer resumeId) {
+        Query query = em.createQuery("select s from Scrap s where s.user.id = :sessionUserId and s.resume.id = :resumeId", Scrap.class);
+        query.setParameter("sessionUserId", sessionUserId);
+        query.setParameter("resumeId", resumeId);
+        try {
+            return (Scrap) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public List<ScrapRequest.UserScrapDTO> findAllUserScrapById(int id) {
         String sql = """
                 SELECT e.title, u.com_name, e.exp, e.location, j.name, e.id
@@ -51,23 +62,24 @@ public class ScrapRepository {
         return result;
     }
 
-    public List<ScrapRequest.ComScrapDTO> findAllComScrapById(int id) {
+    public List<ScrapRequest.ComScrapDTO> findAllComScrapById(int userid) {
         String sql = """
-                SELECT r.title, u.username\s
-                FROM SCRAP_TB s\s
+                SELECT r.id, r.title, u.username 
+                FROM SCRAP_TB s
                 INNER JOIN RESUME_TB r ON S.RESUME_ID = R.ID
                 INNER JOIN USER_TB u ON s.RESUME_ID = u.id
                 where s.user_id = ?
                 """;
         Query query = em.createNativeQuery(sql);
-        query.setParameter(1, id);
+        query.setParameter(1, userid);
 
         List<Object[]> scrapList = query.getResultList();
         List<ScrapRequest.ComScrapDTO> result = new ArrayList<>();
         for (Object[] row : scrapList) {
-            String title = (String) row[0];
-            String username = (String) row[1];
-            result.add(new ScrapRequest.ComScrapDTO(title, username));
+            Integer id = (Integer) row[0];
+            String title = (String) row[1];
+            String username = (String) row[2];
+            result.add(new ScrapRequest.ComScrapDTO(id, title, username));
         }
         return result;
     }

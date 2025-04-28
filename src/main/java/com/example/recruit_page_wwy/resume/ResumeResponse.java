@@ -24,12 +24,12 @@ public class ResumeResponse {
     @Data
     public static class DetailDTO {
         private Integer id;
-        private String username;
-        private String email;
-        private String phone;
         private Integer userId;
         private Job job;
         private List<ResumeStack> resumeStack;
+        private String username;
+        private String email;
+        private String phone;
         private Integer jobId;
         private String title;
         private String exp;
@@ -40,15 +40,18 @@ public class ResumeResponse {
         private String imgUrl;
         private String LETTER;
 
+        private Boolean isScrap;
+        private Integer scrapId;
 
-        public DetailDTO(Integer id, Integer userId, Job job, List<ResumeStack> resumeStack, String username, String email, String phone, String title, String exp, String edu, String location, String qualified, String activity, String imgUrl, String LETTER) {
+        public DetailDTO(Integer id, String username, String email, String phone, Integer userId, Job job, List<ResumeStack> resumeStack, Integer jobId, String title, String exp, String edu, String location, String qualified, String activity, String imgUrl, String LETTER, Boolean isScrap, Integer scrapId) {
             this.id = id;
-            this.userId = userId;
-            this.job = job;
-            this.resumeStack = resumeStack;
             this.username = username;
             this.email = email;
             this.phone = phone;
+            this.userId = userId;
+            this.job = job;
+            this.resumeStack = resumeStack;
+            this.jobId = jobId;
             this.title = title;
             this.exp = exp;
             this.edu = edu;
@@ -57,9 +60,10 @@ public class ResumeResponse {
             this.activity = activity;
             this.imgUrl = imgUrl;
             this.LETTER = LETTER;
+
+            this.isScrap = isScrap;
+            this.scrapId = scrapId;
         }
-
-
     }
 
 }

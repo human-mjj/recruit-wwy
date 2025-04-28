@@ -26,10 +26,12 @@ public class ScrapRequest {
     }
 
     public static class ComScrapDTO {
+        Integer id;
         String title;
         String username;
 
-        public ComScrapDTO(String title, String username) {
+        public ComScrapDTO(Integer id, String title, String username) {
+            this.id = id;
             this.title = title;
             this.username = username;
         }

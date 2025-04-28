@@ -88,7 +88,7 @@ public class EmploymentService {
             }
         }
 
-        // 이력서 리스트 (구직자 로그인 시에만 보]이게)
+        // 이력서 리스트 (구직자 로그인 시에만 보이게)
         List<EmploymentResponse.DetailDTO.ResumeDTO> resumeList = new ArrayList<>();
         if (sessionUserId != null) {
             List<Resume> resumes = resumeRepository.findByUserId(sessionUserId);
