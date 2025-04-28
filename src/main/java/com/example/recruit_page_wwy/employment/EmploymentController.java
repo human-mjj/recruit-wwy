@@ -95,7 +95,11 @@ public class EmploymentController {
     }
 
     @GetMapping("/employment/save-form")
-    public String employmentSaveForm() {
+    public String employmentSaveForm(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null || sessionUser.getRole() == 0) throw new RuntimeException("401 Unauthorized");
+        EmploymentResponse.TableDTO tableDTO = employmentService.viewJobAndStackList();
+        request.setAttribute("model", tableDTO);
         return "employment/save-form";
     }
 
