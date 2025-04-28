@@ -72,6 +72,9 @@ public class EmploymentService {
         // 스택 문자열
         String stackStr = String.join(", ", stackList);
 
+        boolean isScrap = false;
+        Integer scrapId = null;
+
         // 이력서 리스트 (구직자인 경우만)
         List<EmploymentResponse.DetailDTO.ResumeDTO> resumeList = new ArrayList<>();
         if (sessionUser != null && sessionUser.getRole() == 0) {
@@ -79,45 +82,20 @@ public class EmploymentService {
             for (Resume resume : resumes) {
                 resumeList.add(new EmploymentResponse.DetailDTO.ResumeDTO(resume));
             }
+
+            Scrap scrap = scrapRepository.findByUserIdAndEmployId(sessionUser.getId(), employmentId);
+            isScrap = scrap == null ? false : true;
+            scrapId = scrap == null ? null : scrap.getId();
         }
 
         // 최종 DTO 생성 (우리가 만든 깔끔한 생성자 사용)
-        return new EmploymentResponse.DetailDTO(sessionUser, employment, resumeList, stackList, stackStr);
+        return new EmploymentResponse.DetailDTO(sessionUser, employment, resumeList, stackList, stackStr, isScrap, scrapId);
     }
 
     public EmploymentResponse.TableDTO viewJobAndStackList() {
         List<Job> jobList = employmentRepository.findAllJobs();
         List<Stack> stackList = employmentRepository.findAllStacks();
         return new EmploymentResponse.TableDTO(jobList, stackList);
-        Scrap scrap = scrapRepository.findByUserIdAndEmployId(sessionUserId, employmentId);
-        Boolean isScrap = scrap == null ? false : true;
-        Integer scrapId = scrap == null ? null : scrap.getId();
-
-        return new EmploymentResponse.DetailDTO(
-                sessionUserId,
-                sessionUserRole,
-                isOwner,
-                isApplicant,
-                id,
-                userImgUrl,
-                title,
-                comName,
-                exp,
-                edu,
-                shift,
-                sal,
-                workingTime,
-                location,
-                endDate,
-                duty,
-                qualification,
-                jobName,
-                stackList,
-                stackStr,
-                resumeList,
-                isScrap,
-                scrapId
-        );
     }
 
     @Transactional
