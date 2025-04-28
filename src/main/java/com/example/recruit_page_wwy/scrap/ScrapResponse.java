@@ -5,10 +5,19 @@ import lombok.Data;
 public class ScrapResponse {
     @Data
     public static class SaveDTO {
-        private Integer ScrapId;
+        private Integer scrapId;
 
         public SaveDTO(Integer scrapId) {
-            ScrapId = scrapId;
+            this.scrapId = scrapId;
+        }
+    }
+
+    @Data
+    public static class DeleteDTO {
+        private Integer employmentId;
+
+        public DeleteDTO(Integer employmentId) {
+            this.employmentId = employmentId;
         }
     }
 }
