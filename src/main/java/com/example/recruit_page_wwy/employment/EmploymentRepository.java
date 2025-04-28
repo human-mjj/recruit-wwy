@@ -1,6 +1,9 @@
 package com.example.recruit_page_wwy.employment;
 
 
+import com.example.recruit_page_wwy.employstack.EmployStack;
+import com.example.recruit_page_wwy.job.Job;
+import com.example.recruit_page_wwy.stack.Stack;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
@@ -94,12 +97,49 @@ public class EmploymentRepository {
         return count > 0;
     }
 
-    // 저장(작성/수정)
-//    public void save(Employment employment) {
-//        em.persist(employment);
-//    }
-//
     public Employment findByEmploymentId(int employmentId) {
         return em.find(Employment.class, employmentId);
+    }
+
+    public List<Job> findAllJobs() {
+        return em.createQuery("select j from Job j", Job.class).getResultList();
+    }
+
+    public List<Stack> findAllStacks() {
+        return em.createQuery("select s from Stack s", Stack.class).getResultList();
+    }
+
+    public void save(Employment savingEmployment, List<String> stackList) {
+        em.persist(savingEmployment);
+        em.flush(); // 여기서 DB에 insert 실행되고 id가 채워짐
+        int employmentId = savingEmployment.getId(); // 바로 id 꺼내기
+
+        em.createNativeQuery("delete from employ_stack_tb where employment_id = ?")
+                .setParameter(1, employmentId)
+                .executeUpdate();
+
+        for (String s : stackList) {
+            em.createNativeQuery("insert into employ_stack_tb(employment_id, skill) values(?, ?)")
+                    .setParameter(1, employmentId)
+                    .setParameter(2, s)
+                    .executeUpdate();
+        }
+    }
+
+    public List<EmployStack> findAllStacksByEmploymentId(int employmentId) {
+        return em.createQuery("select es from EmployStack es where es.id = :employmentId", EmployStack.class)
+                .setParameter("employmentId", employmentId)
+                .getResultList();
+    }
+    
+    public void updateStack(int employmentId, List<String> stackList) {
+        em.remove(em.find(Employment.class, employmentId));
+
+        for (String s : stackList) {
+            em.createNativeQuery("insert into employ_stack_tb(employment_id, skill) values(?, ?)")
+                    .setParameter(1, employmentId)
+                    .setParameter(2, s)
+                    .executeUpdate();
+        }
     }
 }

@@ -5,7 +5,6 @@ import com.example.recruit_page_wwy.employstack.EmployStack;
 import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,6 @@ import lombok.NoArgsConstructor;
 import java.sql.Date;
 import java.util.List;
 
-@AllArgsConstructor
 @Builder
 @NoArgsConstructor
 @Getter
@@ -50,7 +48,35 @@ public class Employment {
     private String imgUrl;
 
     @Builder
-    public Employment(int id) {
+    public Employment(int id, String title, User user, String exp, String edu, String shift, List<EmployStack> employStackList, Job job, String duty, String qualification, Integer sal, String workingTime, String location, Date endDate, String imgUrl) {
         this.id = id;
+        this.title = title;
+        this.user = user;
+        this.exp = exp;
+        this.edu = edu;
+        this.shift = shift;
+        this.employStackList = employStackList;
+        this.job = job;
+        this.duty = duty;
+        this.qualification = qualification;
+        this.sal = sal;
+        this.workingTime = workingTime;
+        this.location = location;
+        this.endDate = endDate;
+        this.imgUrl = imgUrl;
+    }
+
+    public void update(EmploymentRequest.SaveDTO dto) {
+        this.title = dto.getTitle();
+        this.exp = dto.getExp();
+        this.edu = dto.getEdu() + "$" + dto.getSchoolName();
+        this.shift = dto.getShift();
+        this.sal = dto.getSal();
+        this.workingTime = dto.getWorkingTime();
+        this.location = dto.getLocation() + " " + dto.getSpecificLocation();
+        this.endDate = dto.getEndDate();
+        this.duty = String.join("$", dto.getDuty());
+        this.qualification = String.join("$", dto.getQualification());
+        this.job = Job.builder().id(dto.getJobId()).build(); // 연관관계 수정
     }
 }
