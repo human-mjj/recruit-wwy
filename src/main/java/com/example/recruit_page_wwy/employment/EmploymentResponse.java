@@ -114,7 +114,7 @@ public class EmploymentResponse {
         }
 
         // ✅ 메인 생성자 (sessionUser와 employment를 받아서 처리)
-        public DetailDTO(User sessionUser, Employment employment, List<ResumeDTO> resumeList, List<String> stackList, String stackStr, boolean isScrap, Integer scrapId) {
+        public DetailDTO(User sessionUser, Employment employment, List<ResumeDTO> resumeList, List<String> stackList, boolean isScrap, Integer scrapId) {
             this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
             this.sessionUserRole = sessionUser != null ? sessionUser.getRole() : null;
             this.isOwner = sessionUser != null && sessionUser.getId() == employment.getUser().getId();
@@ -136,7 +136,7 @@ public class EmploymentResponse {
             this.qualification = parseList(employment.getQualification());
             this.jobName = employment.getJob().getName();
             this.stack = stackList;
-            this.stackStr = stackStr;
+            this.stackStr = String.join(", ", stackList);
             this.resumeList = resumeList;
             this.isScrap = isScrap;
             this.scrapId = scrapId == null ? 0 : scrapId;

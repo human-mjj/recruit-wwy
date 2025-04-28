@@ -92,9 +92,10 @@ public class EmploymentController {
     }
 
     @PostMapping("/employment/{id}/update")
-    public String updateEmployment(@PathVariable("id") int employmentId, EmploymentRequest.SaveDTO saveDTO, HttpServletRequest request) {
+    public String updateEmployment(@PathVariable("id") int employmentId, EmploymentRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null || sessionUser.getRole() == 0) throw new RuntimeException("401 Unauthorized");
+        employmentService.update(employmentId, saveDTO);
         return "redirect:/employment/" + employmentId;
     }
 
