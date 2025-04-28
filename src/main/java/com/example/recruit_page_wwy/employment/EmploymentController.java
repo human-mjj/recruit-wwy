@@ -1,7 +1,6 @@
 package com.example.recruit_page_wwy.employment;
 
 import com.example.recruit_page_wwy.user.User;
-import com.example.recruit_page_wwy.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +40,7 @@ public class EmploymentController {
 
     @GetMapping("/employment")
     public String employmentList(HttpServletRequest request,
-                                 @RequestParam(required = false, value = "page", defaultValue = "0") Integer page) {
+                                 @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         EmploymentResponse.EmploymentPageDTO model = employmentService.employmentAllList(sessionUser, page);
         request.setAttribute("model", model);

@@ -41,15 +41,16 @@ public class EmploymentService {
 
     // 채용공고 리스트, paging
     public EmploymentResponse.EmploymentPageDTO employmentAllList(User sessionUser, Integer page) {
+        int realPage = page - 1;
         Long totalCount = employmentRepository.totalCount();
-        List<Employment> employmentList = employmentRepository.findAll(page);
+        List<Employment> employmentList = employmentRepository.findAll(realPage);
 
         List<EmploymentResponse.PublicListDTO> dtoList = new ArrayList<>();
         for (Employment e : employmentList) {
             dtoList.add(new EmploymentResponse.PublicListDTO(e));
         }
 
-        return new EmploymentResponse.EmploymentPageDTO(dtoList, page, totalCount.intValue());
+        return new EmploymentResponse.EmploymentPageDTO(dtoList, realPage, totalCount.intValue());
     }
 
     public List<Employment> viewEmployList() {

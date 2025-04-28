@@ -45,11 +45,11 @@ public class EmploymentResponse {
             this.totalCount = totalCount;
             this.totalPage = makeTotalPage(totalCount, size);
             this.current = current;
-            this.prev = current - 1;
-            this.next = current + 1;
+            this.prev = current <= 0 ? 1 : current;
+            this.next = current + 2;
 
             this.isFirst = current == 0;
-            this.isLast = (current - 1) == totalCount;
+            this.isLast = current == totalPage - 1;
             this.numbers = makeNumbers(current, totalPage);
         }
 
@@ -65,7 +65,7 @@ public class EmploymentResponse {
             int end = Math.min(start + 5, totalPage);
 
             for (int i = start; i < end; i++) {
-                numbers.add(i + 1);
+                numbers.add(i + 1); // 버튼 1부터 보이게 처리된 곳
             }
 
             return numbers;
