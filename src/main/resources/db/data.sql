@@ -705,23 +705,167 @@ values ('REST API 설계 및 DB 모델링 경험 중심', 3, 'Django + PostgreSQ
 insert into scrap_tb(user_id, employment_id, resume_id)
 values (1, 1, null);
 insert into scrap_tb(user_id, employment_id, resume_id)
-values (1, 2, null);
+values (1, 5, null);
 insert into scrap_tb(user_id, employment_id, resume_id)
-values (1, 3, null);
+values (1, 8, null);
 insert into scrap_tb(user_id, employment_id, resume_id)
-values (2, 1, null);
+values (1, 10, null);
 insert into scrap_tb(user_id, employment_id, resume_id)
-values (3, 2, null);
+values (1, 11, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (1, 18, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (1, 21, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (1, 29, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (1, 32, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (1, 47, null);
+
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (2, 5, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (2, 8, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (2, 12, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (2, 29, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (2, 41, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (2, 45, null);
+
 insert into scrap_tb(user_id, employment_id, resume_id)
 values (3, 3, null);
 insert into scrap_tb(user_id, employment_id, resume_id)
-values (4, null, 1);
+values (3, 6, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (3, 9, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (3, 17, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (3, 26, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (3, 35, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (3, 41, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (3, 45, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (3, 51, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (3, 52, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (3, 64, null);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (3, 78, null);
+
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (4, null, 5);
 insert into scrap_tb(user_id, employment_id, resume_id)
 values (4, null, 2);
 insert into scrap_tb(user_id, employment_id, resume_id)
+values (4, null, 1);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (4, null, 6);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (4, null, 4);
+insert into scrap_tb(user_id, employment_id, resume_id)
 values (4, null, 3);
+
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (5, null, 2);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (5, null, 5);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (5, null, 6);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (5, null, 1);
 insert into scrap_tb(user_id, employment_id, resume_id)
 values (5, null, 3);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (5, null, 4);
+
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (6, null, 4);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (6, null, 3);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (6, null, 1);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (6, null, 2);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (6, null, 6);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (6, null, 5);
+
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (7, null, 6);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (7, null, 1);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (7, null, 4);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (7, null, 5);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (7, null, 2);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (7, null, 3);
+
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (8, null, 1);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (8, null, 2);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (8, null, 6);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (8, null, 5);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (8, null, 4);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (8, null, 3);
+
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (9, null, 3);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (9, null, 2);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (9, null, 5);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (9, null, 6);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (9, null, 4);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (9, null, 1);
+
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (10, null, 4);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (10, null, 1);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (10, null, 5);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (10, null, 2);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (10, null, 6);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (10, null, 3);
+
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (11, null, 5);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (11, null, 6);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (11, null, 3);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (11, null, 4);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (11, null, 2);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (11, null, 1);
+
+
 
 -- 지원 테이블 dummy
 INSERT INTO apply_tb (user_id, resume_id, employment_id, created_at, progress)
