@@ -13,4 +13,8 @@ public class EmployStackRepository {
     public void save(EmployStack employStack) {
         em.persist(employStack);
     }
+
+    public void deleteByEmploymentId(int employmentId) {
+
+    }
 }

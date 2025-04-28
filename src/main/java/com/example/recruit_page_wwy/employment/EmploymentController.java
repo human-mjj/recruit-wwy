@@ -33,16 +33,9 @@ public class EmploymentController {
 
     @GetMapping("/mypage/employment")
     public String manageEmployment(HttpServletRequest request) {
-
-
-        // 마이페이지에서 아직 세션 정보 불러와지지 않음. 유저id 임시로 4 줌
-        //User sessionUser = (User) session.getAttribute("sessionUser");
-        //request.setAttribute("models", employmentService.employmentList(sessionUser.getId()));
-
-        // TODO
-        // 세션 받아오는 코드로 변경 필요
-        int testUserId = 4;
-        request.setAttribute("models", employmentService.employmentList(testUserId));
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) throw new RuntimeException("401 Unauthorized");
+        request.setAttribute("models", employmentService.employmentList(sessionUser.getId()));
         return "employment/dashboard";
     }
 
@@ -58,23 +51,8 @@ public class EmploymentController {
     @GetMapping("/employment/{id}")
     public String employmentDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
-        // 유저일 경우에만 스크랩 버튼 보이게 함 (로그인을 안해도 스크랩 버튼 보임)
-        if (sessionUser != null) {
-            UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
-            request.setAttribute("ComCheck", myDTO);
-        } else {
-            request.setAttribute("ComCheck", null); // 로그인 안 한 경우
-        }
-
-        Integer sessionUserId = (sessionUser != null) ? sessionUser.getId() : null;
-
-        EmploymentResponse.DetailDTO detailDTO = employmentService.findEmploymentDetail(id, sessionUserId);
+        EmploymentResponse.DetailDTO detailDTO = employmentService.findEmploymentDetail(id, sessionUser);
         request.setAttribute("models", detailDTO);
-        System.out.println(detailDTO.getIsScrap());
-        System.out.println(detailDTO.getId());
-
-
         return "employment/detail";
     }
 
@@ -86,7 +64,28 @@ public class EmploymentController {
     }
 
     @GetMapping("/employment/save-form")
-    public String employmentSaveForm() {
+    public String employmentSaveForm(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null || sessionUser.getRole() == 0) throw new RuntimeException("401 Unauthorized");
+        EmploymentResponse.TableDTO tableDTO = employmentService.viewJobAndStackList();
+        request.setAttribute("model", tableDTO);
         return "employment/save-form";
     }
+
+    @GetMapping("/employment/{id}/update-form")
+    public String employmentUpdateForm(@PathVariable("id") int employmentId, HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null || sessionUser.getRole() == 0) throw new RuntimeException("401 Unauthorized");
+        EmploymentResponse.UpdateViewDTO updateViewDTO = employmentService.showUpdateView(employmentId);
+        request.setAttribute("model", updateViewDTO);
+        return "employment/update-form";
+    }
+
+    @PostMapping("/employment/{id}/update")
+    public String updateEmployment(@PathVariable("id") int employmentId, EmploymentRequest.SaveDTO saveDTO, HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null || sessionUser.getRole() == 0) throw new RuntimeException("401 Unauthorized");
+        return "redirect:/employment/" + employmentId;
+    }
+
 }
