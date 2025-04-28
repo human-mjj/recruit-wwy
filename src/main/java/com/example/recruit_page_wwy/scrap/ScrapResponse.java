@@ -4,20 +4,38 @@ import lombok.Data;
 
 public class ScrapResponse {
     @Data
-    public static class SaveDTO {
+    public static class UserSaveDTO {
         private Integer scrapId;
 
-        public SaveDTO(Integer scrapId) {
+        public UserSaveDTO(Integer scrapId) {
             this.scrapId = scrapId;
         }
     }
 
     @Data
-    public static class DeleteDTO {
+    public static class UserDeleteDTO {
         private Integer employmentId;
 
-        public DeleteDTO(Integer employmentId) {
+        public UserDeleteDTO(Integer employmentId) {
             this.employmentId = employmentId;
+        }
+    }
+
+    @Data
+    public static class ComSaveDTO {
+        private Integer scrapId;
+
+        public ComSaveDTO(Integer scrapId) {
+            this.scrapId = scrapId;
+        }
+    }
+
+    @Data
+    public static class ComDeleteDTO {
+        private Integer resumeId;
+
+        public ComDeleteDTO(Integer resumeId) {
+            this.resumeId = resumeId;
         }
     }
 }

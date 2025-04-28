@@ -27,8 +27,8 @@ public class ScrapRepository {
 
     public List<ScrapRequest.UserScrapDTO> findAllUserScrapById(int id) {
         String sql = """
-                SELECT e.title, u.com_name, e.exp, e.location, j.name
-                FROM SCRAP_TB s\s
+                SELECT e.title, u.com_name, e.exp, e.location, j.name, e.id
+                FROM SCRAP_TB s
                 INNER JOIN EMPLOYMENT_TB e ON s.EMPLOYMENT_ID = e.id
                 INNER JOIN USER_TB u ON e.USER_ID = u.id
                 INNER JOIN job_tb j On e.job_id = j.id
@@ -45,7 +45,8 @@ public class ScrapRepository {
             String exp = (String) row[2];
             String location = (String) row[3];
             String name = (String) row[4];
-            result.add(new ScrapRequest.UserScrapDTO(title, comName, exp, location, name));
+            Integer emplorymentId = (Integer) row[5];
+            result.add(new ScrapRequest.UserScrapDTO(title, comName, exp, location, name, emplorymentId));
         }
         return result;
     }
@@ -80,7 +81,13 @@ public class ScrapRepository {
         return em.find(Scrap.class, id);
     }
 
-    public void deleteById(Integer id) {
+    public void deleteByUserId(Integer id) {
+        Query query = em.createQuery("delete from Scrap s where s.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
+    }
+
+    public void deleteByComId(Integer id) {
         Query query = em.createQuery("delete from Scrap s where s.id = :id");
         query.setParameter("id", id);
         query.executeUpdate();

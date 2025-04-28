@@ -41,7 +41,8 @@ public class ResumeResponse {
         private String LETTER;
 
 
-        public DetailDTO(Integer userId, Job job, List<ResumeStack> resumeStack, String username, String email, String phone, String title, String exp, String edu, String location, String qualified, String activity, String imgUrl, String LETTER) {
+        public DetailDTO(Integer id, Integer userId, Job job, List<ResumeStack> resumeStack, String username, String email, String phone, String title, String exp, String edu, String location, String qualified, String activity, String imgUrl, String LETTER) {
+            this.id = id;
             this.userId = userId;
             this.job = job;
             this.resumeStack = resumeStack;

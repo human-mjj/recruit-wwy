@@ -27,6 +27,15 @@ public class EmploymentController {
         List<Employment> jobs = employmentService.viewEmployList();
         request.setAttribute("models", jobs);
 
+        // 구직자로 로그인 시 이력서 nav / 기업으로 로그인 시 추천 nav
+        if (sessionUser != null) {
+            UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
+            request.setAttribute("comCheck", myDTO);
+            System.out.println(myDTO.getIsCompanyUser());
+        } else {
+            request.setAttribute("comCheck", null); // 로그인 안 한 경우
+        }
+
         return "index";
     }
 
@@ -51,12 +60,13 @@ public class EmploymentController {
     public String employmentList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        // 유저일 경우에만 스크랩 버튼 보이게 함 (로그인을 안해도 스크랩 버튼 보임)
+        // 구직자로 로그인 시 이력서 nav / 기업으로 로그인 시 추천 nav
         if (sessionUser != null) {
             UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
-            request.setAttribute("ComCheck", myDTO);
+            request.setAttribute("comCheck", myDTO);
+            System.out.println(myDTO.getIsCompanyUser());
         } else {
-            request.setAttribute("ComCheck", null); // 로그인 안 한 경우
+            request.setAttribute("comCheck", null); // 로그인 안 한 경우
         }
 
         Integer userId = (sessionUser != null) ? sessionUser.getId() : null; // 로그인 안해도 접근할 수 있게
@@ -69,12 +79,13 @@ public class EmploymentController {
     public String employmentDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        // 유저일 경우에만 스크랩 버튼 보이게 함 (로그인을 안해도 스크랩 버튼 보임)
+        // 구직자로 로그인 시 이력서 nav / 기업으로 로그인 시 추천 nav
         if (sessionUser != null) {
             UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
-            request.setAttribute("ComCheck", myDTO);
+            request.setAttribute("comCheck", myDTO);
+            System.out.println(myDTO.getIsCompanyUser());
         } else {
-            request.setAttribute("ComCheck", null); // 로그인 안 한 경우
+            request.setAttribute("comCheck", null); // 로그인 안 한 경우
         }
 
         Integer sessionUserId = (sessionUser != null) ? sessionUser.getId() : null;

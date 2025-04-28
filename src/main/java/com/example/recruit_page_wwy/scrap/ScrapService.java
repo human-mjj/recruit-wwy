@@ -24,20 +24,41 @@ public class ScrapService {
         return comScrapList;
     }
 
+    // UserScrapSave
     @Transactional
-    public ScrapResponse.SaveDTO save(ScrapRequest.SaveDTO reqDTO, Integer sessionUserId) {
+    public ScrapResponse.UserSaveDTO userScrapSave(ScrapRequest.userScrapSaveDTO reqDTO, Integer sessionUserId) {
         Scrap scrapPS = scrapRepository.save(reqDTO.toEntity(sessionUserId));
 
-        return new ScrapResponse.SaveDTO(scrapPS.getId());
+        return new ScrapResponse.UserSaveDTO(scrapPS.getId());
     }
 
+    // UserScrapDelete
     @Transactional
-    public ScrapResponse.DeleteDTO cancelScrap(Integer employmentId) {
+    public ScrapResponse.UserDeleteDTO deleteUserScrap(Integer employmentId) {
         Scrap scrapPS = scrapRepository.findById(employmentId);
         if (scrapPS == null) throw new RuntimeException("좋아요를 하지 않았습니다.");
 
-        scrapRepository.deleteById(employmentId);
+        scrapRepository.deleteByUserId(employmentId);
 
-        return new ScrapResponse.DeleteDTO(employmentId);
+        return new ScrapResponse.UserDeleteDTO(employmentId);
+    }
+
+    // ComScrapSave
+    @Transactional
+    public ScrapResponse.ComSaveDTO comScrapSave(ScrapRequest.comScrapSaveDTO reqDTO, Integer sessionUserId) {
+        Scrap scrapPS = scrapRepository.save(reqDTO.toEntity(sessionUserId));
+
+        return new ScrapResponse.ComSaveDTO(scrapPS.getId());
+    }
+
+    // ComScrapDelete
+    @Transactional
+    public ScrapResponse.ComDeleteDTO deleteComScrap(Integer resumeId) {
+        Scrap scrapPS = scrapRepository.findById(resumeId);
+        if (scrapPS == null) throw new RuntimeException("좋아요를 하지 않았습니다.");
+
+        scrapRepository.deleteByComId(resumeId);
+
+        return new ScrapResponse.ComDeleteDTO(resumeId);
     }
 }

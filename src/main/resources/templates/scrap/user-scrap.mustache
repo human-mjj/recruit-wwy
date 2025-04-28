@@ -34,7 +34,7 @@
             <ul class="card-wrap row row-gap-3" style="gap: calc(4% / 3);">
                 {{#models}}
                     <li class="card-1">
-                        <a href="/employment/1" class="d-flex flex-column gap-2 recommend-card-box">
+                        <a href="/employment/{{emplorymentId}}" class="d-flex flex-column gap-2 recommend-card-box">
                             <figure class="recommend-img overflow-hidden d-flex align-items-center border rounded">
                                 <img class="w-100" src="/img/Screenshot_14.png" alt="임시이미지"/>
                             </figure>
@@ -93,4 +93,37 @@
 </div>
 </div>
 
+<script>
+    let employmentId = document.querySelector("#employmentId").value;
+
+    async function saveScrap() {
+        let requestBody = {employmentId: employmentId};
+        let response = await fetch(`/api/scrap`, {
+            method: "POST",
+            body: JSON.stringify(requestBody),
+            headers: {"Content-Type": "application/json"}
+        });
+
+        let responseBody = await response.json(); // {scrapId}
+        console.log(responseBody);
+
+        // DOM 업데이트
+        let scrapIcon = document.querySelector('#scrapIcon');
+        scrapIcon.style.color = 'yellow';
+        scrapIcon.setAttribute('onclick', `deleteScrap(${responseBody.scrapId})`);
+    }
+
+    async function deleteScrap(scrapId) {
+        let response = await fetch(`/api/scrap/${scrapId}`, {
+            method: "DELETE"
+        });
+        let responseBody = await response.json(); // response.text();
+        console.log(responseBody);
+
+        // DOM 업데이트
+        let scrapIcon = document.querySelector('#scrapIcon');
+        scrapIcon.style.color = 'black';
+        scrapIcon.setAttribute('onclick', `saveScrap()`);
+    }
+</script>
 {{> layout/footer}}

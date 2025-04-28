@@ -36,6 +36,7 @@ public class ResumeService {
         User user = resume.getUser();
 
         return new ResumeResponse.DetailDTO(
+                resume.getId(),
                 resume.getUser().getId(),             // 유저 ID
                 resume.getJob(),
                 resume.getResumeStackList(),

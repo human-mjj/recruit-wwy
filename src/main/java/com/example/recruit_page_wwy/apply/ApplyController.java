@@ -1,13 +1,13 @@
 package com.example.recruit_page_wwy.apply;
 
 import com.example.recruit_page_wwy.user.User;
-import jakarta.servlet.http.HttpSession;
+import com.example.recruit_page_wwy.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -24,6 +24,15 @@ public class ApplyController {
         List<ApplyResponse.UserApplyDTO> userApplyList = applyService.findUserApply(sessionUser);
         request.setAttribute("models", userApplyList);
 
+        // 구직자로 로그인 시 이력서 nav / 기업으로 로그인 시 추천 nav
+        if (sessionUser != null) {
+            UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
+            request.setAttribute("comCheck", myDTO);
+            System.out.println(myDTO.getIsCompanyUser());
+        } else {
+            request.setAttribute("comCheck", null); // 로그인 안 한 경우
+        }
+
         return "resume/apply-list";
     }
 
@@ -34,6 +43,16 @@ public class ApplyController {
         System.out.println(sessionUser.getId());
 
         request.setAttribute("models", comApplyList);
+
+        // 구직자로 로그인 시 이력서 nav / 기업으로 로그인 시 추천 nav
+        if (sessionUser != null) {
+            UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
+            request.setAttribute("comCheck", myDTO);
+            System.out.println(myDTO.getIsCompanyUser());
+        } else {
+            request.setAttribute("comCheck", null); // 로그인 안 한 경우
+        }
+
         return "resume/com-apply-list";
     }
 

@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.scrap;
 
 import com.example.recruit_page_wwy.employment.Employment;
+import com.example.recruit_page_wwy.resume.Resume;
 import com.example.recruit_page_wwy.user.User;
 import lombok.Data;
 
@@ -12,13 +13,15 @@ public class ScrapRequest {
         String exp;
         String location;
         String name;
+        Integer emplorymentId;
 
-        public UserScrapDTO(String title, String comName, String exp, String location, String name) {
+        public UserScrapDTO(String title, String comName, String exp, String location, String name, Integer emplorymentId) {
             this.title = title;
             this.comName = comName;
             this.exp = exp;
             this.location = location;
             this.name = name;
+            this.emplorymentId = emplorymentId;
         }
     }
 
@@ -33,7 +36,7 @@ public class ScrapRequest {
     }
 
     @Data
-    public static class SaveDTO {
+    public static class userScrapSaveDTO {
         private Integer employmentId;
 
         public Scrap toEntity(Integer sessionUserId) {
@@ -44,4 +47,18 @@ public class ScrapRequest {
                     .build();
         }
     }
+
+    @Data
+    public static class comScrapSaveDTO {
+        private Integer resumeId;
+
+        public Scrap toEntity(Integer sessionUserId) {
+            return Scrap.builder()
+                    .employment(null)
+                    .resume(Resume.builder().id(resumeId).build())
+                    .user(User.builder().id(sessionUserId).build())
+                    .build();
+        }
+    }
+
 }

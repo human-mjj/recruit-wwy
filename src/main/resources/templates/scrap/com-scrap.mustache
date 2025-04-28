@@ -44,11 +44,32 @@
                             <p class="p-size m-1">{{username}}</p>
                         </div>
                         <div>
-                            <i id="favoriteIcon" class="fa fa-star" style="
+                            {{#comCheck.isCompanyUser}}
+                            {{/comCheck.isCompanyUser}}
+                            {{^comCheck.isCompanyUser}}
+                                {{#models.isScrap}}
+                                    <div class="btn-wrap mt-1">
+                                        <div class="toggle-btn">
+                                            <i id="scrapIcon" class="fa fa-star" style="
                                         font-size: 24px;
                                         color: yellow;
                                         text-shadow: 0 0 1px #000, 0 0 1px #000;
-                                    " onclick=""></i>
+                                  " onclick="deleteScrap({{models.scrapId}})"></i>
+                                        </div>
+                                    </div>
+                                {{/models.isScrap}}
+                                {{^models.isScrap}}
+                                    <div class="btn-wrap mt-1">
+                                        <div class="toggle-btn">
+                                            <i id="scrapIcon" class="fa fa-star" style="
+                                        font-size: 24px;
+                                        color: black;
+                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
+                                  " onclick="saveScrap()"></i>
+                                        </div>
+                                    </div>
+                                {{/models.isScrap}}
+                            {{/comCheck.isCompanyUser}}
                         </div>
                     </div>
                     <a href="/resume/1" class="btn btn-primary">상세보기</a>
@@ -61,4 +82,5 @@
 <!-- sidebar 닫는 태그이므로 지우지 말 것 -->
 </div>
 </div>
+
 {{> layout/footer}}
