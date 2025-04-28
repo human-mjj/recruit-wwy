@@ -2,8 +2,10 @@ package com.example.recruit_page_wwy.employment;
 
 
 import com.example.recruit_page_wwy.employstack.EmployStackRepository;
+import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.resume.Resume;
 import com.example.recruit_page_wwy.resume.ResumeRepository;
+import com.example.recruit_page_wwy.stack.Stack;
 import com.example.recruit_page_wwy.user.User;
 import com.example.recruit_page_wwy.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -138,6 +140,12 @@ public class EmploymentService {
                 stackStr,
                 resumeList
         );
+    }
+
+    public EmploymentResponse.TableDTO viewJobAndStackList() {
+        List<Job> jobList = employmentRepository.findAllJobs();
+        List<Stack> stackList = employmentRepository.findAllStacks();
+        return new EmploymentResponse.TableDTO(jobList, stackList);
     }
 
 //    public void save(EmploymentRequest.SaveDTO saveDTO) {

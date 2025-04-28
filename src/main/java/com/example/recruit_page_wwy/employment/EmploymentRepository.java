@@ -1,6 +1,8 @@
 package com.example.recruit_page_wwy.employment;
 
 
+import com.example.recruit_page_wwy.job.Job;
+import com.example.recruit_page_wwy.stack.Stack;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
@@ -101,5 +103,13 @@ public class EmploymentRepository {
 //
     public Employment findByEmploymentId(int employmentId) {
         return em.find(Employment.class, employmentId);
+    }
+
+    public List<Job> findAllJobs() {
+        return em.createQuery("select j from Job j", Job.class).getResultList();
+    }
+
+    public List<Stack> findAllStacks() {
+        return em.createQuery("select s from Stack s", Stack.class).getResultList();
     }
 }

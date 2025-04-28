@@ -1,12 +1,25 @@
 package com.example.recruit_page_wwy.employment;
 
+import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.resume.Resume;
+import com.example.recruit_page_wwy.stack.Stack;
 import lombok.Data;
 
 import java.sql.Date;
 import java.util.List;
 
 public class EmploymentResponse {
+
+    @Data
+    public static class TableDTO {
+        List<Job> jobList;
+        List<Stack> stackList;
+
+        public TableDTO(List<Job> jobList, List<Stack> stackList) {
+            this.jobList = jobList;
+            this.stackList = stackList;
+        }
+    }
 
     @Data
     public static class ListDTO {
