@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.employment;
 
 
+import com.example.recruit_page_wwy.job.Job;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
@@ -101,5 +102,15 @@ public class EmploymentRepository {
 //
     public Employment findByEmploymentId(int employmentId) {
         return em.find(Employment.class, employmentId);
+    }
+
+    public Job findJobByName(String jobName) {
+        return (Job) em.createNativeQuery("select * from job_tb where name = ?", Job.class)
+                .setParameter(1, jobName)
+                .getSingleResult();
+    }
+
+    public void save(Employment savingEmployment) {
+        em.persist(savingEmployment);
     }
 }

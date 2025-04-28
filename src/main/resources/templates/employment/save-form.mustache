@@ -19,7 +19,7 @@
 <main>
     <section>
         <div class="container mt-4 mb-5 p-5 rounded">
-            <form action="" class="d-flex flex-column gap-3">
+            <form action="/employment/save" method="post" class="d-flex flex-column gap-3">
                 <div class="title-wrap d-flex flex-column gap-3">
                     <label for="" class="fs-3 fw-medium"
                     >공고등록</label
@@ -41,8 +41,8 @@
                                 <input
                                         class="form-check-input"
                                         type="radio"
-                                        name="jobRole"
-                                        value="Frontend Developer"
+                                        name="jobName"
+                                        value="프론트엔드 개발자"
                                         id="jobRole1"
                                         style="padding: 5px 0"
                                 />
@@ -54,8 +54,8 @@
                                 <input
                                         class="form-check-input"
                                         type="radio"
-                                        name="jobRole"
-                                        value="Backend Developer"
+                                        name="jobName"
+                                        value="백엔드 개발자"
                                         id="jobRole2"
                                         style="padding: 5px 0"
                                 />
@@ -67,8 +67,8 @@
                                 <input
                                         class="form-check-input"
                                         type="radio"
-                                        name="jobRole"
-                                        value="Full Stack Developer"
+                                        name="jobName"
+                                        value="풀스택 개발자"
                                         id="jobRole3"
                                         style="padding: 5px 0"
                                 />
@@ -80,8 +80,8 @@
                                 <input
                                         class="form-check-input"
                                         type="radio"
-                                        name="jobRole"
-                                        value="DevOps Engineer"
+                                        name="jobName"
+                                        value="devops 엔지니어"
                                         id="jobRole4"
                                         style="padding: 5px 0"
                                 />
@@ -93,8 +93,8 @@
                                 <input
                                         class="form-check-input"
                                         type="radio"
-                                        name="jobRole"
-                                        value="Data Scientist"
+                                        name="jobName"
+                                        value="데이터 분석가"
                                         id="jobRole5"
                                         style="padding: 5px 0"
                                 />
@@ -118,6 +118,7 @@
                                         type="checkbox"
                                         value="Java"
                                         id="techStack1"
+                                        name="stack"
                                         style="padding: 5px 0"
                                 />
                                 <label
@@ -132,6 +133,7 @@
                                         type="checkbox"
                                         value="HTML"
                                         id="techStack2"
+                                        name="stack"
                                         style="padding: 5px 0"
                                 />
                                 <label

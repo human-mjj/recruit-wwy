@@ -140,19 +140,12 @@ public class EmploymentService {
         );
     }
 
-//    public void save(EmploymentRequest.SaveDTO saveDTO) {
-//        employmentRepository.save(
-//                saveDTO.getUser_id(),
-//                saveDTO.getTitle(),
-//                saveDTO.getExp(),
-//                saveDTO.getEdu(),
-//                saveDTO.getJob_id(),
-//                saveDTO.getLocation(),
-//                saveDTO.getQualified(),
-//                saveDTO.getActivity(),
-//                saveDTO.getImg_url(), saveDTO.getSkills());
-//
-//    }
+    @Transactional
+    public void save(EmploymentRequest.SaveDTO saveDTO, User sessionUser) {
+        Job selectedJob = employmentRepository.findJobByName(saveDTO.getJobName());
+        Employment savingEmployment = saveDTO.toEntity(sessionUser, selectedJob);
+        employmentRepository.save(savingEmployment);
+    }
 
 //    @Transactional
 //    public void saveEmployment(EmploymentRequest.SaveDTO dto, User user, Job job) {
