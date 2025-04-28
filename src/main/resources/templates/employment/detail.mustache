@@ -252,14 +252,10 @@
         let responseBody = await response.json(); // { employmentId}
         console.log(responseBody);
 
-        if (responseBody.status != 200) {
-            alert(responseBody.msg);
-        } else {
-            // DOM 업데이트
-            let scrapIcon = document.querySelector('#scrapIcon');
-            scrapIcon.style.color = 'yellow';
-            // scrapIcon.setAttribute('onclick', `deleteScrap(${responseBody.body.employmentId})`);
-        }
+        // DOM 업데이트
+        let scrapIcon = document.querySelector('#scrapIcon');
+        scrapIcon.style.color = 'yellow';
+        // scrapIcon.setAttribute('onclick', `deleteScrap(${responseBody.body.employmentId})`);
     }
 
 </script>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -36,11 +37,12 @@ public class ScrapController {
     }
 
     @PostMapping("/api/scrap")
-    public Object saveLove(@RequestBody ScrapRequest.SaveDTO reqDTO) {
+    @ResponseBody
+    public Object saveScrap(@RequestBody ScrapRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         if (sessionUser == null) {
-            throw new RuntimeException("로그인 해주세요");
+            throw new RuntimeException("sessionUser is null");
         }
 
         ScrapResponse.SaveDTO respDTO = scrapService.Save(reqDTO, sessionUser.getId());
