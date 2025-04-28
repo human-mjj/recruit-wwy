@@ -5,9 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,7 +18,7 @@ public class ScrapController {
     @GetMapping("/mypage/scrap")
     public String scrapUserList(HttpServletRequest requset) {
         User sessinUser = (User) session.getAttribute("sessionUser");
-        List<ScrapRequest.UserScrapDTO> scrapList = scrapService.ScrapUserfind(sessinUser);
+        List<ScrapRequest.UserScrapDTO> scrapList = scrapService.scrapUserfind(sessinUser);
         requset.setAttribute("models", scrapList);
 
         return "scrap/user-scrap";
@@ -29,21 +27,35 @@ public class ScrapController {
     @GetMapping("/mypage/scrap/com")
     public String scrapComList(HttpServletRequest requset) {
         User sessinUser = (User) session.getAttribute("sessionUser");
-        List<ScrapRequest.ComScrapDTO> scrapList = scrapService.ScrapComfind(sessinUser);
+        List<ScrapRequest.ComScrapDTO> scrapList = scrapService.scrapComfind(sessinUser);
         requset.setAttribute("models", scrapList);
 
         return "scrap/com-scrap";
     }
 
     @PostMapping("/api/scrap")
-    public Object saveLove(@RequestBody ScrapRequest.SaveDTO reqDTO) {
+    @ResponseBody
+    public Object saveScrap(@RequestBody ScrapRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         if (sessionUser == null) {
-            throw new RuntimeException("로그인 해주세요");
+            throw new RuntimeException("sessionUser is null");
         }
 
-        ScrapResponse.SaveDTO respDTO = scrapService.Save(reqDTO, sessionUser.getId());
+        ScrapResponse.SaveDTO respDTO = scrapService.save(reqDTO, sessionUser.getId());
+        System.out.println(respDTO.getScrapId());
+
+        return respDTO;
+    }
+
+    @DeleteMapping("/api/scrap/{id}")
+    @ResponseBody
+    public Object deleteScrap(@PathVariable("id") Integer employmentId) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+//        if (sessionUser == null) throw new RuntimeException("인증이 필요합니다");
+
+        ScrapResponse.DeleteDTO respDTO = scrapService.cancelScrap(employmentId);
+
         return respDTO;
     }
 }
