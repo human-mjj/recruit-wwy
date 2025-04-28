@@ -8,8 +8,9 @@ import java.sql.Date;
 import java.util.List;
 
 public class EmploymentRequest {
+
     @Data
-    public static class saveDTO {
+    public static class SaveDTO {
         private String title;
         private String exp;
         private String edu;

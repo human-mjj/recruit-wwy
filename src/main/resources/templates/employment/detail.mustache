@@ -19,6 +19,9 @@
 
 {{> layout/header}}
 <!-- 채용공고 상세보기 -->
+
+<input type="hidden" id="employmentId" value="{{models.id}}">
+
 <main>
     <section>
         <div class="container mt-4 mb-5 d-flex justify-content-between">
@@ -38,15 +41,19 @@
                                 <p class="description">{{models.comName}}</p>
                             </div>
                         </div>
-                        <div class="btn-wrap mt-1">
-                            <div class="toggle-btn">
-                                <i id="favoriteIcon" class="fa fa-star" style="
+                        {{#ComCheck.isCompanyUser}}
+                        {{/ComCheck.isCompanyUser}}
+                        {{^ComCheck.isCompanyUser}}
+                            <div class="btn-wrap mt-1">
+                                <div class="toggle-btn">
+                                    <i id="scrapIcon" class="fa fa-star" style="
                                         font-size: 24px;
-                                        color: yellow;
+                                        color: black;
                                         text-shadow: 0 0 1px #000, 0 0 1px #000;
-                                    " onclick=""></i>
+                                  " onclick="saveScrap()"></i>
+                                </div>
                             </div>
-                        </div>
+                        {{/ComCheck.isCompanyUser}}
                         <!-- .toggle-btn end -->
                     </div>
                     {{#isOwner}}
@@ -231,6 +238,30 @@
         document.getElementById('resumeIdInput').value = id;
         document.getElementById('resumeSelectButton').innerText = title;
     }
+
+    let employmentId = document.querySelector("#employmentId").value;
+
+    async function saveScrap() {
+        let requestBody = {employmentId: employmentId};
+        let response = await fetch(`/api/scrap`, {
+            method: "POST",
+            body: JSON.stringify(requestBody),
+            headers: {"Content-Type": "application/json"}
+        });
+
+        let responseBody = await response.json(); // { employmentId}
+        console.log(responseBody);
+
+        if (responseBody.status != 200) {
+            alert(responseBody.msg);
+        } else {
+            // DOM 업데이트
+            let scrapIcon = document.querySelector('#scrapIcon');
+            scrapIcon.style.color = 'yellow';
+            // scrapIcon.setAttribute('onclick', `deleteScrap(${responseBody.body.employmentId})`);
+        }
+    }
+
 </script>
 
 {{> layout/footer}}

@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.employment;
 
 
+import com.example.recruit_page_wwy.employstack.EmployStackRepository;
 import com.example.recruit_page_wwy.resume.Resume;
 import com.example.recruit_page_wwy.resume.ResumeRepository;
 import com.example.recruit_page_wwy.user.User;
@@ -18,6 +19,7 @@ public class EmploymentService {
     private final EmploymentRepository employmentRepository;
     private final UserRepository userRepository;
     private final ResumeRepository resumeRepository;
+    private final EmployStackRepository employStackRepository;
 
     public List<EmploymentResponse.ListDTO> employmentList(Integer userId) {
         List<Employment> employmentList = employmentRepository.findAllByUserId(userId);
@@ -137,4 +139,29 @@ public class EmploymentService {
                 resumeList
         );
     }
+
+//    public void save(EmploymentRequest.SaveDTO saveDTO) {
+//        employmentRepository.save(
+//                saveDTO.getUser_id(),
+//                saveDTO.getTitle(),
+//                saveDTO.getExp(),
+//                saveDTO.getEdu(),
+//                saveDTO.getJob_id(),
+//                saveDTO.getLocation(),
+//                saveDTO.getQualified(),
+//                saveDTO.getActivity(),
+//                saveDTO.getImg_url(), saveDTO.getSkills());
+//
+//    }
+
+//    @Transactional
+//    public void saveEmployment(EmploymentRequest.SaveDTO dto, User user, Job job) {
+//        Employment employment = dto.toEntity(user, job);
+//        employmentRepository.save(employment);
+//
+//        for (String skill : dto.getStack()) {
+//            EmployStack es = new EmployStack(employment, skill);
+//            employStackRepository.save(es);
+//        }
+//    }
 }

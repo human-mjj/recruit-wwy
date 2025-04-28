@@ -139,12 +139,6 @@ VALUES ('프론트엔드 React 개발자 채용', 4, '신입~3년', '무관',
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-
-VALUES ('신입 백엔드 인턴 모집', 4, '신입', '초대졸 이상', '인턴', 2,
-        'Spring 기반 서비스 API 개발 및 문서화', '개발 열정, 깃허브 활동 확인 예정', 2500,
-        '09:00 ~ 17:00', '서울특별시 종로구', '2025-06-01', NULL);
-INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
-                           end_date, img_url)
 VALUES ('웹 프론트엔드 인턴 채용', 5, '신입', '학력무관', '인턴', 3,
         'React 기반 UI 개발 및 유지보수', '포트폴리오 제출 필수, 협업 경험 우대', 2200,
         '10:00 ~ 18:00', '서울특별시 강남구', '2025-06-10', NULL);
@@ -155,13 +149,15 @@ VALUES ('데이터 분석 인턴 모집', 5, '신입', '대졸 이상', '인턴'
         'Python을 이용한 데이터 수집 및 시각화', 'SQL, Pandas 사용 경험자 우대', 2300,
         '09:30 ~ 18:30', '서울특별시 마포구', '2025-05-20', NULL);
 
+INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
+                           end_date, img_url)
 VALUES ('신입 백엔드 인턴 모집', 4, '신입', '초대졸 이상',
         '인턴', 2,
         'Spring 기반 서비스 API 개발 및 문서화$기초적인 테스트 코드 작성$코드 리뷰 참여$팀 프로젝트 참여',
         '개발 열정$깃허브 활동 확인 예정$기초적인 Java/Spring 이해$학습 능력',
         2500, '09:00 ~ 17:00', '서울특별시 종로구', '2025-06-01', NULL);
 
-
+-- job_id: 1 => 데이터 분석
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
 VALUES ('데이터 분석가 채용', 4, '1년 이상', '대졸 이상',
@@ -211,6 +207,8 @@ insert into scrap_tb(user_id, employment_id, resume_id)
 values (4, null, 2);
 insert into scrap_tb(user_id, employment_id, resume_id)
 values (4, null, 3);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (5, null, 3);
 
 -- 지원 테이블 dummy
 INSERT INTO apply_tb (user_id, resume_id, employment_id, created_at, progress)
