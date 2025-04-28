@@ -18,7 +18,7 @@ public class ScrapController {
     @GetMapping("/mypage/scrap")
     public String scrapList(HttpServletRequest requset) {
         User sessinUser = (User) session.getAttribute("sessionUser");
-        List<ScrapRequest.ScrapDTO> scrapList = scrapService.find(sessinUser);
+        List<ScrapRequest.UserScrapDTO> scrapList = scrapService.find(sessinUser);
         requset.setAttribute("models", scrapList);
 
         return "scrap/user-scrap";

@@ -12,8 +12,8 @@ import java.util.List;
 public class ScrapService {
     private final ScrapRepository scrapRepository;
 
-    public List<ScrapRequest.ScrapDTO> find(User sessinUser) {
-        List<ScrapRequest.ScrapDTO> scrapList = scrapRepository.findAll(sessinUser.getId());
+    public List<ScrapRequest.UserScrapDTO> find(User sessinUser) {
+        List<ScrapRequest.UserScrapDTO> scrapList = scrapRepository.findAllUserScrapById(sessinUser.getId());
         return scrapList;
     }
 }
