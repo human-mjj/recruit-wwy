@@ -26,7 +26,7 @@ public class ProposalService {
     public void recommend(int resumeId, ProposalRequest.SaveDTO saveDTO, User sessionUser) {
         Resume resume = resumeRepository.findByResumeId(resumeId);
         if (resume == null) throw new RuntimeException("404 Not Found");
-        Employment employment = employmentRepository.findById(saveDTO.getEmploymentId());
+        Employment employment = employmentRepository.findByEmploymentId(saveDTO.getEmploymentId());
         if (employment == null) throw new RuntimeException("404 Not Found");
         if (employment.getUser().getId() != sessionUser.getId()) throw new RuntimeException("403 Forbidden");
 

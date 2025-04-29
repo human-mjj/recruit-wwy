@@ -1,7 +1,9 @@
 package com.example.recruit_page_wwy.resume;
 
+import com.example.recruit_page_wwy.employment.Employment;
 import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.resumestack.ResumeStack;
+import com.example.recruit_page_wwy.user.User;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -54,6 +56,12 @@ public class ResumeResponse {
 
     @Data
     public static class DetailDTO {
+        private Integer sessionUserId;
+        private Integer sessionUserRole;
+        private Boolean isOwner;
+        private Boolean isCompanyUser;
+        private Boolean isApplicant;
+
         private Integer id;
         private String username;
         private String email;
@@ -70,27 +78,49 @@ public class ResumeResponse {
         private String activity;
         private String imgUrl;
         private String LETTER;
+        private List<EmployDTO> employmentList;
 
+        private Boolean isScrap;
+        private Integer scrapId;
 
-        public DetailDTO(Integer id, Integer userId, Job job, List<ResumeStack> resumeStack, String username, String email, String phone, String title, String exp, String edu, String location, String qualified, String activity, String imgUrl, String LETTER) {
-            this.id = id;
-            this.userId = userId;
-            this.job = job;
-            this.resumeStack = resumeStack;
-            this.username = username;
-            this.email = email;
-            this.phone = phone;
-            this.title = title;
-            this.exp = exp;
-            this.edu = edu;
-            this.location = location;
-            this.qualified = qualified;
-            this.activity = activity;
-            this.imgUrl = imgUrl;
-            this.LETTER = LETTER;
+        @Data
+        public static class EmployDTO {
+            private Integer id;
+            private String title;
+
+            public EmployDTO(Employment employment) {
+                this.id = employment.getId();
+                this.title = employment.getTitle();
+            }
         }
 
 
+        public DetailDTO(User sessionUser, Resume resume, List<EmployDTO> employmentList, boolean isScrap, Integer scrapId) {
+            this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
+            this.sessionUserRole = sessionUser != null ? sessionUser.getRole() : null;
+            this.isOwner = sessionUser != null && sessionUser.getId() == resume.getUser().getId();
+            this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
+            this.isApplicant = false; // 기본 false (지원 여부 체크는 별도로)
+
+            this.id = resume.getId();
+            this.userId = resume.getUser().getId();
+            this.job = resume.getJob();
+            this.resumeStack = resume.getResumeStackList();
+            this.username = resume.getUser().getUsername();
+            this.email = resume.getUser().getEmail();
+            this.phone = resume.getUser().getPhone();
+            this.title = resume.getTitle();
+            this.exp = resume.getExp();
+            this.edu = resume.getEdu();
+            this.location = resume.getLocation();
+            this.qualified = resume.getQualified();
+            this.activity = resume.getActivity();
+            this.imgUrl = resume.getImgUrl();
+            this.LETTER = resume.getLetter();
+            this.employmentList = employmentList;
+            this.isScrap = isScrap;
+            this.scrapId = scrapId == null ? 0 : scrapId;
+        }
     }
 
 }

@@ -1,6 +1,10 @@
 package com.example.recruit_page_wwy.resume;
 
 
+import com.example.recruit_page_wwy.employment.Employment;
+import com.example.recruit_page_wwy.employment.EmploymentRepository;
+import com.example.recruit_page_wwy.scrap.Scrap;
+import com.example.recruit_page_wwy.scrap.ScrapRepository;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -8,12 +12,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class ResumeService {
     private final ResumeRepository resumeRepository;
+    private final EmploymentRepository employmentRepository;
+    private final ScrapRepository scrapRepository;
 
     @PersistenceContext
     private EntityManager em;
@@ -34,27 +41,27 @@ public class ResumeService {
         return new ResumeResponse.MainDTO(resumes, page, totalCount.intValue());
     }
 
-    public ResumeResponse.DetailDTO Detail(Integer id) {
-        Resume resume = resumeRepository.findByResumeId(id);
-        User user = resume.getUser();
+    public ResumeResponse.DetailDTO detailView(Integer resumeId, User sessionUser) {
+        Resume resume = resumeRepository.findByResumeId(resumeId);
+        if (resume == null) throw new RuntimeException("404 Not Found");
 
-        return new ResumeResponse.DetailDTO(
-                resume.getId(),
-                resume.getUser().getId(),             // 유저 ID
-                resume.getJob(),
-                resume.getResumeStackList(),
-                resume.getUser().getUsername(),       // 유저 이름
-                resume.getUser().getEmail(),          // 이메일
-                resume.getUser().getPhone(),          // 전화번호
-                resume.getTitle(),
-                resume.getExp(),
-                resume.getEdu(),
-                resume.getLocation(),
-                resume.getQualified(),
-                resume.getActivity(),
-                resume.getImgUrl(),
-                resume.getLetter()
-        );
+        boolean isScrap = false;
+        Integer scrapId = null;
+
+        // 채용공고 리스트 (기업인 경우만)
+        List<ResumeResponse.DetailDTO.EmployDTO> employmentList = new ArrayList<>();
+        if (sessionUser != null && sessionUser.getRole() == 1) {
+            List<Employment> employments = employmentRepository.findByUserId(sessionUser.getId());
+            for (Employment employment : employments) {
+                employmentList.add(new ResumeResponse.DetailDTO.EmployDTO(employment));
+                System.out.println(resume.getTitle());
+            }
+
+            Scrap scrap = scrapRepository.findByUserIdAndResumeId(sessionUser.getId(), resumeId);
+            isScrap = scrap == null ? false : true;
+            scrapId = scrap == null ? null : scrap.getId();
+        }
+        return new ResumeResponse.DetailDTO(sessionUser, resume, employmentList, isScrap, scrapId);
     }
 
     @Transactional

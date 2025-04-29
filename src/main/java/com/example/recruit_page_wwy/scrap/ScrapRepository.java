@@ -16,10 +16,10 @@ public class ScrapRepository {
 
     public Long userScrapTotalCount(int userId) {
         String sql = """
-            SELECT COUNT(*)
-            FROM scrap_tb s
-            WHERE s.user_id = ?
-            """;
+                SELECT COUNT(*)
+                FROM scrap_tb s
+                WHERE s.user_id = ?
+                """;
         Query query = em.createNativeQuery(sql);
         query.setParameter(1, userId);
         Object result = query.getSingleResult();
@@ -28,10 +28,10 @@ public class ScrapRepository {
 
     public Long comScrapTotalCount(int userId) {
         String sql = """
-            SELECT COUNT(*)
-            FROM scrap_tb s
-            WHERE s.user_id = ?
-            """;
+                SELECT COUNT(*)
+                FROM scrap_tb s
+                WHERE s.user_id = ?
+                """;
         Query query = em.createNativeQuery(sql);
         query.setParameter(1, userId);
         Object result = query.getSingleResult();
@@ -51,14 +51,14 @@ public class ScrapRepository {
 
     public List<ScrapRequest.UserScrapDTO> findAllUserScrapById(int userId, int page, int size) {
         String sql = """
-            SELECT e.title, u.com_name, e.exp, e.location, j.name
-            FROM SCRAP_TB s
-            INNER JOIN EMPLOYMENT_TB e ON s.EMPLOYMENT_ID = e.id
-            INNER JOIN USER_TB u ON e.USER_ID = u.id
-            INNER JOIN job_tb j On e.job_id = j.id
-            WHERE s.user_id = ?
-            LIMIT ? OFFSET ?
-            """;
+                SELECT e.title, u.com_name, e.exp, e.location, j.name
+                FROM SCRAP_TB s
+                INNER JOIN EMPLOYMENT_TB e ON s.EMPLOYMENT_ID = e.id
+                INNER JOIN USER_TB u ON e.USER_ID = u.id
+                INNER JOIN job_tb j On e.job_id = j.id
+                WHERE s.user_id = ?
+                LIMIT ? OFFSET ?
+                """;
         Query query = em.createNativeQuery(sql);
         query.setParameter(1, userId);
         query.setParameter(2, size);
@@ -79,13 +79,13 @@ public class ScrapRepository {
 
     public List<ScrapRequest.ComScrapDTO> findAllComScrapById(int userId, int page, int size) {
         String sql = """
-            SELECT r.title, u.username
-            FROM SCRAP_TB s
-            INNER JOIN RESUME_TB r ON s.RESUME_ID = r.ID
-            INNER JOIN USER_TB u ON r.USER_ID = u.id
-            WHERE s.user_id = ?
-            LIMIT ? OFFSET ?
-            """;
+                SELECT r.title, u.username
+                FROM SCRAP_TB s
+                INNER JOIN RESUME_TB r ON s.RESUME_ID = r.ID
+                INNER JOIN USER_TB u ON r.USER_ID = u.id
+                WHERE s.user_id = ?
+                LIMIT ? OFFSET ?
+                """;
         Query query = em.createNativeQuery(sql);
         query.setParameter(1, userId);
         query.setParameter(2, size);
@@ -114,5 +114,12 @@ public class ScrapRepository {
         Query query = em.createQuery("delete from Scrap s where s.id = :id");
         query.setParameter("id", id);
         query.executeUpdate();
+    }
+
+    public Scrap findByUserIdAndResumeId(int id, Integer resumeId) {
+        return em.createQuery("select s from Scrap s where s.user.id = :id and s.resume.id = :resumeId", Scrap.class)
+                .setParameter("id", id)
+                .setParameter("resumeId", resumeId)
+                .getSingleResult();
     }
 }

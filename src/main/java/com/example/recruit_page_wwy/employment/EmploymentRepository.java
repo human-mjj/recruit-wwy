@@ -1,7 +1,6 @@
 package com.example.recruit_page_wwy.employment;
 
 
-import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.employstack.EmployStack;
 import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.stack.Stack;
@@ -153,5 +152,11 @@ public class EmploymentRepository {
                     .setParameter(2, s)
                     .executeUpdate();
         }
+    }
+
+    public List<Employment> findByUserId(int userId) {
+        return em.createQuery("select e from Employment e where e.user.id = :userId", Employment.class)
+                .setParameter("userId", userId)
+                .getResultList();
     }
 }

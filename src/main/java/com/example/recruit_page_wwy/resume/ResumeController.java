@@ -25,8 +25,10 @@ public class ResumeController {
 
 
     @GetMapping("/resume/{id}")
-    public String resumeDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
-        ResumeResponse.DetailDTO detailDTO = resumeService.Detail(id);
+    public String resumeDetail(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) throw new RuntimeException("401 Unauthorized");
+        ResumeResponse.DetailDTO detailDTO = resumeService.detailView(resumeId, sessionUser);
         request.setAttribute("models", detailDTO);
         return "resume/detail";
     }
