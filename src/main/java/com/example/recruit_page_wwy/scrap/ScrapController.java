@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @Controller
 public class ScrapController {
@@ -41,10 +39,10 @@ public class ScrapController {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         if (sessionUser == null) {
-            throw new RuntimeException("sessionUser is null");
+            throw new RuntimeException("로그인 해주세요");
         }
 
-        ScrapResponse.SaveDTO respDTO = scrapService.save(reqDTO, sessionUser.getId());
+        ScrapResponse.SaveDTO respDTO = scrapService.save(reqDTO, sessionUser);
         System.out.println(respDTO.getScrapId());
 
         return respDTO;

@@ -1,7 +1,6 @@
 package com.example.recruit_page_wwy.employment;
 
 
-import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.employstack.EmployStack;
 import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.stack.Stack;
@@ -17,7 +16,20 @@ import java.util.List;
 public class EmploymentRepository {
     private final EntityManager em;
 
-    public List<Employment> findAllByUserId(Integer userId) {
+    public Long totalCount(Integer userId) {
+        String jpql = """
+                SELECT COUNT(e) 
+                FROM Employment e 
+                WHERE e.user.id = :userId
+                """;
+        return em.createQuery(jpql, Long.class)
+                .setParameter("userId", userId)
+                .getSingleResult();
+    }
+
+    public List<Employment> findAllByUserId(Integer userId, Integer page) {
+        int size = 8;
+        int start = (page - 1) * size;
         String jpql = """
                     SELECT e FROM Employment e
                     JOIN FETCH e.user
@@ -27,6 +39,8 @@ public class EmploymentRepository {
                 """;
         return em.createQuery(jpql, Employment.class)
                 .setParameter("userId", userId)
+                .setFirstResult(start)
+                .setMaxResults(size)
                 .getResultList();
     }
 
@@ -137,7 +151,7 @@ public class EmploymentRepository {
     }
 
     public List<EmployStack> findAllStacksByEmploymentId(int employmentId) {
-        return em.createQuery("select es from EmployStack es where es.id = :employmentId", EmployStack.class)
+        return em.createQuery("select es from EmployStack es where es.employment.id = :employmentId", EmployStack.class)
                 .setParameter("employmentId", employmentId)
                 .getResultList();
     }
