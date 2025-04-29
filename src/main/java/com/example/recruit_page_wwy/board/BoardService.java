@@ -27,9 +27,10 @@ public class BoardService {
         boardRepository.save(saveDTO.getUser_id(), saveDTO.getTitle(), saveDTO.getContent());
     }
 
-    public List<Board> boardList() {
-        List<Board> boards = boardRepository.findAll();
-        return boards;
+    public BoardResponse.ListDTO boardList(Integer page) {
+        Long totalCount = boardRepository.totalCount();
+        List<Board> boards = boardRepository.findAll(page);
+        return new BoardResponse.ListDTO(boards, page, totalCount.intValue());
     }
 
     public BoardResponse.DetailDTO boardDetail(Integer id) {

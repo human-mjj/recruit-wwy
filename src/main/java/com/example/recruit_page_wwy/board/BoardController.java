@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
@@ -29,9 +30,9 @@ public class BoardController {
     }
 
     @GetMapping("/board")
-    public String boardList(HttpServletRequest request) {
-        boardService.boardList();
-        request.setAttribute("models", boardService.boardList());
+    public String boardList(HttpServletRequest request,
+                            @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
+        request.setAttribute("model", boardService.boardList(page - 1));
         return "board/list";
     }
 
