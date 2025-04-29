@@ -38,8 +38,10 @@ public class EmploymentResponse {
         private Boolean isFirst;
         private Boolean isLast;
         private List<Integer> numbers;
+        private TableDTO table;
+        private List<String> careerLevels;
 
-        public EmploymentPageDTO(List<EmploymentResponse.PublicListDTO> employments, Integer current, Integer totalCount) {
+        public EmploymentPageDTO(List<EmploymentResponse.PublicListDTO> employments, Integer current, Integer totalCount, TableDTO table, List<String> careerLevels) {
             this.size = 16;
             this.employments = employments;
             this.totalCount = totalCount;
@@ -51,6 +53,9 @@ public class EmploymentResponse {
             this.isFirst = current == 0;
             this.isLast = current == totalPage - 1;
             this.numbers = makeNumbers(current, totalPage);
+
+            this.table = table;
+            this.careerLevels = careerLevels;
         }
 
         private Integer makeTotalPage(int totalCount, int size) {
