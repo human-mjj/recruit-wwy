@@ -27,28 +27,39 @@ public class EmploymentService {
     private final EmployStackRepository employStackRepository;
     private final ScrapRepository scrapRepository;
 
-    public List<EmploymentResponse.ListDTO> employmentList(Integer userId) {
-        List<Employment> employmentList = employmentRepository.findAllByUserId(userId);
+    public EmploymentResponse.EmploymentDashboardDTO employmentList(User sessionUser, Integer page) {
+        if (page < 1) {
+            page = 1;
+        }
+        Long totalCount = employmentRepository.totalCount(sessionUser.getId());
+        List<Employment> employmentList = employmentRepository.findAllByUserId(sessionUser.getId(), page);
 
         List<EmploymentResponse.ListDTO> dtoList = new ArrayList<>();
         for (Employment e : employmentList) {
-            EmploymentResponse.ListDTO dto = new EmploymentResponse.ListDTO(e);
+            EmploymentResponse.ListDTO dto = new EmploymentResponse.ListDTO(e, sessionUser);
             dtoList.add(dto);
         }
 
-        return dtoList;
+        return new EmploymentResponse.EmploymentDashboardDTO(
+                sessionUser.getRole() == 1,
+                dtoList,
+                page,
+                totalCount.intValue()
+        );
     }
 
-    public List<EmploymentResponse.PublicListDTO> emplymentAllList(Integer userId) {
-        List<Employment> employmentAllList = employmentRepository.findAll();
+    // 채용공고 리스트, paging
+    public EmploymentResponse.EmploymentPageDTO employmentAllList(User sessionUser, Integer page) {
+        int realPage = page - 1;
+        Long totalCount = employmentRepository.totalCount();
+        List<Employment> employmentList = employmentRepository.findAll(realPage);
 
         List<EmploymentResponse.PublicListDTO> dtoList = new ArrayList<>();
-        for (Employment e : employmentAllList) {
-            EmploymentResponse.PublicListDTO dto = new EmploymentResponse.PublicListDTO(e);
-            dtoList.add(dto);
+        for (Employment e : employmentList) {
+            dtoList.add(new EmploymentResponse.PublicListDTO(e, sessionUser));
         }
 
-        return dtoList;
+        return new EmploymentResponse.EmploymentPageDTO(dtoList, realPage, totalCount.intValue());
     }
 
     public List<Employment> viewEmployList() {
@@ -78,6 +89,7 @@ public class EmploymentService {
             List<Resume> resumes = resumeRepository.findByUserId(sessionUser.getId());
             for (Resume resume : resumes) {
                 resumeList.add(new EmploymentResponse.DetailDTO.ResumeDTO(resume));
+                System.out.println(resume.getTitle());
             }
 
             Scrap scrap = scrapRepository.findByUserIdAndEmployId(sessionUser.getId(), employmentId);
@@ -163,4 +175,3 @@ public class EmploymentService {
         employmentRepository.updateStack(employmentId, dto.getEmployStack()); // 기존 스택 전부 삭제
     }
 }
-

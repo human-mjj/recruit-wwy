@@ -28,23 +28,37 @@
 
 <!-- 오른쪽 박스 -->
 
-
+<input type="hidden" id="resumeId" value="{{models.id}}">
 <div class="flex-fill" style="max-width: 75%">
     <div class="bg-white border rounded p-4">
         <div class="d-flex justify-content-between">
             <h4 class="fw-bold">이력서 상세보기</h4>
             <div class="d-flex align-items-center">
-                <i
-                        id="favoriteIcon"
-                        class="fa fa-star"
-                        style="
+                {{#models.isCompanyUser}}
+                    {{#models.isScrap}}
+                        <div class="btn-wrap mt-1">
+                            <div class="toggle-btn">
+                                <i id="scrapIcon" class="fa fa-star" style="
                                         font-size: 24px;
                                         color: yellow;
                                         text-shadow: 0 0 1px #000, 0 0 1px #000;
-                                    "
-                        onclick=""
-                ></i>
-                <span class="ms-1">스크랩</span>
+                                  " onclick="deleteScrap({{models.scrapId}})"></i>
+                            </div>
+                        </div>
+                    {{/models.isScrap}}
+                    {{^models.isScrap}}
+                        <div class="btn-wrap mt-1">
+                            <div class="toggle-btn">
+                                <i id="scrapIcon" class="fa fa-star" style="
+                                        font-size: 24px;
+                                        color: black;
+                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
+                                  " onclick="saveScrap()"></i>
+                            </div>
+                        </div>
+                    {{/models.isScrap}}
+                {{/models.isCompanyUser}}
+
                 <a href="/resume/{{id}}/update-form">
                     <button
                             class="btn btn-warning fw-semibold ms-3"
@@ -132,5 +146,41 @@
 <!-- sidebar 닫는 태그이므로 지우지 말 것 -->
 </div>
 </div>
+
+<script>
+
+    let resumeId = document.querySelector("#resumeId").value;
+
+    async function saveScrap() {
+        let requestBody = {resumeId: resumeId};
+        let response = await fetch(`/api/scrap`, {
+            method: "POST",
+            body: JSON.stringify(requestBody),
+            headers: {"Content-Type": "application/json"}
+        });
+
+        let responseBody = await response.json(); // {scrapId}
+        console.log(responseBody);
+
+        // DOM 업데이트
+        let scrapIcon = document.querySelector('#scrapIcon');
+        scrapIcon.style.color = 'yellow';
+        scrapIcon.setAttribute('onclick', `deleteScrap(${responseBody.scrapId})`);
+
+    }
+
+    async function deleteScrap(scrapId) {
+        let response = await fetch(`/api/scrap/${scrapId}`, {
+            method: "DELETE"
+        });
+        let responseBody = await response.json(); // response.text();
+        console.log(responseBody);
+
+        // DOM 업데이트
+        let scrapIcon = document.querySelector('#scrapIcon');
+        scrapIcon.style.color = 'black';
+        scrapIcon.setAttribute('onclick', `saveScrap()`);
+    }
+</script>
 
 {{> layout/footer}}

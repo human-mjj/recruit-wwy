@@ -34,8 +34,8 @@ public class ApplyService {
     }
 
     @Transactional
-    public void apply(User sessionUser, ApplyRequest.SaveDTO saveDTO, int employmentId) {
-        Resume resume = resumeRepository.findByResumeId(saveDTO.getResumeId());
+    public void apply(User sessionUser, Integer resumeId, int employmentId) {
+        Resume resume = resumeRepository.findByResumeId(resumeId);
         if (resume == null) throw new RuntimeException("404 Not Found");
         if (resume.getUser().getId() != sessionUser.getId()) throw new RuntimeException("403 Forbidden");
         Employment employment = employmentRepository.findByEmploymentId(employmentId);
@@ -66,7 +66,7 @@ public class ApplyService {
         if (!hasCommonJob || !hasCommonSkill) throw new RuntimeException("403 Forbidden");
 
         // employment 함수 만들면 null 없애기
-        Apply apply = saveDTO.toEntity(sessionUser, resume, employment);
+        Apply apply = ApplyRequest.SaveDTO.toEntity(sessionUser, resume, employment);
         applyRepository.save(apply);
     }
 }

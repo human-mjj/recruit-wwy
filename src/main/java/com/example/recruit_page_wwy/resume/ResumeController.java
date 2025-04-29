@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
@@ -16,17 +17,19 @@ public class ResumeController {
     private final HttpSession session;
 
     @GetMapping("/mypage/resume")
-    public String resumeList(HttpServletRequest request) {
+    public String resumeList(HttpServletRequest request, @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        request.setAttribute("models", resumeService.findAll(sessionUser.getId()));
+        request.setAttribute("model", resumeService.findAll(sessionUser.getId(), page));
         return "resume/list";
     }
 
 
     @GetMapping("/resume/{id}")
-    public String resumeDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
-        ResumeResponse.DetailDTO detailDTO = resumeService.Detail(id);
+    public String resumeDetail(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        ResumeResponse.DetailDTO detailDTO = resumeService.Detail(resumeId, sessionUser);
         request.setAttribute("models", detailDTO);
+        System.out.println(detailDTO.getIsScrap());
         return "resume/detail";
     }
 
@@ -61,7 +64,6 @@ public class ResumeController {
         resumeService.delete(resumeId);
         return "redirect:/mypage/resume";
     }
-
 }
 
 

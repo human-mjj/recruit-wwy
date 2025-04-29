@@ -21,10 +21,25 @@ public class BoardRepository {
         query.executeUpdate();
     }
 
-    public List<Board> findAll() {
-        Query query = em.createNativeQuery("select * from board_tb order by id desc", Board.class);
+    public Long totalCount() {
+        String sql = "select count(b) from Board b";
+        Query query = em.createQuery(sql, Long.class);
+        return (Long) query.getSingleResult();
+    }
+
+    public List<Board> findAll(int page) {
+        String sql = "select b from Board b order by b.id desc";
+        Query query = em.createQuery(sql, Board.class);
+
+        query.setFirstResult(page * 5);
+        query.setMaxResults(5);
+
         return query.getResultList();
     }
+//    public List<Board> findAll() {
+//        Query query = em.createNativeQuery("select * from board_tb order by id desc", Board.class);
+//        return query.getResultList();
+//    }
 
 //    public Board emailConvertId(Integer id) { //이메일 아이디 조회 쿼리 만들었는데 필요하면 사용
 //        Query query = em.createNativeQuery("SELECT id, SUBSTRING(email, 1, LOCATE('@', email) - 1) as emailId FROM user_tb where id = ?;");

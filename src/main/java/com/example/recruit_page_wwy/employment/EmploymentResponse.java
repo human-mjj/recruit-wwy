@@ -26,6 +26,103 @@ public class EmploymentResponse {
     }
 
     @Data
+    public static class EmploymentPageDTO {
+        private List<PublicListDTO> employments;
+        private Integer prev;
+        private Integer next;
+
+        private Integer size;
+        private Integer totalCount;
+        private Integer totalPage;
+        private Integer current;
+        private Boolean isFirst;
+        private Boolean isLast;
+        private List<Integer> numbers;
+
+        public EmploymentPageDTO(List<EmploymentResponse.PublicListDTO> employments, Integer current, Integer totalCount) {
+            this.size = 16;
+            this.employments = employments;
+            this.totalCount = totalCount;
+            this.totalPage = makeTotalPage(totalCount, size);
+            this.current = current;
+            this.prev = current <= 0 ? 1 : current;
+            this.next = current + 2;
+
+            this.isFirst = current == 0;
+            this.isLast = current == totalPage - 1;
+            this.numbers = makeNumbers(current, totalPage);
+        }
+
+        private Integer makeTotalPage(int totalCount, int size) {
+            int rest = totalCount % size > 0 ? 1 : 0;
+            return totalCount / size + rest;
+        }
+
+        private List<Integer> makeNumbers(int current, int totalPage) {
+            List<Integer> numbers = new ArrayList<>();
+
+            int start = (current / 5) * 5;
+            int end = Math.min(start + 5, totalPage);
+
+            for (int i = start; i < end; i++) {
+                numbers.add(i + 1); // 버튼 1부터 보이게 처리된 곳
+            }
+
+            return numbers;
+        }
+    }
+
+    @Data
+    public static class EmploymentDashboardDTO {
+        private boolean isCompanyUser;
+        private List<EmploymentResponse.ListDTO> employments;
+
+        private Integer prev;
+        private Integer next;
+        private Integer size;
+        private Integer totalCount;
+        private Integer totalPage;
+        private Integer current;
+        private Boolean isFirst;
+        private Boolean isLast;
+        private List<Integer> numbers;
+
+        public EmploymentDashboardDTO(boolean isCompanyUser, List<EmploymentResponse.ListDTO> employments, Integer current, Integer totalCount) {
+            this.isCompanyUser = isCompanyUser;
+            this.employments = employments;
+
+            this.current = current;
+            this.size = 8;
+            this.totalCount = totalCount;
+            this.totalPage = makeTotalPage(totalCount, size);
+
+            this.prev = current - 1;
+            this.next = current + 1;
+
+            this.isFirst = current == 1;
+            this.isLast = current.equals(totalPage);
+            this.numbers = makeNumbers(current, totalPage);
+        }
+
+        private Integer makeTotalPage(int totalCount, int size) {
+            int rest = totalCount % size > 0 ? 1 : 0;
+            return totalCount / size + rest;
+        }
+
+        private List<Integer> makeNumbers(int current, int totalPage) {
+            List<Integer> numbers = new ArrayList<>();
+            int start = ((current - 1) / 5) * 5 + 1;
+            int end = Math.min(start + 4, totalPage);
+
+            for (int i = start; i <= end; i++) {
+                numbers.add(i);
+            }
+
+            return numbers;
+        }
+    }
+
+    @Data
     public static class ListDTO {
         private Integer id;
         private String title;
@@ -35,9 +132,9 @@ public class EmploymentResponse {
         private String jobName;
         private String imgUrl;
         private boolean isThereImg;
+        private boolean isCompanyUser;
 
-
-        public ListDTO(Employment e) {
+        public ListDTO(Employment e, User sessionUser) {
             this.id = e.getId();
             this.title = e.getTitle();
             this.comName = e.getUser().getComName();
@@ -46,6 +143,7 @@ public class EmploymentResponse {
             this.jobName = e.getJob().getName();
             this.isThereImg = e.getImgUrl() != null;
             this.imgUrl = isThereImg ? e.getImgUrl() : "/img/job_dummy.jpg";
+            this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
         }
     }
 
@@ -60,7 +158,10 @@ public class EmploymentResponse {
         private String imgUrl;
         private boolean isThereImg;
 
-        public PublicListDTO(Employment e) {
+        private Boolean isCompanyUser; // 스크랩 버튼 노출 여부 (false면 보여줌)
+
+
+        public PublicListDTO(Employment e, User sessionUser) {
             this.id = e.getId();
             this.title = e.getTitle();
             this.comName = e.getUser().getComName();
@@ -70,6 +171,7 @@ public class EmploymentResponse {
             this.isThereImg = e.getImgUrl() != null;
             this.imgUrl = isThereImg ? e.getImgUrl() : "/img/job_dummy.jpg";
 
+            this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
         }
     }
 
