@@ -31,10 +31,12 @@ public class EmploymentController {
     }
 
     @GetMapping("/mypage/employment")
-    public String manageEmployment(HttpServletRequest request) {
+    public String manageEmployment(HttpServletRequest request,
+                                   @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) throw new RuntimeException("401 Unauthorized");
-        request.setAttribute("models", employmentService.employmentList(sessionUser));
+        EmploymentResponse.EmploymentDashboardDTO model = employmentService.employmentList(sessionUser, page);
+        request.setAttribute("model", model);
         return "employment/dashboard";
     }
 

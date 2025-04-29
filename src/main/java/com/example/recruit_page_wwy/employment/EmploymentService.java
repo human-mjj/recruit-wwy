@@ -27,8 +27,12 @@ public class EmploymentService {
     private final EmployStackRepository employStackRepository;
     private final ScrapRepository scrapRepository;
 
-    public List<EmploymentResponse.ListDTO> employmentList(User sessionUser) {
-        List<Employment> employmentList = employmentRepository.findAllByUserId(sessionUser.getId());
+    public EmploymentResponse.EmploymentDashboardDTO employmentList(User sessionUser, Integer page) {
+        if (page < 1) {
+            page = 1;
+        }
+        Long totalCount = employmentRepository.totalCount(sessionUser.getId());
+        List<Employment> employmentList = employmentRepository.findAllByUserId(sessionUser.getId(), page);
 
         List<EmploymentResponse.ListDTO> dtoList = new ArrayList<>();
         for (Employment e : employmentList) {
@@ -36,7 +40,12 @@ public class EmploymentService {
             dtoList.add(dto);
         }
 
-        return dtoList;
+        return new EmploymentResponse.EmploymentDashboardDTO(
+                sessionUser.getRole() == 1,
+                dtoList,
+                page,
+                totalCount.intValue()
+        );
     }
 
     // 채용공고 리스트, paging
@@ -80,6 +89,7 @@ public class EmploymentService {
             List<Resume> resumes = resumeRepository.findByUserId(sessionUser.getId());
             for (Resume resume : resumes) {
                 resumeList.add(new EmploymentResponse.DetailDTO.ResumeDTO(resume));
+                System.out.println(resume.getTitle());
             }
 
             Scrap scrap = scrapRepository.findByUserIdAndEmployId(sessionUser.getId(), employmentId);
