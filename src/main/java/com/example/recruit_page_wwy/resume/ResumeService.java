@@ -56,7 +56,7 @@ public class ResumeService {
             }
 
             Scrap scrap = scrapRepository.findByUserIdAndResumeId(sessionUser.getId(), resumeId);
-            isScrap = scrap == null ? false : true;
+            isScrap = scrap != null;
             scrapId = scrap == null ? null : scrap.getId();
         }
         return new ResumeResponse.DetailDTO(sessionUser, resume, employmentList, isScrap, scrapId);
