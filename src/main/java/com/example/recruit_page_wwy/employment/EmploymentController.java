@@ -1,7 +1,6 @@
 package com.example.recruit_page_wwy.employment;
 
 import com.example.recruit_page_wwy.user.User;
-import com.example.recruit_page_wwy.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -38,23 +38,12 @@ public class EmploymentController {
         return "employment/dashboard";
     }
 
-    // TODO
-    // 검색필터, 페이징 구현 필요
     @GetMapping("/employment")
-    public String employmentList(HttpServletRequest request) {
+    public String employmentList(HttpServletRequest request,
+                                 @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
-        // 유저일 경우에만 스크랩 버튼 보이게 함 (로그인을 안해도 스크랩 버튼 보임)
-        if (sessionUser != null) {
-            UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
-            request.setAttribute("ComCheck", myDTO);
-        } else {
-            request.setAttribute("ComCheck", null); // 로그인 안 한 경우
-        }
-
-        Integer userId = (sessionUser != null) ? sessionUser.getId() : null; // 로그인 안해도 접근할 수 있게
-        request.setAttribute("models", employmentService.emplymentAllList(userId));
-
+        EmploymentResponse.EmploymentPageDTO model = employmentService.employmentAllList(sessionUser, page);
+        request.setAttribute("model", model);
         return "employment/list";
     }
 

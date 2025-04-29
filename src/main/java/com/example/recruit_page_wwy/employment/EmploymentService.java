@@ -39,16 +39,18 @@ public class EmploymentService {
         return dtoList;
     }
 
-    public List<EmploymentResponse.PublicListDTO> emplymentAllList(Integer userId) {
-        List<Employment> employmentAllList = employmentRepository.findAll();
+    // 채용공고 리스트, paging
+    public EmploymentResponse.EmploymentPageDTO employmentAllList(User sessionUser, Integer page) {
+        int realPage = page - 1;
+        Long totalCount = employmentRepository.totalCount();
+        List<Employment> employmentList = employmentRepository.findAll(realPage);
 
         List<EmploymentResponse.PublicListDTO> dtoList = new ArrayList<>();
-        for (Employment e : employmentAllList) {
-            EmploymentResponse.PublicListDTO dto = new EmploymentResponse.PublicListDTO(e);
-            dtoList.add(dto);
+        for (Employment e : employmentList) {
+            dtoList.add(new EmploymentResponse.PublicListDTO(e));
         }
 
-        return dtoList;
+        return new EmploymentResponse.EmploymentPageDTO(dtoList, realPage, totalCount.intValue());
     }
 
     public List<Employment> viewEmployList() {
@@ -163,4 +165,3 @@ public class EmploymentService {
         employmentRepository.updateStack(employmentId, dto.getEmployStack()); // 기존 스택 전부 삭제
     }
 }
-

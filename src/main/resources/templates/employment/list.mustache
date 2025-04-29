@@ -50,173 +50,188 @@
 							</div>
 						</div>
 
-						<div class="d-flex gap-3">
-							<div class="form-check">
-								<input
-										class="form-check-input"
-										type="radio"
-										name="sort"
-										value="latest"
-										checked
-								/>
-								<label class="form-check-label"
-								>최신순</label
-								>
-							</div>
-							<div class="form-check">
-								<input
-										class="form-check-input"
-										type="radio"
-										name="sort"
-										value="recommended"
-								/>
-								<label class="form-check-label"
-								>추천순</label
-								>
-							</div>
-							<div class="form-check">
-								<input
-										class="form-check-input"
-										type="radio"
-										name="sort"
-										value="popular"
-								/>
-								<label class="form-check-label"
-								>인기순</label
-								>
-							</div>
-						</div>
-					</div>
-					<div class="checkbox-area flex-wrap">
-						<div
-								class="skill form-check d-flex gap-3 align-items-center"
-						>
-							<input
-									class="form-check-input"
-									type="checkbox"
-									name="skills"
-									value="all"
-							/>
-							<label class="form-check-label"
-							>전체보기</label
-							>
-						</div>
-						<div
-								class="skill form-check d-flex gap-3 align-items-center"
-						>
-							<input
-									class="form-check-input"
-									type="checkbox"
-									name="skills"
-									value="java"
-							/>
-							<label class="form-check-label">JAVA</label>
-						</div>
-						<div
-								class="skill form-check d-flex gap-3 align-items-center"
-						>
-							<input
-									class="form-check-input"
-									type="checkbox"
-									name="skills"
-									value="java"
-							/>
-							<label class="form-check-label">JAVA</label>
-						</div>
-						<div
-								class="skill form-check d-flex gap-3 align-items-center"
-						>
-							<input
-									class="form-check-input"
-									type="checkbox"
-									name="skills"
-									value="java"
-							/>
-							<label class="form-check-label">JAVA</label>
-						</div>
-					</div>
-				</form>
-			</div>
-			<!-- .filter-wrap end -->
-			<div class="job-list">
-				<ul class="card-wrap row">
-					{{#models}}
-						<li class="card-1 col-3 mb-3">
-							<a href="/employment/{{id}}" class="d-flex flex-column gap-2 w-100">
-								<figure class="recommend-img overflow-hidden d-flex align-items-center border rounded">
-									<img class="w-100 h-100 object-fit-cover"
-									     src="{{imgUrl}}"
-									     alt="임시이미지"/>
-								</figure>
-								<div class="recommend-content d-flex flex-column border rounded gap-3 py-3 px-3">
-									<div class="top d-flex justify-content-between">
-										<h3 class="fs-6 fw-medium">{{title}}</h3>
-										{{#ComCheck.isCompanyUser}}
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input
+                                        class="form-check-input"
+                                        type="radio"
+                                        name="sort"
+                                        value="latest"
+                                        checked
+                                />
+                                <label class="form-check-label"
+                                >최신순</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                        class="form-check-input"
+                                        type="radio"
+                                        name="sort"
+                                        value="recommended"
+                                />
+                                <label class="form-check-label"
+                                >추천순</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                        class="form-check-input"
+                                        type="radio"
+                                        name="sort"
+                                        value="popular"
+                                />
+                                <label class="form-check-label"
+                                >인기순</label
+                                >
+                            </div>
+                        </div>
+                    </div>
 
-										{{/ComCheck.isCompanyUser}}
-										{{^ComCheck.isCompanyUser}}
-											<div class="toggle-btn">
-												<i id="favoriteIcon" class="fa fa-star"
-												   style="font-size: 24px; color: yellow; text-shadow: 0 0 1px #000, 0 0 1px #000;"
-												   onclick=""></i>
-											</div>
-										{{/ComCheck.isCompanyUser}}
-										<!-- .toggle-btn end -->
-									</div>
-									<!-- .top end -->
-									<div class="bottom d-flex flex-column gap-3">
-										<p class="fs-6">{{comName}}</p>
-										<ul class="d-flex justify-content-start gap-4">
-											<li class="d-flex align-items-center gap-1">
-												<img src="/img/star_01.png" alt=""/>
-												<p class="fs-6">{{exp}}</p>
-											</li>
-											<li class="d-flex align-items-center gap-1">
-												<img src="/img/marker_01.png" alt=""/>
-												<p class="fs-6">{{location}}</p>
-											</li>
-										</ul>
-										<ul class="duty d-flex justify-content-start gap-1">
-											<li class="p-2 rounded">
-												<p class="fs-6 fw-medium">
-													{{jobName}}
-												</p>
-											</li>
-										</ul>
-									</div>
-									<!-- .bottom end -->
-								</div>
-								<!-- .recommend-content end -->
-							</a>
-						</li>
-						<!-- .card-1 end -->
-					{{/models}}
-				</ul>
-				<!-- .card-wrap end -->
-				<div class="pagging d-flex justify-content-center">
-					<ul class="pagination">
-						<li class="page-item">
-							<a class="page-link" href="#">Previous</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">1</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">2</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">3</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">Next</a>
-						</li>
-					</ul>
-				</div>
-				<!-- .pagging end -->
-			</div>
-			<!-- .job-list end -->
-		</div>
-	</section>
+                    <div class="checkbox-area flex-wrap">
+                        <div
+                                class="skill form-check d-flex gap-3 align-items-center"
+                        >
+                            <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    name="skills"
+                                    value="all"
+                            />
+                            <label class="form-check-label"
+                            >전체보기</label
+                            >
+                        </div>
+                        <div
+                                class="skill form-check d-flex gap-3 align-items-center"
+                        >
+                            <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    name="skills"
+                                    value="java"
+                            />
+                            <label class="form-check-label">JAVA</label>
+                        </div>
+                        <div
+                                class="skill form-check d-flex gap-3 align-items-center"
+                        >
+                            <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    name="skills"
+                                    value="java"
+                            />
+                            <label class="form-check-label">JAVA</label>
+                        </div>
+                        <div
+                                class="skill form-check d-flex gap-3 align-items-center"
+                        >
+                            <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    name="skills"
+                                    value="java"
+                            />
+                            <label class="form-check-label">JAVA</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- .filter-wrap end -->
+            <div class="job-list">
+                <ul class="card-wrap row">
+                    {{#model.employments}}
+                        <li class="card-1 col-3 mb-3">
+                            <a href="/employment/{{id}}" class="d-flex flex-column gap-2 w-100">
+                                <figure class="recommend-img overflow-hidden d-flex align-items-center border rounded">
+                                    <img class="w-100"
+                                         src="{{#imgUrl}}{{imgUrl}}{{/imgUrl}}{{^imgUrl}}/img/job_dummy.jpg{{/imgUrl}}"
+                                         alt="임시이미지"/>
+                                </figure>
+                                <div class="recommend-content d-flex flex-column border rounded gap-3 py-3 px-3">
+                                    <div class="top d-flex justify-content-between">
+                                        <h3 class="fs-6 fw-medium">{{title}}</h3>
+                                        {{#sessionUser}}
+                                            {{^ComCheck.isCompanyUser}}
+                                                {{#models.isScrap}}
+                                                    <div class="btn-wrap mt-1">
+                                                        <div class="toggle-btn">
+                                                            <i id="scrapIcon" class="fa fa-star" style="
+                                        font-size: 24px;
+                                        color: yellow;
+                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
+                                  " onclick="deleteScrap({{models.scrapId}})"></i>
+                                                        </div>
+                                                    </div>
+                                                {{/models.isScrap}}
+                                                {{^models.isScrap}}
+                                                    <div class="btn-wrap mt-1">
+                                                        <div class="toggle-btn">
+                                                            <i id="scrapIcon" class="fa fa-star" style="
+                                        font-size: 24px;
+                                        color: black;
+                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
+                                  " onclick="saveScrap()"></i>
+                                                        </div>
+                                                    </div>
+                                                {{/models.isScrap}}
+                                            {{/ComCheck.isCompanyUser}}
+                                        {{/sessionUser}}
+                                        {{^sessionUser}}
+                                        {{/sessionUser}}
+                                        <!-- .toggle-btn end -->
+                                    </div>
+                                    <!-- .top end -->
+                                    <div class="bottom d-flex flex-column gap-3">
+                                        <p class="fs-6">{{comName}}</p>
+                                        <ul class="d-flex justify-content-start gap-4">
+                                            <li class="d-flex align-items-center gap-1">
+                                                <img src="/img/star_01.png" alt=""/>
+                                                <p class="fs-6">{{exp}}</p>
+                                            </li>
+                                            <li class="d-flex align-items-center gap-1">
+                                                <img src="/img/marker_01.png" alt=""/>
+                                                <p class="fs-6">{{location}}</p>
+                                            </li>
+                                        </ul>
+                                        <ul class="duty d-flex justify-content-start gap-1">
+                                            <li class="p-2 rounded">
+                                                <p class="fs-6 fw-medium">
+                                                    {{jobName}}
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- .bottom end -->
+                                </div>
+                                <!-- .recommend-content end -->
+                            </a>
+                        </li>
+                        <!-- .card-1 end -->
+                    {{/model.employments}}
+                </ul>
+                <!-- .card-wrap end -->
+                <div class="pagging d-flex justify-content-center">
+                    <ul class="pagination">
+                        <li class="page-item {{#model.isFirst}}disabled{{/model.isFirst}}">
+                            <a class="page-link" href="?page={{model.prev}}">Previous</a>
+                        </li>
+                        {{#model.numbers}}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{.}}">{{.}}</a>
+                            </li>
+                        {{/model.numbers}}
+                        <li class="page-item {{#model.isLast}}disabled{{/model.isLast}}">
+                            <a class="page-link" href="?page={{model.next}}">Next</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- .pagging end -->
+            </div>
+            <!-- .job-list end -->
+        </div>
+    </section>
 </main>
 
 <script>
