@@ -73,6 +73,17 @@ public class EmploymentResponse {
     }
 
     @Data
+    public static class EmploymentDashboardDTO {
+        private boolean isCompanyUser;
+        private List<EmploymentResponse.ListDTO> employments;
+
+        public EmploymentDashboardDTO(boolean isCompanyUser, List<EmploymentResponse.ListDTO> employments) {
+            this.isCompanyUser = isCompanyUser;
+            this.employments = employments;
+        }
+    }
+
+    @Data
     public static class ListDTO {
         private Integer id;
         private String title;
@@ -82,8 +93,9 @@ public class EmploymentResponse {
         private String jobName;
         private String imgUrl;
         private boolean isThereImg;
+        private boolean isCompanyUser;
 
-        public ListDTO(Employment e) {
+        public ListDTO(Employment e, User sessionUser) {
             this.id = e.getId();
             this.title = e.getTitle();
             this.comName = e.getUser().getComName();
@@ -92,6 +104,7 @@ public class EmploymentResponse {
             this.jobName = e.getJob().getName();
             this.isThereImg = e.getImgUrl() != null;
             this.imgUrl = isThereImg ? e.getImgUrl() : "/img/job_dummy.jpg";
+            this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
         }
     }
 

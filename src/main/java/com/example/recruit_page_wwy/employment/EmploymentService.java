@@ -27,12 +27,12 @@ public class EmploymentService {
     private final EmployStackRepository employStackRepository;
     private final ScrapRepository scrapRepository;
 
-    public List<EmploymentResponse.ListDTO> employmentList(Integer userId) {
-        List<Employment> employmentList = employmentRepository.findAllByUserId(userId);
+    public List<EmploymentResponse.ListDTO> employmentList(User sessionUser) {
+        List<Employment> employmentList = employmentRepository.findAllByUserId(sessionUser.getId());
 
         List<EmploymentResponse.ListDTO> dtoList = new ArrayList<>();
         for (Employment e : employmentList) {
-            EmploymentResponse.ListDTO dto = new EmploymentResponse.ListDTO(e);
+            EmploymentResponse.ListDTO dto = new EmploymentResponse.ListDTO(e, sessionUser);
             dtoList.add(dto);
         }
 
