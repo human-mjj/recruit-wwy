@@ -158,7 +158,10 @@ public class EmploymentResponse {
         private String imgUrl;
         private boolean isThereImg;
 
-        public PublicListDTO(Employment e) {
+        private Boolean isCompanyUser; // 스크랩 버튼 노출 여부 (false면 보여줌)
+
+
+        public PublicListDTO(Employment e, User sessionUser) {
             this.id = e.getId();
             this.title = e.getTitle();
             this.comName = e.getUser().getComName();
@@ -168,6 +171,7 @@ public class EmploymentResponse {
             this.isThereImg = e.getImgUrl() != null;
             this.imgUrl = isThereImg ? e.getImgUrl() : "/img/job_dummy.jpg";
 
+            this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
         }
     }
 

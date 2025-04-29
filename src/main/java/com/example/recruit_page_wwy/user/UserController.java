@@ -20,7 +20,7 @@ public class UserController {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
-        request.setAttribute("model", myDTO);
+        request.setAttribute("models", myDTO);
 
         System.out.println(myDTO.getIsCompanyUser());
         return "/mypage/index";
@@ -79,6 +79,9 @@ public class UserController {
     public String login(UserRequest.LoginDTO reqDTO) {
         User sessionUser = userService.login(reqDTO);
         session.setAttribute("sessionUser", sessionUser);
+
+        // TODO : 쿠키 저장하여 로그인 유지 or 아이디 기억
+
         return "redirect:/";
     }
 
