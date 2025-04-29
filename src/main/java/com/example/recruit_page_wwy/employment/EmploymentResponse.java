@@ -46,6 +46,9 @@ public class EmploymentResponse {
             this.jobName = e.getJob().getName();
             this.isThereImg = e.getImgUrl() != null;
             this.imgUrl = isThereImg ? e.getImgUrl() : "/img/job_dummy.jpg";
+            this.isThereImg = (e.getImgUrl() != null);
+            this.jobName = (e.getJob() != null) ? e.getJob().getName() : null;
+            this.comName = (e.getUser() != null) ? e.getUser().getUsername() : null;
         }
     }
 
