@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -57,9 +58,9 @@ public class ApplyController {
     }
 
     @PostMapping("/employment/{id}/apply")
-    public String apply(@PathVariable("id") int employmentId, ApplyRequest.SaveDTO saveDTO) {
+    public String apply(@PathVariable("id") int employmentId, @RequestParam("resumeId") Integer resumeId) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        applyService.apply(sessionUser, saveDTO, employmentId);
+        applyService.apply(sessionUser, resumeId, employmentId);
         return "redirect:/mypage/apply";
     }
 }

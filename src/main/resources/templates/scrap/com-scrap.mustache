@@ -33,26 +33,47 @@
         </div>
         <br/>
         <!-- 이력서 카드들 -->
-        {{#models}}
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div class="d-flex">
-                            <h4 class="card-title mb-3">
-                                {{title}}
-                            </h4>
-                            <p class="p-size m-1">{{username}}</p>
+        <ul style="padding-left: 0!important;">
+            {{#model.scraps}}
+                <li class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex">
+                                <h4 class="card-title mb-3">
+                                    {{title}}
+                                </h4>
+                                <p class="p-size m-1">{{username}}</p>
+                            </div>
+                            <div>
+                                <i id="favoriteIcon" class="fa fa-star" style="
+                                            font-size: 24px;
+                                            color: yellow;
+                                            text-shadow: 0 0 1px #000, 0 0 1px #000;
+                                        " onclick=""></i>
+                            </div>
                         </div>
+                        <a href="/resume/{{resumeId}}" class="btn btn-primary">상세보기</a>
                     </div>
-                    <a href="/resume/{{id}}" class="btn btn-primary">상세보기</a>
-                </div>
-            </div>
-        {{/models}}
-
+                </li>
+            {{/model.scraps}}
+        </ul>
+        <div class="pagging d-flex justify-content-center">
+            <ul class="pagination">
+                <li class="page-item {{#model.isFirst}}disabled{{/model.isFirst}}">
+                    <a class="page-link" href="?page={{model.prev}}">Previous</a>
+                </li>
+                {{#model.numbers}}
+                    <li class="page-item"><a class="page-link" href="?page={{.}}">{{.}}</a></li>
+                {{/model.numbers}}
+                <li class="page-item {{#model.isLast}}disabled{{/model.isLast}}">
+                    <a class="page-link" href="?page={{model.next}}">Next</a>
+                </li>
+            </ul>
+        </div>
+        <!-- .pagging end -->
     </div>
 </div>
 <!-- sidebar 닫는 태그이므로 지우지 말 것 -->
 </div>
 </div>
-
 {{> layout/footer}}

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
@@ -30,11 +31,9 @@ public class BoardController {
     }
 
     @GetMapping("/board")
-    public String boardList(HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
-        boardService.boardList();
-        request.setAttribute("models", boardService.boardList());
+    public String boardList(HttpServletRequest request,
+                            @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
+        request.setAttribute("model", boardService.boardList(page - 1));
 
         // 구직자로 로그인 시 이력서 nav / 기업으로 로그인 시 추천 nav
         if (sessionUser != null) {
@@ -44,7 +43,6 @@ public class BoardController {
         } else {
             request.setAttribute("comCheck", null); // 로그인 안 한 경우
         }
-
         return "board/list";
     }
 

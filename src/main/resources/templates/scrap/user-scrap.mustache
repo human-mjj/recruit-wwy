@@ -32,9 +32,9 @@
 
         <div class="job-list">
             <ul class="card-wrap row row-gap-3" style="gap: calc(4% / 3);">
-                {{#models}}
+                {{#model.scraps}}
                     <li class="card-1">
-                        <a href="/employment/{{emplorymentId}}" class="d-flex flex-column gap-2 recommend-card-box">
+                        <a href="/employment/{{employmentId}}" class="d-flex flex-column gap-2 recommend-card-box">
                             <figure class="recommend-img overflow-hidden d-flex align-items-center border rounded">
                                 <img class="w-100" src="/img/Screenshot_14.png" alt="임시이미지"/>
                             </figure>
@@ -52,11 +52,11 @@
                                     <p class="fs-6">{{comName}}</p>
                                     <ul class="d-flex justify-content-start flex-column gap-1">
                                         <li class="d-flex align-items-center gap-1">
-                                            <img src="/img/icon00.png" alt="임시아이콘"/>
+                                            <img src="/img/star_01.png" alt=""/>
                                             <p class="fs-6">{{exp}}</p>
                                         </li>
                                         <li class="d-flex align-items-center gap-1">
-                                            <img src="/img/icon00.png" alt="임시아이콘"/>
+                                            <img src="/img/marker_01.png" alt=""/>
                                             <p class="fs-6">{{location}}</p>
                                         </li>
                                     </ul>
@@ -71,17 +71,21 @@
                             <!-- .recommend-content end -->
                         </a>
                     </li>
-                {{/models}}
+                {{/model.scraps}}
 
             </ul>
             <!-- .card-wrap end -->
             <div class="pagging d-flex justify-content-center">
                 <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    <li class="page-item {{#model.isFirst}}disabled{{/model.isFirst}}">
+                        <a class="page-link" href="?page={{model.prev}}">Previous</a>
+                    </li>
+                    {{#model.numbers}}
+                        <li class="page-item"><a class="page-link" href="?page={{.}}">{{.}}</a></li>
+                    {{/model.numbers}}
+                    <li class="page-item {{#model.isLast}}disabled{{/model.isLast}}">
+                        <a class="page-link" href="?page={{model.next}}">Next</a>
+                    </li>
                 </ul>
             </div>
             <!-- .pagging end -->

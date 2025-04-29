@@ -41,17 +41,23 @@ public class ResumeRepository {
         }
     }
 
-    public List<Resume> findAll(Integer user_id) {
+    public List<Resume> findAll(Integer user_id, Integer page) {
         Query query = em.createNativeQuery("select * from resume_tb where user_id=? order by id desc", Resume.class);
         query.setParameter(1, user_id);
+        query.setFirstResult(page * 5);
+        query.setMaxResults(5);
         return query.getResultList();
     }
 
-    public Resume findByResumeId(Integer id) {
-        Query query = em.createNativeQuery("select r.ID, r.TITLE,  u.USERNAME,  u.PHONE,  u.EMAIL, r.EXP,  r.EDU, r.JOB_ID,  r.LOCATION,   r.QUALIFIED,   r.ACTIVITY,  r.IMG_URL,  r.LETTER, r.USER_ID from resume_tb r inner join user_tb u on r.user_id = u.id " +
-                "where r.id = ?", Resume.class);
-        query.setParameter(1, id);
-        return (Resume) query.getSingleResult();
+    public Long totalCount(int userId) {
+        Query query = em.createNativeQuery("select count(*) from resume_tb r where r.user_id=?");
+        query.setParameter(1, userId);
+        Object result = query.getSingleResult();
+        return ((Number) result).longValue();
+    }
+
+    public Resume findByResumeId(Integer resumeId) {
+        return em.find(Resume.class, resumeId);
     }
 
     public List<Resume> findByUserId(Integer userId) { // employment에서 이력서 작성자 찾기

@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Document</title>
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/css/job-detail.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Document</title>
+	<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+	/>
+	<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+	/>
+	<link rel="stylesheet" href="/css/job-detail.css"/>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 
@@ -23,266 +23,266 @@
 <input type="hidden" id="employmentId" value="{{models.id}}">
 
 <main>
-    <section>
-        <div class="container mt-4 mb-5 d-flex justify-content-between">
-            <div class="doc-wrap p-4">
-                <div class="doc-info1">
-                    <div class="doc-top d-flex justify-content-between">
-                        <div
-                                class="title-wrap d-flex gap-4 align-items-center"
-                        >
-                            <figure class="doc-logo">
-                                <img src="{{#imgUrl}}{{imgUrl}}{{/imgUrl}}{{^imgUrl}}/img/naver_logo_basic.png{{/imgUrl}}"
-                                     alt=""/>
-                            </figure>
-                            <!-- .doc-logo end -->
-                            <div class="d-flex flex-column gap-2">
-                                <h3 class="title">{{models.title}}</h3>
-                                <p class="description">{{models.comName}}</p>
-                            </div>
-                        </div>
-                        {{#comCheck.isCompanyUser}}
-                        {{/comCheck.isCompanyUser}}
-                        {{^comCheck.isCompanyUser}}
-                            {{#models.isScrap}}
-                                <div class="btn-wrap mt-1">
-                                    <div class="toggle-btn">
-                                        <i id="scrapIcon" class="fa fa-star" style="
+	<section>
+		<div class="container mt-4 mb-5 d-flex justify-content-between">
+			<div class="doc-wrap p-4">
+				<div class="doc-info1">
+					<div class="doc-top d-flex justify-content-between">
+						<div
+								class="title-wrap d-flex gap-4 align-items-center"
+						>
+							<figure class="doc-logo">
+								<img src="{{#imgUrl}}{{imgUrl}}{{/imgUrl}}{{^imgUrl}}/img/naver_logo_basic.png{{/imgUrl}}"
+								     alt=""/>
+							</figure>
+							<!-- .doc-logo end -->
+							<div class="d-flex flex-column gap-2">
+								<h3 class="title">{{models.title}}</h3>
+								<p class="description">{{models.comName}}</p>
+							</div>
+						</div>
+						{{#models.isCompanyUser}}
+						{{/models.isCompanyUser}}
+						{{^models.isCompanyUser}}
+							{{#models.isScrap}}
+								<div class="btn-wrap mt-1">
+									<div class="toggle-btn">
+										<i id="scrapIcon" class="fa fa-star" style="
                                         font-size: 24px;
                                         color: yellow;
                                         text-shadow: 0 0 1px #000, 0 0 1px #000;
                                   " onclick="deleteScrap({{models.scrapId}})"></i>
-                                    </div>
-                                </div>
-                            {{/models.isScrap}}
-                            {{^models.isScrap}}
-                                <div class="btn-wrap mt-1">
-                                    <div class="toggle-btn">
-                                        <i id="scrapIcon" class="fa fa-star" style="
+									</div>
+								</div>
+							{{/models.isScrap}}
+							{{^models.isScrap}}
+								<div class="btn-wrap mt-1">
+									<div class="toggle-btn">
+										<i id="scrapIcon" class="fa fa-star" style="
                                         font-size: 24px;
                                         color: black;
                                         text-shadow: 0 0 1px #000, 0 0 1px #000;
                                   " onclick="saveScrap()"></i>
-                                    </div>
-                                </div>
-                            {{/models.isScrap}}
-                        {{/comCheck.isCompanyUser}}
-                        <!-- .toggle-btn end -->
-                    </div>
-                    {{#isOwner}}
-                        <div class="btn-wrap d-flex justify-content-end">
-                            <a href="/job/1/update-form" class="btn btn-warning me-1"
-                            >수정</a
-                            >
-                            <form action="/job/1/delete" method="post">
-                                <button class="btn btn-danger">삭제</button>
-                            </form>
-                        </div>
-                    {{/isOwner}}
-                </div>
-                <!-- .doc-info1 end -->
-                <div
-                        class="doc-info2 d-flex flex-column mt-3 rounded overflow-hidden p-3 mb-1"
-                >
-                    <div class="inner">
-                        <div class="row">
-                            <div
-                                    class="col-6 py-3 d-flex align-items-center"
-                            >
-                                <h4 class="fs-6 fw-semibold">경력</h4>
-                                <span class="fs-6 fw-semibold"
-                                >{{models.exp}}</span
-                                >
-                            </div>
-                            <div
-                                    class="col-6 py-3 d-flex align-items-center"
-                            >
-                                <h4 class="fs-6 fw-semibold">
-                                    학력
-                                </h4>
-                                <span class="fs-6 fw-semibold"
-                                >{{models.edu}}</span
-                                >
-                            </div>
-                        </div>
+									</div>
+								</div>
+							{{/models.isScrap}}
+						{{/models.isCompanyUser}}
+						<!-- .toggle-btn end -->
+					</div>
+					{{#models.isOwner}}
+						<div class="btn-wrap d-flex justify-content-end">
+							<a href="/job/1/update-form" class="btn btn-warning me-1"
+							>수정</a
+							>
+							<form action="/job/1/delete" method="post">
+								<button class="btn btn-danger">삭제</button>
+							</form>
+						</div>
+					{{/models.isOwner}}
+				</div>
+				<!-- .doc-info1 end -->
+				<div
+						class="doc-info2 d-flex flex-column mt-3 rounded overflow-hidden p-3 mb-1"
+				>
+					<div class="inner">
+						<div class="row">
+							<div
+									class="col-6 py-3 d-flex align-items-center"
+							>
+								<h4 class="fs-6 fw-semibold">경력</h4>
+								<span class="fs-6 fw-semibold"
+								>{{models.exp}}</span
+								>
+							</div>
+							<div
+									class="col-6 py-3 d-flex align-items-center"
+							>
+								<h4 class="fs-6 fw-semibold">
+									학력
+								</h4>
+								<span class="fs-6 fw-semibold"
+								>{{models.edu}}</span
+								>
+							</div>
+						</div>
 
-                        <div class="row">
-                            <div
-                                    class="col-6 py-3 d-flex align-items-center"
-                            >
-                                <h4 class="fs-6 fw-semibold">
-                                    근무 형태
-                                </h4>
-                                <span class="fs-6 fw-semibold"
-                                >{{models.shift}}</span
-                                >
-                            </div>
-                            <div
-                                    class="col-6 py-3 d-flex align-items-center"
-                            >
-                                <h4 class="fs-6 fw-semibold">급여</h4>
-                                <span class="fs-6 fw-semibold"
-                                >{{models.sal}}</span
-                                >
-                            </div>
-                        </div>
+						<div class="row">
+							<div
+									class="col-6 py-3 d-flex align-items-center"
+							>
+								<h4 class="fs-6 fw-semibold">
+									근무 형태
+								</h4>
+								<span class="fs-6 fw-semibold"
+								>{{models.shift}}</span
+								>
+							</div>
+							<div
+									class="col-6 py-3 d-flex align-items-center"
+							>
+								<h4 class="fs-6 fw-semibold">급여</h4>
+								<span class="fs-6 fw-semibold"
+								>{{models.sal}}</span
+								>
+							</div>
+						</div>
 
-                        <div class="row">
-                            <div
-                                    class="col-6 py-3 d-flex align-items-center"
-                            >
-                                <h4 class="fs-6 fw-semibold">
-                                    근무시간
-                                </h4>
-                                <span class="fs-6 fw-semibold"
-                                >{{models.workingTime}}</span
-                                >
-                            </div>
-                            <div
-                                    class="col-6 py-3 d-flex align-items-center"
-                            >
-                                <h4 class="fs-6 fw-semibold">근무지역</h4>
-                                <span class="fs-6 fw-semibold"
-                                >{{models.location}}</span
-                                >
-                            </div>
-                        </div>
+						<div class="row">
+							<div
+									class="col-6 py-3 d-flex align-items-center"
+							>
+								<h4 class="fs-6 fw-semibold">
+									근무시간
+								</h4>
+								<span class="fs-6 fw-semibold"
+								>{{models.workingTime}}</span
+								>
+							</div>
+							<div
+									class="col-6 py-3 d-flex align-items-center"
+							>
+								<h4 class="fs-6 fw-semibold">근무지역</h4>
+								<span class="fs-6 fw-semibold"
+								>{{models.location}}</span
+								>
+							</div>
+						</div>
 
-                        <div class="row">
-                            <div
-                                    class="col-12 py-3 d-flex align-items-center"
-                            >
-                                <h4 class="fs-6 fw-semibold">마감일</h4>
-                                <span class="fs-6 fw-semibold"
-                                >{{models.endDate}}</span
-                                >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- .doc-info2 end -->
-                <ul class="d-flex flex-column mt-5 pt-5">
-                    <li class="d-flex flex-column mb-5">
-                        <h4 class="fs-4 fw-semibold mb-3">주요 업무</h4>
-                        <ul>
-                            {{#models.duty}}
-                                <li class="fs-6" style="list-style:disc outside none">{{.}}</li>
-                            {{/models.duty}}
-                        </ul>
-                    </li>
-                    <li class="d-flex flex-column mb-5">
-                        <h4 class="fs-4 fw-semibold mb-3">자격 요건</h4>
-                        <ul>
-                            {{#models.qualification}}
-                                <li class="fs-6" style="list-style:disc outside none">{{.}}</li>
-                            {{/models.qualification}}
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="point-wrap d-flex flex-column gap-2">
-                    <li class="w100 rounded border p-5 d-flex">
-                        <h4 class="fs-5 fw-semibold w-25">직무</h4>
-                        <p class="fs-6 fw-medium px-3">
-                            {{models.jobName}}
-                        </p>
-                    </li>
-                    <li class="w100 rounded border p-5 d-flex">
-                        <h4 class="fs-5 fw-semibold w-25">
-                            기술 스택
-                        </h4>
-                        <p class="fs-6 fw-medium px-3">
-                            {{models.stackStr}}
-                        </p>
-                    </li>
-                </ul>
-            </div>
+						<div class="row">
+							<div
+									class="col-12 py-3 d-flex align-items-center"
+							>
+								<h4 class="fs-6 fw-semibold">마감일</h4>
+								<span class="fs-6 fw-semibold"
+								>{{models.endDate}}</span
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- .doc-info2 end -->
+				<ul class="d-flex flex-column mt-5 pt-5">
+					<li class="d-flex flex-column mb-5">
+						<h4 class="fs-4 fw-semibold mb-3">주요 업무</h4>
+						<ul>
+							{{#models.duty}}
+								<li class="fs-6" style="list-style:disc outside none">{{.}}</li>
+							{{/models.duty}}
+						</ul>
+					</li>
+					<li class="d-flex flex-column mb-5">
+						<h4 class="fs-4 fw-semibold mb-3">자격 요건</h4>
+						<ul>
+							{{#models.qualification}}
+								<li class="fs-6" style="list-style:disc outside none">{{.}}</li>
+							{{/models.qualification}}
+						</ul>
+					</li>
+				</ul>
+				<ul class="point-wrap d-flex flex-column gap-2">
+					<li class="w100 rounded border p-5 d-flex">
+						<h4 class="fs-5 fw-semibold w-25">직무</h4>
+						<p class="fs-6 fw-medium px-3">
+							{{models.jobName}}
+						</p>
+					</li>
+					<li class="w100 rounded border p-5 d-flex">
+						<h4 class="fs-5 fw-semibold w-25">
+							기술 스택
+						</h4>
+						<p class="fs-6 fw-medium px-3">
+							{{models.stackStr}}
+						</p>
+					</li>
+				</ul>
+			</div>
 
-            <!-- .doc-wrap end -->
-            <aside
-                    class="apply-wrap border rounded p-5 d-flex flex-column gap-3"
-            >
-                <div class="logo-wrap">
-                    <figure><img src="{{#imgUrl}}{{imgUrl}}{{/imgUrl}}{{^imgUrl}}/img/naver_logo_basic.png{{/imgUrl}}"
-                                 alt="" class="w-100"/></figure>
-                </div>
-                <ul class="info-wrap">
-                    <li class="fs-4 fw-bold">{{models.title}}</li>
-                    <li>{{models.comName}}</li>
-                </ul>
-                <div class="select-wrap d-flex flex-column gap-2">
-                    <form method="post" action="/employment/{{id}}/apply">
-                        <div class="dropdown">
-                            <button
-                                    type="button"
-                                    class="btn btn-outline-primary dropdown-toggle w-100"
-                                    data-bs-toggle="dropdown"
-                                    id="resumeSelectButton">
-                                이력서 선택
-                            </button>
-                            <ul class="dropdown-menu w-100">
-                                {{#resumeList}}
-                                    <li>
-                                        <a class="dropdown-item" href="#"
-                                           onclick="selectResume('{{id}}', '{{title}}')">{{title}}</a>
-                                    </li>
-                                {{/resumeList}}
-                            </ul>
-                        </div>
+			<!-- .doc-wrap end -->
+			<aside
+					class="apply-wrap border rounded p-5 d-flex flex-column gap-3"
+			>
+				<div class="logo-wrap">
+					<figure><img src="{{#imgUrl}}{{imgUrl}}{{/imgUrl}}{{^imgUrl}}/img/naver_logo_basic.png{{/imgUrl}}"
+					             alt="" class="w-100"/></figure>
+				</div>
+				<ul class="info-wrap">
+					<li class="fs-4 fw-bold">{{models.title}}</li>
+					<li>{{models.comName}}</li>
+				</ul>
+				<div class="select-wrap d-flex flex-column gap-2">
+					<form method="post" action="/employment/{{id}}/apply">
+						<div class="dropdown">
+							<button
+									type="button"
+									class="btn btn-outline-primary dropdown-toggle w-100"
+									data-bs-toggle="dropdown"
+									id="resumeSelectButton">
+								이력서 선택
+							</button>
+							<ul class="dropdown-menu w-100">
+								{{#models.resumeList}}
+									<li>
+										<a class="dropdown-item" href="#"
+										   onclick="selectResume('{{id}}', '{{title}}')">{{title}}</a>
+									</li>
+								{{/models.resumeList}}
+							</ul>
+						</div>
 
-                        <!-- 실제 데이터 담는코드. 지우지마세요. -->
-                        <input type="hidden" name="resumeId" id="resumeIdInput">
+						<!-- 실제 데이터 담는코드. 지우지마세요. -->
+						<input type="hidden" name="resumeId" id="resumeIdInput">
 
-                        <div class="btn-wrap w-100 mt-3">
-                            <button type="submit" class="btn btn-primary w-100">
-                                지원하기
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </aside>
-            <!-- .apply-wrap end -->
-        </div>
-        <!-- .inner end -->
-    </section>
+						<div class="btn-wrap w-100 mt-3">
+							<button type="submit" class="btn btn-primary w-100">
+								지원하기
+							</button>
+						</div>
+					</form>
+				</div>
+			</aside>
+			<!-- .apply-wrap end -->
+		</div>
+		<!-- .inner end -->
+	</section>
 </main>
 
 <script>
-    function selectResume(id, title) {
-        document.getElementById('resumeIdInput').value = id;
-        document.getElementById('resumeSelectButton').innerText = title;
-    }
+	function selectResume(id, title) {
+		document.getElementById('resumeIdInput').value = id;
+		document.getElementById('resumeSelectButton').innerText = title;
+	}
 
-    let employmentId = document.querySelector("#employmentId").value;
+	let employmentId = document.querySelector("#employmentId").value;
 
-    async function saveScrap() {
-        let requestBody = {employmentId: employmentId};
-        let response = await fetch(`/api/user-scrap`, {
-            method: "POST",
-            body: JSON.stringify(requestBody),
-            headers: {"Content-Type": "application/json"}
-        });
+	async function saveScrap() {
+		let requestBody = {employmentId: employmentId};
+		let response = await fetch(`/api/scrap`, {
+			method: "POST",
+			body: JSON.stringify(requestBody),
+			headers: {"Content-Type": "application/json"}
+		});
 
-        let responseBody = await response.json(); // {scrapId}
-        console.log(responseBody);
+		let responseBody = await response.json(); // {scrapId}
+		console.log(responseBody);
 
-        // DOM 업데이트
-        let scrapIcon = document.querySelector('#scrapIcon');
-        scrapIcon.style.color = 'yellow';
-        scrapIcon.setAttribute('onclick', `deleteScrap(${responseBody.scrapId})`);
-    }
+		// DOM 업데이트
+		let scrapIcon = document.querySelector('#scrapIcon');
+		scrapIcon.style.color = 'yellow';
+		scrapIcon.setAttribute('onclick', `deleteScrap(${responseBody.scrapId})`);
+	}
 
-    async function deleteScrap(scrapId) {
-        let response = await fetch(`/api/user-scrap/${scrapId}`, {
-            method: "DELETE"
-        });
-        let responseBody = await response.json(); // response.text();
-        console.log(responseBody);
+	async function deleteScrap(scrapId) {
+		let response = await fetch(`/api/scrap/${scrapId}`, {
+			method: "DELETE"
+		});
+		let responseBody = await response.json(); // response.text();
+		console.log(responseBody);
 
-        // DOM 업데이트
-        let scrapIcon = document.querySelector('#scrapIcon');
-        scrapIcon.style.color = 'black';
-        scrapIcon.setAttribute('onclick', `saveScrap()`);
-    }
+		// DOM 업데이트
+		let scrapIcon = document.querySelector('#scrapIcon');
+		scrapIcon.style.color = 'black';
+		scrapIcon.setAttribute('onclick', `saveScrap()`);
+	}
 </script>
 
 {{> layout/footer}}

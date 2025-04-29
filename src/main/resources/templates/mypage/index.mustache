@@ -47,7 +47,7 @@
 
                 <form action="/mypage/update" method="post">
 
-                    {{#model.isCompanyUser}}
+                    {{#models.isCompanyUser}}
                         <div>
                             <div class="input-header">기업명</div>
                             <div class="input-box">
@@ -84,7 +84,7 @@
                                 </select>
                             </div>
                         </div>
-                    {{/model.isCompanyUser}}
+                    {{/models.isCompanyUser}}
                     <div>
                         <div class="input-header">이름</div>
                         <div class="input-box">
@@ -113,6 +113,9 @@
                             <input type="password" placeholder="비밀번호를 입력해주세요" name="password"/>
                         </div>
                     </div>
+
+                    <!-- 이미지 저장 -->
+
 
                     <div class="save-box">
                         <button class="save-btn">취소</button>

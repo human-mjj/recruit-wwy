@@ -141,10 +141,9 @@
             <!-- .filter-wrap end -->
             <div class="job-list">
                 <ul class="card-wrap row">
-                    {{#models}}
-                        <input type="hidden" id="employmentId" value="{{id}}">
+                    {{#model.employments}}
                         <li class="card-1 col-3 mb-3">
-                            <a href="/employment/{{id}}" class="d-flex flex-column gap-2 w-100 a-box">
+                            <a href="/employment/{{id}}" class="d-flex flex-column gap-2 w-100">
                                 <figure class="recommend-img overflow-hidden d-flex align-items-center border rounded">
                                     <img class="w-100"
                                          src="{{#imgUrl}}{{imgUrl}}{{/imgUrl}}{{^imgUrl}}/img/job_dummy.jpg{{/imgUrl}}"
@@ -153,6 +152,34 @@
                                 <div class="recommend-content d-flex flex-column border rounded gap-3 py-3 px-3">
                                     <div class="top d-flex justify-content-between">
                                         <h3 class="fs-6 fw-medium">{{title}}</h3>
+                                        {{#sessionUser}}
+                                            {{^model.isCompanyUser}}
+                                                {{#model.isScrap}}
+                                                    <div class="btn-wrap mt-1">
+                                                        <div class="toggle-btn">
+                                                            <i id="scrapIcon" class="fa fa-star" style="
+                                        font-size: 24px;
+                                        color: yellow;
+                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
+                                  " onclick="deleteScrap({{model.scrapId}})"></i>
+                                                        </div>
+                                                    </div>
+                                                {{/model.isScrap}}
+                                                {{^model.isScrap}}
+                                                    <div class="btn-wrap mt-1">
+                                                        <div class="toggle-btn">
+                                                            <i id="scrapIcon" class="fa fa-star" style="
+                                        font-size: 24px;
+                                        color: black;
+                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
+                                  " onclick="saveScrap()"></i>
+                                                        </div>
+                                                    </div>
+                                                {{/model.isScrap}}
+                                            {{/model.isCompanyUser}}
+                                        {{/sessionUser}}
+
+                                        <!-- .toggle-btn end -->
                                     </div>
                                     <!-- .top end -->
                                     <div class="bottom d-flex flex-column gap-3">
@@ -181,25 +208,21 @@
                             </a>
                         </li>
                         <!-- .card-1 end -->
-                    {{/models}}
+                    {{/model.employments}}
                 </ul>
                 <!-- .card-wrap end -->
                 <div class="pagging d-flex justify-content-center">
                     <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#">Previous</a>
+                        <li class="page-item {{#model.isFirst}}disabled{{/model.isFirst}}">
+                            <a class="page-link" href="?page={{model.prev}}">Previous</a>
                         </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
+                        {{#model.numbers}}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{.}}">{{.}}</a>
+                            </li>
+                        {{/model.numbers}}
+                        <li class="page-item {{#model.isLast}}disabled{{/model.isLast}}">
+                            <a class="page-link" href="?page={{model.next}}">Next</a>
                         </li>
                     </ul>
                 </div>
