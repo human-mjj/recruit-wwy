@@ -21,7 +21,7 @@
     <section>
         <div class="container mt-4 mb-5 py-4 d-flex flex-column gap-1">
             <div class="filter-wrap">
-                <form action="" method="GET">
+                <form action="/employment" method="GET">
                     <div
                             class="top d-flex align-items-center mb-3 justify-content-between"
                     >
@@ -31,9 +31,10 @@
                                 <label for="jobType" class="form-label mb-0 me-2 fs-4 fw-semibold"
                                        style="white-space: nowrap;">직무</label>
                                 <select name="jobType" id="jobType" class="form-select">
-                                    <option value="developer">서버 개발자</option>
-                                    <option value="engineer">소프트웨어 엔지니어</option>
-                                    <option value="java">자바 개발자</option>
+                                    <option value="">선택하세요</option>
+                                    {{#jobList}}
+                                        <option value="{{name}}">{{name}}</option>
+                                    {{/jobList}}
                                 </select>
                             </div>
 
@@ -42,10 +43,10 @@
                                 <label for="careerLevel" class="form-label mb-0 me-2 fs-4 fw-semibold"
                                        style="white-space: nowrap;">경력</label>
                                 <select name="careerLevel" id="careerLevel" class="form-select">
-                                    <option value="entry">신입</option>
-                                    <option value="mid">3년 이상</option>
-                                    <option value="senior-5">5년 이상</option>
-                                    <option value="senior-10">10년 이상</option>
+                                    <option value="">선택하세요</option>
+                                    {{#careerLevels}}
+                                        <option value="{{.}}">{{.}}</option>
+                                    {{/careerLevels}}
                                 </select>
                             </div>
                         </div>
@@ -79,62 +80,34 @@
                                         class="form-check-input"
                                         type="radio"
                                         name="sort"
-                                        value="popular"
+                                        value="deadline"
                                 />
                                 <label class="form-check-label"
-                                >인기순</label
+                                >마감임박순</label
                                 >
                             </div>
                         </div>
                     </div>
 
                     <div class="checkbox-area flex-wrap">
-                        <div
-                                class="skill form-check d-flex gap-3 align-items-center"
-                        >
-                            <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    name="skills"
-                                    value="all"
-                            />
-                            <label class="form-check-label"
-                            >전체보기</label
+                        {{#skills}}
+                            <div
+                                    class="skill form-check d-flex gap-3 align-items-center"
                             >
-                        </div>
-                        <div
-                                class="skill form-check d-flex gap-3 align-items-center"
-                        >
-                            <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    name="skills"
-                                    value="java"
-                            />
-                            <label class="form-check-label">JAVA</label>
-                        </div>
-                        <div
-                                class="skill form-check d-flex gap-3 align-items-center"
-                        >
-                            <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    name="skills"
-                                    value="java"
-                            />
-                            <label class="form-check-label">JAVA</label>
-                        </div>
-                        <div
-                                class="skill form-check d-flex gap-3 align-items-center"
-                        >
-                            <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    name="skills"
-                                    value="java"
-                            />
-                            <label class="form-check-label">JAVA</label>
-                        </div>
+                                <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        name="skills"
+                                        value="{{skill}}"
+                                />
+                                <label class="form-check-label">{{skill}}</label>
+                            </div>
+                        {{/skills}}
+                    </div>
+                    <div class="d-flex justify-content-end mt-3">
+                        <button type="submit" class="btn btn-primary px-4 py-2 rounded-3 fw-bold">
+                            🔍 검색하기
+                        </button>
                     </div>
                 </form>
             </div>
