@@ -26,9 +26,12 @@ public class ResumeService {
     }
 
 
-    public List<Resume> findAll(Integer userId) {
-        List<Resume> resumes = resumeRepository.findAll(userId);
-        return resumes;
+    public ResumeResponse.MainDTO findAll(Integer userId, Integer page) {
+        int realPage = page - 1;
+        int size = 5;
+        Long totalCount = resumeRepository.totalCount(userId);
+        List<Resume> resumes = resumeRepository.findAll(userId, realPage);
+        return new ResumeResponse.MainDTO(resumes, page, totalCount.intValue());
     }
 
     public ResumeResponse.DetailDTO Detail(Integer id) {

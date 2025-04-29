@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
@@ -16,9 +17,9 @@ public class ResumeController {
     private final HttpSession session;
 
     @GetMapping("/mypage/resume")
-    public String resumeList(HttpServletRequest request) {
+    public String resumeList(HttpServletRequest request, @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        request.setAttribute("models", resumeService.findAll(sessionUser.getId()));
+        request.setAttribute("model", resumeService.findAll(sessionUser.getId(), page));
         return "resume/list";
     }
 
