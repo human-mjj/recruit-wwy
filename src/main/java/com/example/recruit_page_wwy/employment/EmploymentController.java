@@ -1,7 +1,6 @@
 package com.example.recruit_page_wwy.employment;
 
 import com.example.recruit_page_wwy.user.User;
-import com.example.recruit_page_wwy.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -32,21 +31,25 @@ public class EmploymentController {
     }
 
     @GetMapping("/mypage/employment")
-    public String manageEmployment(HttpServletRequest request) {
+    public String manageEmployment(HttpServletRequest request,
+                                   @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) throw new RuntimeException("401 Unauthorized");
-        request.setAttribute("models", employmentService.employmentList(sessionUser.getId()));
+        EmploymentResponse.EmploymentDashboardDTO model = employmentService.employmentList(sessionUser, page);
+        request.setAttribute("model", model);
         return "employment/dashboard";
     }
 
-    // TODO
-    // 검색필터, 페이징 구현 필요
     @GetMapping("/employment")
-    public String employmentList(@RequestParam(required = false) String jobType,
+    public String employmentList(HttpServletRequest request,
+                                 @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
+    /*public String employmentList(@RequestParam(required = false) String jobType,
                                  @RequestParam(required = false) String careerLevel,
                                  @RequestParam(defaultValue = "latest") String sort,
-                                 @RequestParam(required = false) List<String> skills, HttpServletRequest request) {
+                                 @RequestParam(required = false) List<String> skills, HttpServletRequest request) {*/
         User sessionUser = (User) session.getAttribute("sessionUser");
+        /*EmploymentResponse.EmploymentPageDTO model = employmentService.employmentAllList(sessionUser, page);
+        request.setAttribute("model", model);
 
         // 유저일 경우에만 스크랩 버튼 보이게 함 (로그인을 안해도 스크랩 버튼 보임)
         if (sessionUser != null) {
@@ -58,7 +61,7 @@ public class EmploymentController {
 
 
         Integer userId = (sessionUser != null) ? sessionUser.getId() : null; // 로그인 안해도 접근할 수 있게
-        request.setAttribute("models", employmentService.emplymentAllList(userId));
+        request.setAttribute("models", employmentService.emplymentAllList(userId));*/
 
 // ✅ 검색 필터와 정렬까지 반영된 채용공고 리스트 가져오기
         List<EmploymentResponse.ListDTO> dtoList = employmentService.emplymentAllListFiltered(jobType, careerLevel, skills, sort);
@@ -82,6 +85,9 @@ public class EmploymentController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         EmploymentResponse.DetailDTO detailDTO = employmentService.findEmploymentDetail(id, sessionUser);
         request.setAttribute("models", detailDTO);
+        System.out.println(detailDTO.getId());
+
+
         return "employment/detail";
     }
 

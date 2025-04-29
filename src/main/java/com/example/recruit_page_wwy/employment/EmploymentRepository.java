@@ -19,7 +19,20 @@ import java.util.stream.Collectors;
 public class EmploymentRepository {
     private final EntityManager em;
 
-    public List<Employment> findAllByUserId(Integer userId) {
+    public Long totalCount(Integer userId) {
+        String jpql = """
+                SELECT COUNT(e) 
+                FROM Employment e 
+                WHERE e.user.id = :userId
+                """;
+        return em.createQuery(jpql, Long.class)
+                .setParameter("userId", userId)
+                .getSingleResult();
+    }
+
+    public List<Employment> findAllByUserId(Integer userId, Integer page) {
+        int size = 8;
+        int start = (page - 1) * size;
         String jpql = """
                     SELECT e FROM Employment e
                     JOIN FETCH e.user
@@ -29,18 +42,29 @@ public class EmploymentRepository {
                 """;
         return em.createQuery(jpql, Employment.class)
                 .setParameter("userId", userId)
+                .setFirstResult(start)
+                .setMaxResults(size)
                 .getResultList();
     }
 
-    public List<Employment> findAll() {
+    public Long totalCount() {
+        String jpql = "SELECT COUNT(e) FROM Employment e";
+        Query query = em.createQuery(jpql, Long.class);
+        return (Long) query.getSingleResult();
+    }
+
+    public List<Employment> findAll(int page) {
         String jpql = """
                     SELECT e FROM Employment e 
                     JOIN FETCH e.user
                     JOIN FETCH e.job
-                    ORDER BY e.id DESC
+                    ORDER BY function('RAND')
                 """;
-        return em.createQuery(jpql, Employment.class)
-                .getResultList();
+        Query query = em.createQuery(jpql, Employment.class);
+        query.setFirstResult(page * 16);
+        query.setMaxResults(16);
+
+        return query.getResultList();
     }
 
     public List<Employment> findTop4ByOrderByIdDesc() {
@@ -48,7 +72,7 @@ public class EmploymentRepository {
                     SELECT e FROM Employment e
                     JOIN FETCH e.user
                     JOIN FETCH e.job
-                    ORDER BY e.id DESC
+                    ORDER BY e.endDate DESC
                 """;
         return em.createQuery(jpql, Employment.class)
                 .setMaxResults(4)
@@ -130,7 +154,7 @@ public class EmploymentRepository {
     }
 
     public List<EmployStack> findAllStacksByEmploymentId(int employmentId) {
-        return em.createQuery("select es from EmployStack es where es.id = :employmentId", EmployStack.class)
+        return em.createQuery("select es from EmployStack es where es.employment.id = :employmentId", EmployStack.class)
                 .setParameter("employmentId", employmentId)
                 .getResultList();
     }
