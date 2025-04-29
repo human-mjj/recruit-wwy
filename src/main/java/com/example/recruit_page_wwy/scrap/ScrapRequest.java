@@ -16,6 +16,8 @@ public class ScrapRequest {
         private Integer prev;
         private Integer next;
 
+        private Integer resumeId;
+
         private Integer size;
         private Integer totalCount;
         private Integer totalPage;
@@ -59,15 +61,15 @@ public class ScrapRequest {
         String exp;
         String location;
         String name;
-        Integer emplorymentId;
+        Integer employmentId;
 
-        public UserScrapDTO(String title, String comName, String exp, String location, String name, Integer emplorymentId) {
+        public UserScrapDTO(String title, String comName, String exp, String location, String name, Integer employmentId) {
             this.title = title;
             this.comName = comName;
             this.exp = exp;
             this.location = location;
             this.name = name;
-            this.emplorymentId = emplorymentId;
+            this.employmentId = employmentId;
         }
     }
 
@@ -116,40 +118,30 @@ public class ScrapRequest {
 
     public static class ComScrapDTO {
         Integer id;
+        Integer resumeId;
         String title;
         String username;
 
-        public ComScrapDTO(Integer id, String title, String username) {
+        public ComScrapDTO(Integer id, Integer resumeId, String title, String username) {
             this.id = id;
+            this.resumeId = resumeId;
             this.title = title;
             this.username = username;
         }
     }
 
     @Data
-    public static class userScrapSaveDTO {
+    public static class SaveDTO {
+        private User sessionUser;
         private Integer employmentId;
-
-        public Scrap toEntity(Integer sessionUserId) {
-            return Scrap.builder()
-                    .employment(Employment.builder().id(employmentId).build())
-                    .resume(null)
-                    .user(User.builder().id(sessionUserId).build())
-                    .build();
-        }
-    }
-
-    @Data
-    public static class comScrapSaveDTO {
         private Integer resumeId;
 
-        public Scrap toEntity(Integer sessionUserId) {
+        public Scrap toEntity(User sessionUser) {
             return Scrap.builder()
-                    .employment(null)
-                    .resume(Resume.builder().id(resumeId).build())
-                    .user(User.builder().id(sessionUserId).build())
+                    .employment(sessionUser.getRole() == 0 ? Employment.builder().id(employmentId).build() : null)
+                    .resume(sessionUser.getRole() == 1 ? Resume.builder().id(resumeId).build() : null)
+                    .user(User.builder().id(sessionUser.getId()).build())
                     .build();
         }
     }
-
 }

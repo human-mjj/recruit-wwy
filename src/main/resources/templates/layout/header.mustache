@@ -17,16 +17,16 @@
                     >
                 </li>
                 {{#sessionUser}}
-                    {{#comCheck.isCompanyUser}}
+                    {{#models.isCompanyUser}}
                         <li class="nav-item">
                             <a class="nav-link text-dark fw-semibold" href="/match/com">추천</a>
                         </li>
-                    {{/comCheck.isCompanyUser}}
-                    {{^comCheck.isCompanyUser}}
+                    {{/models.isCompanyUser}}
+                    {{^models.isCompanyUser}}
                         <li class="nav-item">
                             <a class="nav-link text-dark fw-semibold" href="/mypage/resume">이력서</a>
                         </li>
-                    {{/comCheck.isCompanyUser}}
+                    {{/models.isCompanyUser}}
                 {{/sessionUser}}
                 {{^sessionUser}}
                 {{/sessionUser}}

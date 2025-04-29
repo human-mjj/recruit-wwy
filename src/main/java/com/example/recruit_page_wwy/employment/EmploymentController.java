@@ -34,7 +34,7 @@ public class EmploymentController {
     public String manageEmployment(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) throw new RuntimeException("401 Unauthorized");
-        request.setAttribute("models", employmentService.employmentList(sessionUser.getId()));
+        request.setAttribute("models", employmentService.employmentList(sessionUser));
         return "employment/dashboard";
     }
 
@@ -44,6 +44,7 @@ public class EmploymentController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         EmploymentResponse.EmploymentPageDTO model = employmentService.employmentAllList(sessionUser, page);
         request.setAttribute("model", model);
+
         return "employment/list";
     }
 

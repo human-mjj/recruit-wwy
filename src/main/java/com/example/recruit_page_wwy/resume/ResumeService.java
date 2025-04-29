@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.resume;
 
 
+import com.example.recruit_page_wwy.resumestack.ResumeStack;
 import com.example.recruit_page_wwy.scrap.Scrap;
 import com.example.recruit_page_wwy.scrap.ScrapRepository;
 import com.example.recruit_page_wwy.user.User;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -25,9 +27,7 @@ public class ResumeService {
     public void save(ResumeRequest.SaveDTO saveDTO) {
         resumeRepository.save(saveDTO.getUser_id(), saveDTO.getTitle(), saveDTO.getExp(), saveDTO.getEdu(), saveDTO.getJob_id(), saveDTO.getLocation(), saveDTO.getQualified(),
                 saveDTO.getActivity(), saveDTO.getImg_url(), saveDTO.getSkills());
-
     }
-
 
     public ResumeResponse.MainDTO findAll(Integer userId, Integer page) {
         int realPage = page - 1;
@@ -37,34 +37,28 @@ public class ResumeService {
         return new ResumeResponse.MainDTO(resumes, page, totalCount.intValue());
     }
 
-    public ResumeResponse.DetailDTO Detail(Integer id, int sessionUserId) {
-        Resume resume = resumeRepository.findByResumeId(id);
-        User user = resume.getUser();
+    public ResumeResponse.DetailDTO Detail(Integer resumeId, User sessionUser) {
+        // 이력서 엔티티 조회
+        Resume resume = resumeRepository.findByResumeId(resumeId);
+        if (resume == null) throw new RuntimeException("채용공고를 찾을 수 없습니다.");
 
-        Scrap scrap = scrapRepository.findByUserIdAndresumeId(sessionUserId, resume.getId());
-        Boolean isScrap = scrap == null ? false : true;
-        Integer scrapId = scrap == null ? null : scrap.getId();
+        // 스택 리스트
+        List<ResumeStack> stackList = new ArrayList<>();
+        for (ResumeStack resumeStack : resume.getResumeStackList()) {
+            if (resumeStack.getSkill() != null) { // 혹시 null 방어
+                stackList.add(resumeStack);
+            }
+        }
 
-        return new ResumeResponse.DetailDTO(
-                resume.getId(),
-                resume.getUser().getUsername(),       // 유저 이름
-                resume.getUser().getEmail(),          // 이메일
-                resume.getUser().getPhone(),          // 전화번호
-                resume.getUser().getId(),             // 유저 ID
-                resume.getJob(),
-                resume.getResumeStackList(),
-                resume.getJob().getId(),
-                resume.getTitle(),
-                resume.getExp(),
-                resume.getEdu(),
-                resume.getLocation(),
-                resume.getQualified(),
-                resume.getActivity(),
-                resume.getImgUrl(),
-                resume.getLetter(),
-                isScrap,
-                scrapId
-        );
+        boolean isScrap = false;
+        Integer scrapId = null;
+
+        if (sessionUser != null && sessionUser.getRole() == 1) {
+            Scrap scrap = scrapRepository.findByUserIdAndresumeId(sessionUser.getId(), resume.getId());
+            isScrap = scrap == null ? false : true;
+            scrapId = scrap == null ? null : scrap.getId();
+        }
+        return new ResumeResponse.DetailDTO(sessionUser, resume, stackList, isScrap, scrapId);
     }
 
     @Transactional

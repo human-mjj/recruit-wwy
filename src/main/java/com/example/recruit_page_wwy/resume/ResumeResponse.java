@@ -2,6 +2,7 @@ package com.example.recruit_page_wwy.resume;
 
 import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.resumestack.ResumeStack;
+import com.example.recruit_page_wwy.user.User;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -54,6 +55,12 @@ public class ResumeResponse {
 
     @Data
     public static class DetailDTO {
+        private Integer sessionUserId;
+        private Integer sessionUserRole;
+        private Boolean isOwner; // 수정/삭제 버튼 표시용
+        private Boolean isApplicant; // 지원자 여부
+        private Boolean isCompanyUser; // 스크랩 버튼 노출 여부 (false면 보여줌)
+
         private Integer id;
         private Integer userId;
         private Job job;
@@ -74,27 +81,32 @@ public class ResumeResponse {
         private Boolean isScrap;
         private Integer scrapId;
 
-        public DetailDTO(Integer id, String username, String email, String phone, Integer userId, Job job, List<ResumeStack> resumeStack, Integer jobId, String title, String exp, String edu, String location, String qualified, String activity, String imgUrl, String LETTER, Boolean isScrap, Integer scrapId) {
-            this.id = id;
-            this.username = username;
-            this.email = email;
-            this.phone = phone;
-            this.userId = userId;
-            this.job = job;
+        public DetailDTO(User sessionUser, Resume resume, List<ResumeStack> resumeStack, Boolean isScrap, Integer scrapId) {
+            this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
+            this.sessionUserRole = sessionUser != null ? sessionUser.getRole() : null;
+            this.isOwner = sessionUser != null && sessionUser.getId() == resume.getUser().getId();
+            this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
+            this.isApplicant = false; // 기본 false (지원 여부 체크는 별도로)
+
+            this.id = resume.getId();
+            this.userId = sessionUser.getId();
+            this.job = resume.getJob();
             this.resumeStack = resumeStack;
-            this.jobId = jobId;
-            this.title = title;
-            this.exp = exp;
-            this.edu = edu;
-            this.location = location;
-            this.qualified = qualified;
-            this.activity = activity;
-            this.imgUrl = imgUrl;
-            this.LETTER = LETTER;
+            this.username = sessionUser.getUsername();
+            this.email = sessionUser.getEmail();
+            this.phone = sessionUser.getPhone();
+            this.jobId = resume.getJob().getId();
+            this.title = resume.getTitle();
+            this.exp = resume.getExp();
+            this.edu = resume.getEdu();
+            this.location = resume.getLocation();
+            this.qualified = resume.getQualified();
+            this.activity = resume.getActivity();
+            this.imgUrl = resume.getImgUrl();
+            this.LETTER = resume.getLetter();
 
             this.isScrap = isScrap;
-            this.scrapId = scrapId;
+            this.scrapId = scrapId == null ? 0 : scrapId;
         }
     }
-
 }
