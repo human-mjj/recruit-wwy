@@ -4,6 +4,7 @@ import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.resumestack.ResumeStack;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResumeResponse {
@@ -11,13 +12,43 @@ public class ResumeResponse {
     @Data
     public static class MainDTO {
         private List<Resume> resumes;
+        private Integer prev;
+        private Integer next;
+        private Integer size;
+        private Integer totalCount;
+        private Integer totalPage;
+        private Integer current;
+        private Boolean isFirst;
+        private Boolean isLast;
+        private List<Integer> numbers;
 
-
-        public MainDTO(List<Resume> resumes) {
+        public MainDTO(List<Resume> resumes, Integer current, Integer totalCount) {
             this.resumes = resumes;
-
+            this.size = 5;
+            this.totalCount = totalCount;
+            this.totalPage = makeTotalPage(totalCount, size);
+            this.current = current;
+            this.prev = current - 1;
+            this.next = current + 1;
+            this.isFirst = current == 1;
+            this.isLast = current.equals(totalPage);
+            this.numbers = makeNumbers(current, totalPage);
         }
 
+        private Integer makeTotalPage(int totalCount, int size) {
+            int rest = totalCount % size > 0 ? 1 : 0;
+            return totalCount / size + rest;
+        }
+
+        private List<Integer> makeNumbers(int current, int totalPage) {
+            List<Integer> numbers = new ArrayList<>();
+            int start = ((current - 1) / 5) * 5 + 1;
+            int end = Math.min(start + 4, totalPage);
+            for (int i = start; i <= end; i++) {
+                numbers.add(i);
+            }
+            return numbers;
+        }
     }
 
 

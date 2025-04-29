@@ -2,6 +2,8 @@ package com.example.recruit_page_wwy.resume;
 
 
 import com.example.recruit_page_wwy.user.User;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,17 +15,23 @@ import java.util.List;
 public class ResumeService {
     private final ResumeRepository resumeRepository;
 
+    @PersistenceContext
+    private EntityManager em;
+
     @Transactional
     public void save(ResumeRequest.SaveDTO saveDTO) {
         resumeRepository.save(saveDTO.getUser_id(), saveDTO.getTitle(), saveDTO.getExp(), saveDTO.getEdu(), saveDTO.getJob_id(), saveDTO.getLocation(), saveDTO.getQualified(),
-                saveDTO.getActivity(), saveDTO.getImg_url());
+                saveDTO.getActivity(), saveDTO.getImg_url(), saveDTO.getSkills());
 
     }
 
 
-    public List<Resume> findAll(Integer userId) {
-        List<Resume> resumes = resumeRepository.findAll(userId);
-        return resumes;
+    public ResumeResponse.MainDTO findAll(Integer userId, Integer page) {
+        int realPage = page - 1;
+        int size = 5;
+        Long totalCount = resumeRepository.totalCount(userId);
+        List<Resume> resumes = resumeRepository.findAll(userId, realPage);
+        return new ResumeResponse.MainDTO(resumes, page, totalCount.intValue());
     }
 
     public ResumeResponse.DetailDTO Detail(Integer id) {
@@ -47,5 +55,35 @@ public class ResumeService {
                 resume.getImgUrl(),
                 resume.getLetter()
         );
+    }
+
+    @Transactional
+    public void update(Integer id, ResumeRequest.UpdateDTO updateDTO) {
+
+        resumeRepository.update(
+                id,
+                updateDTO.getTitle(),
+                updateDTO.getExp(),
+                updateDTO.getEdu(),
+                updateDTO.getJob_id(),
+                updateDTO.getLocation(),
+                updateDTO.getQualified(),
+                updateDTO.getActivity(),
+                updateDTO.getSkills()
+        );
+
+
+    }
+
+    public Resume findById(Integer id) {
+        return resumeRepository.findByResumeId(id);
+    }
+
+    @Transactional
+    public void delete(int resumeId) {
+        Resume resume = em.find(Resume.class, resumeId);
+        if (resume != null) {
+            em.remove(resume);
+        }
     }
 }

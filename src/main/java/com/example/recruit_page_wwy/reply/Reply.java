@@ -4,6 +4,7 @@ package com.example.recruit_page_wwy.reply;
 import com.example.recruit_page_wwy.board.Board;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -28,4 +29,11 @@ public class Reply {
 
     @CreationTimestamp
     private Timestamp createdAt;
+
+    @Builder
+    public Reply(Board board, User user, String content) {
+        this.board = board;
+        this.user = user;
+        this.content = content;
+    }
 }

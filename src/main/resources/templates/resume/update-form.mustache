@@ -23,8 +23,7 @@
 
 <!-- 오른쪽 박스 -->
 <div class="flex-fill" style="max-width: 75%">
-	<form method="post" action="/resume/1/update">
-
+	<form action="/resume/{{model.id}}/update" method="post">
 		<div class="bg-white border rounded p-4">
 			<div class="d-flex justify-content-between">
 				<h4 class="fw-bold">이력서 수정하기</h4>
@@ -84,6 +83,7 @@
 						<select
 								class="form-select form-select-sm"
 								style="width: 120px"
+								name="experiencedDate"
 						>
 							<option value="1">1 ~ 3년 차</option>
 							<option value="2">3 ~ 5년 차</option>
@@ -102,14 +102,11 @@
 					<div class="col-md-6">
 						<div class="card h-100 border-0">
 							<div class="card-body">
-								<h6
-										class="card-title fw-semibold mb-3"
-								>
+								<h6 class="card-title fw-semibold mb-3">
 									학력
 								</h6>
 								<select
-										class="form-select form-select-sm"
-								>
+										class="form-select form-select-sm" name="educationLevel">
 									<option
 											value=""
 											disabled
@@ -238,9 +235,8 @@
 									class="form-check-input"
 									type="checkbox"
 									id="stack1"
-									name="stack"
+									name="skills"
 									value="Java"
-									checked
 							/>
 							<label
 									class="form-check-label"
@@ -255,9 +251,8 @@
 									class="form-check-input"
 									type="checkbox"
 									id="stack2"
-									name="stack"
+									name="skills"
 									value="HTML"
-									checked
 							/>
 							<label
 									class="form-check-label"
@@ -272,7 +267,7 @@
 									class="form-check-input"
 									type="checkbox"
 									id="stack3"
-									name="stack"
+									name="skills"
 									value="CSS"
 							/>
 							<label
@@ -288,9 +283,8 @@
 									class="form-check-input"
 									type="checkbox"
 									id="stack4"
-									name="stack"
+									name="skills"
 									value="JavaScript"
-									checked
 							/>
 							<label
 									class="form-check-label"
@@ -305,9 +299,8 @@
 									class="form-check-input"
 									type="checkbox"
 									id="stack5"
-									name="stack"
+									name="skills"
 									value="Python"
-									checked
 							/>
 							<label
 									class="form-check-label"
@@ -322,7 +315,7 @@
 									class="form-check-input"
 									type="checkbox"
 									id="stack6"
-									name="stack"
+									name="skills"
 									value="C++"
 							/>
 							<label
@@ -338,9 +331,8 @@
 									class="form-check-input"
 									type="checkbox"
 									id="stack7"
-									name="stack"
+									name="skills"
 									value="Spring"
-									checked
 							/>
 							<label
 									class="form-check-label"
@@ -355,7 +347,7 @@
 									class="form-check-input"
 									type="checkbox"
 									id="stack8"
-									name="stack"
+									name="skills"
 									value="React"
 							/>
 							<label
@@ -371,7 +363,7 @@
 									class="form-check-input"
 									type="checkbox"
 									id="stack9"
-									name="stack"
+									name="skills"
 									value="Node.js"
 							/>
 							<label
@@ -387,9 +379,8 @@
 									class="form-check-input"
 									type="checkbox"
 									id="stack10"
-									name="stack"
+									name="skills"
 									value="MySQL"
-									checked
 							/>
 							<label
 									class="form-check-label"
@@ -465,7 +456,7 @@
 						type="text"
 						class="form-control form-control-sm mt-2"
 						placeholder="수상 내역이나 자격증을 입력하세요"
-						name="certificate"
+						name="qualified"
 				/>
 			</div>
 
@@ -481,14 +472,17 @@
 			</div>
 
 			<!-- 자기소개서 -->
-			<div class="container mb-5">
-				<h5 class="fw-semibold">자기소개서</h5>
-				<textarea
-						class="form-control"
-						rows="5"
-						name="content"
-				>test</textarea>
-			</div>
+			<!--			<div class="container mb-5">-->
+			<!--				<h5 class="fw-semibold">자기소개서</h5>-->
+			<!--				<textarea-->
+			<!--						class="form-control"-->
+			<!--						rows="5"-->
+			<!--						name="content"-->
+			<!--				>test</textarea>-->
+			<!--			</div>-->
+
+			<!-- 이미지 저장 -->
+
 			<div class="d-flex">
 				<button type="submit" class="btn btn-primary w-100 ms-3 fw-semibold">수정하기</button>
 				<button onclick="cancel()" class="btn btn-danger w-100 ms-3 fw-semibold">취소하기</button>

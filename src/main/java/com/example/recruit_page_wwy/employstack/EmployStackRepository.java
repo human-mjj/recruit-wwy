@@ -10,4 +10,11 @@ import org.springframework.stereotype.Repository;
 public class EmployStackRepository {
     private final EntityManager em;
 
+    public void save(EmployStack employStack) {
+        em.persist(employStack);
+    }
+
+    public void deleteByEmploymentId(int employmentId) {
+
+    }
 }

@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>마이페이지</title>
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>마이페이지</title>
+	<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+	/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+	/>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+	/>
 
-    <link rel="stylesheet" href="/css/mypage.css"/>
-    <link
-            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
-            rel="stylesheet"
-    />
+	<link rel="stylesheet" href="/css/mypage.css"/>
+	<link
+			href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
+			rel="stylesheet"
+	/>
 </head>
 
 {{> layout/header}}
@@ -33,58 +33,99 @@
 {{> layout/sidebar}}
 
 <!-- 오른쪽 박스 -->
-
 <div class="flex-fill" style="max-width: 75%">
-    <div class="bg-white border rounded p-4">
-        <div class="content-h1">계정관리</div>
+	<div class="bg-white border rounded p-4">
+		<div class="content-h1">계정관리</div>
 
-        <div>
-            <div class="content-h2">기본정보</div>
-            <hr/>
-            <div class="card-box">
-                <div class="img-box">
-                    <img src="/img/Screenshot_14.png"/>
-                </div>
+		<div>
+			<div class="content-h2">기본정보</div>
+			<hr/>
+			<div class="card-box">
+				<div class="img-box">
+					<img src="/img/Screenshot_14.png"/>
+				</div>
 
-                <form action="/mypage/update" method="post">
-                    <div>
-                        <div class="input-header">이름</div>
-                        <div class="input-box">
-                            <input type="text" placeholder="해당 유저 name" name="username"/>
-                        </div>
-                    </div>
+				<form action="/mypage/update" method="post">
 
-                    <div>
-                        <div class="input-header">이메일</div>
-                        <div class="input-box">
-                            <input type="email" placeholder="이메일을 입력해주세요." name="email"/>
+					{{#model.isCompanyUser}}
+						<div>
+							<div class="input-header">기업명</div>
+							<div class="input-box">
+								<input type="text" placeholder="해당 유저 기업명" name="comName"/>
+							</div>
+						</div>
 
-                        </div>
-                    </div>
+						<div>
+							<div class="input-header">산업 선택</div>
+							<div class="input-box">
+								<select id="gieob" name="industryId" class="select-box">
+									<option selected>산업을 선택해주세요</option>
+									<option value="1">IT, 콘텐츠</option>
+									<option value="2">판매, 유통</option>
+									<option value="3">제조</option>
+									<option value="4">기타 서비스업</option>
+									<option value="5">전문, 과학기술</option>
+									<option value="6">금융</option>
+									<option value="7">교육</option>
+									<option value="8">예술, 스포츠, 여가</option>
+									<option value="9">물류, 운송</option>
+									<option value="10">부동산</option>
+									<option value="11">게임</option>
+									<option value="12">보건, 사회복지</option>
+									<option value="13">건설</option>
+									<option value="14">사업지원</option>
+									<option value="15">숙박, 음식점</option>
+									<option value="16">상수도, 환경</option>
+									<option value="17">농림어업</option>
+									<option value="18">공공행정, 국방</option>
+									<option value="19">전기, 가스</option>
+									<option value="20">가사, 가정</option>
+									<option value="21">국제, 외국기관</option>
+								</select>
+							</div>
+						</div>
+					{{/model.isCompanyUser}}
+					<div>
+						<div class="input-header">이름</div>
+						<div class="input-box">
+							<input type="text" placeholder="해당 유저 name" name="username"/>
+						</div>
+					</div>
 
-                    <div>
-                        <div class="input-header">휴대폰 번호</div>
-                        <div class="input-box">
-                            <input type="text" placeholder="전화번호를 입력해주세요" name="phone"/>
-                        </div>
-                    </div>
+					<div>
+						<div class="input-header">이메일</div>
+						<div class="input-box">
+							<input type="email" placeholder="이메일을 입력해주세요." name="email"/>
 
-                    <div>
-                        <div class="input-header">비밀번호</div>
-                        <div class="input-box">
-                            <input type="password" placeholder="비밀번호를 입력해주세요" name="password"/>
-                        </div>
-                    </div>
+						</div>
+					</div>
 
-                    <div class="save-box">
-                        <button class="save-btn">취소</button>
-                        <button class="save-btn" onclick="savebutton()">저장</button>
+					<div>
+						<div class="input-header">휴대폰 번호</div>
+						<div class="input-box">
+							<input type="text" placeholder="전화번호를 입력해주세요" name="phone"/>
+						</div>
+					</div>
 
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+					<div>
+						<div class="input-header">비밀번호</div>
+						<div class="input-box">
+							<input type="password" placeholder="비밀번호를 입력해주세요" name="password"/>
+						</div>
+					</div>
+
+					<!-- 이미지 저장 -->
+
+
+					<div class="save-box">
+						<button class="save-btn">취소</button>
+						<button class="save-btn" onclick="savebutton()">저장</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 <!-- sidebar 닫는 태그이므로 지우지 말 것 -->
 </div>
@@ -92,9 +133,9 @@
 
 <!--TODO : 수정된 사항이 있는지 확인하여 없으면 수정해달라고 요청-->
 <script>
-    function savebutton() {
-        alert("변경되었습니다")
-    }
+	function savebutton() {
+		alert("변경되었습니다")
+	}
 </script>
 
 {{> layout/footer}}

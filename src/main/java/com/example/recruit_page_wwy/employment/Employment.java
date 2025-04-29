@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import java.sql.Date;
 import java.util.List;
 
+@Builder
 @NoArgsConstructor
 @Getter
 @Table(name = "employment_tb")
@@ -63,5 +64,19 @@ public class Employment {
         this.location = location;
         this.endDate = endDate;
         this.imgUrl = imgUrl;
+    }
+
+    public void update(EmploymentRequest.SaveDTO dto) {
+        this.title = dto.getTitle();
+        this.exp = dto.getExp();
+        this.edu = dto.getEdu() + "$" + dto.getSchoolName();
+        this.shift = dto.getShift();
+        this.sal = dto.getSal();
+        this.workingTime = dto.getWorkingTime();
+        this.location = dto.getLocation() + " " + dto.getSpecificLocation();
+        this.endDate = dto.getEndDate();
+        this.duty = String.join("$", dto.getDuty());
+        this.qualification = String.join("$", dto.getQualification());
+        this.job = Job.builder().id(dto.getJobId()).build(); // 연관관계 수정
     }
 }

@@ -13,7 +13,8 @@ import java.util.List;
 public class ResumeRepository {
     private final EntityManager em;
 
-    public void save(Integer user_id, String title, String exp, String edu, Integer job_id, String location, String qualified, String activity, String img_url) {
+
+    public void save(Integer user_id, String title, String exp, String edu, Integer job_id, String location, String qualified, String activity, String img_url, List<String> resumeStack) {
         Query query = em.createNativeQuery("insert into resume_tb(user_id,title, exp, edu, job_id, location, qualified, activity, img_url) values (?,?,?,?,?,?,?,?,?)");
         query.setParameter(1, user_id);
         query.setParameter(2, title);
@@ -25,18 +26,71 @@ public class ResumeRepository {
         query.setParameter(8, activity);
         query.setParameter(9, img_url);
         query.executeUpdate();
+
+
+        Query idQuery = em.createNativeQuery("select id from resume_tb where user_id=? order by id desc limit 1");
+        idQuery.setParameter(1, user_id);
+        Integer resumeId = (Integer) idQuery.getSingleResult();
+
+
+        for (String skill : resumeStack) {
+            Query skillQuery = em.createNativeQuery("insert into resume_stack_tb (resume_id,skill) values (?,?)");
+            skillQuery.setParameter(1, resumeId);
+            skillQuery.setParameter(2, skill);
+            skillQuery.executeUpdate();
+        }
     }
 
-    public List<Resume> findAll(Integer user_id) {
+    public List<Resume> findAll(Integer user_id, Integer page) {
         Query query = em.createNativeQuery("select * from resume_tb where user_id=? order by id desc", Resume.class);
         query.setParameter(1, user_id);
+        query.setFirstResult(page * 5);
+        query.setMaxResults(5);
         return query.getResultList();
     }
 
+    public Long totalCount(int userId) {
+        Query query = em.createNativeQuery("select count(*) from resume_tb r where r.user_id=?");
+        query.setParameter(1, userId);
+        Object result = query.getSingleResult();
+        return ((Number) result).longValue();
+    }
+
     public Resume findByResumeId(Integer id) {
-        Query query = em.createNativeQuery("select r.ID, r.TITLE,  u.USERNAME,  u.PHONE,  u.EMAIL, r.EXP,  r.EDU, r.JOB_ID,  r.LOCATION,   r.QUALIFIED,   r.ACTIVITY,  r.IMG_URL,  r.LETTER, r.USER_ID from resume_tb r inner join user_tb u on r.id = u.id " +
+        Query query = em.createNativeQuery("select r.ID, r.TITLE,  u.USERNAME,  u.PHONE,  u.EMAIL, r.EXP,  r.EDU, r.JOB_ID,  r.LOCATION,   r.QUALIFIED,   r.ACTIVITY,  r.IMG_URL,  r.LETTER, r.USER_ID from resume_tb r inner join user_tb u on r.user_id = u.id " +
                 "where r.id = ?", Resume.class);
         query.setParameter(1, id);
         return (Resume) query.getSingleResult();
+    }
+
+    public List<Resume> findByUserId(Integer userId) { // employment에서 이력서 작성자 찾기
+        String sql = "select * from resume_tb where user_id = ?";
+        Query query = em.createNativeQuery(sql, Resume.class);
+        query.setParameter(1, userId);
+        return query.getResultList();
+    }
+
+    public void update(Integer id, String title, String exp, String edu, Integer job_id, String location, String qualified, String activity, List<String> resumeStack) {
+        Query query = em.createNativeQuery("update resume_tb  set TITLE = ?, EXP = ?, EDU = ?, JOB_ID = ?, LOCATION = ?, QUALIFIED = ?, ACTIVITY = ? where id = ?", Resume.class);
+        query.setParameter(1, title);
+        query.setParameter(2, exp);
+        query.setParameter(3, edu);
+        query.setParameter(4, job_id);
+        query.setParameter(5, location);
+        query.setParameter(6, qualified);
+        query.setParameter(7, activity);
+        query.setParameter(8, id);
+        query.executeUpdate();
+
+        Query querydelete = em.createNativeQuery("delete from resume_stack_tb where resume_id =? ");
+        querydelete.setParameter(1, id);
+        querydelete.executeUpdate();
+
+        for (String skill : resumeStack) {
+            Query skillQuery = em.createNativeQuery("insert into resume_stack_tb (resume_id, skill) values (?, ?)");
+            skillQuery.setParameter(1, id);
+            skillQuery.setParameter(2, skill);
+            skillQuery.executeUpdate();
+        }
     }
 }
