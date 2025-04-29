@@ -9,7 +9,10 @@ import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Repository
@@ -168,4 +171,62 @@ public class EmploymentRepository {
                     .executeUpdate();
         }
     }
+
+    public List<Employment> search(String jobType, String careerLevel, List<String> skills, String sort) {
+        StringBuilder sql = new StringBuilder("""
+                    SELECT e.*
+                            FROM employment_tb e
+                            LEFT JOIN (
+                                SELECT employment_id, COUNT(*) AS scrap_count
+                                FROM scrap_tb
+                                GROUP BY employment_id
+                            ) s ON e.id = s.employment_id
+                            LEFT JOIN employ_stack_tb es ON e.id = es.employment_id
+                            JOIN job_tb j ON e.job_id = j.id
+                            WHERE 1=1
+                """);
+
+        Map<String, Object> params = new HashMap<>();
+
+        if (jobType != null && !jobType.isBlank()) {
+            sql.append(" AND j.name = :jobType");
+            params.put("jobType", jobType);
+        }
+
+        if (careerLevel != null && !careerLevel.isBlank()) {
+            sql.append(" AND e.exp LIKE :careerLevel");
+            params.put("careerLevel", "%" + careerLevel + "%");
+        }
+
+        if (skills != null && !skills.isEmpty() && !skills.contains("all")) {
+            sql.append(" AND es.skill IN (:skills)");
+            params.put("skills", skills);
+        }
+
+        if ("latest".equals(sort)) {
+            sql.append(" ORDER BY e.id DESC");
+        } else if ("recommended".equals(sort)) {
+            sql.append(" ORDER BY s.scrap_count DESC");
+        } else {
+            sql.append(" ORDER BY e.end_date ASC");
+        }
+
+        Query query = em.createNativeQuery(sql.toString(), Employment.class);
+
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            if (entry.getValue() instanceof List) {
+                query.setParameter(entry.getKey(), (List<?>) entry.getValue());
+            } else {
+                query.setParameter(entry.getKey(), entry.getValue());
+            }
+        }
+
+        List<Employment> rawList = query.getResultList();
+
+        // 중복 제거 (employ_stack_tb 조인으로 인한 중복을 Java에서 제거)
+        return rawList.stream()
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
 }

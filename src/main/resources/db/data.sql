@@ -141,7 +141,7 @@ values ('강채은', 'cekang@nate.com', '01066667788', '1234', null, 1, '그림�
 -- 채용 공고 테이블 dummy
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('Spring 백엔드 개발자 모집', 6, '1년 이상', '대졸 이상',
+VALUES ('Spring 백엔드 개발자 모집', 4, '1 ~ 3년 차', '대졸 이상',
         '정규직', 3,
         'REST API 개발 및 유지보수$기존 서비스 코드 리팩토링$MySQL 기반 데이터 처리$협업을 위한 문서화',
         'Java/Spring 경력 1년 이상$MySQL 경험 우대$협업 및 커뮤니케이션 능력$Git 사용 가능자',
@@ -149,7 +149,7 @@ VALUES ('Spring 백엔드 개발자 모집', 6, '1년 이상', '대졸 이상',
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('프론트엔드 React 개발자 채용', 6, '신입~3년', '무관',
+VALUES ('프론트엔드 React 개발자 채용', 4, '1 ~ 3년 차', '무관',
         '정규직', 2,
         '웹 서비스 프론트 개발$반응형 UI 구현$API 연동 작업$컴포넌트 단위 개발 및 유지보수',
         'React 사용 가능자$포트폴리오 필수$HTML/CSS/JS 기본 지식$Git 사용 가능자',
@@ -165,7 +165,7 @@ VALUES ('신입 백엔드 인턴 모집', 6, '신입', '초대졸 이상',
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('데이터 분석가 채용', 6, '1년 이상', '대졸 이상',
+VALUES ('데이터 분석가 채용', 4, '1 ~ 3년 차', '대졸 이상',
         '정규직', 1,
         '데이터 시각화 및 분석$비즈니스 인사이트 도출$통계 기반 리포트 작성$대시보드 개발 및 유지',
         'Python, Pandas 경험$SQL 활용 가능자$통계적 분석 이해$문제 해결 능력',

@@ -144,6 +144,8 @@ public class EmploymentResponse {
             this.isThereImg = e.getImgUrl() != null;
             this.imgUrl = isThereImg ? e.getImgUrl() : "/img/job_dummy.jpg";
             this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
+            this.jobName = (e.getJob() != null) ? e.getJob().getName() : null;
+            this.comName = (e.getUser() != null) ? e.getUser().getUsername() : null;
         }
     }
 
