@@ -12,7 +12,7 @@ public class ApplyRequest {
         private int resumeId;
         private int employmentId;
 
-        public Apply toEntity(User sessionUser, Resume resume, Employment employment) {
+        public static Apply toEntity(User sessionUser, Resume resume, Employment employment) {
             return Apply.builder()
                     .user(sessionUser)
                     .resume(resume)
