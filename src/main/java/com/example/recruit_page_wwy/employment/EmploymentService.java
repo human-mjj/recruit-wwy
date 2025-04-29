@@ -89,6 +89,7 @@ public class EmploymentService {
             List<Resume> resumes = resumeRepository.findByUserId(sessionUser.getId());
             for (Resume resume : resumes) {
                 resumeList.add(new EmploymentResponse.DetailDTO.ResumeDTO(resume));
+                System.out.println(resume.getTitle());
             }
 
             Scrap scrap = scrapRepository.findByUserIdAndEmployId(sessionUser.getId(), employmentId);
