@@ -28,7 +28,7 @@ public class EmploymentService {
     private final ScrapRepository scrapRepository;
 
     public EmploymentResponse.EmploymentDashboardDTO employmentList(User sessionUser, Integer page) {
-        if (page == null || page < 1) {
+        if (page < 1) {
             page = 1;
         }
         Long totalCount = employmentRepository.totalCount(sessionUser.getId());
@@ -56,7 +56,7 @@ public class EmploymentService {
 
         List<EmploymentResponse.PublicListDTO> dtoList = new ArrayList<>();
         for (Employment e : employmentList) {
-            dtoList.add(new EmploymentResponse.PublicListDTO(e));
+            dtoList.add(new EmploymentResponse.PublicListDTO(e, sessionUser));
         }
 
         return new EmploymentResponse.EmploymentPageDTO(dtoList, realPage, totalCount.intValue());
