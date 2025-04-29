@@ -40,10 +40,10 @@ public class ScrapService {
 //    }
 
     @Transactional
-    public ScrapResponse.SaveDTO save(ScrapRequest.SaveDTO reqDTO, Integer sessionUserId) {
-        Scrap scrapPS = scrapRepository.save(reqDTO.toEntity(sessionUserId));
+    public ScrapResponse.SaveDTO save(ScrapRequest.SaveDTO reqDTO, User sessionUser) {
+        int scrapId = scrapRepository.save(reqDTO.toEntity(sessionUser));
 
-        return new ScrapResponse.SaveDTO(scrapPS.getId());
+        return new ScrapResponse.SaveDTO(scrapId);
     }
 
     @Transactional

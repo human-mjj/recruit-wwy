@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.apply;
 
 import com.example.recruit_page_wwy.user.User;
+import com.example.recruit_page_wwy.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,15 @@ public class ApplyController {
         List<ApplyResponse.UserApplyDTO> userApplyList = applyService.findUserApply(sessionUser);
         request.setAttribute("models", userApplyList);
 
+        // 구직자로 로그인 시 이력서 nav / 기업으로 로그인 시 추천 nav
+        if (sessionUser != null) {
+            UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
+            request.setAttribute("comCheck", myDTO);
+            System.out.println(myDTO.getIsCompanyUser());
+        } else {
+            request.setAttribute("comCheck", null); // 로그인 안 한 경우
+        }
+
         return "resume/apply-list";
     }
 
@@ -34,6 +44,16 @@ public class ApplyController {
         System.out.println(sessionUser.getId());
 
         request.setAttribute("models", comApplyList);
+
+        // 구직자로 로그인 시 이력서 nav / 기업으로 로그인 시 추천 nav
+        if (sessionUser != null) {
+            UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
+            request.setAttribute("comCheck", myDTO);
+            System.out.println(myDTO.getIsCompanyUser());
+        } else {
+            request.setAttribute("comCheck", null); // 로그인 안 한 경우
+        }
+
         return "resume/com-apply-list";
     }
 

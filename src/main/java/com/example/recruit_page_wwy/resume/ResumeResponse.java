@@ -82,18 +82,11 @@ public class ResumeResponse {
 
         private Boolean isScrap;
         private Integer scrapId;
-
         @Data
         public static class EmployDTO {
             private Integer id;
             private String title;
-
-            public EmployDTO(Employment employment) {
-                this.id = employment.getId();
-                this.title = employment.getTitle();
-            }
         }
-
 
         public DetailDTO(User sessionUser, Resume resume, List<EmployDTO> employmentList, boolean isScrap, Integer scrapId) {
             this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
@@ -122,5 +115,4 @@ public class ResumeResponse {
             this.scrapId = scrapId == null ? 0 : scrapId;
         }
     }
-
 }

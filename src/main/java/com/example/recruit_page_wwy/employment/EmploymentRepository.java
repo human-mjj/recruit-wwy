@@ -16,7 +16,20 @@ import java.util.List;
 public class EmploymentRepository {
     private final EntityManager em;
 
-    public List<Employment> findAllByUserId(Integer userId) {
+    public Long totalCount(Integer userId) {
+        String jpql = """
+                SELECT COUNT(e) 
+                FROM Employment e 
+                WHERE e.user.id = :userId
+                """;
+        return em.createQuery(jpql, Long.class)
+                .setParameter("userId", userId)
+                .getSingleResult();
+    }
+
+    public List<Employment> findAllByUserId(Integer userId, Integer page) {
+        int size = 8;
+        int start = (page - 1) * size;
         String jpql = """
                     SELECT e FROM Employment e
                     JOIN FETCH e.user
@@ -26,6 +39,8 @@ public class EmploymentRepository {
                 """;
         return em.createQuery(jpql, Employment.class)
                 .setParameter("userId", userId)
+                .setFirstResult(start)
+                .setMaxResults(size)
                 .getResultList();
     }
 
@@ -43,6 +58,54 @@ public class EmploymentRepository {
                     ORDER BY function('RAND')
                 """;
         Query query = em.createQuery(jpql, Employment.class);
+        query.setFirstResult(page * 16);
+        query.setMaxResults(16);
+
+        return query.getResultList();
+    }
+
+    public List<Employment> findAll(String jobType, String careerLevel, List<String> skills, String sort, int page) {
+        String jpql = """
+                    SELECT DISTINCT e
+                    FROM Employment e
+                    JOIN FETCH e.user
+                    JOIN FETCH e.job
+                    LEFT JOIN FETCH e.employStackList es
+                    WHERE 1=1
+                """;
+
+        if (jobType != null && !jobType.isBlank()) {
+            jpql += " AND e.job.name = :jobType";
+        }
+
+        if (careerLevel != null && !careerLevel.isBlank()) {
+            jpql += " AND e.exp LIKE :careerLevel";
+        }
+
+        if (skills != null && !skills.isEmpty() && !skills.contains("all")) {
+            jpql += " AND es.skill IN :skills";
+        }
+
+        if ("latest".equals(sort)) {
+            jpql += " ORDER BY e.id DESC";
+        } else if ("recommended".equals(sort)) {
+            jpql += " ORDER BY SIZE(e.scraps) DESC";
+        } else {
+            jpql += " ORDER BY function('RAND')";
+        }
+
+        Query query = em.createQuery(jpql, Employment.class);
+
+        if (jobType != null && !jobType.isBlank()) {
+            query.setParameter("jobType", jobType);
+        }
+        if (careerLevel != null && !careerLevel.isBlank()) {
+            query.setParameter("careerLevel", "%" + careerLevel + "%");
+        }
+        if (skills != null && !skills.isEmpty() && !skills.contains("all")) {
+            query.setParameter("skills", skills);
+        }
+
         query.setFirstResult(page * 16);
         query.setMaxResults(16);
 
@@ -136,7 +199,7 @@ public class EmploymentRepository {
     }
 
     public List<EmployStack> findAllStacksByEmploymentId(int employmentId) {
-        return em.createQuery("select es from EmployStack es where es.id = :employmentId", EmployStack.class)
+        return em.createQuery("select es from EmployStack es where es.employment.id = :employmentId", EmployStack.class)
                 .setParameter("employmentId", employmentId)
                 .getResultList();
     }
@@ -154,9 +217,4 @@ public class EmploymentRepository {
         }
     }
 
-    public List<Employment> findByUserId(int userId) {
-        return em.createQuery("select e from Employment e where e.user.id = :userId", Employment.class)
-                .setParameter("userId", userId)
-                .getResultList();
-    }
 }

@@ -141,7 +141,7 @@ values ('강채은', 'cekang@nate.com', '01066667788', '1234', null, 1, '그림�
 -- 채용 공고 테이블 dummy
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('Spring 백엔드 개발자 모집', 6, '1년 이상', '대졸 이상',
+VALUES ('Spring 백엔드 개발자 모집', 4, '1 ~ 3년 차', '대졸 이상',
         '정규직', 3,
         'REST API 개발 및 유지보수$기존 서비스 코드 리팩토링$MySQL 기반 데이터 처리$협업을 위한 문서화',
         'Java/Spring 경력 1년 이상$MySQL 경험 우대$협업 및 커뮤니케이션 능력$Git 사용 가능자',
@@ -149,7 +149,7 @@ VALUES ('Spring 백엔드 개발자 모집', 6, '1년 이상', '대졸 이상',
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('프론트엔드 React 개발자 채용', 6, '신입~3년', '무관',
+VALUES ('프론트엔드 React 개발자 채용', 4, '1 ~ 3년 차', '무관',
         '정규직', 2,
         '웹 서비스 프론트 개발$반응형 UI 구현$API 연동 작업$컴포넌트 단위 개발 및 유지보수',
         'React 사용 가능자$포트폴리오 필수$HTML/CSS/JS 기본 지식$Git 사용 가능자',
@@ -165,7 +165,7 @@ VALUES ('신입 백엔드 인턴 모집', 6, '신입', '초대졸 이상',
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('데이터 분석가 채용', 6, '1년 이상', '대졸 이상',
+VALUES ('데이터 분석가 채용', 4, '1 ~ 3년 차', '대졸 이상',
         '정규직', 1,
         '데이터 시각화 및 분석$비즈니스 인사이트 도출$통계 기반 리포트 작성$대시보드 개발 및 유지',
         'Python, Pandas 경험$SQL 활용 가능자$통계적 분석 이해$문제 해결 능력',
@@ -691,9 +691,11 @@ values ('백엔드 신입 개발자 지원서', 1, '컴퓨터공학 전공, 인�
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
 values ('Spring 기반 개발 프로젝트 경험', 1, '팀 프로젝트 백엔드 담당', '부산대학교 컴퓨터공학과 졸업', 1, '경기', 'SQLD', '사이드 프로젝트 2건', NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('AWS 클라우드 기반 백엔드 프로젝트', 1, 'AWS EC2 서버 구축 및 운영 경험', '부산대학교 컴퓨터공학과 졸업', 1, '부산', 'AWS Certified Developer', '교내 클라우드 해커톤 수상', NULL);
+values ('AWS 클라우드 기반 백엔드 프로젝트', 1, 'AWS EC2 서버 구축 및 운영 경험', '부산대학교 컴퓨터공학과 졸업', 1, '부산', 'AWS Certified Developer',
+        '교내 클라우드 해커톤 수상', NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('Maven, Gradle 빌드 경험 중심 이력서', 1, 'Spring Boot 환경 구축 경험', '부산대학교 컴퓨터공학과 졸업', 1, '서울', '정보처리기사', '멋쟁이사자처럼 11기 활동', NULL);
+values ('Maven, Gradle 빌드 경험 중심 이력서', 1, 'Spring Boot 환경 구축 경험', '부산대학교 컴퓨터공학과 졸업', 1, '서울', '정보처리기사', '멋쟁이사자처럼 11기 활동',
+        NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
 values ('Redis, Kafka 활용 경험', 1, '대용량 데이터 처리 경험', '부산대학교 컴퓨터공학과 졸업', 3, '경기', 'SQLD', '사이드 프로젝트 리더 경험', NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
@@ -706,22 +708,27 @@ values ('웹 퍼블리셔 + 프론트엔드 복합 지원서', 2, 'HTML/CSS 퍼�
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
 values ('Figma 활용한 UX/UI 디자인 포트폴리오', 2, '프로덕트 디자인 경험', '동서대학교 미디어학부 재학', 2, '서울', 'UX 디자인 전문가 과정', 'UX 캠프 참가', NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('Vue.js SPA 프로젝트 개발 이력서', 2, 'Vue 3 Composition API 사용 경험', '동서대학교 미디어학부 재학', 3, '경기', '웹디자인 기능사', '프론트엔드 부트캠프 수료', NULL);
+values ('Vue.js SPA 프로젝트 개발 이력서', 2, 'Vue 3 Composition API 사용 경험', '동서대학교 미디어학부 재학', 3, '경기', '웹디자인 기능사',
+        '프론트엔드 부트캠프 수료', NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
 values ('반응형 웹 구축 프로젝트', 2, 'Bootstrap, Media Query 사용', '동서대학교 미디어학부 재학', 2, '부산', 'GTQ 1급', '디자인 공모전 입상', NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
 values ('웹 표준, 접근성 준수 개발 이력서', 2, 'WAI-ARIA 적용 경험', '동서대학교 미디어학부 재학', 2, '대전', '웹 접근성 전문가', '웹 접근성 캠페인 참여', NULL);
 
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('프론트와 백엔드를 넘나드는 풀스택 꿈나무', 3, 'Node.js와 Vue.js 활용 토이 프로젝트', '부경대학교 컴퓨터공학과 졸업', 3, '대전', '정보처리기사', '교내 개발동아리 회장', NULL);
+values ('프론트와 백엔드를 넘나드는 풀스택 꿈나무', 3, 'Node.js와 Vue.js 활용 토이 프로젝트', '부경대학교 컴퓨터공학과 졸업', 3, '대전', '정보처리기사', '교내 개발동아리 회장',
+        NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('REST API 설계 및 DB 모델링 경험 중심', 3, 'Django + PostgreSQL 프로젝트', '부경대학교 컴퓨터공학과 졸업', 1, '부산', 'SQLD', '캡스톤디자인 우수상 수상', NULL);
+values ('REST API 설계 및 DB 모델링 경험 중심', 3, 'Django + PostgreSQL 프로젝트', '부경대학교 컴퓨터공학과 졸업', 1, '부산', 'SQLD',
+        '캡스톤디자인 우수상 수상', NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
 values ('Vue.js 기반 대시보드 프로젝트 경험', 3, '고객관리 시스템 프론트 개발', '부경대학교 컴퓨터공학과 졸업', 3, '서울', '정보처리기사', '캡스톤디자인 최우수상', NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('Node.js와 Express.js를 활용한 REST API', 3, '백엔드 API 설계 및 개발', '부경대학교 컴퓨터공학과 졸업', 1, '경기', 'SQLD', '교내 개발 경진대회 수상', NULL);
+values ('Node.js와 Express.js를 활용한 REST API', 3, '백엔드 API 설계 및 개발', '부경대학교 컴퓨터공학과 졸업', 1, '경기', 'SQLD', '교내 개발 경진대회 수상',
+        NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('MongoDB와 MySQL 데이터베이스 설계 경험', 3, 'NoSQL, RDBMS 비교 분석', '부경대학교 컴퓨터공학과 졸업', 1, '부산', 'DBA 전문가 과정', 'DB 모델링 스터디', NULL);
+values ('MongoDB와 MySQL 데이터베이스 설계 경험', 3, 'NoSQL, RDBMS 비교 분석', '부경대학교 컴퓨터공학과 졸업', 1, '부산', 'DBA 전문가 과정', 'DB 모델링 스터디',
+        NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
 values ('PM 경험을 통한 협업 리더십 강조 이력서', 3, '애자일 방법론 기반 팀 프로젝트', '부경대학교 컴퓨터공학과 졸업', 3, '대전', 'PMP 준비 과정', 'PM 커뮤니티 활동', NULL);
 
@@ -730,11 +737,14 @@ values ('신입 백엔드 개발자 포지션 지원서', 4, 'Java, Spring Boot 
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
 values ('DB 설계 및 최적화 경험', 4, 'MySQL 튜닝 경험', '경성대학교 컴퓨터공학과 졸업', 1, '부산', 'SQLD', 'DB 최적화 동아리 활동', NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('AWS 인프라 구축 및 운영 경험', 4, 'EC2, RDS 세팅 경험', '경성대학교 컴퓨터공학과 졸업', 1, '경기', 'AWS Certified Cloud Practitioner', 'AWS 해커톤 참가', NULL);
+values ('AWS 인프라 구축 및 운영 경험', 4, 'EC2, RDS 세팅 경험', '경성대학교 컴퓨터공학과 졸업', 1, '경기', 'AWS Certified Cloud Practitioner',
+        'AWS 해커톤 참가', NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('Spring Security + OAuth2.0 로그인 구현', 4, '소셜 로그인 연동 경험', '경성대학교 컴퓨터공학과 졸업', 1, '서울', '정보보안기사', '보안 세미나 참석', NULL);
+values ('Spring Security + OAuth2.0 로그인 구현', 4, '소셜 로그인 연동 경험', '경성대학교 컴퓨터공학과 졸업', 1, '서울', '정보보안기사', '보안 세미나 참석',
+        NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('ElasticSearch 연동 검색 서비스 개발', 4, '검색 최적화 경험', '경성대학교 컴퓨터공학과 졸업', 3, '대전', 'BigData 전문가 과정', '빅데이터 해커톤 참가', NULL);
+values ('ElasticSearch 연동 검색 서비스 개발', 4, '검색 최적화 경험', '경성대학교 컴퓨터공학과 졸업', 3, '대전', 'BigData 전문가 과정', '빅데이터 해커톤 참가',
+        NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
 values ('Redis 세션 클러스터링 프로젝트', 4, '분산 캐시 구축 경험', '경성대학교 컴퓨터공학과 졸업', 1, '부산', 'Redis 전문가 과정', 'Redis 활용 연구회', NULL);
 
@@ -743,13 +753,16 @@ values ('프론트엔드 신입 지원 이력서', 5, 'React, Next.js 기반 프
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
 values ('UI/UX 포트폴리오 기반 이력서', 5, 'Adobe XD, Figma 작업 경험', '경남대학교 미디어학부 재학', 2, '경기', 'UX 전문가 과정', 'UI/UX 스터디 리더', NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('Typescript 기반 React 개발 경험', 5, 'TSX 문법 적용 프로젝트 경험', '경남대학교 미디어학부 재학', 2, '부산', '웹프로그래밍 과정 수료', '웹앱 개발 경진대회', NULL);
+values ('Typescript 기반 React 개발 경험', 5, 'TSX 문법 적용 프로젝트 경험', '경남대학교 미디어학부 재학', 2, '부산', '웹프로그래밍 과정 수료', '웹앱 개발 경진대회',
+        NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('반응형 웹사이트 구축 실습 중심', 5, 'Bootstrap, TailwindCSS 활용', '경남대학교 미디어학부 재학', 2, '대전', '웹 접근성 인증', '반응형 웹사이트 공모전', NULL);
+values ('반응형 웹사이트 구축 실습 중심', 5, 'Bootstrap, TailwindCSS 활용', '경남대학교 미디어학부 재학', 2, '대전', '웹 접근성 인증', '반응형 웹사이트 공모전',
+        NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
 values ('React Native 앱 개발 경험', 5, '모바일 앱 클론코딩 프로젝트', '경남대학교 미디어학부 재학', 3, '서울', '앱 개발 전문가 과정', '모바일 해커톤 참가', NULL);
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('GraphQL API 연동 경험', 5, 'Apollo Client 사용 경험', '경남대학교 미디어학부 재학', 2, '경기', '프론트엔드 전문가 과정', 'GraphQL 세미나 참가', NULL);
+values ('GraphQL API 연동 경험', 5, 'Apollo Client 사용 경험', '경남대학교 미디어학부 재학', 2, '경기', '프론트엔드 전문가 과정', 'GraphQL 세미나 참가',
+        NULL);
 
 -- 스크랩 테이블 dummy
 insert into scrap_tb(user_id, employment_id, resume_id)
@@ -861,62 +874,109 @@ values (5, 64, null);
 insert into scrap_tb(user_id, employment_id, resume_id)
 values (5, 78, null);
 
-insert into scrap_tb(user_id, employment_id, resume_id) values (6, null, 5);
-insert into scrap_tb(user_id, employment_id, resume_id) values (6, null, 12);
-insert into scrap_tb(user_id, employment_id, resume_id) values (6, null, 22);
-insert into scrap_tb(user_id, employment_id, resume_id) values (6, null, 7);
-insert into scrap_tb(user_id, employment_id, resume_id) values (6, null, 18);
-insert into scrap_tb(user_id, employment_id, resume_id) values (6, null, 29);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (6, null, 5);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (6, null, 12);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (6, null, 22);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (6, null, 7);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (6, null, 18);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (6, null, 29);
 
-insert into scrap_tb(user_id, employment_id, resume_id) values (7, null, 9);
-insert into scrap_tb(user_id, employment_id, resume_id) values (7, null, 24);
-insert into scrap_tb(user_id, employment_id, resume_id) values (7, null, 1);
-insert into scrap_tb(user_id, employment_id, resume_id) values (7, null, 17);
-insert into scrap_tb(user_id, employment_id, resume_id) values (7, null, 6);
-insert into scrap_tb(user_id, employment_id, resume_id) values (7, null, 14);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (7, null, 9);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (7, null, 24);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (7, null, 1);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (7, null, 17);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (7, null, 6);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (7, null, 14);
 
-insert into scrap_tb(user_id, employment_id, resume_id) values (8, null, 11);
-insert into scrap_tb(user_id, employment_id, resume_id) values (8, null, 2);
-insert into scrap_tb(user_id, employment_id, resume_id) values (8, null, 30);
-insert into scrap_tb(user_id, employment_id, resume_id) values (8, null, 8);
-insert into scrap_tb(user_id, employment_id, resume_id) values (8, null, 26);
-insert into scrap_tb(user_id, employment_id, resume_id) values (8, null, 19);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (8, null, 11);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (8, null, 2);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (8, null, 30);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (8, null, 8);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (8, null, 26);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (8, null, 19);
 
-insert into scrap_tb(user_id, employment_id, resume_id) values (9, null, 3);
-insert into scrap_tb(user_id, employment_id, resume_id) values (9, null, 21);
-insert into scrap_tb(user_id, employment_id, resume_id) values (9, null, 10);
-insert into scrap_tb(user_id, employment_id, resume_id) values (9, null, 27);
-insert into scrap_tb(user_id, employment_id, resume_id) values (9, null, 16);
-insert into scrap_tb(user_id, employment_id, resume_id) values (9, null, 13);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (9, null, 3);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (9, null, 21);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (9, null, 10);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (9, null, 27);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (9, null, 16);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (9, null, 13);
 
-insert into scrap_tb(user_id, employment_id, resume_id) values (10, null, 4);
-insert into scrap_tb(user_id, employment_id, resume_id) values (10, null, 20);
-insert into scrap_tb(user_id, employment_id, resume_id) values (10, null, 28);
-insert into scrap_tb(user_id, employment_id, resume_id) values (10, null, 23);
-insert into scrap_tb(user_id, employment_id, resume_id) values (10, null, 1);
-insert into scrap_tb(user_id, employment_id, resume_id) values (10, null, 15);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (10, null, 4);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (10, null, 20);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (10, null, 28);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (10, null, 23);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (10, null, 1);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (10, null, 15);
 
-insert into scrap_tb(user_id, employment_id, resume_id) values (11, null, 25);
-insert into scrap_tb(user_id, employment_id, resume_id) values (11, null, 7);
-insert into scrap_tb(user_id, employment_id, resume_id) values (11, null, 17);
-insert into scrap_tb(user_id, employment_id, resume_id) values (11, null, 29);
-insert into scrap_tb(user_id, employment_id, resume_id) values (11, null, 18);
-insert into scrap_tb(user_id, employment_id, resume_id) values (11, null, 6);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (11, null, 25);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (11, null, 7);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (11, null, 17);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (11, null, 29);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (11, null, 18);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (11, null, 6);
 
-insert into scrap_tb(user_id, employment_id, resume_id) values (12, null, 2);
-insert into scrap_tb(user_id, employment_id, resume_id) values (12, null, 11);
-insert into scrap_tb(user_id, employment_id, resume_id) values (12, null, 8);
-insert into scrap_tb(user_id, employment_id, resume_id) values (12, null, 26);
-insert into scrap_tb(user_id, employment_id, resume_id) values (12, null, 24);
-insert into scrap_tb(user_id, employment_id, resume_id) values (12, null, 12);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (12, null, 2);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (12, null, 11);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (12, null, 8);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (12, null, 26);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (12, null, 24);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (12, null, 12);
 
-insert into scrap_tb(user_id, employment_id, resume_id) values (13, null, 5);
-insert into scrap_tb(user_id, employment_id, resume_id) values (13, null, 15);
-insert into scrap_tb(user_id, employment_id, resume_id) values (13, null, 20);
-insert into scrap_tb(user_id, employment_id, resume_id) values (13, null, 28);
-insert into scrap_tb(user_id, employment_id, resume_id) values (13, null, 9);
-insert into scrap_tb(user_id, employment_id, resume_id) values (13, null, 22);
-
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (13, null, 5);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (13, null, 15);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (13, null, 20);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (13, null, 28);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (13, null, 9);
+insert into scrap_tb(user_id, employment_id, resume_id)
+values (13, null, 22);
 
 
 -- 지원 테이블 dummy
@@ -940,81 +1000,112 @@ insert into proposal_tb(user_id, resume_id, employment_id, created_at)
 values (4, 3, 3, now());
 
 -- 게시글 테이블 dummy
+-- 게시글 테이블 dummy (구직자 user_id 1~5)
 insert into board_tb(title, content, user_id, created_at)
-values ('내용1', '제목1', 1, now());
+values ('첫 이직 준비 넘 힘든데 포폴 꼭 해야 하나요?', '첫 이직 준비 중인데 포트폴리오 꼭 만들어야 하나요 ㅠㅠ 아무리 해도 부족한 느낌이라 너무 스트레스받아요..', 1, now());
 insert into board_tb(title, content, user_id, created_at)
-values ('내용2', '제목2', 1, now());
+values ('면접 때 연봉 얘기 꺼내는 타이밍.. 알려줘요ㅠ', '면접 막바지에 연봉 얘기 어떻게 꺼내야 자연스럽나요..? 저 혼자 고민하다 폭망할까봐 무섭습니다ㅠ', 2, now());
 insert into board_tb(title, content, user_id, created_at)
-values ('내용3', '제목3', 2, now());
+values ('비전공자 개발자 가능성 있나요..?', '비전공자로 부트캠프 수료했는데 진짜 취업 가능할까요? 주변에 비전공자는 힘들다는 얘기만 들어서 너무 걱정돼요ㅠㅠ', 3, now());
 insert into board_tb(title, content, user_id, created_at)
-values ('내용4', '제목4', 3, now());
+values ('신입 자기소개서 개막막해요 진짜', '자소서 쓸 때 뭘 강조해야 할지 모르겠어요... 그냥 지원 동기 적으라는데 뭘 써야 감동 줄 수 있을지 모르겠음 ㅠ', 4, now());
 insert into board_tb(title, content, user_id, created_at)
-values ('내용5', '제목5', 4, now());
+values ('잡페어 가볼까 하는데.. 괜찮나요?', '잡페어 참가해볼까 고민중인데 진짜 도움 되나요? 시간 버리는 건 아닌지 궁금합니다 ㅠㅠ 가본 사람 후기좀 부탁드려요!', 5, now());
+
+-- 게시글 테이블 dummy (기업회원 user_id 6~13)
+insert into board_tb(title, content, user_id, created_at)
+values ('신입 개발자 채용 시 가장 중요하게 보는 역량은?', '신입 채용 시 스펙보다는 실질적인 역량을 평가하려고 합니다. 실무 역량을 어떤 식으로 검증하는 게 좋을지 고민입니다.', 6, now());
+insert into board_tb(title, content, user_id, created_at)
+values ('인턴 채용 후 정규직 전환율 높이는 방법?', '인턴 채용은 많은데 정규직 전환까지 이어지는 경우가 드뭅니다. 전환율을 높이려면 어떤 관리 포인트가 필요한지 궁금합니다.', 7, now());
+insert into board_tb(title, content, user_id, created_at)
+values ('스타트업 기업 문화 매력 어필하는 방법?', '복지나 연봉이 대기업에 비해 약한 스타트업입니다. 대신 성장 기회를 어필하고 싶은데 효과적인 방법이 있을까요?', 8, now());
+insert into board_tb(title, content, user_id, created_at)
+values ('광고비 아껴서 채용 홍보하는 방법 있을까요?', '광고 예산이 한정되어 있는데 채용 공고를 널리 알릴 수 있는 방법이 있을지 고민하고 있습니다. 아이디어가 필요합니다.', 9, now());
+insert into board_tb(title, content, user_id, created_at)
+values ('중소기업 채용 어려운 이유, 어떻게 극복할까요?', '최근 구직자들의 지원율이 너무 낮아 고민입니다. 우리 같은 중소기업이 매력적으로 보일 방법이 궁금합니다.', 10, now());
+insert into board_tb(title, content, user_id, created_at)
+values ('비대면 면접 시 체크해야 할 부분?', '요즘 화상 면접을 주로 진행하는데, 지원자 평가 시 놓치기 쉬운 부분이 있을까 걱정입니다. 조언 부탁드립니다.', 11, now());
+insert into board_tb(title, content, user_id, created_at)
+values ('수습 기간 평가 기준 세우는 방법?', '수습 기간 종료 후 정규직 전환 여부를 판단할 때 명확한 기준을 세워야 할 것 같은데 어떻게 설정하는 게 좋을지 궁금합니다.', 12, now());
+insert into board_tb(title, content, user_id, created_at)
+values ('MZ세대 직원과 소통하는 방법 있을까요?', '최근 입사한 젊은 직원들과 소통하는 데 애를 먹고 있습니다. 요즘 세대에 맞는 소통법이 있을까요?', 13, now());
+insert into board_tb(title, content, user_id, created_at)
+values ('경력직 이직 시장 분위기 요즘 어떤가요?', '경력직 채용을 준비 중인데, 최근 이직 시장 동향이나 주요 트렌드가 어떻게 변했는지 궁금합니다.', 6, now());
+insert into board_tb(title, content, user_id, created_at)
+values ('AI 면접 시스템 도입해보신 분 있나요?', 'AI 면접을 도입하는 것을 검토하고 있습니다. 실제 도입한 기업의 경험담이나 주의사항을 듣고 싶습니다.', 7, now());
 
 -- 댓글 테이블 dummy
 insert into reply_tb(board_id, user_id, content, created_at)
-values (1, 1, '댓글1', now());
+values (1, 2, '저도 포폴 준비중인데 개빡세요ㅠㅠ 같이 힘내요!', now());
 insert into reply_tb(board_id, user_id, content, created_at)
-values (1, 2, '댓글2', now());
+values (1, 3, '포폴은 진짜 필수 같아요 ㅠ 저 포폴 없어서 떨어진 적 있음..', now());
 insert into reply_tb(board_id, user_id, content, created_at)
-values (2, 2, '댓글3', now());
+values (2, 1, '연봉 얘기 맨 마지막에 조심스럽게 꺼내는 게 무난해요!', now());
 insert into reply_tb(board_id, user_id, content, created_at)
-values (3, 3, '댓글4', now());
+values (3, 4, '비전공자도 충분히 가능해요! 저도 비전공인데 붙음ㅎㅎ', now());
 insert into reply_tb(board_id, user_id, content, created_at)
-values (4, 4, '댓글5', now());
+values (5, 2, '잡페어 사람 많긴 한데 잘 뚫으면 기회 있음! 가보셈 ㅋㅋ', now());
 insert into reply_tb(board_id, user_id, content, created_at)
-values (5, 4, '댓글6', now());
+values (6, 6, '실무 역량 테스트를 간단하게라도 넣는 걸 추천합니다.', now());
+insert into reply_tb(board_id, user_id, content, created_at)
+values (8, 7, '성장 스토리를 강조하면 구직자들이 관심 갖더라고요.', now());
+insert into reply_tb(board_id, user_id, content, created_at)
+values (10, 8, '복지보다 워라밸을 강조하는 것도 좋은 방법입니다.', now());
+insert into reply_tb(board_id, user_id, content, created_at)
+values (15, 9, '비추합니다.현실적으로 변별력이 떨어져요', now());
+insert into reply_tb(board_id, user_id, content, created_at)
+values (15, 3, '저도 비추', now());
+insert into reply_tb(board_id, user_id, content, created_at)
+values (15, 13, '울회사는 이미 도입했는데 나쁘지 않은듯 합니다.', now());
 
 -- 채용공고-스택 테이블 dummy
 insert into employ_stack_tb(employment_id, skill)
-values
-    (1, 'java'),
-    (1, 'spring boot'),
-    (1, 'mysql'),
+values (1, 'java'),
+       (1, 'spring boot'),
+       (1, 'mysql'),
 
-    (2, 'javascript'),
-    (2, 'react'),
-    (2, 'html'),
+       (2, 'javascript'),
+       (2, 'react'),
+       (2, 'html'),
 
-    (3, 'react'),
-    (3, 'javascript'),
-    (3, 'css'),
+       (3, 'react'),
+       (3, 'javascript'),
+       (3, 'css'),
 
-    (4, 'python'),
-    (4, 'mysql'),
-    (4, 'git'),
+       (4, 'python'),
+       (4, 'mysql'),
+       (4, 'git'),
 
-    (5, 'java'),
-    (5, 'spring boot'),
-    (5, 'git'),
+       (5, 'java'),
+       (5, 'spring boot'),
+       (5, 'git'),
 
-    (6, 'python'),
-    (6, 'mysql'),
-    (6, 'git');
+       (6, 'python'),
+       (6, 'mysql'),
+       (6, 'git');
 
 -- 이력서-스택 테이블 dummy
 insert into resume_stack_tb(resume_id, skill)
-values
-    (1, 'java'),
-    (1, 'spring boot'),
-    (1, 'mysql'),
+values (1, 'java'),
+       (1, 'spring boot'),
+       (1, 'mysql'),
 
-    (2, 'html'),
-    (2, 'css'),
-    (2, 'javascript'),
+       (2, 'html'),
+       (2, 'css'),
+       (2, 'javascript'),
 
-    (3, 'javascript'),
-    (3, 'react'),
-    (3, 'git'),
+       (3, 'javascript'),
+       (3, 'react'),
+       (3, 'git'),
 
-    (4, 'html'),
-    (4, 'css'),
-    (4, 'javascript'),
+       (4, 'html'),
+       (4, 'css'),
+       (4, 'javascript'),
 
-    (5, 'java'),
-    (5, 'spring boot'),
-    (5, 'mysql'),
+       (5, 'java'),
+       (5, 'spring boot'),
+       (5, 'mysql'),
 
-    (6, 'python'),
-    (6, 'mysql'),
-    (6, 'git');
+       (6, 'python'),
+       (6, 'mysql'),
+       (6, 'git');

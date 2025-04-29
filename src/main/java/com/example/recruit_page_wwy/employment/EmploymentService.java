@@ -27,30 +27,52 @@ public class EmploymentService {
     private final EmployStackRepository employStackRepository;
     private final ScrapRepository scrapRepository;
 
-    public List<EmploymentResponse.ListDTO> employmentList(Integer userId) {
-        List<Employment> employmentList = employmentRepository.findAllByUserId(userId);
+    public EmploymentResponse.EmploymentDashboardDTO employmentList(User sessionUser, Integer page) {
+        if (page < 1) {
+            page = 1;
+        }
+        Long totalCount = employmentRepository.totalCount(sessionUser.getId());
+        List<Employment> employmentList = employmentRepository.findAllByUserId(sessionUser.getId(), page);
 
         List<EmploymentResponse.ListDTO> dtoList = new ArrayList<>();
         for (Employment e : employmentList) {
-            EmploymentResponse.ListDTO dto = new EmploymentResponse.ListDTO(e);
+            EmploymentResponse.ListDTO dto = new EmploymentResponse.ListDTO(e, sessionUser);
             dtoList.add(dto);
         }
 
-        return dtoList;
+        return new EmploymentResponse.EmploymentDashboardDTO(
+                sessionUser.getRole() == 1,
+                dtoList,
+                page,
+                totalCount.intValue()
+        );
     }
 
     // 채용공고 리스트, paging
-    public EmploymentResponse.EmploymentPageDTO employmentAllList(User sessionUser, Integer page) {
+    public EmploymentResponse.EmploymentPageDTO employmentAllList(User sessionUser, String jobType, String careerLevel, List<String> skills, String sort, Integer page) {
         int realPage = page - 1;
         Long totalCount = employmentRepository.totalCount();
-        List<Employment> employmentList = employmentRepository.findAll(realPage);
+        List<Employment> employmentList = employmentRepository.findAll(jobType, careerLevel, skills, sort, realPage);
 
         List<EmploymentResponse.PublicListDTO> dtoList = new ArrayList<>();
         for (Employment e : employmentList) {
-            dtoList.add(new EmploymentResponse.PublicListDTO(e));
+            dtoList.add(new EmploymentResponse.PublicListDTO(e, sessionUser));
         }
 
-        return new EmploymentResponse.EmploymentPageDTO(dtoList, realPage, totalCount.intValue());
+        EmploymentResponse.TableDTO tableDTO = new EmploymentResponse.TableDTO(
+                employmentRepository.findAllJobs(),
+                employmentRepository.findAllStacks()
+        );
+
+        List<String> careerLevels = new ArrayList<>();
+        careerLevels.add("신입");
+        careerLevels.add("1 ~ 3년 차");
+        careerLevels.add("3 ~ 5년 차");
+        careerLevels.add("5 ~ 7년 차");
+        careerLevels.add("7 ~ 9년 차");
+        careerLevels.add("10년 이상");
+
+        return new EmploymentResponse.EmploymentPageDTO(dtoList, realPage, totalCount.intValue(), tableDTO, careerLevels);
     }
 
     public List<Employment> viewEmployList() {

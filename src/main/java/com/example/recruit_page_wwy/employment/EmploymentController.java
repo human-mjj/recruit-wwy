@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.employment;
 
 import com.example.recruit_page_wwy.user.User;
+import com.example.recruit_page_wwy.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -31,19 +32,34 @@ public class EmploymentController {
     }
 
     @GetMapping("/mypage/employment")
-    public String manageEmployment(HttpServletRequest request) {
+    public String manageEmployment(HttpServletRequest request,
+                                   @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) throw new RuntimeException("401 Unauthorized");
-        request.setAttribute("models", employmentService.employmentList(sessionUser.getId()));
+        EmploymentResponse.EmploymentDashboardDTO model = employmentService.employmentList(sessionUser, page);
+        request.setAttribute("model", model);
         return "employment/dashboard";
     }
 
     @GetMapping("/employment")
     public String employmentList(HttpServletRequest request,
-                                 @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
+                                 @RequestParam(required = false, value = "page", defaultValue = "1") Integer page,
+                                 @RequestParam(required = false) String jobType,
+                                 @RequestParam(required = false) String careerLevel,
+                                 @RequestParam(defaultValue = "latest") String sort,
+                                 @RequestParam(required = false) List<String> skills) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        EmploymentResponse.EmploymentPageDTO model = employmentService.employmentAllList(sessionUser, page);
+        EmploymentResponse.EmploymentPageDTO model = employmentService.employmentAllList(sessionUser, jobType, careerLevel, skills, sort, page);
         request.setAttribute("model", model);
+
+        // 유저일 경우에만 스크랩 버튼 보이게 함 (로그인을 안해도 스크랩 버튼 보임)
+        if (sessionUser != null) {
+            UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
+            request.setAttribute("ComCheck", myDTO);
+        } else {
+            request.setAttribute("ComCheck", null); // 로그인 안 한 경우
+        }
+
         return "employment/list";
     }
 
@@ -52,6 +68,9 @@ public class EmploymentController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         EmploymentResponse.DetailDTO detailDTO = employmentService.findEmploymentDetail(id, sessionUser);
         request.setAttribute("models", detailDTO);
+        System.out.println(detailDTO.getId());
+
+
         return "employment/detail";
     }
 

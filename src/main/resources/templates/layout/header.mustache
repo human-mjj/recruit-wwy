@@ -16,11 +16,20 @@
                     >채용</a
                     >
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark fw-semibold" href="/mypage/resume"
-                    >이력서</a
-                    >
-                </li>
+                {{#sessionUser}}
+                    {{#models.isCompanyUser}}
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold" href="/match/com">추천</a>
+                        </li>
+                    {{/models.isCompanyUser}}
+                    {{^models.isCompanyUser}}
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold" href="/mypage/resume">이력서</a>
+                        </li>
+                    {{/models.isCompanyUser}}
+                {{/sessionUser}}
+                {{^sessionUser}}
+                {{/sessionUser}}
                 <li class="nav-item">
                     <a class="nav-link text-dark fw-semibold" href="/board"
                     >커뮤니티</a

@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.scrap;
 
 import com.example.recruit_page_wwy.employment.Employment;
+import com.example.recruit_page_wwy.resume.Resume;
 import com.example.recruit_page_wwy.user.User;
 import lombok.Data;
 
@@ -14,6 +15,8 @@ public class ScrapRequest {
         private List<UserScrapDTO> scraps;
         private Integer prev;
         private Integer next;
+
+        private Integer resumeId;
 
         private Integer size;
         private Integer totalCount;
@@ -58,13 +61,15 @@ public class ScrapRequest {
         String exp;
         String location;
         String name;
+        Integer employmentId;
 
-        public UserScrapDTO(String title, String comName, String exp, String location, String name) {
+        public UserScrapDTO(String title, String comName, String exp, String location, String name, Integer employmentId) {
             this.title = title;
             this.comName = comName;
             this.exp = exp;
             this.location = location;
             this.name = name;
+            this.employmentId = employmentId;
         }
     }
 
@@ -112,10 +117,14 @@ public class ScrapRequest {
     }
 
     public static class ComScrapDTO {
+        Integer id;
+        Integer resumeId;
         String title;
         String username;
 
-        public ComScrapDTO(String title, String username) {
+        public ComScrapDTO(Integer id, Integer resumeId, String title, String username) {
+            this.id = id;
+            this.resumeId = resumeId;
             this.title = title;
             this.username = username;
         }
@@ -123,13 +132,15 @@ public class ScrapRequest {
 
     @Data
     public static class SaveDTO {
+        private User sessionUser;
         private Integer employmentId;
+        private Integer resumeId;
 
-        public Scrap toEntity(Integer sessionUserId) {
+        public Scrap toEntity(User sessionUser) {
             return Scrap.builder()
-                    .employment(Employment.builder().id(employmentId).build())
-                    .resume(null)
-                    .user(User.builder().id(sessionUserId).build())
+                    .employment(sessionUser.getRole() == 0 ? Employment.builder().id(employmentId).build() : null)
+                    .resume(sessionUser.getRole() == 1 ? Resume.builder().id(resumeId).build() : null)
+                    .user(User.builder().id(sessionUser.getId()).build())
                     .build();
         }
     }

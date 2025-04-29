@@ -28,87 +28,86 @@
 
 <!-- 오른쪽 박스 -->
 
-
+<input type="hidden" id="resumeId" value="{{models.id}}">
 <div class="flex-fill" style="max-width: 75%">
-	<div class="bg-white border rounded p-4">
-		<div class="d-flex justify-content-between">
-			<h4 class="fw-bold">이력서 상세보기</h4>
-			<div class="d-flex align-items-center">
-				<i
-						id="favoriteIcon"
-						class="fa fa-star"
-						style="
+    <div class="bg-white border rounded p-4">
+        <div class="d-flex justify-content-between">
+            <h4 class="fw-bold">이력서 상세보기</h4>
+            <div class="d-flex align-items-center">
+                {{#models.isCompanyUser}}
+                    {{#models.isScrap}}
+                        <div class="btn-wrap mt-1">
+                            <div class="toggle-btn">
+                                <i id="scrapIcon" class="fa fa-star" style="
                                         font-size: 24px;
                                         color: yellow;
                                         text-shadow: 0 0 1px #000, 0 0 1px #000;
-                                    "
-						onclick=""
-				></i>
-				<span class="ms-1">스크랩</span>
-				<a href="/resume/{{id}}/update-form">
-					<button
-							class="btn btn-warning fw-semibold ms-3"
-					>
-						수정
-					</button>
-				</a>
-				<form method="post" action="/resume/{{id}}/delete">
-					<button class="btn btn-danger fw-semibold ms-3">
-						삭제
-					</button>
-				</form>
-			</div>
-		</div>
-		<br/>
-		<!-- 이력서 내용 -->
-		{{#models}}
-			<div class="d-flex justify-content-between align-items-center mb-3">
-				<h3 class="fw-semibold mb-0">{{title}}</h3>
-				<!-- 채용공고 제안 폼 -->
-				<div class="d-flex flex-column align-items-start">
-					<!-- 소제목 추가 -->
-					<h5 class="text-muted fw-semibold mb-3">채용 공고 제안하기</h5>
-					<form method="post" action="/resume/1/recommend" class="d-flex">
-						<!-- 채용공고 선택 박스 -->
-						<select class="form-select me-2" name="employmentId" style="width: 200px;">
-							<!--				            employmentList-->
-							<option value="1">1</option>
-							<option value="1">1</option>
-							<option value="1">1</option>
-							<option value="1">1</option>
-							<option value="1">1</option>
-							<!--				            employmentList-->
-						</select>
-						<!-- 지원할 이력서 id도 같이 보내야 하므로 hidden 추가 -->
-						<input type="hidden" name="resumeId" value="1">
-						<button type="submit" class="btn btn-success">제안하기</button>
-					</form>
-				</div>
-			</div>
-			<div class="container mb-5">
-				<h5 class="fw-semibold">이름</h5>
-				<div class="ps-4">{{Username}}</div>
-			</div>
-			<div class="container mb-5">
-				<h5 class="fw-semibold">이메일</h5>
-				<div class="ps-4">{{email}}</div>
-			</div>
-			<div class="container mb-5">
-				<h5 class="fw-semibold">전화번호</h5>
-				<div class="ps-4">{{phone}}</div>
-			</div>
-			<div class="container mb-5">
-				<h5 class="fw-semibold">경력</h5>
-				<div class="ps-4">{{exp}}</div>
-			</div>
-			<div class="container mb-5">
-				<h5 class="fw-semibold">학력</h5>
-				<div class="ps-4">{{edu}}</div>
-			</div>
-			<div class="container mb-5">
-				<h5 class="fw-semibold">희망 직무</h5>
-				<div class="ps-4">{{job.name}}</div>
-			</div>
+                                  " onclick="deleteScrap({{models.scrapId}})"></i>
+                            </div>
+                        </div>
+                    {{/models.isScrap}}
+                    {{^models.isScrap}}
+                        <div class="btn-wrap mt-1">
+                            <div class="toggle-btn">
+                                <i id="scrapIcon" class="fa fa-star" style="
+                                        font-size: 24px;
+                                        color: black;
+                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
+                                  " onclick="saveScrap()"></i>
+                            </div>
+                        </div>
+                    {{/models.isScrap}}
+                {{/models.isCompanyUser}}
+
+                <a href="/resume/{{id}}/update-form">
+                    <button
+                            class="btn btn-warning fw-semibold ms-3"
+                    >
+                        수정
+                    </button>
+                </a>
+                <form method="post" action="/resume/{{id}}/delete">
+                    <button class="btn btn-danger fw-semibold ms-3">
+                        삭제
+                    </button>
+                </form>
+                <form method="post" action="/resume/1/recommend">
+                    <button class="btn btn-success fw-semibold ms-3">
+                        추천
+                    </button>
+                </form>
+            </div>
+        </div>
+        <br/>
+        <!-- 이력서 내용 -->
+        {{#models}}
+            <div class="container mb-5">
+                <h3 class="fw-semibold">{{title}}</h3>
+            </div>
+            <div class="container mb-5">
+                <h5 class="fw-semibold">이름</h5>
+                <div class="ps-4">{{Username}}</div>
+            </div>
+            <div class="container mb-5">
+                <h5 class="fw-semibold">이메일</h5>
+                <div class="ps-4">{{email}}</div>
+            </div>
+            <div class="container mb-5">
+                <h5 class="fw-semibold">전화번호</h5>
+                <div class="ps-4">{{phone}}</div>
+            </div>
+            <div class="container mb-5">
+                <h5 class="fw-semibold">경력</h5>
+                <div class="ps-4">{{exp}}</div>
+            </div>
+            <div class="container mb-5">
+                <h5 class="fw-semibold">학력</h5>
+                <div class="ps-4">{{edu}}</div>
+            </div>
+            <div class="container mb-5">
+                <h5 class="fw-semibold">희망 직무</h5>
+                <div class="ps-4">{{job.name}}</div>
+            </div>
 
 			<div class="container mb-5">
 				<h5 class="fw-semibold">기술스택</h5>
@@ -147,5 +146,41 @@
 <!-- sidebar 닫는 태그이므로 지우지 말 것 -->
 </div>
 </div>
+
+<script>
+
+    let resumeId = document.querySelector("#resumeId").value;
+
+    async function saveScrap() {
+        let requestBody = {resumeId: resumeId};
+        let response = await fetch(`/api/scrap`, {
+            method: "POST",
+            body: JSON.stringify(requestBody),
+            headers: {"Content-Type": "application/json"}
+        });
+
+        let responseBody = await response.json(); // {scrapId}
+        console.log(responseBody);
+
+        // DOM 업데이트
+        let scrapIcon = document.querySelector('#scrapIcon');
+        scrapIcon.style.color = 'yellow';
+        scrapIcon.setAttribute('onclick', `deleteScrap(${responseBody.scrapId})`);
+
+    }
+
+    async function deleteScrap(scrapId) {
+        let response = await fetch(`/api/scrap/${scrapId}`, {
+            method: "DELETE"
+        });
+        let responseBody = await response.json(); // response.text();
+        console.log(responseBody);
+
+        // DOM 업데이트
+        let scrapIcon = document.querySelector('#scrapIcon');
+        scrapIcon.style.color = 'black';
+        scrapIcon.setAttribute('onclick', `saveScrap()`);
+    }
+</script>
 
 {{> layout/footer}}

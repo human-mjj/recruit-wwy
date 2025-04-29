@@ -8,6 +8,7 @@ import com.example.recruit_page_wwy.resumestack.ResumeStack;
 import com.example.recruit_page_wwy.scrap.Scrap;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +18,6 @@ import java.util.List;
 @Getter
 @Table(name = "resume_tb")
 @Entity
-
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,4 +56,10 @@ public class Resume {
     private String activity;
     private String letter;
     private String imgUrl;
+
+    @Builder
+    public Resume(int id) {
+        this.id = id;
+    }
+
 }

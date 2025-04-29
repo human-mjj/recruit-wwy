@@ -29,9 +29,7 @@ public class ResumeService {
     public void save(ResumeRequest.SaveDTO saveDTO) {
         resumeRepository.save(saveDTO.getUser_id(), saveDTO.getTitle(), saveDTO.getExp(), saveDTO.getEdu(), saveDTO.getJob_id(), saveDTO.getLocation(), saveDTO.getQualified(),
                 saveDTO.getActivity(), saveDTO.getImg_url(), saveDTO.getSkills());
-
     }
-
 
     public ResumeResponse.MainDTO findAll(Integer userId, Integer page) {
         int realPage = page - 1;
