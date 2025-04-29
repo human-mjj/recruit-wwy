@@ -13,52 +13,46 @@ import java.util.List;
 public class ScrapService {
     private final ScrapRepository scrapRepository;
 
-
-    public List<ScrapRequest.UserScrapDTO> scrapUserfind(User sessinUser) {
-        List<ScrapRequest.UserScrapDTO> userScrapList = scrapRepository.findAllUserScrapById(sessinUser.getId());
-        return userScrapList;
+    public ScrapRequest.UserScrapPageDTO scrapUserfind(User sessionUser, int page) {
+        int realPage = page - 1;
+        int size = 8;
+        Long totalCount = scrapRepository.userScrapTotalCount(sessionUser.getId());
+        List<ScrapRequest.UserScrapDTO> scraps = scrapRepository.findAllUserScrapById(sessionUser.getId(), realPage, size);
+        return new ScrapRequest.UserScrapPageDTO(scraps, page, totalCount.intValue());
     }
 
-    public List<ScrapRequest.ComScrapDTO> scrapComfind(User sessinUser) {
-        List<ScrapRequest.ComScrapDTO> comScrapList = scrapRepository.findAllComScrapById(sessinUser.getId());
-        return comScrapList;
+    public ScrapRequest.ComScrapPageDTO scrapComfind(User sessionUser, int page) {
+        int realPage = page - 1;
+        int size = 5;
+        Long totalCount = scrapRepository.comScrapTotalCount(sessionUser.getId());
+        List<ScrapRequest.ComScrapDTO> scraps = scrapRepository.findAllComScrapById(sessionUser.getId(), realPage, size);
+        return new ScrapRequest.ComScrapPageDTO(scraps, page, totalCount.intValue());
     }
 
-    // UserScrapSave
+//    public List<ScrapRequest.UserScrapDTO> scrapUserfind(User sessinUser) {
+//        List<ScrapRequest.UserScrapDTO> userScrapList = scrapRepository.findAllUserScrapById(sessinUser.getId());
+//        return userScrapList;
+//    }
+//
+//    public List<ScrapRequest.ComScrapDTO> scrapComfind(User sessinUser) {
+//        List<ScrapRequest.ComScrapDTO> comScrapList = scrapRepository.findAllComScrapById(sessinUser.getId());
+//        return comScrapList;
+//    }
+
     @Transactional
-    public ScrapResponse.UserSaveDTO userScrapSave(ScrapRequest.userScrapSaveDTO reqDTO, Integer sessionUserId) {
+    public ScrapResponse.SaveDTO save(ScrapRequest.SaveDTO reqDTO, Integer sessionUserId) {
         Scrap scrapPS = scrapRepository.save(reqDTO.toEntity(sessionUserId));
 
-        return new ScrapResponse.UserSaveDTO(scrapPS.getId());
+        return new ScrapResponse.SaveDTO(scrapPS.getId());
     }
 
-    // UserScrapDelete
     @Transactional
-    public ScrapResponse.UserDeleteDTO deleteUserScrap(Integer employmentId) {
+    public ScrapResponse.DeleteDTO cancelScrap(Integer employmentId) {
         Scrap scrapPS = scrapRepository.findById(employmentId);
         if (scrapPS == null) throw new RuntimeException("좋아요를 하지 않았습니다.");
 
-        scrapRepository.deleteByUserId(employmentId);
+        scrapRepository.deleteById(employmentId);
 
-        return new ScrapResponse.UserDeleteDTO(employmentId);
-    }
-
-    // ComScrapSave
-    @Transactional
-    public ScrapResponse.ComSaveDTO comScrapSave(ScrapRequest.comScrapSaveDTO reqDTO, Integer sessionUserId) {
-        Scrap scrapPS = scrapRepository.save(reqDTO.toEntity(sessionUserId));
-
-        return new ScrapResponse.ComSaveDTO(scrapPS.getId());
-    }
-
-    // ComScrapDelete
-    @Transactional
-    public ScrapResponse.ComDeleteDTO deleteComScrap(Integer resumeId) {
-        Scrap scrapPS = scrapRepository.findById(resumeId);
-        if (scrapPS == null) throw new RuntimeException("좋아요를 하지 않았습니다.");
-
-        scrapRepository.deleteByComId(resumeId);
-
-        return new ScrapResponse.ComDeleteDTO(resumeId);
+        return new ScrapResponse.DeleteDTO(employmentId);
     }
 }
