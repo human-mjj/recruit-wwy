@@ -103,7 +103,6 @@ public class EmploymentController {
         EmploymentResponse.DetailDTO detailDTO = employmentService.findEmploymentDetail(id, sessionUserId);
         request.setAttribute("models", detailDTO);
         System.out.println(detailDTO.getIsScrap());
-        System.out.println(detailDTO.getId());
 
 
         return "employment/detail";

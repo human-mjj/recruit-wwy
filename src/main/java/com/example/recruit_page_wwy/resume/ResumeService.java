@@ -34,11 +34,11 @@ public class ResumeService {
         return resumes;
     }
 
-    public ResumeResponse.DetailDTO Detail(Integer id) {
+    public ResumeResponse.DetailDTO Detail(Integer id, int sessionUserId) {
         Resume resume = resumeRepository.findByResumeId(id);
         User user = resume.getUser();
 
-        Scrap scrap = scrapRepository.findByUserIdAndresumeId(id, resume.getId());
+        Scrap scrap = scrapRepository.findByUserIdAndresumeId(sessionUserId, resume.getId());
         Boolean isScrap = scrap == null ? false : true;
         Integer scrapId = scrap == null ? null : scrap.getId();
 

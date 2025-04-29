@@ -118,6 +118,7 @@ public class EmploymentService {
             }
         }
 
+        // 스크랩 확인
         Scrap scrap = scrapRepository.findByUserIdAndEmployId(sessionUserId, employmentId);
         Boolean isScrap = scrap == null ? false : true;
         Integer scrapId = scrap == null ? null : scrap.getId();

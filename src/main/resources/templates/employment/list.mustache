@@ -153,35 +153,6 @@
                                 <div class="recommend-content d-flex flex-column border rounded gap-3 py-3 px-3">
                                     <div class="top d-flex justify-content-between">
                                         <h3 class="fs-6 fw-medium">{{title}}</h3>
-                                        {{#sessionUser}}
-                                            {{^comCheck.isCompanyUser}}
-                                                {{#models.isScrap}}
-                                                    <div class="btn-wrap mt-1">
-                                                        <div class="toggle-btn scrap-box">
-                                                            <i id="scrapIcon" class="fa fa-star" style="
-                                        font-size: 24px;
-                                        color: yellow;
-                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
-                                  " onclick="deleteScrap({{models.scrapId}})"></i>
-                                                        </div>
-                                                    </div>
-                                                {{/models.isScrap}}
-                                                {{^models.isScrap}}
-                                                    <div class="btn-wrap mt-1">
-                                                        <div class="toggle-btn scrap-box">
-                                                            <i id="scrapIcon" class="fa fa-star" style="
-                                        font-size: 24px;
-                                        color: black;
-                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
-                                  " onclick="saveScrap()"></i>
-                                                        </div>
-                                                    </div>
-                                                {{/models.isScrap}}
-                                            {{/comCheck.isCompanyUser}}
-                                        {{/sessionUser}}
-                                        {{^sessionUser}}
-                                        {{/sessionUser}}
-                                        <!-- .toggle-btn end -->
                                     </div>
                                     <!-- .top end -->
                                     <div class="bottom d-flex flex-column gap-3">
