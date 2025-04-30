@@ -75,6 +75,9 @@ public class ScrapRequest {
 
     @Data
     public static class ComScrapPageDTO {
+        private Integer sessionUserId;
+        private Boolean isCompanyUser; // 스크랩 버튼 노출 여부 (false면 보여줌)
+
         private List<ComScrapDTO> scraps;
         private Integer prev;
         private Integer next;
@@ -87,7 +90,10 @@ public class ScrapRequest {
         private Boolean isLast;
         private List<Integer> numbers;
 
-        public ComScrapPageDTO(List<ComScrapDTO> scraps, Integer current, Integer totalCount) {
+        public ComScrapPageDTO(List<ComScrapDTO> scraps, Integer current, Integer totalCount, User sessionUser) {
+            this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
+            this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
+
             this.size = 5;
             this.scraps = scraps;
             this.totalCount = totalCount;

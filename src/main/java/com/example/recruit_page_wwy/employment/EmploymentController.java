@@ -1,7 +1,6 @@
 package com.example.recruit_page_wwy.employment;
 
 import com.example.recruit_page_wwy.user.User;
-import com.example.recruit_page_wwy.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +20,8 @@ public class EmploymentController {
 
     @GetMapping("/")
     public String index(HttpSession session, HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+//        User sessionUser = (User) session.getAttribute("sessionUser");
 //        request.setAttribute("sessionUser", sessionUser);
-//        System.out.println(sessionUser);
 
         List<Employment> jobs = employmentService.viewEmployList();
         request.setAttribute("models", jobs);
@@ -37,7 +35,7 @@ public class EmploymentController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) throw new RuntimeException("401 Unauthorized");
         EmploymentResponse.EmploymentDashboardDTO model = employmentService.employmentList(sessionUser, page);
-        request.setAttribute("model", model);
+        request.setAttribute("models", model);
         return "employment/dashboard";
     }
 
@@ -50,15 +48,7 @@ public class EmploymentController {
                                  @RequestParam(required = false) List<String> skills) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         EmploymentResponse.EmploymentPageDTO model = employmentService.employmentAllList(sessionUser, jobType, careerLevel, skills, sort, page);
-        request.setAttribute("model", model);
-
-        // 유저일 경우에만 스크랩 버튼 보이게 함 (로그인을 안해도 스크랩 버튼 보임)
-        if (sessionUser != null) {
-            UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
-            request.setAttribute("ComCheck", myDTO);
-        } else {
-            request.setAttribute("ComCheck", null); // 로그인 안 한 경우
-        }
+        request.setAttribute("models", model);
 
         return "employment/list";
     }
