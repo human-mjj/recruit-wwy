@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.employment;
 
 import com.example.recruit_page_wwy.user.User;
+import com.example.recruit_page_wwy.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class EmploymentController {
     public String index(HttpSession session, HttpServletRequest request) {
 //        User sessionUser = (User) session.getAttribute("sessionUser");
 //        request.setAttribute("sessionUser", sessionUser);
+//        System.out.println(sessionUser);
 
         List<Employment> jobs = employmentService.viewEmployList();
         request.setAttribute("model", jobs);
