@@ -222,4 +222,8 @@ public class EmploymentRepository {
                 .setParameter("id", id)
                 .getResultList();
     }
+
+    public void deleteById(int employmentId) {
+        em.remove(em.find(Employment.class, employmentId));
+    }
 }

@@ -57,6 +57,7 @@ public class ApplyController {
         return "resume/com-apply-list";
     }
 
+    // TODO : 인터셉터 만들어야함
     @PostMapping("/employment/{id}/apply")
     public String apply(@PathVariable("id") int employmentId, @RequestParam("resumeId") Integer resumeId) {
         User sessionUser = (User) session.getAttribute("sessionUser");

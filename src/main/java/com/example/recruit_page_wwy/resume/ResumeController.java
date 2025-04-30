@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Controller
@@ -33,19 +39,34 @@ public class ResumeController {
         return "resume/detail";
     }
 
+    // TODO DTO처리 0 - 끝
     @GetMapping("/resume/save-form")
-    public String resumeSaveForm() {
+    public String resumeSaveForm(HttpServletRequest request) {
+        ResumeResponse.TableDTO tableDTO = resumeService.viewJobAndStackList();
+        request.setAttribute("model", tableDTO);
         return "resume/save-form";
     }
 
+    // TODO DTO처리 1
     @PostMapping("/resume/save")
     public String resumeSave(ResumeRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         saveDTO.setUser_id(sessionUser.getId());
+        MultipartFile imgFile = saveDTO.getUploadingImg();
+        String imgFilename = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
+        System.out.println("img Filename: " + imgFilename);
+        Path imgPath = Paths.get("./upload/" + imgFilename);
+        try {
+            Files.write(imgPath, imgFile.getBytes());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        saveDTO.setImgUrl(imgFilename);
         resumeService.save(saveDTO);
         return "redirect:/mypage/resume";
     }
 
+    // TODO DTO처리 2
     @GetMapping("/resume/{id}/update-form")
     public String resumeUpdateForm(@PathVariable("id") Integer id, HttpServletRequest request) {
         Resume resume = resumeService.findById(id);
@@ -53,12 +74,13 @@ public class ResumeController {
         return "resume/update-form";
     }
 
+    // TODO DTO처리 3
     @PostMapping("/resume/{id}/update")
     public String resumeUpdate(@PathVariable("id") Integer id, ResumeRequest.UpdateDTO updateDTO) {
         resumeService.update(id, updateDTO);
         return "redirect:/mypage/resume";
     }
-
+    
     @PostMapping("/resume/{id}/delete")
     public String resumeDelete(@PathVariable("id") Integer resumeId) {
         resumeService.delete(resumeId);

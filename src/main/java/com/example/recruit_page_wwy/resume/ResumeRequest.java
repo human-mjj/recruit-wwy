@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.resume;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -29,7 +30,8 @@ public class ResumeRequest {
 
         private String qualified;
         private String activity;
-        private String img_url;
+        private MultipartFile UploadingImg;
+        private String imgUrl;
 
         private List<String> skills;
 
@@ -44,8 +46,7 @@ public class ResumeRequest {
             this.location = location;
             this.qualified = qualified;
             this.activity = activity;
-            this.img_url = img_url;
-
+            this.imgUrl = img_url;
             this.skills = skills;
         }
 

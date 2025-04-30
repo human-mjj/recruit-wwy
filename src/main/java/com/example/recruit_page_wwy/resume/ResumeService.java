@@ -3,8 +3,10 @@ package com.example.recruit_page_wwy.resume;
 
 import com.example.recruit_page_wwy.employment.Employment;
 import com.example.recruit_page_wwy.employment.EmploymentRepository;
+import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.scrap.Scrap;
 import com.example.recruit_page_wwy.scrap.ScrapRepository;
+import com.example.recruit_page_wwy.stack.Stack;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -28,7 +30,7 @@ public class ResumeService {
     @Transactional
     public void save(ResumeRequest.SaveDTO saveDTO) {
         resumeRepository.save(saveDTO.getUser_id(), saveDTO.getTitle(), saveDTO.getExp(), saveDTO.getEdu(), saveDTO.getJob_id(), saveDTO.getLocation(), saveDTO.getQualified(),
-                saveDTO.getActivity(), saveDTO.getImg_url(), saveDTO.getSkills());
+                saveDTO.getActivity(), saveDTO.getImgUrl(), saveDTO.getSkills());
     }
 
     public ResumeResponse.MainDTO findAll(Integer userId, Integer page) {
@@ -90,5 +92,11 @@ public class ResumeService {
         if (resume != null) {
             em.remove(resume);
         }
+    }
+
+    public ResumeResponse.TableDTO viewJobAndStackList() {
+        List<Job> jobList = resumeRepository.findAllJobs();
+        List<Stack> stackList = resumeRepository.findAllStacks();
+        return new ResumeResponse.TableDTO(jobList, stackList);
     }
 }

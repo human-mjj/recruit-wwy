@@ -88,7 +88,6 @@
 							</div>
 						</div>
 					</div>
-
 					<div class="checkbox-area flex-wrap">
 						{{#model.table.stackList}}
 							<div
@@ -207,37 +206,37 @@
 </main>
 
 <script>
-	let employmentId = document.querySelector("#employmentId").value;
+    let employmentId = document.querySelector("#employmentId").value;
 
-	async function saveScrap() {
-		let requestBody = {employmentId: employmentId};
-		let response = await fetch(`/api/scrap`, {
-			method: "POST",
-			body: JSON.stringify(requestBody),
-			headers: {"Content-Type": "application/json"}
-		});
+    async function saveScrap() {
+        let requestBody = {employmentId: employmentId};
+        let response = await fetch(`/api/scrap`, {
+            method: "POST",
+            body: JSON.stringify(requestBody),
+            headers: {"Content-Type": "application/json"}
+        });
 
-		let responseBody = await response.json(); // {scrapId}
-		console.log(responseBody);
+        let responseBody = await response.json(); // {scrapId}
+        console.log(responseBody);
 
-		// DOM 업데이트
-		let scrapIcon = document.querySelector('#scrapIcon');
-		scrapIcon.style.color = 'yellow';
-		scrapIcon.setAttribute('onclick', `deleteScrap(${responseBody.scrapId})`);
-	}
+        // DOM 업데이트
+        let scrapIcon = document.querySelector('#scrapIcon');
+        scrapIcon.style.color = 'yellow';
+        scrapIcon.setAttribute('onclick', `deleteScrap(${responseBody.scrapId})`);
+    }
 
-	async function deleteScrap(scrapId) {
-		let response = await fetch(`/api/scrap/${scrapId}`, {
-			method: "DELETE"
-		});
-		let responseBody = await response.json(); // response.text();
-		console.log(responseBody);
+    async function deleteScrap(scrapId) {
+        let response = await fetch(`/api/scrap/${scrapId}`, {
+            method: "DELETE"
+        });
+        let responseBody = await response.json(); // response.text();
+        console.log(responseBody);
 
-		// DOM 업데이트
-		let scrapIcon = document.querySelector('#scrapIcon');
-		scrapIcon.style.color = 'black';
-		scrapIcon.setAttribute('onclick', `saveScrap()`);
-	}
+        // DOM 업데이트
+        let scrapIcon = document.querySelector('#scrapIcon');
+        scrapIcon.style.color = 'black';
+        scrapIcon.setAttribute('onclick', `saveScrap()`);
+    }
 </script>
 
 {{> layout/footer}}
