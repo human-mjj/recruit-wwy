@@ -217,4 +217,9 @@ public class EmploymentRepository {
         }
     }
 
+    public List<Employment> findByUserId(int id) {
+        return em.createQuery("select e from Employment e where e.user.id = :id", Employment.class)
+                .setParameter("id", id)
+                .getResultList();
+    }
 }

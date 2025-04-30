@@ -27,7 +27,7 @@ public class ResumeController {
     @GetMapping("/resume/{id}")
     public String resumeDetail(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        ResumeResponse.DetailDTO detailDTO = resumeService.Detail(resumeId, sessionUser);
+        ResumeResponse.DetailDTO detailDTO = resumeService.detailView(resumeId, sessionUser);
         request.setAttribute("models", detailDTO);
         System.out.println(detailDTO.getIsScrap());
         return "resume/detail";

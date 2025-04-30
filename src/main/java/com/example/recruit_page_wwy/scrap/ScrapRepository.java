@@ -49,7 +49,7 @@ public class ScrapRepository {
         }
     }
 
-    public Scrap findByUserIdAndresumeId(Integer sessionUserId, Integer resumeId) {
+    public Scrap findByUserIdAndResumeId(Integer sessionUserId, Integer resumeId) {
         Query query = em.createQuery("select s from Scrap s where s.user.id = :sessionUserId and s.resume.id = :resumeId", Scrap.class);
         query.setParameter("sessionUserId", sessionUserId);
         query.setParameter("resumeId", resumeId);
