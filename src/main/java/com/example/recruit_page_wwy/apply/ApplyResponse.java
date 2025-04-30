@@ -9,6 +9,19 @@ import java.util.List;
 public class ApplyResponse {
 
     @Data
+    public static class UserApplyListDTO {
+        private Integer sessionUserId;
+        private Boolean isCompanyUser; // 스크랩 버튼 노출 여부 (false면 보여줌)
+        private List<UserApplyDTO> userApplyList;
+
+        public UserApplyListDTO(User sessionUser, List<UserApplyDTO> userApplyList) {
+            this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
+            this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
+            this.userApplyList = userApplyList;
+        }
+    }
+
+    @Data
     public static class UserApplyDTO {
         //        private User user;
         private String comName;

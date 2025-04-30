@@ -20,7 +20,7 @@ public class ApplyRepository {
     }
 
     // UserApply
-    public List<ApplyResponse.UserApplyDTO> findUserApplyById(int userId) {
+    public ApplyResponse.UserApplyListDTO findUserApplyById(int userId, User sessionUser) {
         String sql = """
                 SELECT DISTINCT u.com_name, j.name, FORMATDATETIME(a.created_at, 'yyyy-MM-dd'), a.progress
                 FROM APPLY_TB a
@@ -45,7 +45,8 @@ public class ApplyRepository {
             result.add(new ApplyResponse.UserApplyDTO(comName, name, createdAt, progress));
         }
 
-        return result;
+
+        return new ApplyResponse.UserApplyListDTO(sessionUser, result);
     }
 
     // ComApply

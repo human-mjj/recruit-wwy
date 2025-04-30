@@ -1,6 +1,8 @@
 package com.example.recruit_page_wwy.user;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,7 +22,7 @@ public class UserController {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
-        request.setAttribute("models", myDTO);
+        request.setAttribute("model", myDTO);
 
         System.out.println(myDTO.getIsCompanyUser());
         return "/mypage/index";
@@ -75,11 +77,20 @@ public class UserController {
 
     // Login
     @PostMapping("/login")
-    public String login(UserRequest.LoginDTO reqDTO) {
+    public String login(UserRequest.LoginDTO reqDTO, HttpServletResponse response) {
         User sessionUser = userService.login(reqDTO);
         session.setAttribute("sessionUser", sessionUser);
 
-        // TODO : 쿠키 저장하여 로그인 유지 or 아이디 기억
+        // 유저 아이디 기억하는 로직
+        if (reqDTO.getRememberMe() == null) {
+            Cookie cookie = new Cookie("email", null);
+            cookie.setMaxAge(0); // 즉시 만료
+            response.addCookie(cookie);
+        } else {
+            Cookie cookie = new Cookie("email", reqDTO.getEmail());
+            cookie.setMaxAge(60 * 60 * 24 * 7);
+            response.addCookie(cookie);
+        }
 
         return "redirect:/";
     }

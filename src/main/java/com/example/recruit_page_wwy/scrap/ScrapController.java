@@ -28,7 +28,7 @@ public class ScrapController {
                                @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         ScrapRequest.ComScrapPageDTO model = scrapService.scrapComfind(sessionUser, page);
-        request.setAttribute("models", model);
+        request.setAttribute("model", model);
 
         return "scrap/com-scrap";
     }

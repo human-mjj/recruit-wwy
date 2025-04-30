@@ -24,7 +24,7 @@ public class EmploymentController {
 //        request.setAttribute("sessionUser", sessionUser);
 
         List<Employment> jobs = employmentService.viewEmployList();
-        request.setAttribute("models", jobs);
+        request.setAttribute("model", jobs);
 
         return "index";
     }
@@ -35,7 +35,7 @@ public class EmploymentController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) throw new RuntimeException("401 Unauthorized");
         EmploymentResponse.EmploymentDashboardDTO model = employmentService.employmentList(sessionUser, page);
-        request.setAttribute("models", model);
+        request.setAttribute("model", model);
         return "employment/dashboard";
     }
 
@@ -57,7 +57,7 @@ public class EmploymentController {
     public String employmentDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         EmploymentResponse.DetailDTO detailDTO = employmentService.findEmploymentDetail(id, sessionUser);
-        request.setAttribute("models", detailDTO);
+        request.setAttribute("model", detailDTO);
         System.out.println(detailDTO.getId());
 
 

@@ -23,8 +23,8 @@ public class ApplyService {
     private final EmploymentRepository employmentRepository;
     private final ResumeRepository resumeRepository;
 
-    public List<ApplyResponse.UserApplyDTO> findUserApply(User sessionUser) {
-        List<ApplyResponse.UserApplyDTO> userApplyDTO = applyRepository.findUserApplyById(sessionUser.getId());
+    public ApplyResponse.UserApplyListDTO findUserApply(User sessionUser) {
+        ApplyResponse.UserApplyListDTO userApplyDTO = applyRepository.findUserApplyById(sessionUser.getId(), sessionUser);
         return userApplyDTO;
     }
 

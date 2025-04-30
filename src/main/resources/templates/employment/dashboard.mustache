@@ -35,7 +35,7 @@
         </div>
         <div class="job-list">
             <ul class="card-wrap row row-gap-3" style="gap: calc(4% / 3);">
-                {{#models.employments}}
+                {{#model.employments}}
                     <li class="card-1">
                         <a href="/employment/{{id}}" class="d-flex flex-column gap-2">
                             <figure
@@ -77,21 +77,21 @@
                         </a>
                     </li>
                     <!-- .card-1 end -->
-                {{/models.employments}}
+                {{/model.employments}}
             </ul>
             <!-- .card-wrap end -->
             <div class="pagging d-flex justify-content-center">
                 <ul class="pagination">
-                    <li class="page-item {{#models.isFirst}}disabled{{/models.isFirst}}">
-                        <a class="page-link" href="?page={{models.prev}}">Previous</a>
+                    <li class="page-item {{#model.isFirst}}disabled{{/model.isFirst}}">
+                        <a class="page-link" href="?page={{model.prev}}">Previous</a>
                     </li>
-                    {{#models.numbers}}
+                    {{#model.numbers}}
                         <li class="page-item">
                             <a class="page-link" href="?page={{.}}">{{.}}</a>
                         </li>
-                    {{/models.numbers}}
-                    <li class="page-item {{#models.isLast}}disabled{{/models.isLast}}">
-                        <a class="page-link" href="?page={{models.next}}">Next</a>
+                    {{/model.numbers}}
+                    <li class="page-item {{#model.isLast}}disabled{{/model.isLast}}">
+                        <a class="page-link" href="?page={{model.next}}">Next</a>
                     </li>
                 </ul>
             </div>

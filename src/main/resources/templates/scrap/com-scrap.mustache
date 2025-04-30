@@ -34,7 +34,7 @@
         <br/>
         <!-- 이력서 카드들 -->
         <ul style="padding-left: 0!important;">
-            {{#models.scraps}}
+            {{#model.scraps}}
                 <li class="card mb-3">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
@@ -55,18 +55,18 @@
                         <a href="/resume/{{resumeId}}" class="btn btn-primary">상세보기</a>
                     </div>
                 </li>
-            {{/models.scraps}}
+            {{/model.scraps}}
         </ul>
         <div class="pagging d-flex justify-content-center">
             <ul class="pagination">
-                <li class="page-item {{#models.isFirst}}disabled{{/models.isFirst}}">
-                    <a class="page-link" href="?page={{models.prev}}">Previous</a>
+                <li class="page-item {{#model.isFirst}}disabled{{/model.isFirst}}">
+                    <a class="page-link" href="?page={{model.prev}}">Previous</a>
                 </li>
-                {{#models.numbers}}
+                {{#model.numbers}}
                     <li class="page-item"><a class="page-link" href="?page={{.}}">{{.}}</a></li>
-                {{/models.numbers}}
-                <li class="page-item {{#models.isLast}}disabled{{/models.isLast}}">
-                    <a class="page-link" href="?page={{models.next}}">Next</a>
+                {{/model.numbers}}
+                <li class="page-item {{#model.isLast}}disabled{{/model.isLast}}">
+                    <a class="page-link" href="?page={{model.next}}">Next</a>
                 </li>
             </ul>
         </div>
