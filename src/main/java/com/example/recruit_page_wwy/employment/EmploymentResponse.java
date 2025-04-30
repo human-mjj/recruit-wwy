@@ -142,15 +142,13 @@ public class EmploymentResponse {
         public ListDTO(Employment e, User sessionUser) {
             this.id = e.getId();
             this.title = e.getTitle();
-            this.comName = e.getUser().getComName();
             this.exp = e.getExp();
             this.location = e.getLocation();
-            this.jobName = e.getJob().getName();
             this.isThereImg = e.getImgUrl() != null;
             this.imgUrl = isThereImg ? e.getImgUrl() : "/img/job_dummy.jpg";
             this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
             this.jobName = (e.getJob() != null) ? e.getJob().getName() : null;
-            this.comName = (e.getUser() != null) ? e.getUser().getUsername() : null;
+            this.comName = (e.getUser() != null) ? e.getUser().getComName() : null;
         }
     }
 
