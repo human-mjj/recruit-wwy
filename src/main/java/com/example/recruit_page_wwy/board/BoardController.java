@@ -33,8 +33,8 @@ public class BoardController {
     @GetMapping("/board")
     public String boardList(HttpServletRequest request,
                             @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
-        request.setAttribute("model", boardService.boardList(page - 1));
         User sessionUser = (User) session.getAttribute("sessionUser");
+        request.setAttribute("model", boardService.boardList(page - 1));
         // 구직자로 로그인 시 이력서 nav / 기업으로 로그인 시 추천 nav
         if (sessionUser != null) {
             UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
