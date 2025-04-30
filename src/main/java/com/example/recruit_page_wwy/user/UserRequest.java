@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.user;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 public class UserRequest {
 
@@ -18,16 +19,34 @@ public class UserRequest {
     @Data
     public static class UpdateDTO {
         private String username;
+        private String comName;
         private String email;
         private String phone;
         private String password;
+        private Integer industryId;
+        private MultipartFile uploadingImg;
+        private String imgUrl;
 
-        public User toEntity() {
-            return User.builder()
+        public User toEntity(String imgUrl) {
+            if (comName != null && !comName.isEmpty() && industryId != null)
+                return User.builder()
+                        .username(username)
+                        .comName(comName)
+                        .industryId(industryId)
+                        .role(1)
+                        .email(email)
+                        .phone(phone)
+                        .password(password)
+                        .imgUrl(imgUrl)
+                        .build();
+
+            else return User.builder()
                     .username(username)
                     .email(email)
                     .phone(phone)
                     .password(password)
+                    .imgUrl(imgUrl)
+                    .role(0)
                     .build();
         }
     }

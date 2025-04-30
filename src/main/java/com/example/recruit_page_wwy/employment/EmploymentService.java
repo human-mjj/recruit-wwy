@@ -14,9 +14,14 @@ import com.example.recruit_page_wwy.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -122,7 +127,16 @@ public class EmploymentService {
 
     @Transactional
     public void save(EmploymentRequest.SaveDTO saveDTO, User sessionUser) {
-        Employment savingEmployment = saveDTO.toEntity(sessionUser);
+        MultipartFile imgFile = saveDTO.getUploadingImg();
+        String imgFilename = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
+        System.out.println("img Filename: " + imgFilename);
+        Path imgPath = Paths.get("./upload/" + imgFilename);
+        try {
+            Files.write(imgPath, imgFile.getBytes());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        Employment savingEmployment = saveDTO.toEntity(sessionUser, imgFilename);
         employmentRepository.save(savingEmployment, saveDTO.getEmployStack());
     }
 
@@ -180,6 +194,16 @@ public class EmploymentService {
         // 1. 수정할 Employment 엔티티를 조회
         Employment employment = employmentRepository.findByEmploymentId(employmentId);
         if (employment == null) throw new RuntimeException("해당 채용공고를 찾을 수 없습니다.");
+
+        MultipartFile imgFile = dto.getUploadingImg();
+        String imgFilename = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
+        System.out.println("img Filename: " + imgFilename);
+        Path imgPath = Paths.get("./upload/" + imgFilename);
+        try {
+            Files.write(imgPath, imgFile.getBytes());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         // 2. Employment 엔티티의 update 메서드를 호출
         employment.update(dto);

@@ -5,6 +5,7 @@ import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.resumestack.ResumeStack;
 import com.example.recruit_page_wwy.stack.Stack;
 import com.example.recruit_page_wwy.user.User;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -78,7 +79,7 @@ public class ResumeResponse {
         private String qualified;
         private String activity;
         private String imgUrl;
-        private String LETTER;
+        private String letter;
         private List<EmployDTO> employmentList;
 
         private Boolean isScrap;
@@ -116,7 +117,7 @@ public class ResumeResponse {
             this.qualified = resume.getQualified();
             this.activity = resume.getActivity();
             this.imgUrl = resume.getImgUrl();
-            this.LETTER = resume.getLetter();
+            this.letter = resume.getLetter();
             this.employmentList = employmentList;
             this.isScrap = isScrap;
             this.scrapId = scrapId == null ? 0 : scrapId;
@@ -131,6 +132,170 @@ public class ResumeResponse {
         public TableDTO(List<Job> jobList, List<Stack> stackList) {
             this.jobList = jobList;
             this.stackList = stackList;
+        }
+    }
+
+    @Data
+    public static class UpdateViewDTO {
+        private int id;
+        private String title;
+
+        private List<JobDTO> jobList;
+        private Integer selectedJobId;
+
+        private List<StackDTO> stackList;
+        private List<String> selectedStacks;
+
+        private String exp;
+        private String expYear;
+
+        private String edu;
+        private String schoolName;
+
+        private String location;
+        private String region;
+        private String regionDetail;
+
+        private String qualified;
+        private String activity;
+        private String letter;
+
+        private boolean isNewbie;
+
+        private boolean isJunior;
+        private boolean isSenior;
+        private boolean isPrincipal;
+        private boolean isManager;
+        private boolean isMaster;
+
+        private boolean isUnivGraduated;
+        private boolean isUnivEnrolled;
+        private boolean isHighGraduated;
+
+        private boolean isSeoul;
+        private boolean isBusan;
+        private boolean isDaegu;
+        private boolean isIncheon;
+        private boolean isGwangju;
+        private boolean isDaejeon;
+        private boolean isUlsan;
+        private boolean isSejong;
+        private boolean isGyeonggi;
+        private boolean isGangwon;
+        private boolean isChungbuk;
+        private boolean isChungnam;
+        private boolean isJeonbuk;
+        private boolean isJeonnam;
+        private boolean isGyeongbuk;
+        private boolean isGyeongnam;
+        private boolean isJeju;
+
+        @Data
+        public static class JobDTO {
+            private Integer id;
+            private String name;
+            private boolean isJobSelected;
+        }
+
+        @Data
+        public static class StackDTO {
+            private String skill;
+            private boolean isStackChecked;
+        }
+
+        @Builder
+        public UpdateViewDTO(Resume resume, List<JobDTO> jobList, List<StackDTO> stackList, List<ResumeStack> selectedStacks) {
+            this.id = resume.getId();
+            this.title = resume.getTitle();
+            this.qualified = resume.getQualified();
+            this.activity = resume.getActivity();
+            this.letter = resume.getLetter();
+
+            // === 경력 파싱 ===
+            String[] expParts = parseExp(resume.getExp());
+            this.exp = expParts[0];
+            this.expYear = expParts.length > 1 ? expParts[1] : "";
+            this.isNewbie = "신입".equals(this.exp);
+
+            if (!this.isNewbie) {
+                this.isJunior = "1 ~ 3년 차".equals(this.expYear);
+                this.isSenior = "3 ~ 5년 차".equals(this.expYear);
+                this.isPrincipal = "5 ~ 7년 차".equals(this.expYear);
+                this.isManager = "7 ~ 9년 차".equals(this.expYear);
+                this.isMaster = "10년 이상".equals(this.expYear);
+            }
+
+            // === 학력 파싱 ===
+            String[] eduParts = parseEdu(resume.getEdu());
+            this.edu = eduParts[0];
+            this.schoolName = eduParts.length > 1 ? eduParts[1].trim() : "";
+
+            this.isUnivGraduated = this.edu.contains("대학교 / 졸업");
+            this.isUnivEnrolled = this.edu.contains("대학교 / 재학");
+            this.isHighGraduated = this.edu.contains("고등학교 / 졸업");
+
+            // === 직무 ===
+            this.jobList = jobList;
+            this.selectedJobId = resume.getJob() != null ? resume.getJob().getId() : null;
+            if (jobList != null) {
+                for (JobDTO job : jobList) {
+                    if (job.getId() != null && job.getId().equals(selectedJobId)) {
+                        job.setJobSelected(true);
+                    }
+                }
+            }
+
+            // === 기술 스택 ===
+            this.stackList = stackList;
+            this.selectedStacks = toSelectedStackNames(selectedStacks);
+            if (stackList != null && selectedStacks != null) {
+                for (StackDTO stack : stackList) {
+                    if (selectedStacks.contains(stack.getSkill())) {
+                        stack.setStackChecked(true);
+                    }
+                }
+            }
+
+            // === 지역 파싱 ===
+            String[] locationParts = resume.getLocation().split(" ", 2);
+            this.region = locationParts[0];
+            this.regionDetail = locationParts.length > 1 ? locationParts[1] : "";
+            this.location = resume.getLocation();
+
+            this.isSeoul = "서울특별시".equals(region);
+            this.isBusan = "부산광역시".equals(region);
+            this.isDaegu = "대구광역시".equals(region);
+            this.isIncheon = "인천광역시".equals(region);
+            this.isGwangju = "광주광역시".equals(region);
+            this.isDaejeon = "대전광역시".equals(region);
+            this.isUlsan = "울산광역시".equals(region);
+            this.isSejong = "세종특별자치시".equals(region);
+            this.isGyeonggi = "경기도".equals(region);
+            this.isGangwon = "강원특별자치도".equals(region);
+            this.isChungbuk = "충청북도".equals(region);
+            this.isChungnam = "충청남도".equals(region);
+            this.isJeonbuk = "전라북도".equals(region);
+            this.isJeonnam = "전라남도".equals(region);
+            this.isGyeongbuk = "경상북도".equals(region);
+            this.isGyeongnam = "경상남도".equals(region);
+            this.isJeju = "제주특별자치도".equals(region);
+        }
+
+        private static String[] parseEdu(String dbEdu) {
+            if (dbEdu == null || !dbEdu.contains("$")) return new String[]{"", ""};
+            return dbEdu.split("\\$", 2);
+        }
+
+        private static String[] parseExp(String dbExp) {
+            if (dbExp == null || !dbExp.contains(" ")) return new String[]{dbExp};
+            if (dbExp.startsWith("신입")) return new String[]{"신입"};
+            String[] parts = dbExp.split(" ", 2);
+            return new String[]{parts[0], parts[1]};
+        }
+
+        private static List<String> toSelectedStackNames(List<ResumeStack> stackList) {
+            if (stackList == null) return List.of();
+            return stackList.stream().map(ResumeStack::getSkill).toList();
         }
     }
 }

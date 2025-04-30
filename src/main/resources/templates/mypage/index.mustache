@@ -42,12 +42,17 @@
             <hr/>
             <div class="card-box">
                 <div class="img-box">
-                    <img src="/img/Screenshot_14.png"/>
+                    <img src="{{models.imgUrl}}"/>
                 </div>
 
-                <form action="/mypage/update" method="post">
+                <form action="/mypage/update" enctype="multipart/form-data" method="post">
 
                     {{#models.isCompanyUser}}
+                        <!-- ✅ 기업 로고 사진 업로드 -->
+                        <div class="img-container mb-5">
+                            <small class="gap-3 mb-3">기업 로고 사진</small>
+                            <input type="file" class="form-control" name="uploadingImg"/>
+                        </div>
                         <div>
                             <div class="input-header">기업명</div>
                             <div class="input-box">
@@ -83,6 +88,13 @@
                                     <option value="21">국제, 외국기관</option>
                                 </select>
                             </div>
+                        </div>
+                    {{/models.isCompanyUser}}
+                    {{^models.isCompanyUser}}
+                        <!-- ✅ 프로필 사진 업로드 -->
+                        <div class="img-container mb-5">
+                            <small class="gap-3 mb-3">프로필 사진</small>
+                            <input type="file" class="form-control" name="uploadingImg"/>
                         </div>
                     {{/models.isCompanyUser}}
                     <div>

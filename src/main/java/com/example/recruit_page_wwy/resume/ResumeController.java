@@ -30,6 +30,7 @@ public class ResumeController {
         ResumeResponse.DetailDTO detailDTO = resumeService.detailView(resumeId, sessionUser);
         request.setAttribute("models", detailDTO);
         System.out.println(detailDTO.getIsScrap());
+        System.out.println(detailDTO.getLetter());
         return "resume/detail";
     }
 
@@ -41,7 +42,6 @@ public class ResumeController {
         return "resume/save-form";
     }
 
-    // TODO DTO처리 1
     @PostMapping("/resume/save")
     public String resumeSave(ResumeRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -49,17 +49,15 @@ public class ResumeController {
         return "redirect:/mypage/resume";
     }
 
-    // TODO DTO처리 2
     @GetMapping("/resume/{id}/update-form")
     public String resumeUpdateForm(@PathVariable("id") Integer id, HttpServletRequest request) {
-        Resume resume = resumeService.findById(id);
-        request.setAttribute("model", resume);
+        ResumeResponse.UpdateViewDTO updateViewDTO = resumeService.findById(id);
+        request.setAttribute("model", updateViewDTO);
         return "resume/update-form";
     }
 
-    // TODO DTO처리 3
     @PostMapping("/resume/{id}/update")
-    public String resumeUpdate(@PathVariable("id") Integer id, ResumeRequest.UpdateDTO updateDTO) {
+    public String resumeUpdate(@PathVariable("id") Integer id, ResumeRequest.SaveDTO updateDTO) {
         resumeService.update(id, updateDTO);
         return "redirect:/mypage/resume";
     }

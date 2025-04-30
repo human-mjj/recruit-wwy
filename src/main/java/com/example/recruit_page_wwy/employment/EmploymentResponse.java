@@ -151,7 +151,7 @@ public class EmploymentResponse {
             this.exp = e.getExp();
             this.location = e.getLocation();
             this.isThereImg = e.getImgUrl() != null;
-            this.imgUrl = isThereImg ? e.getImgUrl() : "/img/job_dummy.jpg";
+            this.imgUrl = isThereImg ? "/upload/" + e.getImgUrl() : "/img/job_dummy.jpg";
             this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
             this.jobName = (e.getJob() != null) ? e.getJob().getName() : null;
             this.comName = (e.getUser() != null) ? e.getUser().getComName() : null;
@@ -180,7 +180,7 @@ public class EmploymentResponse {
             this.location = e.getLocation();
             this.jobName = e.getJob().getName();
             this.isThereImg = e.getImgUrl() != null;
-            this.imgUrl = isThereImg ? e.getImgUrl() : "/img/job_dummy.jpg";
+            this.imgUrl = isThereImg ? "/upload/" + e.getImgUrl() : "/img/job_dummy.jpg";
 
             this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
         }
@@ -235,7 +235,7 @@ public class EmploymentResponse {
             this.isApplicant = false; // 기본 false (지원 여부 체크는 별도로)
 
             this.id = employment.getId();
-            this.userImgUrl = employment.getUser().getImgUrl();
+            this.userImgUrl = employment.getUser().getImgUrl() != null? "/upload/" + employment.getUser().getImgUrl() : "/img/naver_logo_basic.png";
             this.title = employment.getTitle();
             this.comName = employment.getUser().getComName();
             this.exp = parseExp(employment.getExp());

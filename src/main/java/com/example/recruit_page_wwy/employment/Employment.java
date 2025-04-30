@@ -92,5 +92,6 @@ public class Employment {
         this.duty = String.join("$", dto.getDuty());
         this.qualification = String.join("$", dto.getQualification());
         this.job = Job.builder().id(dto.getJobId()).build(); // 연관관계 수정
+        this.imgUrl = dto.getImgUrl();
     }
 }

@@ -1,9 +1,11 @@
 package com.example.recruit_page_wwy.resume;
 
 
+import com.example.recruit_page_wwy._core.error.ex.Exception404;
 import com.example.recruit_page_wwy.employment.Employment;
 import com.example.recruit_page_wwy.employment.EmploymentRepository;
 import com.example.recruit_page_wwy.job.Job;
+import com.example.recruit_page_wwy.resumestack.ResumeStack;
 import com.example.recruit_page_wwy.scrap.Scrap;
 import com.example.recruit_page_wwy.scrap.ScrapRepository;
 import com.example.recruit_page_wwy.stack.Stack;
@@ -34,7 +36,6 @@ public class ResumeService {
 
     @Transactional
     public void save(ResumeRequest.SaveDTO saveDTO, User sessionUser) {
-        saveDTO.setUser_id(sessionUser.getId());
         MultipartFile imgFile = saveDTO.getUploadingImg();
         String imgFilename = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
         System.out.println("img Filename: " + imgFilename);
@@ -44,9 +45,8 @@ public class ResumeService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        saveDTO.setImgUrl(imgFilename);
-        resumeRepository.save(saveDTO.getUser_id(), saveDTO.getTitle(), saveDTO.getExp(), saveDTO.getEdu(), saveDTO.getJob_id(), saveDTO.getLocation(), saveDTO.getQualified(),
-                saveDTO.getActivity(), saveDTO.getImgUrl(), saveDTO.getSkills());
+        Resume resumePS = resumeRepository.save(saveDTO.toEntity(sessionUser, imgFilename));
+        resumeRepository.updateStack(resumePS.getId(), saveDTO.getSkills());
     }
 
     public ResumeResponse.MainDTO findAll(Integer userId, Integer page) {
@@ -81,25 +81,57 @@ public class ResumeService {
     }
 
     @Transactional
-    public void update(Integer id, ResumeRequest.UpdateDTO updateDTO) {
-
-        resumeRepository.update(
-                id,
-                updateDTO.getTitle(),
-                updateDTO.getExp(),
-                updateDTO.getEdu(),
-                updateDTO.getJob_id(),
-                updateDTO.getLocation(),
-                updateDTO.getQualified(),
-                updateDTO.getActivity(),
-                updateDTO.getSkills()
-        );
-
-
+    public void update(Integer id, ResumeRequest.SaveDTO updateDTO) {
+        Resume resume = resumeRepository.findByResumeId(id);
+        if (resume == null) throw new Exception404("해당하는 이력서가 없습니다.");
+        MultipartFile imgFile = updateDTO.getUploadingImg();
+        String imgFilename = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
+        System.out.println("img Filename: " + imgFilename);
+        Path imgPath = Paths.get("./upload/" + imgFilename);
+        try {
+            Files.write(imgPath, imgFile.getBytes());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        resume.update(updateDTO, imgFilename);
+        resumeRepository.updateStack(resume.getId(), updateDTO.getSkills());
     }
 
-    public Resume findById(Integer id) {
-        return resumeRepository.findByResumeId(id);
+    public ResumeResponse.UpdateViewDTO findById(Integer resumeId) {
+        Resume resume = resumeRepository.findByResumeId(resumeId);
+        if (resume == null) throw new RuntimeException("404 Not Found");
+
+        List<Job> jobList = resumeRepository.findAllJobs();
+
+        List<Stack> stackList = resumeRepository.findAllStacks();
+
+        // 4. 현재 employment에 등록된 스택(skill) 목록 뽑기
+        List<String> selectedStacks = new ArrayList<>();
+        for (ResumeStack resumeStack : resume.getResumeStackList()) {
+            selectedStacks.add(resumeStack.getSkill());
+        }
+
+        // 5. jobList -> jobDTOList로 변환
+        List<ResumeResponse.UpdateViewDTO.JobDTO> jobDTOList = new ArrayList<>();
+        for (Job job : jobList) {
+            ResumeResponse.UpdateViewDTO.JobDTO dto = new ResumeResponse.UpdateViewDTO.JobDTO();
+            dto.setId(job.getId());
+            dto.setName(job.getName());
+            jobDTOList.add(dto);
+        }
+
+        // 6. stackList -> stackDTOList로 변환
+        List<ResumeResponse.UpdateViewDTO.StackDTO> stackDTOList = new ArrayList<>();
+        for (Stack stack : stackList) {
+            ResumeResponse.UpdateViewDTO.StackDTO dto = new ResumeResponse.UpdateViewDTO.StackDTO();
+            dto.setSkill(stack.getSkill());
+            stackDTOList.add(dto);
+        }
+
+        // 7. selectedStacks 저장
+        List<ResumeStack> selectedStackList = resumeRepository.findAllStacksByResumeId(resumeId);
+        ResumeResponse.UpdateViewDTO updateViewDTO = new ResumeResponse.UpdateViewDTO(resume, jobDTOList, stackDTOList, selectedStackList);
+        return updateViewDTO;
     }
 
     @Transactional

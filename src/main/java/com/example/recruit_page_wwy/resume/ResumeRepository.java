@@ -2,6 +2,7 @@ package com.example.recruit_page_wwy.resume;
 
 
 import com.example.recruit_page_wwy.job.Job;
+import com.example.recruit_page_wwy.resumestack.ResumeStack;
 import com.example.recruit_page_wwy.stack.Stack;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -16,25 +17,12 @@ public class ResumeRepository {
     private final EntityManager em;
 
 
-    public void save(Integer user_id, String title, String exp, String edu, Integer job_id, String location, String qualified, String activity, String img_url, List<String> resumeStack) {
-        Query query = em.createNativeQuery("insert into resume_tb(user_id,title, exp, edu, job_id, location, qualified, activity, img_url) values (?,?,?,?,?,?,?,?,?)");
-        query.setParameter(1, user_id);
-        query.setParameter(2, title);
-        query.setParameter(3, exp);
-        query.setParameter(4, edu);
-        query.setParameter(5, job_id);
-        query.setParameter(6, location);
-        query.setParameter(7, qualified);
-        query.setParameter(8, activity);
-        query.setParameter(9, img_url);
-        query.executeUpdate();
+    public Resume save(Resume resume) {
+        em.persist(resume);
+        return resume;
+    }
 
-
-        Query idQuery = em.createNativeQuery("select id from resume_tb where user_id=? order by id desc limit 1");
-        idQuery.setParameter(1, user_id);
-        Integer resumeId = (Integer) idQuery.getSingleResult();
-
-
+    public void updateStack(Integer resumeId, List<String> resumeStack) {
         for (String skill : resumeStack) {
             Query skillQuery = em.createNativeQuery("insert into resume_stack_tb (resume_id,skill) values (?,?)");
             skillQuery.setParameter(1, resumeId);
@@ -69,8 +57,8 @@ public class ResumeRepository {
         return query.getResultList();
     }
 
-    public void update(Integer id, String title, String exp, String edu, Integer job_id, String location, String qualified, String activity, List<String> resumeStack) {
-        Query query = em.createNativeQuery("update resume_tb  set TITLE = ?, EXP = ?, EDU = ?, JOB_ID = ?, LOCATION = ?, QUALIFIED = ?, ACTIVITY = ? where id = ?", Resume.class);
+    public void update(Integer id, String title, String exp, String edu, Integer job_id, String location, String qualified, String activity, List<String> resumeStack, String img_url, String letter) {
+        Query query = em.createNativeQuery("update resume_tb  set TITLE = ?, EXP = ?, EDU = ?, JOB_ID = ?, LOCATION = ?, QUALIFIED = ?, ACTIVITY = ?, img_url = ?, letter = ? where id = ?", Resume.class);
         query.setParameter(1, title);
         query.setParameter(2, exp);
         query.setParameter(3, edu);
@@ -79,6 +67,8 @@ public class ResumeRepository {
         query.setParameter(6, qualified);
         query.setParameter(7, activity);
         query.setParameter(8, id);
+        query.setParameter(9, img_url);
+        query.setParameter(10, letter);
         query.executeUpdate();
 
         Query querydelete = em.createNativeQuery("delete from resume_stack_tb where resume_id =? ");
@@ -99,5 +89,11 @@ public class ResumeRepository {
 
     public List<Stack> findAllStacks() {
         return em.createQuery("select s from Stack s", Stack.class).getResultList();
+    }
+
+    public List<ResumeStack> findAllStacksByResumeId(Integer resumeId) {
+        return em.createQuery("select rs from ResumeStack rs where rs.resume.id = :resumeId", ResumeStack.class)
+                .setParameter("resumeId", resumeId)
+                .getResultList();
     }
 }
