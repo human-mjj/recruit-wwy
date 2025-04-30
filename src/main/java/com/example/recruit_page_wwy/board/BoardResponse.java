@@ -1,5 +1,7 @@
 package com.example.recruit_page_wwy.board;
 
+import com.example.recruit_page_wwy.reply.Reply;
+import com.example.recruit_page_wwy.user.User;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,6 +13,9 @@ public class BoardResponse {
 
     @Data
     public static class ListDTO {
+        private Integer sessionUserId;
+        private Boolean isCompanyUser; // 스크랩 버튼 노출 여부 (false면 보여줌)
+
         private List<Board> boards;
         private Integer prev;
         private Integer next;
@@ -23,7 +28,11 @@ public class BoardResponse {
         private Boolean isLast;
         private List<Integer> numbers;
 
-        public ListDTO(List<Board> boards, Integer current, Integer totalCount) {
+
+        public ListDTO(List<Board> boards, Integer current, Integer totalCount, User sessionUser) {
+            this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
+            this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
+
             this.boards = boards;
             this.size = 5;
             this.prev = current - 1;
@@ -56,6 +65,11 @@ public class BoardResponse {
 
     @Data
     public static class DetailDTO {
+        private Integer sessionUserId;
+        private Boolean isOwner; // 수정/삭제 버튼 표시용
+        private Boolean isCompanyUser; // 스크랩 버튼 노출 여부 (false면 보여줌)
+
+        private Integer id;
         private Integer userId;
         private String username;
         private String title;
@@ -63,32 +77,38 @@ public class BoardResponse {
         private Timestamp createdAt;
         private List<ReplyDTO> replyList;
 
-
         @Builder
-        public DetailDTO(Integer userId, String username, String content, String title, Timestamp createdAt, List<ReplyDTO> replyList) {
-            this.userId = userId;
-            this.username = username;
-            this.title = title;
-            this.content = content;
-            this.createdAt = createdAt;
+        public DetailDTO(Board board, List<ReplyDTO> replyList, User sessionUser) {
+            this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
+            this.isOwner = sessionUser != null && sessionUser.getId() == board.getUser().getId();
+            this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
+
+            this.id = board.getId();
+            this.userId = board.getUser().getId();
+            this.username = board.getUser().getUsername();
+            this.title = board.getTitle();
+            this.content = board.getContent();
+            this.createdAt = board.getCreatedAt();
+
             this.replyList = replyList;
         }
 
         @Data
         public static class ReplyDTO {
+            private int boardId;
             private int id;
             private int userId;
             private String content;
             private Timestamp createdAt;
 
             @Builder
-            public ReplyDTO(int id, int userId, String content, Timestamp createdAt) {
-                this.id = id;
-                this.userId = userId;
-                this.content = content;
-                this.createdAt = createdAt;
+            public ReplyDTO(Reply reply) {
+                this.boardId = reply.getBoard().getId();
+                this.id = reply.getId();
+                this.userId = reply.getUser().getId();
+                this.content = reply.getContent();
+                this.createdAt = reply.getCreatedAt();
             }
-
         }
 
 
