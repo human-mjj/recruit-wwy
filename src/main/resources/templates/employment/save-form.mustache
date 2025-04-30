@@ -19,7 +19,7 @@
 <main>
 	<section>
 		<div class="container mt-4 mb-5 p-5 rounded">
-			<form action="/employment/save" method="post" class="d-flex flex-column gap-3">
+			<form action="/employment/save" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-3">
 				<div class="title-wrap d-flex flex-column gap-3">
 					<label for="" class="fs-3 fw-medium"
 					>공고등록</label
@@ -32,8 +32,14 @@
 							class="border-0 p-3 fs-5 rounded"
 					/>
 				</div>
+
 				<!-- .title-wrap end -->
 				<div class="select-wrap bg-white rounded p-5">
+                    <!-- ✅ 채용 공고 사진 업로드 -->
+                    <div class="img-container mb-5">
+                        <label class="fs-4 fw-medium gap-3 mb-3">채용 공고 사진</label>
+                        <input type="file" class="form-control" name="uploadingImg"/>
+                    </div>
 					<div class="radio-group d-flex flex-column gap-3 mb-5">
 						<label for="" class="fs-4 fw-medium">개발 직무</label>
 						<div class="d-flex flex-wrap gap-3">

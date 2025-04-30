@@ -43,11 +43,15 @@ public class User {
         this.industry = industryId == null ? null : Industry.builder().id(industryId).build();
     }
 
-    public void update(String username, String email, String phone, String password) {
-        this.username = username;
-        this.email = email;
-        this.phone = phone;
-        this.password = password;
+    public void update(User user) {
+        this.username = user.getUsername();
+        this.email = user.getEmail();
+        this.phone = user.getPhone();
+        this.password = user.getPassword();
+        this.imgUrl = user.getImgUrl();
+        this.role = user.getRole();
+        this.comName = user.getComName();
+        this.industry = user.getIndustry();
     }
 
 }

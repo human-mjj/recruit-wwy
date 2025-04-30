@@ -30,9 +30,8 @@ public class UserController {
     @PostMapping("/mypage/update")
     public String userUpdate(UserRequest.UpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        userService.userUpdate(reqDTO, sessionUser.getId());
-
-        return "redirect:/mypage";
+        session.setAttribute("sessionUser", userService.userUpdate(reqDTO, sessionUser));
+        return "redirect:/";
     }
 
     // JoinWayPage
