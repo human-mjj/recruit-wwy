@@ -30,13 +30,16 @@ public class ResumeRequest {
 
         private String qualified;
         private String activity;
+
         private MultipartFile UploadingImg;
         private String imgUrl;
+
+        private String letter;
 
         private List<String> skills;
 
 
-        public SaveDTO(Integer user_id, String title, String exp, String edu, String job, String location, String qualified, String activity, String img_url, List<String> skills) {
+        public SaveDTO(Integer user_id, String title, String exp, String edu, String job, String location, String qualified, String activity, String img_url, String letter, List<String> skills) {
             this.user_id = user_id;
             this.title = title;
             this.exp = exp;
@@ -47,6 +50,7 @@ public class ResumeRequest {
             this.qualified = qualified;
             this.activity = activity;
             this.imgUrl = img_url;
+            this.letter = letter;
             this.skills = skills;
         }
 

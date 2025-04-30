@@ -28,7 +28,7 @@ public class ResumeService {
     @Transactional
     public void save(ResumeRequest.SaveDTO saveDTO) {
         resumeRepository.save(saveDTO.getUser_id(), saveDTO.getTitle(), saveDTO.getExp(), saveDTO.getEdu(), saveDTO.getJob_id(), saveDTO.getLocation(), saveDTO.getQualified(),
-                saveDTO.getActivity(), saveDTO.getImgUrl(), saveDTO.getSkills());
+                saveDTO.getActivity(), saveDTO.getImgUrl(), saveDTO.getLetter(), saveDTO.getSkills());
     }
 
     public ResumeResponse.MainDTO findAll(Integer userId, Integer page) {

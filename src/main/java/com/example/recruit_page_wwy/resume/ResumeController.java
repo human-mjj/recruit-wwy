@@ -36,6 +36,7 @@ public class ResumeController {
         ResumeResponse.DetailDTO detailDTO = resumeService.detailView(resumeId, sessionUser);
         request.setAttribute("models", detailDTO);
         System.out.println(detailDTO.getIsScrap());
+        System.out.println(detailDTO.getLetter());
         return "resume/detail";
     }
 

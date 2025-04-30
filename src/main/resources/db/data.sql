@@ -686,83 +686,96 @@ VALUES ('데이터 분석가 팀원 채용합니다', 13, '1년 이상', '초대
         'Python을 이용한 데이터 분석 및 리포트 작성', '정보보안 자격증 보유자 우대', 4124, '09:00 ~ 18:00', '서울특별시 강서구', '2025-05-31', NULL);
 
 -- 이력서 테이블 dummy
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('백엔드 신입 개발자 지원서', 1, '컴퓨터공학 전공, 인턴 경험 3개월', '부산대학교 컴퓨터공학과 졸업', 1, '서울', '정보처리기사', '멋쟁이사자처럼 10기 활동', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('Spring 기반 개발 프로젝트 경험', 1, '팀 프로젝트 백엔드 담당', '부산대학교 컴퓨터공학과 졸업', 1, '경기', 'SQLD', '사이드 프로젝트 2건', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('백엔드 신입 개발자 지원서', 1, '컴퓨터공학 전공, 인턴 경험 3개월', '부산대학교 컴퓨터공학과 졸업', 1, '서울', '정보처리기사', '멋쟁이사자처럼 10기 활동', NULL,
+        '사용자 중심의 웹 서비스를 만드는 것이 저의 목표입니다. HTML, CSS, JavaScript를 활용해 여러 웹 프로젝트를 진행했으며, 특히 반응형 UI 구현에 강점을 가지고 있습니다. 새로운 기술에 대한 학습을 즐기며 팀과의 소통을 중요시합니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('Spring 기반 개발 프로젝트 경험', 1, '팀 프로젝트 백엔드 담당', '부산대학교 컴퓨터공학과 졸업', 1, '경기', 'SQLD', '사이드 프로젝트 2건', NULL,
+        '다양한 프로젝트 경험을 통해 팀워크와 커뮤니케이션 능력을 길렀습니다. 협업을 통해 시너지를 내는 것에 자신이 있습니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
 values ('AWS 클라우드 기반 백엔드 프로젝트', 1, 'AWS EC2 서버 구축 및 운영 경험', '부산대학교 컴퓨터공학과 졸업', 1, '부산', 'AWS Certified Developer',
-        '교내 클라우드 해커톤 수상', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
+        '교내 클라우드 해커톤 수상', NULL, '성실함과 책임감을 바탕으로 어떤 일이든 끝까지 해내는 끈기를 갖고 있습니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
 values ('Maven, Gradle 빌드 경험 중심 이력서', 1, 'Spring Boot 환경 구축 경험', '부산대학교 컴퓨터공학과 졸업', 1, '서울', '정보처리기사', '멋쟁이사자처럼 11기 활동',
-        NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('Redis, Kafka 활용 경험', 1, '대용량 데이터 처리 경험', '부산대학교 컴퓨터공학과 졸업', 3, '경기', 'SQLD', '사이드 프로젝트 리더 경험', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('스프링 시큐리티 인증 인가 구축', 1, 'JWT 인증 구현 경험', '부산대학교 컴퓨터공학과 졸업', 1, '대구', '정보보안기사', '보안 동아리 활동', NULL);
-
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('프론트엔드 포지션 지원 이력서', 2, 'React 학습 및 개인 포트폴리오 제작', '동서대학교 미디어학부 재학', 2, '서울', '웹디자인 기능사', 'UX/UI 디자인 스터디', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('웹 퍼블리셔 + 프론트엔드 복합 지원서', 2, 'HTML/CSS 퍼블리싱 1년 경험', '동서대학교 미디어학부 재학', 2, '인천', 'GTQ 1급', '디자인 공모전 참가', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('Figma 활용한 UX/UI 디자인 포트폴리오', 2, '프로덕트 디자인 경험', '동서대학교 미디어학부 재학', 2, '서울', 'UX 디자인 전문가 과정', 'UX 캠프 참가', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
+        NULL, '사용자 중심의 사고로 문제를 해결하고자 노력합니다. 항상 사용자의 입장에서 더 나은 서비스를 고민합니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('Redis, Kafka 활용 경험', 1, '대용량 데이터 처리 경험', '부산대학교 컴퓨터공학과 졸업', 3, '경기', 'SQLD', '사이드 프로젝트 리더 경험', NULL,
+        '프로젝트에서 PM 역할을 수행한 경험이 있어 전체 일정과 리소스 관리에 능합니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('스프링 시큐리티 인증 인가 구축', 1, 'JWT 인증 구현 경험', '부산대학교 컴퓨터공학과 졸업', 1, '대구', '정보보안기사', '보안 동아리 활동', NULL,
+        '기술 공유 세션을 자발적으로 열어 팀원들과 지식을 나누는 것을 즐깁니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('프론트엔드 포지션 지원 이력서', 2, 'React 학습 및 개인 포트폴리오 제작', '동서대학교 미디어학부 재학', 2, '서울', '웹디자인 기능사', 'UX/UI 디자인 스터디', NULL,
+        '학습에 대한 열정이 강하여 새로운 기술도 빠르게 습득하며 실무에 적용할 수 있습니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('웹 퍼블리셔 + 프론트엔드 복합 지원서', 2, 'HTML/CSS 퍼블리싱 1년 경험', '동서대학교 미디어학부 재학', 2, '인천', 'GTQ 1급', '디자인 공모전 참가', NULL,
+        '백엔드 개발 경험과 함께 클린 코드와 유지보수성을 고려한 개발에 집중합니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('Figma 활용한 UX/UI 디자인 포트폴리오', 2, '프로덕트 디자인 경험', '동서대학교 미디어학부 재학', 2, '서울', 'UX 디자인 전문가 과정', 'UX 캠프 참가', NULL,
+        '프론트엔드 개발 시 사용자의 UI/UX 흐름을 고려한 개발을 지향합니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
 values ('Vue.js SPA 프로젝트 개발 이력서', 2, 'Vue 3 Composition API 사용 경험', '동서대학교 미디어학부 재학', 3, '경기', '웹디자인 기능사',
-        '프론트엔드 부트캠프 수료', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('반응형 웹 구축 프로젝트', 2, 'Bootstrap, Media Query 사용', '동서대학교 미디어학부 재학', 2, '부산', 'GTQ 1급', '디자인 공모전 입상', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('웹 표준, 접근성 준수 개발 이력서', 2, 'WAI-ARIA 적용 경험', '동서대학교 미디어학부 재학', 2, '대전', '웹 접근성 전문가', '웹 접근성 캠페인 참여', NULL);
-
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
+        '프론트엔드 부트캠프 수료', NULL, '문제 상황에서 원인을 빠르게 파악하고 논리적으로 접근해 해결하는 능력을 갖추고 있습니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('반응형 웹 구축 프로젝트', 2, 'Bootstrap, Media Query 사용', '동서대학교 미디어학부 재학', 2, '부산', 'GTQ 1급', '디자인 공모전 입상', NULL,
+        '새로운 기술을 적용할 때 리스크 분석을 먼저 하고, 점진적으로 적용하는 전략을 씁니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('웹 표준, 접근성 준수 개발 이력서', 2, 'WAI-ARIA 적용 경험', '동서대학교 미디어학부 재학', 2, '대전', '웹 접근성 전문가', '웹 접근성 캠페인 참여', NULL,
+        '오픈소스 프로젝트 참여 경험이 있으며, 코드 리뷰 문화를 중요하게 생각합니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
 values ('프론트와 백엔드를 넘나드는 풀스택 꿈나무', 3, 'Node.js와 Vue.js 활용 토이 프로젝트', '부경대학교 컴퓨터공학과 졸업', 3, '대전', '정보처리기사', '교내 개발동아리 회장',
-        NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
+        NULL, '팀원 간 원활한 소통과 피드백을 통해 함께 성장하는 문화를 중요하게 생각합니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
 values ('REST API 설계 및 DB 모델링 경험 중심', 3, 'Django + PostgreSQL 프로젝트', '부경대학교 컴퓨터공학과 졸업', 1, '부산', 'SQLD',
-        '캡스톤디자인 우수상 수상', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('Vue.js 기반 대시보드 프로젝트 경험', 3, '고객관리 시스템 프론트 개발', '부경대학교 컴퓨터공학과 졸업', 3, '서울', '정보처리기사', '캡스톤디자인 최우수상', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
+        '캡스톤디자인 우수상 수상', NULL, '개발과정에서 문서화와 기록을 철저히 하여 프로젝트 이관이나 유지보수에 도움이 되도록 합니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('Vue.js 기반 대시보드 프로젝트 경험', 3, '고객관리 시스템 프론트 개발', '부경대학교 컴퓨터공학과 졸업', 3, '서울', '정보처리기사', '캡스톤디자인 최우수상', NULL,
+        '코드의 재사용성과 확장성을 고려해 설계하는 습관이 있습니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
 values ('Node.js와 Express.js를 활용한 REST API', 3, '백엔드 API 설계 및 개발', '부경대학교 컴퓨터공학과 졸업', 1, '경기', 'SQLD', '교내 개발 경진대회 수상',
-        NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
+        NULL, '실수를 두려워하지 않고, 실수를 통해 배우며 개선해나가는 자세를 가지고 있습니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
 values ('MongoDB와 MySQL 데이터베이스 설계 경험', 3, 'NoSQL, RDBMS 비교 분석', '부경대학교 컴퓨터공학과 졸업', 1, '부산', 'DBA 전문가 과정', 'DB 모델링 스터디',
-        NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('PM 경험을 통한 협업 리더십 강조 이력서', 3, '애자일 방법론 기반 팀 프로젝트', '부경대학교 컴퓨터공학과 졸업', 3, '대전', 'PMP 준비 과정', 'PM 커뮤니티 활동', NULL);
-
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('신입 백엔드 개발자 포지션 지원서', 4, 'Java, Spring Boot 집중 학습', '경성대학교 컴퓨터공학과 졸업', 1, '서울', '정보처리기사', '멋쟁이사자처럼 12기', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('DB 설계 및 최적화 경험', 4, 'MySQL 튜닝 경험', '경성대학교 컴퓨터공학과 졸업', 1, '부산', 'SQLD', 'DB 최적화 동아리 활동', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
+        NULL, '지속적인 자기계발을 위해 매일 일정 시간을 투자하여 기술 블로그를 정리하고 있습니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('PM 경험을 통한 협업 리더십 강조 이력서', 3, '애자일 방법론 기반 팀 프로젝트', '부경대학교 컴퓨터공학과 졸업', 3, '대전', 'PMP 준비 과정', 'PM 커뮤니티 활동', NULL,
+        '고객의 니즈를 파악하고 기술적으로 해결하는 능력에 자신이 있습니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('신입 백엔드 개발자 포지션 지원서', 4, 'Java, Spring Boot 집중 학습', '경성대학교 컴퓨터공학과 졸업', 1, '서울', '정보처리기사', '멋쟁이사자처럼 12기', NULL,
+        '여러 협업 툴(JIRA, Notion, Git 등)을 능숙하게 활용하며 효율적인 협업을 추구합니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('DB 설계 및 최적화 경험', 4, 'MySQL 튜닝 경험', '경성대학교 컴퓨터공학과 졸업', 1, '부산', 'SQLD', 'DB 최적화 동아리 활동', NULL,
+        '클라이언트와의 커뮤니케이션 경험이 있어 기술과 요구사항 사이의 조율이 가능합니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
 values ('AWS 인프라 구축 및 운영 경험', 4, 'EC2, RDS 세팅 경험', '경성대학교 컴퓨터공학과 졸업', 1, '경기', 'AWS Certified Cloud Practitioner',
-        'AWS 해커톤 참가', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
+        'AWS 해커톤 참가', NULL, '기획자 및 디자이너와의 커뮤니케이션 경험이 많아 다양한 관점에서 문제를 바라볼 수 있습니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
 values ('Spring Security + OAuth2.0 로그인 구현', 4, '소셜 로그인 연동 경험', '경성대학교 컴퓨터공학과 졸업', 1, '서울', '정보보안기사', '보안 세미나 참석',
-        NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
+        NULL, '기존 코드를 분석하고 기능 개선 및 성능 최적화를 한 경험이 있습니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
 values ('ElasticSearch 연동 검색 서비스 개발', 4, '검색 최적화 경험', '경성대학교 컴퓨터공학과 졸업', 3, '대전', 'BigData 전문가 과정', '빅데이터 해커톤 참가',
-        NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('Redis 세션 클러스터링 프로젝트', 4, '분산 캐시 구축 경험', '경성대학교 컴퓨터공학과 졸업', 1, '부산', 'Redis 전문가 과정', 'Redis 활용 연구회', NULL);
-
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('프론트엔드 신입 지원 이력서', 5, 'React, Next.js 기반 프로젝트', '경남대학교 미디어학부 재학', 2, '서울', '웹디자인 기능사', '웹 퍼블리싱 캠프 참가', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('UI/UX 포트폴리오 기반 이력서', 5, 'Adobe XD, Figma 작업 경험', '경남대학교 미디어학부 재학', 2, '경기', 'UX 전문가 과정', 'UI/UX 스터디 리더', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
+        NULL, '프로젝트 일정에 맞춰 효율적으로 우선순위를 조정하고 실행할 수 있습니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('Redis 세션 클러스터링 프로젝트', 4, '분산 캐시 구축 경험', '경성대학교 컴퓨터공학과 졸업', 1, '부산', 'Redis 전문가 과정', 'Redis 활용 연구회', NULL,
+        '로그 기반 문제 분석과 서비스 모니터링에 익숙합니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('프론트엔드 신입 지원 이력서', 5, 'React, Next.js 기반 프로젝트', '경남대학교 미디어학부 재학', 2, '서울', '웹디자인 기능사', '웹 퍼블리싱 캠프 참가', NULL,
+        '여러 차례의 발표 경험으로 발표와 문서 작성에도 능숙합니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('UI/UX 포트폴리오 기반 이력서', 5, 'Adobe XD, Figma 작업 경험', '경남대학교 미디어학부 재학', 2, '경기', 'UX 전문가 과정', 'UI/UX 스터디 리더', NULL,
+        '데이터베이스 설계 및 쿼리 튜닝 경험이 있으며, 데이터 흐름을 잘 파악합니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
 values ('Typescript 기반 React 개발 경험', 5, 'TSX 문법 적용 프로젝트 경험', '경남대학교 미디어학부 재학', 2, '부산', '웹프로그래밍 과정 수료', '웹앱 개발 경진대회',
-        NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
+        NULL, 'RESTful API 설계 및 구현 경험이 있으며, API 문서화를 철저히 합니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
 values ('반응형 웹사이트 구축 실습 중심', 5, 'Bootstrap, TailwindCSS 활용', '경남대학교 미디어학부 재학', 2, '대전', '웹 접근성 인증', '반응형 웹사이트 공모전',
-        NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
-values ('React Native 앱 개발 경험', 5, '모바일 앱 클론코딩 프로젝트', '경남대학교 미디어학부 재학', 3, '서울', '앱 개발 전문가 과정', '모바일 해커톤 참가', NULL);
-insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
+        NULL, '지속적인 테스트와 디버깅을 통해 품질 높은 코드를 작성하는 것을 목표로 합니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
+values ('React Native 앱 개발 경험', 5, '모바일 앱 클론코딩 프로젝트', '경남대학교 미디어학부 재학', 3, '서울', '앱 개발 전문가 과정', '모바일 해커톤 참가', NULL,
+        '실무 경험을 통해 요구사항을 구체화하고 기능으로 풀어내는 과정에 익숙합니다.');
+insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
 values ('GraphQL API 연동 경험', 5, 'Apollo Client 사용 경험', '경남대학교 미디어학부 재학', 2, '경기', '프론트엔드 전문가 과정', 'GraphQL 세미나 참가',
-        NULL);
+        NULL, '혼자보다 함께 성장하는 것을 좋아하며, 팀의 성장을 위한 노력을 아끼지 않습니다.');
 
 -- 스크랩 테이블 dummy
 insert into scrap_tb(user_id, employment_id, resume_id)
