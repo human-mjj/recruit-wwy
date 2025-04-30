@@ -82,16 +82,16 @@
             <!-- .card-wrap end -->
             <div class="pagging d-flex justify-content-center">
                 <ul class="pagination">
-                    <li class="page-item {{#models.isFirst}}disabled{{/models.isFirst}}">
-                        <a class="page-link" href="?page={{models.prev}}">Previous</a>
+                    <li class="page-item {{#model.isFirst}}disabled{{/model.isFirst}}">
+                        <a class="page-link" href="?page={{model.prev}}">Previous</a>
                     </li>
-                    {{#models.numbers}}
+                    {{#model.numbers}}
                         <li class="page-item">
                             <a class="page-link" href="?page={{.}}">{{.}}</a>
                         </li>
-                    {{/models.numbers}}
-                    <li class="page-item {{#models.isLast}}disabled{{/models.isLast}}">
-                        <a class="page-link" href="?page={{models.next}}">Next</a>
+                    {{/model.numbers}}
+                    <li class="page-item {{#model.isLast}}disabled{{/model.isLast}}">
+                        <a class="page-link" href="?page={{model.next}}">Next</a>
                     </li>
                 </ul>
             </div>

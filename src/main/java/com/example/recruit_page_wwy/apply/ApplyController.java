@@ -21,17 +21,9 @@ public class ApplyController {
     @GetMapping("/mypage/apply")
     public String applyList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<ApplyResponse.UserApplyDTO> userApplyList = applyService.findUserApply(sessionUser);
-        request.setAttribute("models", userApplyList);
+        ApplyResponse.UserApplyListDTO userApplyList = applyService.findUserApply(sessionUser);
+        request.setAttribute("model", userApplyList);
 
-        // 구직자로 로그인 시 이력서 nav / 기업으로 로그인 시 추천 nav
-        if (sessionUser != null) {
-            UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
-            request.setAttribute("comCheck", myDTO);
-            System.out.println(myDTO.getIsCompanyUser());
-        } else {
-            request.setAttribute("comCheck", null); // 로그인 안 한 경우
-        }
 
         return "resume/apply-list";
     }
@@ -40,8 +32,7 @@ public class ApplyController {
     public String applyManageList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         ApplyResponse.ComApplyListDTO comApplyList = applyService.findComApply(sessionUser);
-        
-        request.setAttribute("models", comApplyList);
+        request.setAttribute("model", comApplyList);
 
         return "resume/com-apply-list";
     }

@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.employment;
 
 import com.example.recruit_page_wwy.user.User;
+import com.example.recruit_page_wwy.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +23,10 @@ public class EmploymentController {
     public String index(HttpSession session, HttpServletRequest request) {
 //        User sessionUser = (User) session.getAttribute("sessionUser");
 //        request.setAttribute("sessionUser", sessionUser);
+//        System.out.println(sessionUser);
 
         List<Employment> jobs = employmentService.viewEmployList();
-        request.setAttribute("models", jobs);
+        request.setAttribute("model", jobs);
 
         return "index";
     }
@@ -35,7 +37,7 @@ public class EmploymentController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) throw new RuntimeException("401 Unauthorized");
         EmploymentResponse.EmploymentDashboardDTO model = employmentService.employmentList(sessionUser, page);
-        request.setAttribute("models", model);
+        request.setAttribute("model", model);
         return "employment/dashboard";
     }
 
@@ -57,7 +59,7 @@ public class EmploymentController {
     public String employmentDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         EmploymentResponse.DetailDTO detailDTO = employmentService.findEmploymentDetail(id, sessionUser);
-        request.setAttribute("models", detailDTO);
+        request.setAttribute("model", detailDTO);
         System.out.println(detailDTO.getId());
 
 

@@ -47,7 +47,7 @@ public class EmploymentResponse {
         public EmploymentPageDTO(List<EmploymentResponse.PublicListDTO> employments, Integer current, Integer totalCount, TableDTO table, List<String> careerLevels, User sessionUser) {
             this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
             this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
-            
+
             this.size = 16;
             this.employments = employments;
             this.totalCount = totalCount;
@@ -235,7 +235,7 @@ public class EmploymentResponse {
             this.isApplicant = false; // 기본 false (지원 여부 체크는 별도로)
 
             this.id = employment.getId();
-            this.userImgUrl = employment.getUser().getImgUrl() != null? "/upload/" + employment.getUser().getImgUrl() : "/img/naver_logo_basic.png";
+            this.userImgUrl = employment.getUser().getImgUrl() != null ? "/upload/" + employment.getUser().getImgUrl() : "/img/naver_logo_basic.png";
             this.title = employment.getTitle();
             this.comName = employment.getUser().getComName();
             this.exp = parseExp(employment.getExp());

@@ -42,12 +42,12 @@
             <hr/>
             <div class="card-box">
                 <div class="img-box">
-                    <img src="{{models.imgUrl}}"/>
+                    <img src="{{model.imgUrl}}"/>
                 </div>
 
                 <form action="/mypage/update" enctype="multipart/form-data" method="post">
 
-                    {{#models.isCompanyUser}}
+                    {{#model.isCompanyUser}}
                         <!-- ✅ 기업 로고 사진 업로드 -->
                         <div class="img-container mb-5">
                             <small class="gap-3 mb-3">기업 로고 사진</small>
@@ -89,14 +89,14 @@
                                 </select>
                             </div>
                         </div>
-                    {{/models.isCompanyUser}}
-                    {{^models.isCompanyUser}}
+                    {{/model.isCompanyUser}}
+                    {{^model.isCompanyUser}}
                         <!-- ✅ 프로필 사진 업로드 -->
                         <div class="img-container mb-5">
                             <small class="gap-3 mb-3">프로필 사진</small>
                             <input type="file" class="form-control" name="uploadingImg"/>
                         </div>
-                    {{/models.isCompanyUser}}
+                    {{/model.isCompanyUser}}
                     <div>
                         <div class="input-header">이름</div>
                         <div class="input-box">

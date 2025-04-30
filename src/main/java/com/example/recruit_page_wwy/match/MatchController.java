@@ -23,7 +23,7 @@ public class MatchController {
     @GetMapping("/match/com")
     public String matchComList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        request.setAttribute("models", matchService.matchResume(sessionUser));
+        request.setAttribute("model", matchService.matchResume(sessionUser));
 
         return "match/com-list";
     }
