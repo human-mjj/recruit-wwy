@@ -5,6 +5,7 @@ import com.example.recruit_page_wwy.employment.Employment;
 import com.example.recruit_page_wwy.resume.Resume;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,4 +32,13 @@ public class Proposal {
 
     @CreationTimestamp
     private Timestamp createdAt;
+
+    @Builder
+    public Proposal(int id, User user, Resume resume, Employment employment, Timestamp createdAt) {
+        this.id = id;
+        this.user = user;
+        this.resume = resume;
+        this.employment = employment;
+        this.createdAt = createdAt;
+    }
 }

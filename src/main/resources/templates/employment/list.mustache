@@ -21,7 +21,7 @@
 	<section>
 		<div class="container mt-4 mb-5 py-4 d-flex flex-column gap-1">
 			<div class="filter-wrap">
-				<form action="" method="GET">
+				<form action="/employment" method="GET">
 					<div
 							class="top d-flex align-items-center mb-3 justify-content-between"
 					>
@@ -31,9 +31,10 @@
 								<label for="jobType" class="form-label mb-0 me-2 fs-4 fw-semibold"
 								       style="white-space: nowrap;">직무</label>
 								<select name="jobType" id="jobType" class="form-select">
-									<option value="developer">서버 개발자</option>
-									<option value="engineer">소프트웨어 엔지니어</option>
-									<option value="java">자바 개발자</option>
+									<option value="">선택하세요</option>
+									{{#model.table.jobList}}
+										<option value="{{name}}">{{name}}</option>
+									{{/model.table.jobList}}
 								</select>
 							</div>
 
@@ -42,10 +43,10 @@
 								<label for="careerLevel" class="form-label mb-0 me-2 fs-4 fw-semibold"
 								       style="white-space: nowrap;">경력</label>
 								<select name="careerLevel" id="careerLevel" class="form-select">
-									<option value="entry">신입</option>
-									<option value="mid">3년 이상</option>
-									<option value="senior-5">5년 이상</option>
-									<option value="senior-10">10년 이상</option>
+									<option value="">선택하세요</option>
+									{{#model.careerLevels}}
+										<option value="{{.}}">{{.}}</option>
+									{{/model.careerLevels}}
 								</select>
 							</div>
 						</div>
@@ -79,89 +80,78 @@
 										class="form-check-input"
 										type="radio"
 										name="sort"
-										value="popular"
+										value="deadline"
 								/>
 								<label class="form-check-label"
-								>인기순</label
+								>마감임박순</label
 								>
 							</div>
 						</div>
 					</div>
 
 					<div class="checkbox-area flex-wrap">
-						<div
-								class="skill form-check d-flex gap-3 align-items-center"
-						>
-							<input
-									class="form-check-input"
-									type="checkbox"
-									name="skills"
-									value="all"
-							/>
-							<label class="form-check-label"
-							>전체보기</label
+						{{#model.table.stackList}}
+							<div
+									class="skill form-check d-flex gap-3 align-items-center"
 							>
-						</div>
-						<div
-								class="skill form-check d-flex gap-3 align-items-center"
-						>
-							<input
-									class="form-check-input"
-									type="checkbox"
-									name="skills"
-									value="java"
-							/>
-							<label class="form-check-label">JAVA</label>
-						</div>
-						<div
-								class="skill form-check d-flex gap-3 align-items-center"
-						>
-							<input
-									class="form-check-input"
-									type="checkbox"
-									name="skills"
-									value="java"
-							/>
-							<label class="form-check-label">JAVA</label>
-						</div>
-						<div
-								class="skill form-check d-flex gap-3 align-items-center"
-						>
-							<input
-									class="form-check-input"
-									type="checkbox"
-									name="skills"
-									value="java"
-							/>
-							<label class="form-check-label">JAVA</label>
-						</div>
+								<input
+										class="form-check-input"
+										type="checkbox"
+										name="skills"
+										value="{{skill}}"
+								/>
+								<label class="form-check-label">{{skill}}</label>
+							</div>
+						{{/model.table.stackList}}
+					</div>
+					<div class="d-flex justify-content-end mt-3">
+						<button type="submit" class="btn btn-primary px-4 py-2 rounded-3 fw-bold">
+							🔍 검색하기
+						</button>
 					</div>
 				</form>
 			</div>
 			<!-- .filter-wrap end -->
 			<div class="job-list">
 				<ul class="card-wrap row">
-					{{#models}}
+					{{#model.employments}}
 						<li class="card-1 col-3 mb-3">
 							<a href="/employment/{{id}}" class="d-flex flex-column gap-2 w-100">
 								<figure class="recommend-img overflow-hidden d-flex align-items-center border rounded">
-									<img class="w-100 h-100 object-fit-cover"
-									     src="{{imgUrl}}"
+									<img class="w-100"
+									     src="{{#imgUrl}}{{imgUrl}}{{/imgUrl}}{{^imgUrl}}/img/job_dummy.jpg{{/imgUrl}}"
 									     alt="임시이미지"/>
 								</figure>
 								<div class="recommend-content d-flex flex-column border rounded gap-3 py-3 px-3">
 									<div class="top d-flex justify-content-between">
 										<h3 class="fs-6 fw-medium">{{title}}</h3>
-										{{#ComCheck.isCompanyUser}}
+										{{#sessionUser}}
+											{{^model.isCompanyUser}}
+												{{#model.isScrap}}
+													<div class="btn-wrap mt-1">
+														<div class="toggle-btn">
+															<i id="scrapIcon" class="fa fa-star" style="
+                                        font-size: 24px;
+                                        color: yellow;
+                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
+                                  " onclick="deleteScrap({{model.scrapId}})"></i>
+														</div>
+													</div>
+												{{/model.isScrap}}
+												{{^model.isScrap}}
+													<div class="btn-wrap mt-1">
+														<div class="toggle-btn">
+															<i id="scrapIcon" class="fa fa-star" style="
+                                        font-size: 24px;
+                                        color: black;
+                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
+                                  " onclick="saveScrap()"></i>
+														</div>
+													</div>
+												{{/model.isScrap}}
+											{{/model.isCompanyUser}}
+										{{/sessionUser}}
 
-										{{/ComCheck.isCompanyUser}}
-										{{^ComCheck.isCompanyUser}}
-											<div class="toggle-btn">
-												<i id="favoriteIcon" class="fa fa-star"
-												   style="font-size: 24px; color: yellow; text-shadow: 0 0 1px #000, 0 0 1px #000;"
-												   onclick=""></i>
-											</div>
-										{{/ComCheck.isCompanyUser}}
 										<!-- .toggle-btn end -->
 									</div>
 									<!-- .top end -->
@@ -191,25 +181,21 @@
 							</a>
 						</li>
 						<!-- .card-1 end -->
-					{{/models}}
+					{{/model.employments}}
 				</ul>
 				<!-- .card-wrap end -->
 				<div class="pagging d-flex justify-content-center">
 					<ul class="pagination">
-						<li class="page-item">
-							<a class="page-link" href="#">Previous</a>
+						<li class="page-item {{#model.isFirst}}disabled{{/model.isFirst}}">
+							<a class="page-link" href="?page={{model.prev}}">Previous</a>
 						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">1</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">2</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">3</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">Next</a>
+						{{#model.numbers}}
+							<li class="page-item">
+								<a class="page-link" href="?page={{.}}">{{.}}</a>
+							</li>
+						{{/model.numbers}}
+						<li class="page-item {{#model.isLast}}disabled{{/model.isLast}}">
+							<a class="page-link" href="?page={{model.next}}">Next</a>
 						</li>
 					</ul>
 				</div>
@@ -220,6 +206,38 @@
 	</section>
 </main>
 
+<script>
+	let employmentId = document.querySelector("#employmentId").value;
 
+	async function saveScrap() {
+		let requestBody = {employmentId: employmentId};
+		let response = await fetch(`/api/scrap`, {
+			method: "POST",
+			body: JSON.stringify(requestBody),
+			headers: {"Content-Type": "application/json"}
+		});
+
+		let responseBody = await response.json(); // {scrapId}
+		console.log(responseBody);
+
+		// DOM 업데이트
+		let scrapIcon = document.querySelector('#scrapIcon');
+		scrapIcon.style.color = 'yellow';
+		scrapIcon.setAttribute('onclick', `deleteScrap(${responseBody.scrapId})`);
+	}
+
+	async function deleteScrap(scrapId) {
+		let response = await fetch(`/api/scrap/${scrapId}`, {
+			method: "DELETE"
+		});
+		let responseBody = await response.json(); // response.text();
+		console.log(responseBody);
+
+		// DOM 업데이트
+		let scrapIcon = document.querySelector('#scrapIcon');
+		scrapIcon.style.color = 'black';
+		scrapIcon.setAttribute('onclick', `saveScrap()`);
+	}
+</script>
 
 {{> layout/footer}}

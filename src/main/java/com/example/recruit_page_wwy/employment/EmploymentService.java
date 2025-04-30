@@ -6,6 +6,8 @@ import com.example.recruit_page_wwy.employstack.EmployStackRepository;
 import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.resume.Resume;
 import com.example.recruit_page_wwy.resume.ResumeRepository;
+import com.example.recruit_page_wwy.scrap.Scrap;
+import com.example.recruit_page_wwy.scrap.ScrapRepository;
 import com.example.recruit_page_wwy.stack.Stack;
 import com.example.recruit_page_wwy.user.User;
 import com.example.recruit_page_wwy.user.UserRepository;
@@ -23,29 +25,54 @@ public class EmploymentService {
     private final UserRepository userRepository;
     private final ResumeRepository resumeRepository;
     private final EmployStackRepository employStackRepository;
+    private final ScrapRepository scrapRepository;
 
-    public List<EmploymentResponse.ListDTO> employmentList(Integer userId) {
-        List<Employment> employmentList = employmentRepository.findAllByUserId(userId);
+    public EmploymentResponse.EmploymentDashboardDTO employmentList(User sessionUser, Integer page) {
+        if (page < 1) {
+            page = 1;
+        }
+        Long totalCount = employmentRepository.totalCount(sessionUser.getId());
+        List<Employment> employmentList = employmentRepository.findAllByUserId(sessionUser.getId(), page);
 
         List<EmploymentResponse.ListDTO> dtoList = new ArrayList<>();
         for (Employment e : employmentList) {
-            EmploymentResponse.ListDTO dto = new EmploymentResponse.ListDTO(e);
+            EmploymentResponse.ListDTO dto = new EmploymentResponse.ListDTO(e, sessionUser);
             dtoList.add(dto);
         }
 
-        return dtoList;
+        return new EmploymentResponse.EmploymentDashboardDTO(
+                sessionUser.getRole() == 1,
+                dtoList,
+                page,
+                totalCount.intValue()
+        );
     }
 
-    public List<EmploymentResponse.PublicListDTO> emplymentAllList(Integer userId) {
-        List<Employment> employmentAllList = employmentRepository.findAll();
+    // 채용공고 리스트, paging
+    public EmploymentResponse.EmploymentPageDTO employmentAllList(User sessionUser, String jobType, String careerLevel, List<String> skills, String sort, Integer page) {
+        int realPage = page - 1;
+        Long totalCount = employmentRepository.totalCount();
+        List<Employment> employmentList = employmentRepository.findAll(jobType, careerLevel, skills, sort, realPage);
 
         List<EmploymentResponse.PublicListDTO> dtoList = new ArrayList<>();
-        for (Employment e : employmentAllList) {
-            EmploymentResponse.PublicListDTO dto = new EmploymentResponse.PublicListDTO(e);
-            dtoList.add(dto);
+        for (Employment e : employmentList) {
+            dtoList.add(new EmploymentResponse.PublicListDTO(e, sessionUser));
         }
 
-        return dtoList;
+        EmploymentResponse.TableDTO tableDTO = new EmploymentResponse.TableDTO(
+                employmentRepository.findAllJobs(),
+                employmentRepository.findAllStacks()
+        );
+
+        List<String> careerLevels = new ArrayList<>();
+        careerLevels.add("신입");
+        careerLevels.add("1 ~ 3년 차");
+        careerLevels.add("3 ~ 5년 차");
+        careerLevels.add("5 ~ 7년 차");
+        careerLevels.add("7 ~ 9년 차");
+        careerLevels.add("10년 이상");
+
+        return new EmploymentResponse.EmploymentPageDTO(dtoList, realPage, totalCount.intValue(), tableDTO, careerLevels);
     }
 
     public List<Employment> viewEmployList() {
@@ -66,8 +93,8 @@ public class EmploymentService {
             }
         }
 
-        // 스택 문자열
-        String stackStr = String.join(", ", stackList);
+        boolean isScrap = false;
+        Integer scrapId = null;
 
         // 이력서 리스트 (구직자인 경우만)
         List<EmploymentResponse.DetailDTO.ResumeDTO> resumeList = new ArrayList<>();
@@ -75,11 +102,16 @@ public class EmploymentService {
             List<Resume> resumes = resumeRepository.findByUserId(sessionUser.getId());
             for (Resume resume : resumes) {
                 resumeList.add(new EmploymentResponse.DetailDTO.ResumeDTO(resume));
+                System.out.println(resume.getTitle());
             }
+
+            Scrap scrap = scrapRepository.findByUserIdAndEmployId(sessionUser.getId(), employmentId);
+            isScrap = scrap == null ? false : true;
+            scrapId = scrap == null ? null : scrap.getId();
         }
 
         // 최종 DTO 생성 (우리가 만든 깔끔한 생성자 사용)
-        return new EmploymentResponse.DetailDTO(sessionUser, employment, resumeList, stackList, stackStr);
+        return new EmploymentResponse.DetailDTO(sessionUser, employment, resumeList, stackList, isScrap, scrapId);
     }
 
     public EmploymentResponse.TableDTO viewJobAndStackList() {
@@ -88,19 +120,6 @@ public class EmploymentService {
         return new EmploymentResponse.TableDTO(jobList, stackList);
     }
 
-    //    public void save(EmploymentRequest.SaveDTO saveDTO) {
-//        employmentRepository.save(
-//                saveDTO.getUser_id(),
-//                saveDTO.getTitle(),
-//                saveDTO.getExp(),
-//                saveDTO.getEdu(),
-//                saveDTO.getJob_id(),
-//                saveDTO.getLocation(),
-//                saveDTO.getQualified(),
-//                saveDTO.getActivity(),
-//                saveDTO.getImg_url(), saveDTO.getSkills());
-//
-//    }
     @Transactional
     public void save(EmploymentRequest.SaveDTO saveDTO, User sessionUser) {
         Employment savingEmployment = saveDTO.toEntity(sessionUser);
@@ -168,15 +187,4 @@ public class EmploymentService {
         // 3. 스택(EmployStack) 수정은 별도로 처리 필요
         employmentRepository.updateStack(employmentId, dto.getEmployStack()); // 기존 스택 전부 삭제
     }
-
-//    @Transactional
-//    public void saveEmployment(EmploymentRequest.SaveDTO dto, User user, Job job) {
-//        Employment employment = dto.toEntity(user, job);
-//        employmentRepository.save(employment);
-//
-//        for (String skill : dto.getStack()) {
-//            EmployStack es = new EmployStack(employment, skill);
-//            employStackRepository.save(es);
-//        }
-//    }
 }
