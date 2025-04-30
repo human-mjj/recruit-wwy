@@ -42,10 +42,22 @@ public class EmploymentController {
 
     @GetMapping("/employment")
     public String employmentList(HttpServletRequest request,
-                                 @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
+                                 @RequestParam(required = false, value = "page", defaultValue = "1") Integer page,
+                                 @RequestParam(required = false) String jobType,
+                                 @RequestParam(required = false) String careerLevel,
+                                 @RequestParam(defaultValue = "latest") String sort,
+                                 @RequestParam(required = false) List<String> skills) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        EmploymentResponse.EmploymentPageDTO model = employmentService.employmentAllList(sessionUser, page);
+        EmploymentResponse.EmploymentPageDTO model = employmentService.employmentAllList(sessionUser, jobType, careerLevel, skills, sort, page);
         request.setAttribute("model", model);
+
+        // 유저일 경우에만 스크랩 버튼 보이게 함 (로그인을 안해도 스크랩 버튼 보임)
+        if (sessionUser != null) {
+            UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
+            request.setAttribute("ComCheck", myDTO);
+        } else {
+            request.setAttribute("ComCheck", null); // 로그인 안 한 경우
+        }
 
         return "employment/list";
     }

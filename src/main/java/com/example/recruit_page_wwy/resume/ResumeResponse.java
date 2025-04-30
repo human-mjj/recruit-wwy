@@ -1,5 +1,6 @@
 package com.example.recruit_page_wwy.resume;
 
+import com.example.recruit_page_wwy.employment.Employment;
 import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.resumestack.ResumeStack;
 import com.example.recruit_page_wwy.user.User;
@@ -57,17 +58,17 @@ public class ResumeResponse {
     public static class DetailDTO {
         private Integer sessionUserId;
         private Integer sessionUserRole;
-        private Boolean isOwner; // 수정/삭제 버튼 표시용
-        private Boolean isApplicant; // 지원자 여부
-        private Boolean isCompanyUser; // 스크랩 버튼 노출 여부 (false면 보여줌)
+        private Boolean isOwner;
+        private Boolean isCompanyUser;
+        private Boolean isApplicant;
 
         private Integer id;
-        private Integer userId;
-        private Job job;
-        private List<ResumeStack> resumeStack;
         private String username;
         private String email;
         private String phone;
+        private Integer userId;
+        private Job job;
+        private List<ResumeStack> resumeStack;
         private Integer jobId;
         private String title;
         private String exp;
@@ -77,11 +78,23 @@ public class ResumeResponse {
         private String activity;
         private String imgUrl;
         private String LETTER;
+        private List<EmployDTO> employmentList;
 
         private Boolean isScrap;
         private Integer scrapId;
 
-        public DetailDTO(User sessionUser, Resume resume, List<ResumeStack> resumeStack, Boolean isScrap, Integer scrapId) {
+        @Data
+        public static class EmployDTO {
+            private Integer id;
+            private String title;
+
+            public EmployDTO(Employment employment) {
+                this.id = employment.getId();
+                this.title = employment.getTitle();
+            }
+        }
+
+        public DetailDTO(User sessionUser, Resume resume, List<EmployDTO> employmentList, boolean isScrap, Integer scrapId) {
             this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
             this.sessionUserRole = sessionUser != null ? sessionUser.getRole() : null;
             this.isOwner = sessionUser != null && sessionUser.getId() == resume.getUser().getId();
@@ -89,13 +102,12 @@ public class ResumeResponse {
             this.isApplicant = false; // 기본 false (지원 여부 체크는 별도로)
 
             this.id = resume.getId();
-            this.userId = sessionUser.getId();
+            this.userId = resume.getUser().getId();
             this.job = resume.getJob();
-            this.resumeStack = resumeStack;
-            this.username = sessionUser.getUsername();
-            this.email = sessionUser.getEmail();
-            this.phone = sessionUser.getPhone();
-            this.jobId = resume.getJob().getId();
+            this.resumeStack = resume.getResumeStackList();
+            this.username = resume.getUser().getUsername();
+            this.email = resume.getUser().getEmail();
+            this.phone = resume.getUser().getPhone();
             this.title = resume.getTitle();
             this.exp = resume.getExp();
             this.edu = resume.getEdu();
@@ -104,7 +116,7 @@ public class ResumeResponse {
             this.activity = resume.getActivity();
             this.imgUrl = resume.getImgUrl();
             this.LETTER = resume.getLetter();
-
+            this.employmentList = employmentList;
             this.isScrap = isScrap;
             this.scrapId = scrapId == null ? 0 : scrapId;
         }

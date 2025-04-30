@@ -1,7 +1,8 @@
 package com.example.recruit_page_wwy.resume;
 
 
-import com.example.recruit_page_wwy.resumestack.ResumeStack;
+import com.example.recruit_page_wwy.employment.Employment;
+import com.example.recruit_page_wwy.employment.EmploymentRepository;
 import com.example.recruit_page_wwy.scrap.Scrap;
 import com.example.recruit_page_wwy.scrap.ScrapRepository;
 import com.example.recruit_page_wwy.user.User;
@@ -18,6 +19,7 @@ import java.util.List;
 @Service
 public class ResumeService {
     private final ResumeRepository resumeRepository;
+    private final EmploymentRepository employmentRepository;
     private final ScrapRepository scrapRepository;
 
     @PersistenceContext
@@ -37,28 +39,27 @@ public class ResumeService {
         return new ResumeResponse.MainDTO(resumes, page, totalCount.intValue());
     }
 
-    public ResumeResponse.DetailDTO Detail(Integer resumeId, User sessionUser) {
-        // 이력서 엔티티 조회
+    public ResumeResponse.DetailDTO detailView(Integer resumeId, User sessionUser) {
         Resume resume = resumeRepository.findByResumeId(resumeId);
-        if (resume == null) throw new RuntimeException("채용공고를 찾을 수 없습니다.");
-
-        // 스택 리스트
-        List<ResumeStack> stackList = new ArrayList<>();
-        for (ResumeStack resumeStack : resume.getResumeStackList()) {
-            if (resumeStack.getSkill() != null) { // 혹시 null 방어
-                stackList.add(resumeStack);
-            }
-        }
+        if (resume == null) throw new RuntimeException("404 Not Found");
 
         boolean isScrap = false;
         Integer scrapId = null;
 
+        // 채용공고 리스트 (기업인 경우만)
+        List<ResumeResponse.DetailDTO.EmployDTO> employmentList = new ArrayList<>();
         if (sessionUser != null && sessionUser.getRole() == 1) {
-            Scrap scrap = scrapRepository.findByUserIdAndresumeId(sessionUser.getId(), resume.getId());
-            isScrap = scrap == null ? false : true;
+            List<Employment> employments = employmentRepository.findByUserId(sessionUser.getId());
+            for (Employment employment : employments) {
+                employmentList.add(new ResumeResponse.DetailDTO.EmployDTO(employment));
+                System.out.println(resume.getTitle());
+            }
+
+            Scrap scrap = scrapRepository.findByUserIdAndResumeId(sessionUser.getId(), resumeId);
+            isScrap = scrap != null;
             scrapId = scrap == null ? null : scrap.getId();
         }
-        return new ResumeResponse.DetailDTO(sessionUser, resume, stackList, isScrap, scrapId);
+        return new ResumeResponse.DetailDTO(sessionUser, resume, employmentList, isScrap, scrapId);
     }
 
     @Transactional

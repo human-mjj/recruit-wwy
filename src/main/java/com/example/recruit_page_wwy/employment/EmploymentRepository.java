@@ -64,6 +64,54 @@ public class EmploymentRepository {
         return query.getResultList();
     }
 
+    public List<Employment> findAll(String jobType, String careerLevel, List<String> skills, String sort, int page) {
+        String jpql = """
+                    SELECT DISTINCT e
+                    FROM Employment e
+                    JOIN FETCH e.user
+                    JOIN FETCH e.job
+                    LEFT JOIN FETCH e.employStackList es
+                    WHERE 1=1
+                """;
+
+        if (jobType != null && !jobType.isBlank()) {
+            jpql += " AND e.job.name = :jobType";
+        }
+
+        if (careerLevel != null && !careerLevel.isBlank()) {
+            jpql += " AND e.exp LIKE :careerLevel";
+        }
+
+        if (skills != null && !skills.isEmpty() && !skills.contains("all")) {
+            jpql += " AND es.skill IN :skills";
+        }
+
+        if ("latest".equals(sort)) {
+            jpql += " ORDER BY e.id DESC";
+        } else if ("recommended".equals(sort)) {
+            jpql += " ORDER BY SIZE(e.scraps) DESC";
+        } else {
+            jpql += " ORDER BY function('RAND')";
+        }
+
+        Query query = em.createQuery(jpql, Employment.class);
+
+        if (jobType != null && !jobType.isBlank()) {
+            query.setParameter("jobType", jobType);
+        }
+        if (careerLevel != null && !careerLevel.isBlank()) {
+            query.setParameter("careerLevel", "%" + careerLevel + "%");
+        }
+        if (skills != null && !skills.isEmpty() && !skills.contains("all")) {
+            query.setParameter("skills", skills);
+        }
+
+        query.setFirstResult(page * 16);
+        query.setMaxResults(16);
+
+        return query.getResultList();
+    }
+
     public List<Employment> findTop4ByOrderByIdDesc() {
         String jpql = """
                     SELECT e FROM Employment e
@@ -167,5 +215,11 @@ public class EmploymentRepository {
                     .setParameter(2, s)
                     .executeUpdate();
         }
+    }
+
+    public List<Employment> findByUserId(int id) {
+        return em.createQuery("select e from Employment e where e.user.id = :id", Employment.class)
+                .setParameter("id", id)
+                .getResultList();
     }
 }
