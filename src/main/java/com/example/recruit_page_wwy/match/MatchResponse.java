@@ -9,6 +9,20 @@ import java.util.List;
 public class MatchResponse {
 
     @Data
+    public static class ResumeListDTO {
+        private Integer sessionUserId;
+        private Boolean isCompanyUser; // 스크랩 버튼 노출 여부 (false면 보여줌)
+
+        private List<ResumeDTO> resumes;
+
+        public ResumeListDTO(User sessionUser, List<ResumeDTO> resumes) {
+            this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
+            this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
+            this.resumes = resumes;
+        }
+    }
+
+    @Data
     public static class ResumeDTO {
         private int id;
         private String title;

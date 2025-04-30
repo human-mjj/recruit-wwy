@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.apply;
 
 
+import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +49,7 @@ public class ApplyRepository {
     }
 
     // ComApply
-    public List<ApplyResponse.ComApplyDTO> findComApplyById(int userId) {
+    public ApplyResponse.ComApplyListDTO findComApplyById(int userId, User sessionUser) {
         String sql = """
                 SELECT a.id, e.title, u.username, j.name, FORMATDATETIME(a.created_at, 'yyyy-MM-dd'), a.PROGRESS
                 FROM APPLY_TB a
@@ -73,7 +74,6 @@ public class ApplyRepository {
             String progress = (String) row[5];
             result.add(new ApplyResponse.ComApplyDTO(ApplyId, title, username, name, createdAt, progress));
         }
-
-        return result;
+        return new ApplyResponse.ComApplyListDTO(sessionUser, result);
     }
 }

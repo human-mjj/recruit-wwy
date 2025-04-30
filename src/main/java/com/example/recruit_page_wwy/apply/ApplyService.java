@@ -28,8 +28,8 @@ public class ApplyService {
         return userApplyDTO;
     }
 
-    public List<ApplyResponse.ComApplyDTO> findComApply(User sessionUser) {
-        List<ApplyResponse.ComApplyDTO> comApplyDTO = applyRepository.findComApplyById(sessionUser.getId());
+    public ApplyResponse.ComApplyListDTO findComApply(User sessionUser) {
+        ApplyResponse.ComApplyListDTO comApplyDTO = applyRepository.findComApplyById(sessionUser.getId(), sessionUser);
         return comApplyDTO;
     }
 

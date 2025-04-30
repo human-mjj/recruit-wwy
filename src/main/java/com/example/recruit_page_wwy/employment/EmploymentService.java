@@ -72,7 +72,7 @@ public class EmploymentService {
         careerLevels.add("7 ~ 9년 차");
         careerLevels.add("10년 이상");
 
-        return new EmploymentResponse.EmploymentPageDTO(dtoList, realPage, totalCount.intValue(), tableDTO, careerLevels);
+        return new EmploymentResponse.EmploymentPageDTO(dtoList, realPage, totalCount.intValue(), tableDTO, careerLevels, sessionUser);
     }
 
     public List<Employment> viewEmployList() {

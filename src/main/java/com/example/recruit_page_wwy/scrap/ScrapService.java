@@ -26,7 +26,7 @@ public class ScrapService {
         int size = 5;
         Long totalCount = scrapRepository.comScrapTotalCount(sessionUser.getId());
         List<ScrapRequest.ComScrapDTO> scraps = scrapRepository.findAllComScrapById(sessionUser.getId(), realPage, size);
-        return new ScrapRequest.ComScrapPageDTO(scraps, page, totalCount.intValue());
+        return new ScrapRequest.ComScrapPageDTO(scraps, page, totalCount.intValue(), sessionUser);
     }
 
 //    public List<ScrapRequest.UserScrapDTO> scrapUserfind(User sessinUser) {

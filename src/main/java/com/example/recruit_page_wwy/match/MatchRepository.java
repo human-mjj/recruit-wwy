@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.match;
 
 
+import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
@@ -56,7 +57,8 @@ public class MatchRepository {
         return result;
     }
 
-    public List<MatchResponse.ResumeDTO> findAllRecommendedResumes(int userId) {
+    public MatchResponse.ResumeListDTO findAllRecommendedResumes(int userId, User sessionUser
+    ) {
         String sql = """
                 SELECT DISTINCT r.id, r.title, u.username
                 FROM resume_tb r
@@ -80,17 +82,17 @@ public class MatchRepository {
         query.setParameter(2, userId);
 
         List<Object[]> resultList = query.getResultList();
-        List<MatchResponse.ResumeDTO> result = new ArrayList<>();
+        List<MatchResponse.ResumeDTO> resumeList = new ArrayList<>();
 
         for (Object[] row : resultList) {
             Integer resumeId = ((Number) row[0]).intValue();
             String title = (String) row[1];
             String author = (String) row[2];
 
-            result.add(new MatchResponse.ResumeDTO(resumeId, title, author));
+            resumeList.add(new MatchResponse.ResumeDTO(resumeId, title, author));
         }
 
-        return result;
+        return new MatchResponse.ResumeListDTO(sessionUser, resumeList);
     }
 
     public List<MatchResponse.EmploymentDTO> findAllProposals(int userId) {
