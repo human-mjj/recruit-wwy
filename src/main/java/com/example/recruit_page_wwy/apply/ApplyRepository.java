@@ -76,4 +76,11 @@ public class ApplyRepository {
         }
         return new ApplyResponse.ComApplyListDTO(sessionUser, result);
     }
+
+    public void update(Integer applyId, String progress) {
+        em.createNativeQuery("update APPLY_TB set progress = ? where id = ?")
+                .setParameter(1, progress)
+                .setParameter(2, applyId)
+                .executeUpdate();
+    }
 }

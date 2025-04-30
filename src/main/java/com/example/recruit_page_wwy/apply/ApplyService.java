@@ -69,4 +69,9 @@ public class ApplyService {
         Apply apply = ApplyRequest.SaveDTO.toEntity(sessionUser, resume, employment);
         applyRepository.save(apply);
     }
+
+    @Transactional
+    public void updateProgress(Integer applyId, String progress) {
+        applyRepository.update(applyId, progress);
+    }
 }

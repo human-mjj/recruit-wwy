@@ -9,12 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Controller
@@ -51,18 +45,7 @@ public class ResumeController {
     @PostMapping("/resume/save")
     public String resumeSave(ResumeRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        saveDTO.setUser_id(sessionUser.getId());
-        MultipartFile imgFile = saveDTO.getUploadingImg();
-        String imgFilename = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
-        System.out.println("img Filename: " + imgFilename);
-        Path imgPath = Paths.get("./upload/" + imgFilename);
-        try {
-            Files.write(imgPath, imgFile.getBytes());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        saveDTO.setImgUrl(imgFilename);
-        resumeService.save(saveDTO);
+        resumeService.save(saveDTO, sessionUser);
         return "redirect:/mypage/resume";
     }
 
@@ -80,7 +63,7 @@ public class ResumeController {
         resumeService.update(id, updateDTO);
         return "redirect:/mypage/resume";
     }
-    
+
     @PostMapping("/resume/{id}/delete")
     public String resumeDelete(@PathVariable("id") Integer resumeId) {
         resumeService.delete(resumeId);
