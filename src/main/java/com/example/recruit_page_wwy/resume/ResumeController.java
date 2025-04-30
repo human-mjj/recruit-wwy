@@ -51,7 +51,6 @@ public class ResumeController {
     @PostMapping("/resume/save")
     public String resumeSave(ResumeRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        saveDTO.setUser_id(sessionUser.getId());
         MultipartFile imgFile = saveDTO.getUploadingImg();
         String imgFilename = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
         System.out.println("img Filename: " + imgFilename);
@@ -62,7 +61,7 @@ public class ResumeController {
             throw new RuntimeException(e);
         }
         saveDTO.setImgUrl(imgFilename);
-        resumeService.save(saveDTO);
+        resumeService.save(saveDTO, sessionUser);
         return "redirect:/mypage/resume";
     }
 
