@@ -78,7 +78,7 @@ public class ResumeResponse {
         private String qualified;
         private String activity;
         private String imgUrl;
-        private String LETTER;
+        private String letter;
         private List<EmployDTO> employmentList;
 
         private Boolean isScrap;
@@ -116,7 +116,7 @@ public class ResumeResponse {
             this.qualified = resume.getQualified();
             this.activity = resume.getActivity();
             this.imgUrl = resume.getImgUrl();
-            this.LETTER = resume.getLetter();
+            this.letter = resume.getLetter();
             this.employmentList = employmentList;
             this.isScrap = isScrap;
             this.scrapId = scrapId == null ? 0 : scrapId;

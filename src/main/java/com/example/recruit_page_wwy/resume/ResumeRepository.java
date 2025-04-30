@@ -16,8 +16,8 @@ public class ResumeRepository {
     private final EntityManager em;
 
 
-    public void save(Integer user_id, String title, String exp, String edu, Integer job_id, String location, String qualified, String activity, String img_url, List<String> resumeStack) {
-        Query query = em.createNativeQuery("insert into resume_tb(user_id,title, exp, edu, job_id, location, qualified, activity, img_url) values (?,?,?,?,?,?,?,?,?)");
+    public void save(Integer user_id, String title, String exp, String edu, Integer job_id, String location, String qualified, String activity, String img_url, String letter, List<String> resumeStack) {
+        Query query = em.createNativeQuery("insert into resume_tb(user_id,title, exp, edu, job_id, location, qualified, activity, img_url, letter) values (?,?,?,?,?,?,?,?,?,?)");
         query.setParameter(1, user_id);
         query.setParameter(2, title);
         query.setParameter(3, exp);
@@ -27,6 +27,7 @@ public class ResumeRepository {
         query.setParameter(7, qualified);
         query.setParameter(8, activity);
         query.setParameter(9, img_url);
+        query.setParameter(10, letter);
         query.executeUpdate();
 
 
