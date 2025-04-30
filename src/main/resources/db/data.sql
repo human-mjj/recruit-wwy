@@ -139,552 +139,524 @@ insert into user_tb(username, email, phone, password, img_url, role, com_name, i
 values ('강채은', 'cekang@nate.com', '01066667788', '1234', null, 1, '그림솔루션', 5);
 
 -- 채용 공고 테이블 dummy
+-- 채용 공고 테이블 dummy
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('Spring 백엔드 개발자 모집', 6, '1 ~ 3년 차', '대졸 이상',
-        '정규직', 3,
+VALUES ('Spring 백엔드 개발자 모집', 6, '10년 이상', '대학교 / 졸업', '정규직', 3,
         'REST API 개발 및 유지보수$기존 서비스 코드 리팩토링$MySQL 기반 데이터 처리$협업을 위한 문서화',
-        'Java/Spring 경력 1년 이상$MySQL 경험 우대$협업 및 커뮤니케이션 능력$Git 사용 가능자',
-        4200, '09:30 ~ 18:30', '서울특별시 강남구', '2025-05-31', NULL);
+        'Java/Spring 경력 1년 이상$MySQL 경험 우대$협업 및 커뮤니케이션 능력$Git 사용 가능자', 4200, '09:30 ~ 18:30', '서울특별시 강남구', '2025-05-31',
+        NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('프론트엔드 React 개발자 채용', 6, '1 ~ 3년 차', '무관',
-        '정규직', 2,
-        '웹 서비스 프론트 개발$반응형 UI 구현$API 연동 작업$컴포넌트 단위 개발 및 유지보수',
-        'React 사용 가능자$포트폴리오 필수$HTML/CSS/JS 기본 지식$Git 사용 가능자',
+VALUES ('프론트엔드 React 개발자 채용', 6, '1 ~ 3년 차', '고등학교 / 졸업', '정규직', 2,
+        '웹 서비스 프론트 개발$반응형 UI 구현$API 연동 작업$컴포넌트 단위 개발 및 유지보수', 'React 사용 가능자$포트폴리오 필수$HTML/CSS/JS 기본 지식$Git 사용 가능자',
         3800, '10:00 ~ 19:00', '서울특별시 마포구', '2025-06-15', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('신입 백엔드 인턴 모집', 6, '신입', '초대졸 이상',
-        '인턴', 2,
-        'Spring 기반 서비스 API 개발 및 문서화$기초적인 테스트 코드 작성$코드 리뷰 참여$팀 프로젝트 참여',
-        '개발 열정$깃허브 활동 확인 예정$기초적인 Java/Spring 이해$학습 능력',
+VALUES ('신입 백엔드 인턴 모집', 6, '7 ~ 9년 차', '대학교 / 졸업', '인턴', 2,
+        'Spring 기반 서비스 API 개발 및 문서화$기초적인 테스트 코드 작성$코드 리뷰 참여$팀 프로젝트 참여', '개발 열정$깃허브 활동 확인 예정$기초적인 Java/Spring 이해$학습 능력',
         2500, '09:00 ~ 17:00', '서울특별시 종로구', '2025-06-01', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('데이터 분석가 채용', 6, '1 ~ 3년 차', '대졸 이상',
-        '정규직', 1,
-        '데이터 시각화 및 분석$비즈니스 인사이트 도출$통계 기반 리포트 작성$대시보드 개발 및 유지',
-        'Python, Pandas 경험$SQL 활용 가능자$통계적 분석 이해$문제 해결 능력',
-        4500, '09:00 ~ 18:00', '서울특별시 성동구', '2025-06-30', NULL);
+VALUES ('데이터 분석가 채용', 6, '1 ~ 3년 차', '대학교 / 졸업', '정규직', 1, '데이터 시각화 및 분석$비즈니스 인사이트 도출$통계 기반 리포트 작성$대시보드 개발 및 유지',
+        'Python, Pandas 경험$SQL 활용 가능자$통계적 분석 이해$문제 해결 능력', 4500, '09:00 ~ 18:00', '서울특별시 성동구', '2025-06-30', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('AI 엔지니어 팀원 채용합니다', 6, '3년 이상', '학력무관', '정규직', 5,
-        'AWS 클라우드 인프라 관리', 'Python, Pandas 경험자$SQL 활용 가능자', 4649, '09:00 ~ 18:00', '서울특별시 강서구', '2025-08-17', NULL);
+VALUES ('AI 엔지니어 팀원 채용합니다', 6, '10년 이상', '고등학교 / 졸업', '정규직', 5, 'AWS 클라우드 인프라 관리$$', 'Python, Pandas 경험자$SQL 활용 가능자',
+        4649, '09:00 ~ 18:00', '서울특별시 강서구', '2025-08-17', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('함께 성장할 DevOps 엔지니어 구인', 6, '1년 이상', '대졸 이상', '인턴', 9,
-        'React 기반 웹 서비스 개발$UI/UX 개선 작업', '정보보안 자격증 보유자 우대', 3429, '09:00 ~ 18:00', '서울특별시 마포구', '2025-06-06', NULL);
+VALUES ('함께 성장할 DevOps 엔지니어 구인', 6, '3 ~ 5년 차', '대학교 / 졸업', '인턴', 9, 'React 기반 웹 서비스 개발$UI/UX 개선 작업',
+        '정보보안 자격증 보유자 우대$$',
+        3429, '09:00 ~ 18:00', '서울특별시 마포구', '2025-06-06', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('신입 기획자 채용', 6, '신입', '학력무관', '정규직', 15,
-        'React 기반 웹 서비스 개발$UI/UX 개선 작업', 'Tensorflow, PyTorch 경험자', 3486, '09:00 ~ 18:00', '서울특별시 용산구', '2025-07-10',
-        NULL);
+VALUES ('신입 기획자 채용', 6, '7 ~ 9년 차', '고등학교 / 졸업', '정규직', 15, 'React 기반 웹 서비스 개발$UI/UX 개선 작업',
+        'Tensorflow, PyTorch 경험자$$',
+        3486, '09:00 ~ 18:00', '서울특별시 용산구', '2025-07-10', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('UX 디자이너 팀원 채용합니다', 6, '3년 이상', '학력무관', '계약직', 13,
-        'Spring 기반 서비스 API 개발$DB 관리 및 최적화', 'iOS/Android 앱 개발 경험자', 3608, '09:00 ~ 18:00', '서울특별시 강서구', '2025-07-15',
-        NULL);
+VALUES ('UX 디자이너 팀원 채용합니다', 6, '1 ~ 3년 차', '고등학교 / 졸업', '계약직', 13, 'Spring 기반 서비스 API 개발$DB 관리 및 최적화',
+        'iOS/Android 앱 개발 경험자$$', 3608, '09:00 ~ 18:00', '서울특별시 강서구', '2025-07-15', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('신입 QA 엔지니어 채용', 6, '신입', '대졸 이상', '인턴', 8,
-        '머신러닝 모델 개발 및 최적화', 'Python, Pandas 경험자$SQL 활용 가능자', 4878, '09:00 ~ 18:00', '서울특별시 마포구', '2025-06-05', NULL);
+VALUES ('신입 QA 엔지니어 채용', 6, '10년 이상', '대학교 / 졸업', '인턴', 8, '머신러닝 모델 개발 및 최적화$$', 'Python, Pandas 경험자$SQL 활용 가능자', 4878,
+        '09:00 ~ 18:00', '서울특별시 마포구', '2025-06-05', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('신입 데이터 분석가 채용', 6, '신입', '대졸 이상', '인턴', 14,
-        '머신러닝 모델 개발 및 최적화', 'iOS/Android 앱 개발 경험자', 4732, '09:00 ~ 18:00', '서울특별시 강남구', '2025-07-04', NULL);
+VALUES ('신입 데이터 분석가 채용', 6, '7 ~ 9년 차', '대학교 / 졸업', '인턴', 14, '머신러닝 모델 개발 및 최적화$$', 'iOS/Android 앱 개발 경험자$$', 4732,
+        '09:00 ~ 18:00', '서울특별시 강남구', '2025-07-04', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('데이터 분석가 팀원 채용합니다', 6, '3년 이상', '초대졸 이상', '정규직', 14,
-        '모바일 앱 개발 및 유지보수', 'Node.js 경험자$AWS 환경 경험자', 5073, '09:00 ~ 18:00', '서울특별시 성동구', '2025-06-01', NULL);
+VALUES ('데이터 분석가 팀원 채용합니다', 6, '3 ~ 5년 차', '대학교 / 졸업', '정규직', 14, '모바일 앱 개발 및 유지보수$$', 'Node.js 경험자$AWS 환경 경험자', 5073,
+        '09:00 ~ 18:00', '서울특별시 성동구', '2025-06-01', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('백엔드 개발자 팀원 채용합니다', 6, '3년 이상', '초대졸 이상', '인턴', 1,
-        'Python을 이용한 데이터 분석 및 리포트 작성', 'Node.js 경험자$AWS 환경 경험자', 5740, '09:00 ~ 18:00', '서울특별시 종로구', '2025-08-18',
-        NULL);
+VALUES ('백엔드 개발자 팀원 채용합니다', 6, '1 ~ 3년 차', '대학교 / 졸업', '인턴', 1, 'Python을 이용한 데이터 분석 및 리포트 작성$$',
+        'Node.js 경험자$AWS 환경 경험자', 5740, '09:00 ~ 18:00', '서울특별시 종로구', '2025-08-18', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('WWY에서 DevOps 엔지니어 찾습니다', 6, '3년 이상', '초대졸 이상', '정규직', 9,
-        '서비스 테스트 및 품질 관리', 'Python, Pandas 경험자$SQL 활용 가능자', 4043, '09:00 ~ 18:00', '서울특별시 종로구', '2025-07-26', NULL);
+VALUES ('WWY에서 DevOps 엔지니어 찾습니다', 6, '1 ~ 3년 차', '대학교 / 졸업', '정규직', 9, '서비스 테스트 및 품질 관리$$',
+        'Python, Pandas 경험자$SQL 활용 가능자', 4043, '09:00 ~ 18:00', '서울특별시 종로구', '2025-07-26', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('보안 엔지니어 팀원 채용합니다', 6, '신입', '초대졸 이상', '정규직', 10,
-        '모바일 앱 개발 및 유지보수', 'iOS/Android 앱 개발 경험자', 4593, '09:00 ~ 18:00', '서울특별시 은평구', '2025-08-01', NULL);
+VALUES ('보안 엔지니어 팀원 채용합니다', 6, '10년 이상', '대학교 / 졸업', '정규직', 10, '모바일 앱 개발 및 유지보수$$', 'iOS/Android 앱 개발 경험자$$', 4593,
+        '09:00 ~ 18:00', '서울특별시 은평구', '2025-08-01', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('웹 프론트엔드 인턴 채용', 7, '신입', '학력무관', '인턴', 3,
-        'React 기반 UI 개발 및 유지보수', '포트폴리오 제출 필수$협업 경험 우대', 2200,
+VALUES ('웹 프론트엔드 인턴 채용', 7, '7 ~ 9년 차', '고등학교 / 졸업', '인턴', 3, 'React 기반 UI 개발 및 유지보수$$', '포트폴리오 제출 필수$협업 경험 우대', 2200,
         '10:00 ~ 18:00', '서울특별시 강남구', '2025-06-10', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('데이터 분석 인턴 모집', 7, '신입', '대졸 이상', '인턴', 4,
-        'Python을 이용한 데이터 수집 및 시각화', 'SQL, Pandas 사용 경험자 우대', 2300,
+VALUES ('데이터 분석 인턴 모집', 7, '5 ~ 7년 차', '대학교 / 졸업', '인턴', 4, 'Python을 이용한 데이터 수집 및 시각화$$', 'SQL, Pandas 사용 경험자 우대$$',
+        2300,
         '09:30 ~ 18:30', '서울특별시 마포구', '2025-05-20', NULL);
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('3년 이상 풀스택 개발자 채용', 7, '3년 이상', '초대졸 이상', '정규직', 3,
-        '보안 시스템 설계 및 운영', 'iOS/Android 앱 개발 경험자', 3870, '09:00 ~ 18:00', '서울특별시 마포구', '2025-06-07', NULL);
+VALUES ('3년 이상 풀스택 개발자 채용', 7, '10년 이상', '대학교 / 졸업', '정규직', 3, '보안 시스템 설계 및 운영$$', 'iOS/Android 앱 개발 경험자$$', 3870,
+        '09:00 ~ 18:00', '서울특별시 마포구', '2025-06-07', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('HOG에서 데이터 분석가 찾습니다', 7, '1년 이상', '학력무관', '정규직', 14,
-        'Python을 이용한 데이터 분석 및 리포트 작성', 'Tensorflow, PyTorch 경험자', 4225, '09:00 ~ 18:00', '서울특별시 노원구', '2025-08-06',
-        NULL);
+VALUES ('HOG에서 데이터 분석가 찾습니다', 7, '10년 이상', '고등학교 / 졸업', '정규직', 14, 'Python을 이용한 데이터 분석 및 리포트 작성$$',
+        'Tensorflow, PyTorch 경험자$$', 4225, '09:00 ~ 18:00', '서울특별시 노원구', '2025-08-06', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('백엔드 개발자 팀원 채용합니다', 7, '1년 이상', '대졸 이상', '계약직', 1,
-        'Spring 기반 서비스 API 개발$DB 관리 및 최적화', 'iOS/Android 앱 개발 경험자', 3345, '09:00 ~ 18:00', '서울특별시 중구', '2025-08-04',
-        NULL);
+VALUES ('백엔드 개발자 팀원 채용합니다', 7, '5 ~ 7년 차', '대학교 / 졸업', '계약직', 1, 'Spring 기반 서비스 API 개발$DB 관리 및 최적화',
+        'iOS/Android 앱 개발 경험자$$', 3345, '09:00 ~ 18:00', '서울특별시 중구', '2025-08-04', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('HOG에서 UX 디자이너 찾습니다', 7, '1년 이상', '대졸 이상', '정규직', 13,
-        'React 기반 웹 서비스 개발$UI/UX 개선 작업', 'AWS, Docker 경험자', 5449, '09:00 ~ 18:00', '서울특별시 마포구', '2025-06-14', NULL);
+VALUES ('HOG에서 UX 디자이너 찾습니다', 7, '10년 이상', '대학교 / 졸업', '정규직', 13, 'React 기반 웹 서비스 개발$UI/UX 개선 작업', 'AWS, Docker 경험자$$',
+        5449, '09:00 ~ 18:00', '서울특별시 마포구', '2025-06-14', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('HOG에서 UX 디자이너 찾습니다', 7, '1년 이상', '대졸 이상', '인턴', 13,
-        'AWS 클라우드 인프라 관리', 'Python, Pandas 경험자$SQL 활용 가능자', 2776, '09:00 ~ 18:00', '서울특별시 성동구', '2025-08-02', NULL);
+VALUES ('HOG에서 UX 디자이너 찾습니다', 7, '10년 이상', '대학교 / 졸업', '인턴', 13, 'AWS 클라우드 인프라 관리$$', 'Python, Pandas 경험자$SQL 활용 가능자',
+        2776, '09:00 ~ 18:00', '서울특별시 성동구', '2025-08-02', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('보안 엔지니어 팀원 채용합니다', 7, '1년 이상', '학력무관', '인턴', 10,
-        '서비스 테스트 및 품질 관리', 'AWS, Docker 경험자', 4941, '09:00 ~ 18:00', '서울특별시 중구', '2025-07-11', NULL);
+VALUES ('보안 엔지니어 팀원 채용합니다', 7, '10년 이상', '고등학교 / 졸업', '인턴', 10, '서비스 테스트 및 품질 관리$$', 'AWS, Docker 경험자$$', 4941,
+        '09:00 ~ 18:00', '서울특별시 중구', '2025-07-11', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('데이터 분석가 신입/경력자 모집', 7, '1년 이상', '대졸 이상', '인턴', 14,
-        'AWS 클라우드 인프라 관리', 'Java/Spring 경험 필수$MySQL 경험 우대', 5980, '09:00 ~ 18:00', '서울특별시 강남구', '2025-06-19', NULL);
+VALUES ('데이터 분석가 신입/경력자 모집', 7, '3 ~ 5년 차', '대학교 / 졸업', '인턴', 14, 'AWS 클라우드 인프라 관리$$', 'Java/Spring 경험 필수$MySQL 경험 우대',
+        5980, '09:00 ~ 18:00', '서울특별시 강남구', '2025-06-19', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('신입 프로덕트 매니저 채용', 7, '신입', '학력무관', '인턴', 11,
-        'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수', 'Python, Pandas 경험자$SQL 활용 가능자', 5178, '09:00 ~ 18:00', '서울특별시 종로구',
-        '2025-08-12', NULL);
+VALUES ('신입 프로덕트 매니저 채용', 7, '1 ~ 3년 차', '고등학교 / 졸업', '인턴', 11, 'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수',
+        'Python, Pandas 경험자$SQL 활용 가능자', 5178, '09:00 ~ 18:00', '서울특별시 종로구', '2025-08-12', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('데이터 분석가 팀원 채용합니다', 7, '1년 이상', '대졸 이상', '정규직', 14,
-        '모바일 앱 개발 및 유지보수', 'HTML5, CSS3, Javascript 능숙자', 4512, '09:00 ~ 18:00', '서울특별시 용산구', '2025-07-08', NULL);
+VALUES ('데이터 분석가 팀원 채용합니다', 7, '5 ~ 7년 차', '대학교 / 졸업', '정규직', 14, '모바일 앱 개발 및 유지보수$$', 'HTML5, CSS3, Javascript 능숙자$$',
+        4512, '09:00 ~ 18:00', '서울특별시 용산구', '2025-07-08', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('QA 엔지니어 신입/경력자 모집', 7, '신입', '초대졸 이상', '계약직', 8,
-        'React 기반 웹 서비스 개발$UI/UX 개선 작업', 'HTML5, CSS3, Javascript 능숙자', 3870, '09:00 ~ 18:00', '서울특별시 은평구',
-        '2025-07-12', NULL);
+VALUES ('QA 엔지니어 신입/경력자 모집', 7, '5 ~ 7년 차', '대학교 / 졸업', '계약직', 8, 'React 기반 웹 서비스 개발$UI/UX 개선 작업',
+        'HTML5, CSS3, Javascript 능숙자$$', 3870, '09:00 ~ 18:00', '서울특별시 은평구', '2025-07-12', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('풀스택 개발자 팀원 채용합니다', 8, '1년 이상', '초대졸 이상', '정규직', 3,
-        '머신러닝 모델 개발 및 최적화', 'Java/Spring 경험 필수$MySQL 경험 우대', 5365, '09:00 ~ 18:00', '서울특별시 마포구', '2025-06-10', NULL);
+VALUES ('풀스택 개발자 팀원 채용합니다', 8, '3 ~ 5년 차', '대학교 / 졸업', '정규직', 3, '머신러닝 모델 개발 및 최적화$$', 'Java/Spring 경험 필수$MySQL 경험 우대',
+        5365, '09:00 ~ 18:00', '서울특별시 마포구', '2025-06-10', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('백엔드 개발자 신입/경력자 모집', 8, '신입', '대졸 이상', '정규직', 1,
-        'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수', 'AWS, Docker 경험자', 4881, '09:00 ~ 18:00', '서울특별시 강서구', '2025-07-17', NULL);
+VALUES ('백엔드 개발자 신입/경력자 모집', 8, '10년 이상', '대학교 / 졸업', '정규직', 1, 'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수', 'AWS, Docker 경험자$$',
+        4881, '09:00 ~ 18:00', '서울특별시 강서구', '2025-07-17', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('프론트엔드 개발자 신입/경력자 모집', 8, '3년 이상', '학력무관', '인턴', 2,
-        'React 기반 웹 서비스 개발$UI/UX 개선 작업', 'Tensorflow, PyTorch 경험자', 4597, '09:00 ~ 18:00', '서울특별시 중구', '2025-06-02',
-        NULL);
+VALUES ('프론트엔드 개발자 신입/경력자 모집', 8, '3 ~ 5년 차', '고등학교 / 졸업', '인턴', 2, 'React 기반 웹 서비스 개발$UI/UX 개선 작업',
+        'Tensorflow, PyTorch 경험자$$', 4597, '09:00 ~ 18:00', '서울특별시 중구', '2025-06-02', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('UI 디자이너 팀원 채용합니다', 8, '신입', '대졸 이상', '정규직', 12,
-        'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수', 'iOS/Android 앱 개발 경험자', 5790, '09:00 ~ 18:00', '서울특별시 은평구', '2025-08-24',
-        NULL);
+VALUES ('UI 디자이너 팀원 채용합니다', 8, '1 ~ 3년 차', '대학교 / 졸업', '정규직', 12, 'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수',
+        'iOS/Android 앱 개발 경험자$$', 5790, '09:00 ~ 18:00', '서울특별시 은평구', '2025-08-24', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('에이펙스 테크놀로지에서 UX 디자이너 찾습니다', 8, '1년 이상', '학력무관', '정규직', 13,
-        '머신러닝 모델 개발 및 최적화', 'Tensorflow, PyTorch 경험자', 3379, '09:00 ~ 18:00', '서울특별시 마포구', '2025-08-08', NULL);
+VALUES ('에이펙스 테크놀로지에서 UX 디자이너 찾습니다', 8, '1 ~ 3년 차', '고등학교 / 졸업', '정규직', 13, '머신러닝 모델 개발 및 최적화$$',
+        'Tensorflow, PyTorch 경험자$$', 3379, '09:00 ~ 18:00', '서울특별시 마포구', '2025-08-08', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('보안 엔지니어 팀원 채용합니다', 8, '1년 이상', '학력무관', '인턴', 10,
-        'Python을 이용한 데이터 분석 및 리포트 작성', 'Java/Spring 경험 필수$MySQL 경험 우대', 3370, '09:00 ~ 18:00', '서울특별시 노원구',
-        '2025-08-25', NULL);
+VALUES ('보안 엔지니어 팀원 채용합니다', 8, '1 ~ 3년 차', '고등학교 / 졸업', '인턴', 10, 'Python을 이용한 데이터 분석 및 리포트 작성$$',
+        'Java/Spring 경험 필수$MySQL 경험 우대', 3370, '09:00 ~ 18:00', '서울특별시 노원구', '2025-08-25', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('프론트엔드 개발자 팀원 채용합니다', 8, '신입', '학력무관', '계약직', 2,
-        '머신러닝 모델 개발 및 최적화', '정보보안 자격증 보유자 우대', 5543, '09:00 ~ 18:00', '서울특별시 종로구', '2025-08-10', NULL);
+VALUES ('프론트엔드 개발자 팀원 채용합니다', 8, '1 ~ 3년 차', '고등학교 / 졸업', '계약직', 2, '머신러닝 모델 개발 및 최적화$$', '정보보안 자격증 보유자 우대$$', 5543,
+        '09:00 ~ 18:00', '서울특별시 종로구', '2025-08-10', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('함께 성장할 DevOps 엔지니어 구인', 8, '3년 이상', '학력무관', '계약직', 9,
-        '모바일 앱 개발 및 유지보수', 'iOS/Android 앱 개발 경험자', 4554, '09:00 ~ 18:00', '서울특별시 중구', '2025-07-27', NULL);
+VALUES ('함께 성장할 DevOps 엔지니어 구인', 8, '1 ~ 3년 차', '고등학교 / 졸업', '계약직', 9, '모바일 앱 개발 및 유지보수$$', 'iOS/Android 앱 개발 경험자$$',
+        4554, '09:00 ~ 18:00', '서울특별시 중구', '2025-07-27', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('웹 퍼블리셔 신입/경력자 모집', 8, '신입', '대졸 이상', '계약직', 6,
-        'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수', 'iOS/Android 앱 개발 경험자', 2899, '09:00 ~ 18:00', '서울특별시 강서구', '2025-08-02',
-        NULL);
+VALUES ('웹 퍼블리셔 신입/경력자 모집', 8, '1 ~ 3년 차', '대학교 / 졸업', '계약직', 6, 'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수',
+        'iOS/Android 앱 개발 경험자$$', 2899, '09:00 ~ 18:00', '서울특별시 강서구', '2025-08-02', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('함께 성장할 풀스택 개발자 구인', 8, '3년 이상', '대졸 이상', '계약직', 3,
-        'React 기반 웹 서비스 개발$UI/UX 개선 작업', 'iOS/Android 앱 개발 경험자', 2833, '09:00 ~ 18:00', '서울특별시 마포구', '2025-08-10',
-        NULL);
+VALUES ('함께 성장할 풀스택 개발자 구인', 8, '5 ~ 7년 차', '대학교 / 졸업', '계약직', 3, 'React 기반 웹 서비스 개발$UI/UX 개선 작업',
+        'iOS/Android 앱 개발 경험자$$', 2833, '09:00 ~ 18:00', '서울특별시 마포구', '2025-08-10', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('신입 데이터 엔지니어 채용', 9, '신입', '대졸 이상', '정규직', 4,
-        'Spring 기반 서비스 API 개발$DB 관리 및 최적화', 'iOS/Android 앱 개발 경험자', 4910, '09:00 ~ 18:00', '서울특별시 용산구', '2025-07-17',
-        NULL);
+VALUES ('신입 데이터 엔지니어 채용', 9, '7 ~ 9년 차', '대학교 / 졸업', '정규직', 4, 'Spring 기반 서비스 API 개발$DB 관리 및 최적화',
+        'iOS/Android 앱 개발 경험자$$', 4910, '09:00 ~ 18:00', '서울특별시 용산구', '2025-07-17', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('신입 AI 엔지니어 채용', 9, '신입', '대졸 이상', '인턴', 5,
-        '보안 시스템 설계 및 운영', 'HTML5, CSS3, Javascript 능숙자', 4283, '09:00 ~ 18:00', '서울특별시 마포구', '2025-07-12', NULL);
+VALUES ('신입 AI 엔지니어 채용', 9, '1 ~ 3년 차', '대학교 / 졸업', '인턴', 5, '보안 시스템 설계 및 운영$$', 'HTML5, CSS3, Javascript 능숙자$$', 4283,
+        '09:00 ~ 18:00', '서울특별시 마포구', '2025-07-12', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('3년 이상 DevOps 엔지니어 채용', 9, '3년 이상', '대졸 이상', '정규직', 9,
-        'Spring 기반 서비스 API 개발$DB 관리 및 최적화', 'Node.js 경험자$AWS 환경 경험자', 4072, '09:00 ~ 18:00', '서울특별시 노원구', '2025-07-14',
-        NULL);
+VALUES ('3년 이상 DevOps 엔지니어 채용', 9, '3 ~ 5년 차', '대학교 / 졸업', '정규직', 9, 'Spring 기반 서비스 API 개발$DB 관리 및 최적화',
+        'Node.js 경험자$AWS 환경 경험자', 4072, '09:00 ~ 18:00', '서울특별시 노원구', '2025-07-14', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('UX 디자이너 신입/경력자 모집', 9, '3년 이상', '대졸 이상', '인턴', 13,
-        '머신러닝 모델 개발 및 최적화', 'QA 경험자 우대$커뮤니케이션 능력', 3188, '09:00 ~ 18:00', '서울특별시 강서구', '2025-07-06', NULL);
+VALUES ('UX 디자이너 신입/경력자 모집', 9, '1 ~ 3년 차', '대학교 / 졸업', '인턴', 13, '머신러닝 모델 개발 및 최적화$$', 'QA 경험자 우대$커뮤니케이션 능력', 3188,
+        '09:00 ~ 18:00', '서울특별시 강서구', '2025-07-06', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('프론트엔드 개발자 신입/경력자 모집', 9, '1년 이상', '초대졸 이상', '인턴', 2,
-        'AWS 클라우드 인프라 관리', 'QA 경험자 우대$커뮤니케이션 능력', 4834, '09:00 ~ 18:00', '서울특별시 은평구', '2025-07-16', NULL);
+VALUES ('프론트엔드 개발자 신입/경력자 모집', 9, '5 ~ 7년 차', '대학교 / 졸업', '인턴', 2, 'AWS 클라우드 인프라 관리$$', 'QA 경험자 우대$커뮤니케이션 능력', 4834,
+        '09:00 ~ 18:00', '서울특별시 은평구', '2025-07-16', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('QA 엔지니어 신입/경력자 모집', 9, '신입', '학력무관', '인턴', 8,
-        'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수', 'Node.js 경험자$AWS 환경 경험자', 3145, '09:00 ~ 18:00', '서울특별시 강서구', '2025-07-25',
-        NULL);
+VALUES ('QA 엔지니어 신입/경력자 모집', 9, '3 ~ 5년 차', '고등학교 / 졸업', '인턴', 8, 'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수',
+        'Node.js 경험자$AWS 환경 경험자', 3145, '09:00 ~ 18:00', '서울특별시 강서구', '2025-07-25', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('수진소프트에서 보안 엔지니어 찾습니다', 9, '3년 이상', '학력무관', '계약직', 10,
-        'React 기반 웹 서비스 개발$UI/UX 개선 작업', 'HTML/CSS 능숙자$React 경험자 우대', 2630, '09:00 ~ 18:00', '서울특별시 강서구', '2025-07-20',
-        NULL);
+VALUES ('수진소프트에서 보안 엔지니어 찾습니다', 9, '5 ~ 7년 차', '고등학교 / 졸업', '계약직', 10, 'React 기반 웹 서비스 개발$UI/UX 개선 작업',
+        'HTML/CSS 능숙자$React 경험자 우대', 2630, '09:00 ~ 18:00', '서울특별시 강서구', '2025-07-20', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('함께 성장할 풀스택 개발자 구인', 9, '3년 이상', '학력무관', '계약직', 3,
-        'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수', 'HTML5, CSS3, Javascript 능숙자', 4308, '09:00 ~ 18:00', '서울특별시 노원구',
-        '2025-08-18', NULL);
+VALUES ('함께 성장할 풀스택 개발자 구인', 9, '5 ~ 7년 차', '고등학교 / 졸업', '계약직', 3, 'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수',
+        'HTML5, CSS3, Javascript 능숙자$$', 4308, '09:00 ~ 18:00', '서울특별시 노원구', '2025-08-18', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('앱 개발자 신입/경력자 모집', 9, '3년 이상', '대졸 이상', '계약직', 7,
-        'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수', 'Python, Pandas 경험자$SQL 활용 가능자', 4784, '09:00 ~ 18:00', '서울특별시 성동구',
-        '2025-07-13', NULL);
+VALUES ('앱 개발자 신입/경력자 모집', 9, '5 ~ 7년 차', '대학교 / 졸업', '계약직', 7, 'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수',
+        'Python, Pandas 경험자$SQL 활용 가능자', 4784, '09:00 ~ 18:00', '서울특별시 성동구', '2025-07-13', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('웹 퍼블리셔 신입/경력자 모집', 9, '3년 이상', '초대졸 이상', '계약직', 6,
-        'Python을 이용한 데이터 분석 및 리포트 작성', 'AWS, Docker 경험자', 4532, '09:00 ~ 18:00', '서울특별시 중구', '2025-06-28', NULL);
+VALUES ('웹 퍼블리셔 신입/경력자 모집', 9, '1 ~ 3년 차', '대학교 / 졸업', '계약직', 6, 'Python을 이용한 데이터 분석 및 리포트 작성$$', 'AWS, Docker 경험자$$',
+        4532, '09:00 ~ 18:00', '서울특별시 중구', '2025-06-28', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('1년 이상 프로덕트 매니저 채용', 10, '1년 이상', '초대졸 이상', '인턴', 11,
-        '머신러닝 모델 개발 및 최적화', 'Java/Spring 경험 필수$MySQL 경험 우대', 5701, '09:00 ~ 18:00', '서울특별시 강서구', '2025-06-09', NULL);
+VALUES ('1년 이상 프로덕트 매니저 채용', 10, '10년 이상', '대학교 / 졸업', '인턴', 11, '머신러닝 모델 개발 및 최적화$$', 'Java/Spring 경험 필수$MySQL 경험 우대',
+        5701, '09:00 ~ 18:00', '서울특별시 강서구', '2025-06-09', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('3년 이상 앱 개발자 채용', 10, '3년 이상', '학력무관', '인턴', 7,
-        '서비스 테스트 및 품질 관리', 'Java/Spring 경험 필수$MySQL 경험 우대', 5709, '09:00 ~ 18:00', '서울특별시 서초구', '2025-07-06', NULL);
+VALUES ('3년 이상 앱 개발자 채용', 10, '5 ~ 7년 차', '고등학교 / 졸업', '인턴', 7, '서비스 테스트 및 품질 관리$$', 'Java/Spring 경험 필수$MySQL 경험 우대',
+        5709, '09:00 ~ 18:00', '서울특별시 서초구', '2025-07-06', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('신입 DevOps 엔지니어 채용', 10, '신입', '대졸 이상', '인턴', 9,
-        'Spring 기반 서비스 API 개발$DB 관리 및 최적화', 'Tensorflow, PyTorch 경험자', 5254, '09:00 ~ 18:00', '서울특별시 은평구', '2025-08-14',
-        NULL);
+VALUES ('신입 DevOps 엔지니어 채용', 10, '1 ~ 3년 차', '대학교 / 졸업', '인턴', 9, 'Spring 기반 서비스 API 개발$DB 관리 및 최적화',
+        'Tensorflow, PyTorch 경험자$$', 5254, '09:00 ~ 18:00', '서울특별시 은평구', '2025-08-14', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('3년 이상 데이터 분석가 채용', 10, '3년 이상', '학력무관', '인턴', 14,
-        'HTML/CSS 퍼블리싱$반응형 웹사이트 구축', 'HTML5, CSS3, Javascript 능숙자', 3438, '09:00 ~ 18:00', '서울특별시 강서구', '2025-08-05',
-        NULL);
+VALUES ('3년 이상 데이터 분석가 채용', 10, '1 ~ 3년 차', '고등학교 / 졸업', '인턴', 14, 'HTML/CSS 퍼블리싱$반응형 웹사이트 구축',
+        'HTML5, CSS3, Javascript 능숙자$$', 3438, '09:00 ~ 18:00', '서울특별시 강서구', '2025-08-05', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('데이터 엔지니어 신입/경력자 모집', 10, '3년 이상', '대졸 이상', '인턴', 4,
-        '모바일 앱 개발 및 유지보수', 'HTML5, CSS3, Javascript 능숙자', 5761, '09:00 ~ 18:00', '서울특별시 노원구', '2025-07-14', NULL);
+VALUES ('데이터 엔지니어 신입/경력자 모집', 10, '7 ~ 9년 차', '대학교 / 졸업', '인턴', 4, '모바일 앱 개발 및 유지보수$$', 'HTML5, CSS3, Javascript 능숙자$$',
+        5761, '09:00 ~ 18:00', '서울특별시 노원구', '2025-07-14', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('프로덕트 매니저 팀원 채용합니다', 10, '3년 이상', '초대졸 이상', '계약직', 11,
-        'Python을 이용한 데이터 분석 및 리포트 작성', 'Python, Pandas 경험자$SQL 활용 가능자', 5868, '09:00 ~ 18:00', '서울특별시 마포구',
-        '2025-08-02', NULL);
+VALUES ('프로덕트 매니저 팀원 채용합니다', 10, '1 ~ 3년 차', '대학교 / 졸업', '계약직', 11, 'Python을 이용한 데이터 분석 및 리포트 작성$$',
+        'Python, Pandas 경험자$SQL 활용 가능자', 5868, '09:00 ~ 18:00', '서울특별시 마포구', '2025-08-02', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('AI 엔지니어 신입/경력자 모집', 10, '3년 이상', '대졸 이상', '계약직', 5,
-        'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수', 'AWS, Docker 경험자', 5329, '09:00 ~ 18:00', '서울특별시 서초구', '2025-07-26', NULL);
+VALUES ('AI 엔지니어 신입/경력자 모집', 10, '7 ~ 9년 차', '대학교 / 졸업', '계약직', 5, 'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수',
+        'AWS, Docker 경험자$$',
+        5329, '09:00 ~ 18:00', '서울특별시 서초구', '2025-07-26', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('웹 퍼블리셔 팀원 채용합니다', 10, '신입', '초대졸 이상', '계약직', 6,
-        'AWS 클라우드 인프라 관리', 'HTML/CSS 능숙자$React 경험자 우대', 2755, '09:00 ~ 18:00', '서울특별시 은평구', '2025-08-04', NULL);
+VALUES ('웹 퍼블리셔 팀원 채용합니다', 10, '5 ~ 7년 차', '대학교 / 졸업', '계약직', 6, 'AWS 클라우드 인프라 관리$$', 'HTML/CSS 능숙자$React 경험자 우대', 2755,
+        '09:00 ~ 18:00', '서울특별시 은평구', '2025-08-04', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('씨에스 솔루션즈에서 기획자 찾습니다', 10, '3년 이상', '학력무관', '인턴', 15,
-        '머신러닝 모델 개발 및 최적화', '정보보안 자격증 보유자 우대', 3287, '09:00 ~ 18:00', '서울특별시 은평구', '2025-07-26', NULL);
+VALUES ('씨에스 솔루션즈에서 기획자 찾습니다', 10, '1 ~ 3년 차', '고등학교 / 졸업', '인턴', 15, '머신러닝 모델 개발 및 최적화$$', '정보보안 자격증 보유자 우대$$', 3287,
+        '09:00 ~ 18:00', '서울특별시 은평구', '2025-07-26', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('함께 성장할 데이터 엔지니어 구인', 10, '신입', '대졸 이상', '인턴', 4,
-        'HTML/CSS 퍼블리싱$반응형 웹사이트 구축', 'iOS/Android 앱 개발 경험자', 3994, '09:00 ~ 18:00', '서울특별시 용산구', '2025-08-18', NULL);
+VALUES ('함께 성장할 데이터 엔지니어 구인', 10, '3 ~ 5년 차', '대학교 / 졸업', '인턴', 4, 'HTML/CSS 퍼블리싱$반응형 웹사이트 구축',
+        'iOS/Android 앱 개발 경험자$$',
+        3994, '09:00 ~ 18:00', '서울특별시 용산구', '2025-08-18', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('UX 디자이너 팀원 채용합니다', 11, '신입', '대졸 이상', '인턴', 13,
-        'Spring 기반 서비스 API 개발$DB 관리 및 최적화', 'Node.js 경험자$AWS 환경 경험자', 4295, '09:00 ~ 18:00', '서울특별시 성동구', '2025-07-27',
-        NULL);
+VALUES ('UX 디자이너 팀원 채용합니다', 11, '1 ~ 3년 차', '대학교 / 졸업', '인턴', 13, 'Spring 기반 서비스 API 개발$DB 관리 및 최적화',
+        'Node.js 경험자$AWS 환경 경험자', 4295, '09:00 ~ 18:00', '서울특별시 성동구', '2025-07-27', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('이지커머스에서 DevOps 엔지니어 찾습니다', 11, '신입', '대졸 이상', '정규직', 9,
-        'React 기반 웹 서비스 개발$UI/UX 개선 작업', 'Node.js 경험자$AWS 환경 경험자', 4663, '09:00 ~ 18:00', '서울특별시 서초구', '2025-05-28',
-        NULL);
+VALUES ('이지커머스에서 DevOps 엔지니어 찾습니다', 11, '1 ~ 3년 차', '대학교 / 졸업', '정규직', 9, 'React 기반 웹 서비스 개발$UI/UX 개선 작업',
+        'Node.js 경험자$AWS 환경 경험자', 4663, '09:00 ~ 18:00', '서울특별시 서초구', '2025-05-28', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('함께 성장할 QA 엔지니어 구인', 11, '1년 이상', '학력무관', '정규직', 8,
-        'Python을 이용한 데이터 분석 및 리포트 작성', 'HTML5, CSS3, Javascript 능숙자', 3641, '09:00 ~ 18:00', '서울특별시 노원구', '2025-06-06',
-        NULL);
+VALUES ('함께 성장할 QA 엔지니어 구인', 11, '3 ~ 5년 차', '고등학교 / 졸업', '정규직', 8, 'Python을 이용한 데이터 분석 및 리포트 작성$$',
+        'HTML5, CSS3, Javascript 능숙자$$', 3641, '09:00 ~ 18:00', '서울특별시 노원구', '2025-06-06', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('기획자 신입/경력자 모집', 11, '1년 이상', '학력무관', '정규직', 15,
-        'React 기반 웹 서비스 개발$UI/UX 개선 작업', '정보보안 자격증 보유자 우대', 3666, '09:00 ~ 18:00', '서울특별시 성동구', '2025-06-27', NULL);
+VALUES ('기획자 신입/경력자 모집', 11, '1 ~ 3년 차', '고등학교 / 졸업', '정규직', 15, 'React 기반 웹 서비스 개발$UI/UX 개선 작업', '정보보안 자격증 보유자 우대$$',
+        3666, '09:00 ~ 18:00', '서울특별시 성동구', '2025-06-27', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('이지커머스에서 데이터 엔지니어 찾습니다', 11, '신입', '학력무관', '계약직', 4,
-        'Python을 이용한 데이터 분석 및 리포트 작성', 'Node.js 경험자$AWS 환경 경험자', 4156, '09:00 ~ 18:00', '서울특별시 성동구', '2025-06-21',
-        NULL);
+VALUES ('이지커머스에서 데이터 엔지니어 찾습니다', 11, '7 ~ 9년 차', '고등학교 / 졸업', '계약직', 4, 'Python을 이용한 데이터 분석 및 리포트 작성$$',
+        'Node.js 경험자$AWS 환경 경험자', 4156, '09:00 ~ 18:00', '서울특별시 성동구', '2025-06-21', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('이지커머스에서 DevOps 엔지니어 찾습니다', 11, '1년 이상', '학력무관', '정규직', 9,
-        'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수', 'Node.js 경험자$AWS 환경 경험자', 3209, '09:00 ~ 18:00', '서울특별시 성동구', '2025-06-06',
-        NULL);
+VALUES ('이지커머스에서 DevOps 엔지니어 찾습니다', 11, '5 ~ 7년 차', '고등학교 / 졸업', '정규직', 9, 'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수',
+        'Node.js 경험자$AWS 환경 경험자', 3209, '09:00 ~ 18:00', '서울특별시 성동구', '2025-06-06', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('UX 디자이너 신입/경력자 모집', 11, '1년 이상', '초대졸 이상', '인턴', 13,
-        '보안 시스템 설계 및 운영', 'HTML/CSS 능숙자$React 경험자 우대', 3125, '09:00 ~ 18:00', '서울특별시 중구', '2025-07-07', NULL);
+VALUES ('UX 디자이너 신입/경력자 모집', 11, '7 ~ 9년 차', '대학교 / 졸업', '인턴', 13, '보안 시스템 설계 및 운영$$', 'HTML/CSS 능숙자$React 경험자 우대',
+        3125, '09:00 ~ 18:00', '서울특별시 중구', '2025-07-07', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('웹 퍼블리셔 신입/경력자 모집', 11, '1년 이상', '초대졸 이상', '계약직', 6,
-        'React 기반 웹 서비스 개발$UI/UX 개선 작업', 'iOS/Android 앱 개발 경험자', 2739, '09:00 ~ 18:00', '서울특별시 종로구', '2025-06-20',
-        NULL);
+VALUES ('웹 퍼블리셔 신입/경력자 모집', 11, '10년 이상', '대학교 / 졸업', '계약직', 6, 'React 기반 웹 서비스 개발$UI/UX 개선 작업',
+        'iOS/Android 앱 개발 경험자$$',
+        2739, '09:00 ~ 18:00', '서울특별시 종로구', '2025-06-20', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('프론트엔드 개발자 신입/경력자 모집', 11, '신입', '대졸 이상', '정규직', 2,
-        'AWS 클라우드 인프라 관리', 'Tensorflow, PyTorch 경험자', 3744, '09:00 ~ 18:00', '서울특별시 강서구', '2025-06-16', NULL);
+VALUES ('프론트엔드 개발자 신입/경력자 모집', 11, '3 ~ 5년 차', '대학교 / 졸업', '정규직', 2, 'AWS 클라우드 인프라 관리$$', 'Tensorflow, PyTorch 경험자$$',
+        3744, '09:00 ~ 18:00', '서울특별시 강서구', '2025-06-16', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('함께 성장할 DevOps 엔지니어 구인', 11, '1년 이상', '초대졸 이상', '인턴', 9,
-        'Spring 기반 서비스 API 개발$DB 관리 및 최적화', 'Java/Spring 경험 필수$MySQL 경험 우대', 2736, '09:00 ~ 18:00', '서울특별시 중구',
-        '2025-06-05', NULL);
+VALUES ('함께 성장할 DevOps 엔지니어 구인', 11, '10년 이상', '대학교 / 졸업', '인턴', 9, 'Spring 기반 서비스 API 개발$DB 관리 및 최적화',
+        'Java/Spring 경험 필수$MySQL 경험 우대', 2736, '09:00 ~ 18:00', '서울특별시 중구', '2025-06-05', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('프론트엔드 개발자 신입/경력자 모집', 12, '1년 이상', '초대졸 이상', '계약직', 2,
-        'AWS 클라우드 인프라 관리', 'iOS/Android 앱 개발 경험자', 5925, '09:00 ~ 18:00', '서울특별시 중구', '2025-08-06', NULL);
+VALUES ('프론트엔드 개발자 신입/경력자 모집', 12, '10년 이상', '대학교 / 졸업', '계약직', 2, 'AWS 클라우드 인프라 관리$$', 'iOS/Android 앱 개발 경험자$$', 5925,
+        '09:00 ~ 18:00', '서울특별시 중구', '2025-08-06', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('에버IT에서 웹 퍼블리셔 찾습니다', 12, '신입', '대졸 이상', '인턴', 6,
-        'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수', 'Java/Spring 경험 필수$MySQL 경험 우대', 5910, '09:00 ~ 18:00', '서울특별시 노원구',
-        '2025-06-05', NULL);
+VALUES ('에버IT에서 웹 퍼블리셔 찾습니다', 12, '3 ~ 5년 차', '대학교 / 졸업', '인턴', 6, 'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수',
+        'Java/Spring 경험 필수$MySQL 경험 우대', 5910, '09:00 ~ 18:00', '서울특별시 노원구', '2025-06-05', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('에버IT에서 데이터 분석가 찾습니다', 12, '신입', '초대졸 이상', '계약직', 14,
-        '서비스 테스트 및 품질 관리', 'HTML5, CSS3, Javascript 능숙자', 2927, '09:00 ~ 18:00', '서울특별시 용산구', '2025-07-14', NULL);
+VALUES ('에버IT에서 데이터 분석가 찾습니다', 12, '1 ~ 3년 차', '대학교 / 졸업', '계약직', 14, '서비스 테스트 및 품질 관리$$',
+        'HTML5, CSS3, Javascript 능숙자$$', 2927, '09:00 ~ 18:00', '서울특별시 용산구', '2025-07-14', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('함께 성장할 보안 엔지니어 구인', 12, '1년 이상', '초대졸 이상', '인턴', 10,
-        'Python을 이용한 데이터 분석 및 리포트 작성', 'iOS/Android 앱 개발 경험자', 5805, '09:00 ~ 18:00', '서울특별시 종로구', '2025-06-03', NULL);
+VALUES ('함께 성장할 보안 엔지니어 구인', 12, '10년 이상', '대학교 / 졸업', '인턴', 10, 'Python을 이용한 데이터 분석 및 리포트 작성$$',
+        'iOS/Android 앱 개발 경험자$$', 5805, '09:00 ~ 18:00', '서울특별시 종로구', '2025-06-03', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('에버IT에서 웹 퍼블리셔 찾습니다', 12, '3년 이상', '학력무관', '정규직', 6,
-        '머신러닝 모델 개발 및 최적화', 'HTML5, CSS3, Javascript 능숙자', 3258, '09:00 ~ 18:00', '서울특별시 용산구', '2025-08-10', NULL);
+VALUES ('에버IT에서 웹 퍼블리셔 찾습니다', 12, '3 ~ 5년 차', '고등학교 / 졸업', '정규직', 6, '머신러닝 모델 개발 및 최적화$$',
+        'HTML5, CSS3, Javascript 능숙자$$', 3258, '09:00 ~ 18:00', '서울특별시 용산구', '2025-08-10', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('함께 성장할 앱 개발자 구인', 12, '1년 이상', '초대졸 이상', '계약직', 7,
-        '모바일 앱 개발 및 유지보수', 'Python, Pandas 경험자$SQL 활용 가능자', 2933, '09:00 ~ 18:00', '서울특별시 마포구', '2025-06-27', NULL);
+VALUES ('함께 성장할 앱 개발자 구인', 12, '3 ~ 5년 차', '대학교 / 졸업', '계약직', 7, '모바일 앱 개발 및 유지보수$$', 'Python, Pandas 경험자$SQL 활용 가능자',
+        2933, '09:00 ~ 18:00', '서울특별시 마포구', '2025-06-27', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('데이터 엔지니어 팀원 채용합니다', 12, '1년 이상', '대졸 이상', '계약직', 4,
-        'Python을 이용한 데이터 분석 및 리포트 작성', 'QA 경험자 우대$커뮤니케이션 능력', 3354, '09:00 ~ 18:00', '서울특별시 중구', '2025-06-06', NULL);
+VALUES ('데이터 엔지니어 팀원 채용합니다', 12, '10년 이상', '대학교 / 졸업', '계약직', 4, 'Python을 이용한 데이터 분석 및 리포트 작성$$', 'QA 경험자 우대$커뮤니케이션 능력',
+        3354, '09:00 ~ 18:00', '서울특별시 중구', '2025-06-06', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('3년 이상 앱 개발자 채용', 12, '3년 이상', '대졸 이상', '계약직', 7,
-        '보안 시스템 설계 및 운영', 'Python, Pandas 경험자$SQL 활용 가능자', 2531, '09:00 ~ 18:00', '서울특별시 종로구', '2025-07-11', NULL);
+VALUES ('3년 이상 앱 개발자 채용', 12, '7 ~ 9년 차', '대학교 / 졸업', '계약직', 7, '보안 시스템 설계 및 운영$$', 'Python, Pandas 경험자$SQL 활용 가능자',
+        2531, '09:00 ~ 18:00', '서울특별시 종로구', '2025-07-11', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('에버IT에서 앱 개발자 찾습니다', 12, '1년 이상', '대졸 이상', '인턴', 7,
-        'Python을 이용한 데이터 분석 및 리포트 작성', 'Tensorflow, PyTorch 경험자', 5226, '09:00 ~ 18:00', '서울특별시 용산구', '2025-06-18',
-        NULL);
+VALUES ('에버IT에서 앱 개발자 찾습니다', 12, '10년 이상', '대학교 / 졸업', '인턴', 7, 'Python을 이용한 데이터 분석 및 리포트 작성$$',
+        'Tensorflow, PyTorch 경험자$$', 5226, '09:00 ~ 18:00', '서울특별시 용산구', '2025-06-18', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('함께 성장할 AI 엔지니어 구인', 12, '신입', '대졸 이상', '정규직', 5,
-        '보안 시스템 설계 및 운영', 'HTML/CSS 능숙자$React 경험자 우대', 4687, '09:00 ~ 18:00', '서울특별시 은평구', '2025-08-09', NULL);
+VALUES ('함께 성장할 AI 엔지니어 구인', 12, '3 ~ 5년 차', '대학교 / 졸업', '정규직', 5, '보안 시스템 설계 및 운영$$', 'HTML/CSS 능숙자$React 경험자 우대',
+        4687, '09:00 ~ 18:00', '서울특별시 은평구', '2025-08-09', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('DevOps 엔지니어 팀원 채용합니다', 13, '신입', '대졸 이상', '인턴', 9,
-        '머신러닝 모델 개발 및 최적화', 'iOS/Android 앱 개발 경험자', 5348, '09:00 ~ 18:00', '서울특별시 강남구', '2025-08-12', NULL);
+VALUES ('DevOps 엔지니어 팀원 채용합니다', 13, '7 ~ 9년 차', '대학교 / 졸업', '인턴', 9, '머신러닝 모델 개발 및 최적화$$', 'iOS/Android 앱 개발 경험자$$',
+        5348,
+        '09:00 ~ 18:00', '서울특별시 강남구', '2025-08-12', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('AI 엔지니어 팀원 채용합니다', 13, '신입', '학력무관', '계약직', 5,
-        'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수', 'HTML5, CSS3, Javascript 능숙자', 5557, '09:00 ~ 18:00', '서울특별시 마포구',
-        '2025-08-15', NULL);
+VALUES ('AI 엔지니어 팀원 채용합니다', 13, '7 ~ 9년 차', '고등학교 / 졸업', '계약직', 5, 'Node.js 백엔드 서비스 구축$서버 관리 및 유지보수',
+        'HTML5, CSS3, Javascript 능숙자$$', 5557, '09:00 ~ 18:00', '서울특별시 마포구', '2025-08-15', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('함께 성장할 기획자 구인', 13, '신입', '학력무관', '정규직', 15,
-        'AWS 클라우드 인프라 관리', 'Java/Spring 경험 필수$MySQL 경험 우대', 3897, '09:00 ~ 18:00', '서울특별시 강남구', '2025-08-07', NULL);
+VALUES ('함께 성장할 기획자 구인', 13, '10년 이상', '고등학교 / 졸업', '정규직', 15, 'AWS 클라우드 인프라 관리$$', 'Java/Spring 경험 필수$MySQL 경험 우대',
+        3897, '09:00 ~ 18:00', '서울특별시 강남구', '2025-08-07', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('신입 백엔드 개발자 채용', 13, '신입', '초대졸 이상', '정규직', 1,
-        'Python을 이용한 데이터 분석 및 리포트 작성', 'AWS, Docker 경험자', 3572, '09:00 ~ 18:00', '서울특별시 종로구', '2025-07-03', NULL);
+VALUES ('신입 백엔드 개발자 채용', 13, '7 ~ 9년 차', '대학교 / 졸업', '정규직', 1, 'Python을 이용한 데이터 분석 및 리포트 작성$$', 'AWS, Docker 경험자$$',
+        3572,
+        '09:00 ~ 18:00', '서울특별시 종로구', '2025-07-03', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('신입 웹 퍼블리셔 채용', 13, '신입', '학력무관', '계약직', 6,
-        'Spring 기반 서비스 API 개발$DB 관리 및 최적화', 'HTML/CSS 능숙자$React 경험자 우대', 4327, '09:00 ~ 18:00', '서울특별시 노원구',
-        '2025-07-27', NULL);
+VALUES ('신입 웹 퍼블리셔 채용', 13, '3 ~ 5년 차', '고등학교 / 졸업', '계약직', 6, 'Spring 기반 서비스 API 개발$DB 관리 및 최적화',
+        'HTML/CSS 능숙자$React 경험자 우대', 4327, '09:00 ~ 18:00', '서울특별시 노원구', '2025-07-27', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('DevOps 엔지니어 팀원 채용합니다', 13, '3년 이상', '학력무관', '인턴', 9,
-        'Spring 기반 서비스 API 개발$DB 관리 및 최적화', 'QA 경험자 우대$커뮤니케이션 능력', 4663, '09:00 ~ 18:00', '서울특별시 서초구', '2025-07-20',
-        NULL);
+VALUES ('DevOps 엔지니어 팀원 채용합니다', 13, '10년 이상', '고등학교 / 졸업', '인턴', 9, 'Spring 기반 서비스 API 개발$DB 관리 및 최적화',
+        'QA 경험자 우대$커뮤니케이션 능력', 4663, '09:00 ~ 18:00', '서울특별시 서초구', '2025-07-20', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('풀스택 개발자 신입/경력자 모집', 13, '신입', '대졸 이상', '인턴', 3,
-        'Spring 기반 서비스 API 개발$DB 관리 및 최적화', 'AWS, Docker 경험자', 3375, '09:00 ~ 18:00', '서울특별시 노원구', '2025-07-09', NULL);
+VALUES ('풀스택 개발자 신입/경력자 모집', 13, '10년 이상', '대학교 / 졸업', '인턴', 3, 'Spring 기반 서비스 API 개발$DB 관리 및 최적화', 'AWS, Docker 경험자$$',
+        3375, '09:00 ~ 18:00', '서울특별시 노원구', '2025-07-09', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('그림솔루션에서 DevOps 엔지니어 찾습니다', 13, '3년 이상', '학력무관', '인턴', 9,
-        'Spring 기반 서비스 API 개발$DB 관리 및 최적화', 'AWS, Docker 경험자', 4139, '09:00 ~ 18:00', '서울특별시 강남구', '2025-06-17', NULL);
+VALUES ('그림솔루션에서 DevOps 엔지니어 찾습니다', 13, '10년 이상', '고등학교 / 졸업', '인턴', 9, 'Spring 기반 서비스 API 개발$DB 관리 및 최적화',
+        'AWS, Docker 경험자$$', 4139, '09:00 ~ 18:00', '서울특별시 강남구', '2025-06-17', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('UI 디자이너 신입/경력자 모집', 13, '1년 이상', '대졸 이상', '정규직', 12,
-        'AWS 클라우드 인프라 관리', 'HTML5, CSS3, Javascript 능숙자', 4436, '09:00 ~ 18:00', '서울특별시 노원구', '2025-06-04', NULL);
+VALUES ('UI 디자이너 신입/경력자 모집', 13, '7 ~ 9년 차', '대학교 / 졸업', '정규직', 12, 'AWS 클라우드 인프라 관리$$',
+        'HTML5, CSS3, Javascript 능숙자$$',
+        4436, '09:00 ~ 18:00', '서울특별시 노원구', '2025-06-04', NULL);
 
 
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('데이터 분석가 팀원 채용합니다', 13, '1년 이상', '초대졸 이상', '정규직', 14,
-        'Python을 이용한 데이터 분석 및 리포트 작성', '정보보안 자격증 보유자 우대', 4124, '09:00 ~ 18:00', '서울특별시 강서구', '2025-05-31', NULL);
+VALUES ('데이터 분석가 팀원 채용합니다', 13, '3 ~ 5년 차', '대학교 / 졸업', '정규직', 14, 'Python을 이용한 데이터 분석 및 리포트 작성$$', '정보보안 자격증 보유자 우대$$',
+        4124, '09:00 ~ 18:00', '서울특별시 강서구', '2025-05-31', NULL);
 
+
+INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
+                           end_date, img_url)
+VALUES ('데이터 분석가 팀원 채용합니다', 13, '3 ~ 5년 차', '대학교 / 졸업', '정규직', 14, 'Python을 이용한 데이터 분석 및 리포트 작성$$', '정보보안 자격증 보유자 우대',
+        4124, '09:00 ~ 18:00', '서울특별시 강서구', '2025-05-31', NULL);
 -- 이력서 테이블 dummy
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url)
 values ('백엔드 신입 개발자 지원서', 1, '컴퓨터공학 전공, 인턴 경험 3개월', '부산대학교 컴퓨터공학과 졸업', 1, '서울', '정보처리기사', '멋쟁이사자처럼 10기 활동', NULL);
@@ -1059,53 +1031,672 @@ insert into reply_tb(board_id, user_id, content, created_at)
 values (15, 13, '울회사는 이미 도입했는데 나쁘지 않은듯 합니다.', now());
 
 -- 채용공고-스택 테이블 dummy
-insert into employ_stack_tb(employment_id, skill)
-values (1, 'java'),
-       (1, 'spring boot'),
-       (1, 'mysql'),
-
-       (2, 'javascript'),
-       (2, 'react'),
-       (2, 'html'),
-
-       (3, 'react'),
-       (3, 'javascript'),
-       (3, 'css'),
-
-       (4, 'python'),
-       (4, 'mysql'),
-       (4, 'git'),
-
-       (5, 'java'),
-       (5, 'spring boot'),
-       (5, 'git'),
-
-       (6, 'python'),
-       (6, 'mysql'),
-       (6, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (1, 'spring boot');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (1, 'react');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (1, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (2, 'mysql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (2, 'html');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (2, 'node.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (3, 'javascript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (3, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (3, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (4, 'react');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (4, 'node.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (4, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (5, 'html');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (5, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (5, 'postgresql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (6, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (6, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (6, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (7, 'node.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (7, 'postgresql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (7, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (8, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (8, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (8, 'figma');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (9, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (9, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (9, 'next.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (10, 'postgresql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (10, 'figma');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (10, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (11, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (11, 'next.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (11, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (12, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (12, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (12, 'spring boot');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (13, 'figma');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (13, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (13, 'mysql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (14, 'next.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (14, 'spring boot');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (14, 'javascript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (15, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (15, 'mysql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (15, 'react');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (16, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (16, 'javascript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (16, 'html');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (17, 'spring boot');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (17, 'react');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (17, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (18, 'mysql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (18, 'html');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (18, 'node.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (19, 'javascript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (19, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (19, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (20, 'react');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (20, 'node.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (20, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (21, 'html');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (21, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (21, 'postgresql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (22, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (22, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (22, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (23, 'node.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (23, 'postgresql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (23, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (24, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (24, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (24, 'figma');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (25, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (25, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (25, 'next.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (26, 'postgresql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (26, 'figma');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (26, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (27, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (27, 'next.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (27, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (28, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (28, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (28, 'spring boot');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (29, 'figma');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (29, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (29, 'mysql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (30, 'next.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (30, 'spring boot');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (30, 'javascript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (31, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (31, 'mysql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (31, 'react');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (32, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (32, 'javascript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (32, 'html');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (33, 'spring boot');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (33, 'react');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (33, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (34, 'mysql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (34, 'html');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (34, 'node.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (35, 'javascript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (35, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (35, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (36, 'react');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (36, 'node.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (36, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (37, 'html');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (37, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (37, 'postgresql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (38, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (38, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (38, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (39, 'node.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (39, 'postgresql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (39, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (40, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (40, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (40, 'figma');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (41, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (41, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (41, 'next.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (42, 'postgresql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (42, 'figma');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (42, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (43, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (43, 'next.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (43, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (44, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (44, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (44, 'spring boot');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (45, 'figma');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (45, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (45, 'mysql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (46, 'next.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (46, 'spring boot');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (46, 'javascript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (47, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (47, 'mysql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (47, 'react');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (48, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (48, 'javascript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (48, 'html');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (49, 'spring boot');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (49, 'react');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (49, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (50, 'mysql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (50, 'html');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (50, 'node.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (51, 'javascript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (51, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (51, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (52, 'react');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (52, 'node.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (52, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (53, 'html');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (53, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (53, 'postgresql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (54, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (54, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (54, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (55, 'node.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (55, 'postgresql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (55, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (56, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (56, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (56, 'figma');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (57, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (57, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (57, 'next.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (58, 'postgresql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (58, 'figma');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (58, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (59, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (59, 'next.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (59, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (60, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (60, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (60, 'spring boot');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (61, 'figma');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (61, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (61, 'mysql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (62, 'next.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (62, 'spring boot');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (62, 'javascript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (63, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (63, 'mysql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (63, 'react');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (64, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (64, 'javascript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (64, 'html');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (65, 'spring boot');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (65, 'react');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (65, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (66, 'mysql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (66, 'html');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (66, 'node.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (67, 'javascript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (67, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (67, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (68, 'react');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (68, 'node.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (68, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (69, 'html');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (69, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (69, 'postgresql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (70, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (70, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (70, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (71, 'node.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (71, 'postgresql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (71, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (72, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (72, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (72, 'figma');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (73, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (73, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (73, 'next.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (74, 'postgresql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (74, 'figma');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (74, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (75, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (75, 'next.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (75, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (76, 'mysql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (76, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (76, 'html');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (76, 'javascript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (76, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (77, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (77, 'react');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (77, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (77, 'next.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (77, 'postgresql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (78, 'node.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (78, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (78, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (78, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (78, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (79, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (79, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (79, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (79, 'javascript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (79, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (80, 'react');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (80, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (80, 'spring boot');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (80, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (80, 'typescript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (81, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (81, 'javascript');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (81, 'figma');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (81, 'spring boot');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (81, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (82, 'mysql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (82, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (82, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (83, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (83, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (83, 'css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (83, 'aws');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (84, 'figma');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (84, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (84, 'next.js');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (84, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (84, 'html');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (85, 'mysql');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (85, 'tailwind css');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (85, 'git');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (86, 'java');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (86, 'python');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (86, 'spring boot');
+INSERT INTO employ_stack_tb (employment_id, skill)
+VALUES (86, 'typescript');
 
 -- 이력서-스택 테이블 dummy
 insert into resume_stack_tb(resume_id, skill)
 values (1, 'java'),
        (1, 'spring boot'),
        (1, 'mysql'),
-
        (2, 'html'),
        (2, 'css'),
        (2, 'javascript'),
-
        (3, 'javascript'),
        (3, 'react'),
        (3, 'git'),
-
        (4, 'html'),
        (4, 'css'),
        (4, 'javascript'),
-
        (5, 'java'),
        (5, 'spring boot'),
        (5, 'mysql'),
-
        (6, 'python'),
        (6, 'mysql'),
-       (6, 'git');
+       (6, 'git'),
+       (7, 'tailwind css'),
+       (7, 'spring boot'),
+       (7, 'java'),
+       (7, 'node.js'),
+       (8, 'aws'),
+       (8, 'git'),
+       (8, 'tailwind css'),
+       (9, 'python'),
+       (9, 'git'),
+       (9, 'next.js'),
+       (9, 'html'),
+       (9, 'spring boot'),
+       (10, 'git'),
+       (10, 'html'),
+       (10, 'javascript'),
+       (10, 'css'),
+       (10, 'figma'),
+       (11, 'typescript'),
+       (11, 'react'),
+       (11, 'postgresql'),
+       (11, 'node.js'),
+       (12, 'aws'),
+       (12, 'figma'),
+       (12, 'mysql'),
+       (13, 'react'),
+       (13, 'tailwind css'),
+       (13, 'figma'),
+       (13, 'mysql'),
+       (13, 'css'),
+       (14, 'tailwind css'),
+       (14, 'node.js'),
+       (14, 'next.js'),
+       (14, 'java'),
+       (14, 'git'),
+       (15, 'git'),
+       (15, 'node.js'),
+       (15, 'next.js'),
+       (15, 'python'),
+       (15, 'mysql'),
+       (16, 'javascript'),
+       (16, 'html'),
+       (16, 'node.js'),
+       (16, 'mysql'),
+       (17, 'mysql'),
+       (17, 'javascript'),
+       (17, 'css'),
+       (17, 'typescript'),
+       (17, 'node.js'),
+       (18, 'next.js'),
+       (18, 'git'),
+       (18, 'node.js'),
+       (18, 'tailwind css'),
+       (19, 'aws'),
+       (19, 'javascript'),
+       (19, 'git'),
+       (20, 'typescript'),
+       (20, 'java'),
+       (20, 'node.js'),
+       (20, 'mysql'),
+       (20, 'spring boot'),
+       (21, 'javascript'),
+       (21, 'css'),
+       (21, 'spring boot'),
+       (22, 'postgresql'),
+       (22, 'css'),
+       (22, 'node.js'),
+       (23, 'java'),
+       (23, 'javascript'),
+       (23, 'postgresql'),
+       (23, 'typescript'),
+       (23, 'css'),
+       (24, 'mysql'),
+       (24, 'python'),
+       (24, 'spring boot'),
+       (24, 'javascript'),
+       (24, 'next.js'),
+       (25, 'next.js'),
+       (25, 'aws'),
+       (25, 'node.js'),
+       (25, 'git'),
+       (25, 'html'),
+       (26, 'python'),
+       (26, 'figma'),
+       (26, 'javascript'),
+       (27, 'figma'),
+       (27, 'aws'),
+       (27, 'postgresql'),
+       (27, 'git'),
+       (28, 'python'),
+       (28, 'java'),
+       (28, 'html'),
+       (28, 'aws'),
+       (28, 'spring boot'),
+       (29, 'css'),
+       (29, 'figma'),
+       (29, 'react'),
+       (30, 'git'),
+       (30, 'typescript'),
+       (30, 'spring boot'),
+       (30, 'figma');
