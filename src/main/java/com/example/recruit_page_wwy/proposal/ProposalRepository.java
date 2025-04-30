@@ -10,4 +10,7 @@ import org.springframework.stereotype.Repository;
 public class ProposalRepository {
     private final EntityManager em;
 
+    public void save(Proposal proposal) {
+        em.persist(proposal);
+    }
 }
