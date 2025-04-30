@@ -48,7 +48,7 @@ public class EmploymentController {
                                  @RequestParam(required = false) List<String> skills) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         EmploymentResponse.EmploymentPageDTO model = employmentService.employmentAllList(sessionUser, jobType, careerLevel, skills, sort, page);
-        request.setAttribute("models", model);
+        request.setAttribute("model", model);
 
         return "employment/list";
     }
