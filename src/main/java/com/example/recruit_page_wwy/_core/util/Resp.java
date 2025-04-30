@@ -1,4 +1,4 @@
-package com.example.recruit_page_wwy._core;
+package com.example.recruit_page_wwy._core.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

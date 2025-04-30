@@ -40,8 +40,11 @@ public class ResumeController {
         return "resume/detail";
     }
 
+    // TODO DTO처리 0 - 끝
     @GetMapping("/resume/save-form")
-    public String resumeSaveForm() {
+    public String resumeSaveForm(HttpServletRequest request) {
+        ResumeResponse.TableDTO tableDTO = resumeService.viewJobAndStackList();
+        request.setAttribute("model", tableDTO);
         return "resume/save-form";
     }
 

@@ -18,8 +18,8 @@ public class MatchService {
         return new MatchResponse.MatchDTO(recommendedEmployList, matchEmployList, sessionUser);
     }
 
-    public List<MatchResponse.ResumeDTO> matchResume(User sessionUser) {
-        List<MatchResponse.ResumeDTO> matchResumeList = matchRepository.findAllRecommendedResumes(sessionUser.getId());
+    public MatchResponse.ResumeListDTO matchResume(User sessionUser) {
+        MatchResponse.ResumeListDTO matchResumeList = matchRepository.findAllRecommendedResumes(sessionUser.getId(), sessionUser);
         return matchResumeList;
     }
 }

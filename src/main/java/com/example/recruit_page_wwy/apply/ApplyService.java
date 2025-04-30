@@ -28,8 +28,8 @@ public class ApplyService {
         return userApplyDTO;
     }
 
-    public List<ApplyResponse.ComApplyDTO> findComApply(User sessionUser) {
-        List<ApplyResponse.ComApplyDTO> comApplyDTO = applyRepository.findComApplyById(sessionUser.getId());
+    public ApplyResponse.ComApplyListDTO findComApply(User sessionUser) {
+        ApplyResponse.ComApplyListDTO comApplyDTO = applyRepository.findComApplyById(sessionUser.getId(), sessionUser);
         return comApplyDTO;
     }
 
@@ -68,5 +68,10 @@ public class ApplyService {
         // employment 함수 만들면 null 없애기
         Apply apply = ApplyRequest.SaveDTO.toEntity(sessionUser, resume, employment);
         applyRepository.save(apply);
+    }
+
+    @Transactional
+    public void updateProgress(Integer applyId, String progress) {
+        applyRepository.update(applyId, progress);
     }
 }

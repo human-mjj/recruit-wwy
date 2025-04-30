@@ -72,7 +72,7 @@ public class EmploymentService {
         careerLevels.add("7 ~ 9년 차");
         careerLevels.add("10년 이상");
 
-        return new EmploymentResponse.EmploymentPageDTO(dtoList, realPage, totalCount.intValue(), tableDTO, careerLevels);
+        return new EmploymentResponse.EmploymentPageDTO(dtoList, realPage, totalCount.intValue(), tableDTO, careerLevels, sessionUser);
     }
 
     public List<Employment> viewEmployList() {
@@ -186,5 +186,10 @@ public class EmploymentService {
 
         // 3. 스택(EmployStack) 수정은 별도로 처리 필요
         employmentRepository.updateStack(employmentId, dto.getEmployStack()); // 기존 스택 전부 삭제
+    }
+
+    @Transactional
+    public void delete(int employmentId) {
+        employmentRepository.deleteById(employmentId);
     }
 }

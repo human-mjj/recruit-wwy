@@ -27,6 +27,9 @@ public class EmploymentResponse {
 
     @Data
     public static class EmploymentPageDTO {
+        private Integer sessionUserId;
+        private Boolean isCompanyUser; // 스크랩 버튼 노출 여부 (false면 보여줌)
+
         private List<PublicListDTO> employments;
         private Integer prev;
         private Integer next;
@@ -41,7 +44,10 @@ public class EmploymentResponse {
         private TableDTO table;
         private List<String> careerLevels;
 
-        public EmploymentPageDTO(List<EmploymentResponse.PublicListDTO> employments, Integer current, Integer totalCount, TableDTO table, List<String> careerLevels) {
+        public EmploymentPageDTO(List<EmploymentResponse.PublicListDTO> employments, Integer current, Integer totalCount, TableDTO table, List<String> careerLevels, User sessionUser) {
+            this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
+            this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
+            
             this.size = 16;
             this.employments = employments;
             this.totalCount = totalCount;
@@ -142,15 +148,13 @@ public class EmploymentResponse {
         public ListDTO(Employment e, User sessionUser) {
             this.id = e.getId();
             this.title = e.getTitle();
-            this.comName = e.getUser().getComName();
             this.exp = e.getExp();
             this.location = e.getLocation();
-            this.jobName = e.getJob().getName();
             this.isThereImg = e.getImgUrl() != null;
             this.imgUrl = isThereImg ? e.getImgUrl() : "/img/job_dummy.jpg";
             this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
             this.jobName = (e.getJob() != null) ? e.getJob().getName() : null;
-            this.comName = (e.getUser() != null) ? e.getUser().getUsername() : null;
+            this.comName = (e.getUser() != null) ? e.getUser().getComName() : null;
         }
     }
 

@@ -71,10 +71,10 @@
 					</div>
 					{{#models.isOwner}}
 						<div class="btn-wrap d-flex justify-content-end">
-							<a href="/job/1/update-form" class="btn btn-warning me-1"
+							<a href="/employment/{{models.id}}/update-form" class="btn btn-warning me-1"
 							>수정</a
 							>
-							<form action="/job/1/delete" method="post">
+							<form action="/employment/{{models.id}}/delete" method="post">
 								<button class="btn btn-danger">삭제</button>
 							</form>
 						</div>
