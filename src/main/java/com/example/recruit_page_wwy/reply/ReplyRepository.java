@@ -13,11 +13,10 @@ import java.util.List;
 public class ReplyRepository {
     private final EntityManager em;
 
-    public List<Reply> findByBoardId(Integer board_id) {
-        Query query = em.createNativeQuery("select from reply_tb where board_id=?", Reply.class);
-        query.setParameter(1, board_id);
+    public List<Reply> findByBoardId(Integer boardId) {
+        Query query = em.createNativeQuery("select * from reply_tb where board_id=?", Reply.class);
+        query.setParameter(1, boardId);
         return query.getResultList();
-
     }
 
     public Reply findById(Integer id) {
