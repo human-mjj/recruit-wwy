@@ -35,7 +35,7 @@
         </div>
         <div class="job-list">
             <ul class="card-wrap row row-gap-3" style="gap: calc(4% / 3);">
-                {{#model.employments}}
+                {{#models.employments}}
                     <li class="card-1">
                         <a href="/employment/{{id}}" class="d-flex flex-column gap-2">
                             <figure
@@ -77,7 +77,7 @@
                         </a>
                     </li>
                     <!-- .card-1 end -->
-                {{/model.employments}}
+                {{/models.employments}}
             </ul>
             <!-- .card-wrap end -->
             <div class="pagging d-flex justify-content-center">
