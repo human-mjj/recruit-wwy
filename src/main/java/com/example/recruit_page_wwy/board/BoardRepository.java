@@ -60,4 +60,8 @@ public class BoardRepository {
         query.executeUpdate();
     }
 
+    public void delete(Integer id) {
+        Board board = em.find(Board.class, id);
+        em.remove(board);
+    }
 }

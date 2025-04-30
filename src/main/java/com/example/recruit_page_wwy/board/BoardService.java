@@ -2,6 +2,7 @@ package com.example.recruit_page_wwy.board;
 
 
 import com.example.recruit_page_wwy.reply.Reply;
+import com.example.recruit_page_wwy.reply.ReplyRepository;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -17,53 +18,38 @@ import java.util.List;
 
 public class BoardService {
     private final BoardRepository boardRepository;
+    private final ReplyRepository replyRepository;
 
     @PersistenceContext
     private EntityManager em;
 
-
+    // TODO : save -> persist (later)
     @Transactional
     public void boardSave(BoardRequest.SaveDTO saveDTO) {
         boardRepository.save(saveDTO.getUser_id(), saveDTO.getTitle(), saveDTO.getContent());
     }
 
-    public BoardResponse.ListDTO boardList(Integer page) {
+    public BoardResponse.ListDTO boardList(Integer page, User sessionUser) {
         Long totalCount = boardRepository.totalCount();
         List<Board> boards = boardRepository.findAll(page);
-        return new BoardResponse.ListDTO(boards, page, totalCount.intValue());
+        return new BoardResponse.ListDTO(boards, page, totalCount.intValue(), sessionUser);
     }
 
-    public BoardResponse.DetailDTO boardDetail(Integer id) {
-        Board board = em.find(Board.class, id);
+    public BoardResponse.DetailDTO boardDetail(Integer id, User sessionUser) {
+        Board board = boardRepository.findById(id);
 
-        List<Reply> replyList = em.createQuery("select r from Reply r where r.board.id = :id", Reply.class)
-                .setParameter("id", id)
-                .getResultList();
+        List<BoardResponse.DetailDTO.ReplyDTO> replyList = new ArrayList<>();
 
-        User user = board.getUser();
-
-
-        List<BoardResponse.DetailDTO.ReplyDTO> replyDTOList = new ArrayList<>();
-
-        for (Reply reply : replyList) {
-            BoardResponse.DetailDTO.ReplyDTO replyDTO = new BoardResponse.DetailDTO.ReplyDTO(
-                    reply.getId(),
-                    reply.getUser().getId(),
-                    reply.getContent(),
-                    reply.getCreatedAt()
-            );
-            replyDTOList.add(replyDTO);
+        List<Reply> replys = replyRepository.findByBoardId(id);
+        for (Reply reply : replys) {
+            BoardResponse.DetailDTO.ReplyDTO replyDTO = new BoardResponse.DetailDTO.ReplyDTO(reply);
+            replyList.add(replyDTO);
         }
 
-        return BoardResponse.DetailDTO.builder()
-                .userId(board.getId())  // 게시글 ID
-                .title(board.getTitle())
-                .content(board.getContent())
-                .username(board.getUser().getUsername())
-                .replyList(replyDTOList)  // 댓글 리스트 추가
-                .build();
+        return new BoardResponse.DetailDTO(board, replyList, sessionUser);
     }
 
+    // TODO : update -> dirty checking (later)
     @Transactional
     public void boardUpdate(Integer id, BoardRequest.UpdateDTO updateDTO) {
         boardRepository.boardUpdate(id, updateDTO.getTitle(), updateDTO.getContent());
@@ -71,9 +57,6 @@ public class BoardService {
 
     @Transactional
     public void boardDelete(Integer id) {
-        Board board = em.find(Board.class, id);
-        if (board != null) {
-            em.remove(board);
-        }
+        boardRepository.delete(id);
     }
 }
