@@ -88,10 +88,10 @@ public class EmploymentRepository {
 
         if ("latest".equals(sort)) {
             jpql += " ORDER BY e.id DESC";
-        } else if ("recommended".equals(sort)) {
-            jpql += " ORDER BY SIZE(e.scraps) DESC";
+        } else if ("deadline".equals(sort)) {
+            jpql += " ORDER BY e.endDate";
         } else {
-            jpql += " ORDER BY function('RAND')";
+            jpql += " ORDER BY function('RAND()')";
         }
 
         Query query = em.createQuery(jpql, Employment.class);
@@ -221,5 +221,9 @@ public class EmploymentRepository {
         return em.createQuery("select e from Employment e where e.user.id = :id", Employment.class)
                 .setParameter("id", id)
                 .getResultList();
+    }
+
+    public void deleteById(int employmentId) {
+        em.remove(em.find(Employment.class, employmentId));
     }
 }

@@ -3,17 +3,24 @@ package com.example.recruit_page_wwy.resume;
 
 import com.example.recruit_page_wwy.employment.Employment;
 import com.example.recruit_page_wwy.employment.EmploymentRepository;
+import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.scrap.Scrap;
 import com.example.recruit_page_wwy.scrap.ScrapRepository;
+import com.example.recruit_page_wwy.stack.Stack;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -26,9 +33,20 @@ public class ResumeService {
     private EntityManager em;
 
     @Transactional
-    public void save(ResumeRequest.SaveDTO saveDTO) {
+    public void save(ResumeRequest.SaveDTO saveDTO, User sessionUser) {
+        saveDTO.setUser_id(sessionUser.getId());
+        MultipartFile imgFile = saveDTO.getUploadingImg();
+        String imgFilename = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
+        System.out.println("img Filename: " + imgFilename);
+        Path imgPath = Paths.get("./upload/" + imgFilename);
+        try {
+            Files.write(imgPath, imgFile.getBytes());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        saveDTO.setImgUrl(imgFilename);
         resumeRepository.save(saveDTO.getUser_id(), saveDTO.getTitle(), saveDTO.getExp(), saveDTO.getEdu(), saveDTO.getJob_id(), saveDTO.getLocation(), saveDTO.getQualified(),
-                saveDTO.getActivity(), saveDTO.getImg_url(), saveDTO.getSkills());
+                saveDTO.getActivity(), saveDTO.getImgUrl(), saveDTO.getSkills());
     }
 
     public ResumeResponse.MainDTO findAll(Integer userId, Integer page) {
@@ -90,5 +108,11 @@ public class ResumeService {
         if (resume != null) {
             em.remove(resume);
         }
+    }
+
+    public ResumeResponse.TableDTO viewJobAndStackList() {
+        List<Job> jobList = resumeRepository.findAllJobs();
+        List<Stack> stackList = resumeRepository.findAllStacks();
+        return new ResumeResponse.TableDTO(jobList, stackList);
     }
 }

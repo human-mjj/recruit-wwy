@@ -33,19 +33,23 @@ public class ResumeController {
         return "resume/detail";
     }
 
+    // TODO DTO처리 0 - 끝
     @GetMapping("/resume/save-form")
-    public String resumeSaveForm() {
+    public String resumeSaveForm(HttpServletRequest request) {
+        ResumeResponse.TableDTO tableDTO = resumeService.viewJobAndStackList();
+        request.setAttribute("model", tableDTO);
         return "resume/save-form";
     }
 
+    // TODO DTO처리 1
     @PostMapping("/resume/save")
     public String resumeSave(ResumeRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        saveDTO.setUser_id(sessionUser.getId());
-        resumeService.save(saveDTO);
+        resumeService.save(saveDTO, sessionUser);
         return "redirect:/mypage/resume";
     }
 
+    // TODO DTO처리 2
     @GetMapping("/resume/{id}/update-form")
     public String resumeUpdateForm(@PathVariable("id") Integer id, HttpServletRequest request) {
         Resume resume = resumeService.findById(id);
@@ -53,6 +57,7 @@ public class ResumeController {
         return "resume/update-form";
     }
 
+    // TODO DTO처리 3
     @PostMapping("/resume/{id}/update")
     public String resumeUpdate(@PathVariable("id") Integer id, ResumeRequest.UpdateDTO updateDTO) {
         resumeService.update(id, updateDTO);
