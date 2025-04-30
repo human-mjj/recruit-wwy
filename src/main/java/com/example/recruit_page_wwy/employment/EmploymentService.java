@@ -113,13 +113,40 @@ public class EmploymentService {
         // 최종 DTO 생성 (우리가 만든 깔끔한 생성자 사용)
         return new EmploymentResponse.DetailDTO(sessionUser, employment, resumeList, stackList, isScrap, scrapId);
     }
-
     public EmploymentResponse.TableDTO viewJobAndStackList() {
         List<Job> jobList = employmentRepository.findAllJobs();
         List<Stack> stackList = employmentRepository.findAllStacks();
         return new EmploymentResponse.TableDTO(jobList, stackList);
-    }
+        Scrap scrap = scrapRepository.findByUserIdAndEmployId(sessionUserId, employmentId);
+        Boolean isScrap = scrap == null ? false : true;
+        Integer scrapId = scrap == null ? null : scrap.getId();
 
+        return new EmploymentResponse.DetailDTO(
+                sessionUserId,
+                sessionUserRole,
+                isOwner,
+                isApplicant,
+                id,
+                userImgUrl,
+                title,
+                comName,
+                exp,
+                edu,
+                shift,
+                sal,
+                workingTime,
+                location,
+                endDate,
+                duty,
+                qualification,
+                jobName,
+                stackList,
+                stackStr,
+                resumeList,
+                isScrap,
+                scrapId
+        );
+    }
     @Transactional
     public void save(EmploymentRequest.SaveDTO saveDTO, User sessionUser) {
         Employment savingEmployment = saveDTO.toEntity(sessionUser);
