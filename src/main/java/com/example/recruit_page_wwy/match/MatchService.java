@@ -12,9 +12,10 @@ import java.util.List;
 public class MatchService {
     private final MatchRepository matchRepository;
 
-    public List<MatchResponse.EmploymentDTO> matchEmployment(User sessionUser) {
+    public MatchResponse.MatchDTO matchEmployment(User sessionUser) {
+        List<MatchResponse.EmploymentDTO> recommendedEmployList = matchRepository.findAllProposals(sessionUser.getId());
         List<MatchResponse.EmploymentDTO> matchEmployList = matchRepository.findAllRecommendedEmployments(sessionUser.getId());
-        return matchEmployList;
+        return new MatchResponse.MatchDTO(recommendedEmployList, matchEmployList, sessionUser);
     }
 
     public List<MatchResponse.ResumeDTO> matchResume(User sessionUser) {
