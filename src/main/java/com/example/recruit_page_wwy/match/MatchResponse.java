@@ -1,7 +1,10 @@
 package com.example.recruit_page_wwy.match;
 
 
+import com.example.recruit_page_wwy.user.User;
 import lombok.Data;
+
+import java.util.List;
 
 public class MatchResponse {
 
@@ -32,6 +35,19 @@ public class MatchResponse {
             this.comName = comName;
             this.exp = exp;
             this.location = location;
+        }
+    }
+
+    @Data
+    public static class MatchDTO {
+        private boolean isCompanyUser;
+        private List<EmploymentDTO> proposalList;
+        private List<EmploymentDTO> recommendationList;
+
+        public MatchDTO(List<EmploymentDTO> proposalList, List<EmploymentDTO> recommendationList, User sessionUser) {
+            this.proposalList = proposalList;
+            this.recommendationList = recommendationList;
+            this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
         }
     }
 }
