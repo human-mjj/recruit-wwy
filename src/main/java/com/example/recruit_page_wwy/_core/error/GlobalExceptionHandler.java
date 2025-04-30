@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
     //Forbidden - 권한 없음 (403)
     @ExceptionHandler(Exception403.class)
     public String ex403(Exception e) {
-        return Script.alert(e.getMessage());
+        return Script.back(e.getMessage());
     }
 
 //    @ExceptionHandler(ExceptionApi403.class)
@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
     //Not Found - 자원 찾을 수 없음 (404)
     @ExceptionHandler(Exception404.class)
     public String ex404(Exception e) {
-        return Script.back(e.getMessage());
+        return Script.href(e.getMessage(), "/");
     }
 
 //    @ExceptionHandler(ExceptionApi404.class)
