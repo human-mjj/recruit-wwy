@@ -107,4 +107,12 @@ public class EmploymentController {
         return "redirect:/employment/" + employmentId;
     }
 
+    @PostMapping("/employment/{id}/delete")
+    public String deleteEmployment(@PathVariable("id") int employmentId) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null || sessionUser.getRole() == 0) throw new RuntimeException("401 Unauthorized");
+        employmentService.delete(employmentId);
+        return "redirect:/mypage/employment";
+    }
+
 }

@@ -187,4 +187,9 @@ public class EmploymentService {
         // 3. 스택(EmployStack) 수정은 별도로 처리 필요
         employmentRepository.updateStack(employmentId, dto.getEmployStack()); // 기존 스택 전부 삭제
     }
+
+    @Transactional
+    public void delete(int employmentId) {
+        employmentRepository.deleteById(employmentId);
+    }
 }
