@@ -59,30 +59,25 @@
                     {{/models.isScrap}}
                 {{/models.isCompanyUser}}
 
-                <a href="/resume/{{id}}/update-form">
-                    <button
-                            class="btn btn-warning fw-semibold ms-3"
-                    >
-                        수정
-                    </button>
-                </a>
-                <form method="post" action="/resume/{{id}}/delete">
-                    <button class="btn btn-danger fw-semibold ms-3">
-                        삭제
-                    </button>
-                </form>
-                <form method="post" action="/resume/1/recommend">
-                    <button class="btn btn-success fw-semibold ms-3">
-                        추천
-                    </button>
-                </form>
-            </div>
-        </div>
-        <br/>
-        <!-- 이력서 내용 -->
-        {{#models}}
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 class="fw-semibold mb-0">{{title}}</h3>
+				<a href="/resume/{{id}}/update-form">
+					<button
+							class="btn btn-warning fw-semibold ms-3"
+					>
+						수정
+					</button>
+				</a>
+				<form method="post" action="/resume/{{id}}/delete">
+					<button class="btn btn-danger fw-semibold ms-3">
+						삭제
+					</button>
+				</form>
+			</div>
+		</div>
+		<br/>
+		<!-- 이력서 내용 -->
+		{{#models}}
+			<div class="d-flex justify-content-between align-items-center mb-3">
+				<h3 class="fw-semibold mb-0">{{title}}</h3>
 
                 <div class="d-flex flex-column align-items-start">
                     <!-- 소제목 -->
