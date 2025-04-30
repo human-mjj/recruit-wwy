@@ -3,6 +3,7 @@ package com.example.recruit_page_wwy.resume;
 import com.example.recruit_page_wwy.employment.Employment;
 import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.resumestack.ResumeStack;
+import com.example.recruit_page_wwy.stack.Stack;
 import com.example.recruit_page_wwy.user.User;
 import lombok.Data;
 
@@ -119,6 +120,17 @@ public class ResumeResponse {
             this.employmentList = employmentList;
             this.isScrap = isScrap;
             this.scrapId = scrapId == null ? 0 : scrapId;
+        }
+    }
+
+    @Data
+    public static class TableDTO {
+        List<Job> jobList;
+        List<Stack> stackList;
+
+        public TableDTO(List<Job> jobList, List<Stack> stackList) {
+            this.jobList = jobList;
+            this.stackList = stackList;
         }
     }
 }
