@@ -34,8 +34,9 @@ public class ResumeResponse {
             this.current = current;
             this.prev = current - 1;
             this.next = current + 1;
+
             this.isFirst = current == 1;
-            this.isLast = current.equals(totalPage);
+            this.isLast = current.equals(totalPage) || totalPage == 0;
             this.numbers = makeNumbers(current, totalPage);
         }
 

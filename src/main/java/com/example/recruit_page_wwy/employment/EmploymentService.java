@@ -55,34 +55,28 @@ public class EmploymentService {
 
     // 채용공고 리스트, paging
     public EmploymentResponse.EmploymentPageDTO employmentAllList(User sessionUser, String jobType, String careerLevel, List<String> skills, String sort, Integer page) {
-        int realPage = page;
         Long totalCount = employmentRepository.totalCount();
         List<Employment> employmentList = new ArrayList<>();
         System.out.println("1");
         // TODO: Teacher
         if (sort.equals("recommend")) {
-            System.out.println("2");
-            employmentList = employmentRepository.findAllWithRecommend(jobType, careerLevel, skills, sort, realPage);
-            System.out.println("7");
+            employmentList = employmentRepository.findAllWithRecommend(jobType, careerLevel, skills, sort, page);
         } else {
-            employmentList = employmentRepository.findAll(jobType, careerLevel, skills, sort, realPage);
+            employmentList = employmentRepository.findAll(jobType, careerLevel, skills, sort, page);
         }
 
 
         List<EmploymentResponse.PublicListDTO> dtoList = new ArrayList<>();
-        System.out.println("8");
-
         for (Employment e : employmentList) {
-            System.out.println("9");
+
             dtoList.add(new EmploymentResponse.PublicListDTO(e, sessionUser));
         }
-        System.out.println("10");
+
         EmploymentResponse.TableDTO tableDTO = new EmploymentResponse.TableDTO(
                 employmentRepository.findAllJobs(),
                 employmentRepository.findAllStacks(),
                 jobType, skills
         );
-        System.out.println("11");
         List<String> careerLevels = new ArrayList<>();
         careerLevels.add("신입");
         careerLevels.add("1 ~ 3년 차");
@@ -90,12 +84,11 @@ public class EmploymentService {
         careerLevels.add("5 ~ 7년 차");
         careerLevels.add("7 ~ 9년 차");
         careerLevels.add("10년 이상");
-        System.out.println("12");
-        return new EmploymentResponse.EmploymentPageDTO(dtoList, realPage, totalCount.intValue(), tableDTO, careerLevels, sessionUser, jobType, careerLevel, sort, skills);
+        return new EmploymentResponse.EmploymentPageDTO(dtoList, page, totalCount.intValue(), tableDTO, careerLevels, sessionUser, jobType, careerLevel, sort, skills);
     }
 
-    public List<Employment> viewEmployList() {
-        return employmentRepository.findTop4ByOrderByIdDesc();
+    public EmploymentResponse.MainDTO viewEmployList(User sessionUser) {
+        return new EmploymentResponse.MainDTO(sessionUser, employmentRepository.findTop4ByOrderByIdDesc());
     }
 
     public EmploymentResponse.DetailDTO findEmploymentDetail(Integer employmentId, User sessionUser) {
@@ -142,13 +135,16 @@ public class EmploymentService {
     @Transactional
     public void save(EmploymentRequest.SaveDTO saveDTO, User sessionUser) {
         MultipartFile imgFile = saveDTO.getUploadingImg();
-        String imgFilename = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
-        System.out.println("img Filename: " + imgFilename);
-        Path imgPath = Paths.get("./upload/" + imgFilename);
-        try {
-            Files.write(imgPath, imgFile.getBytes());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        String imgFilename = null;
+        if (!"null".contains(imgFile.getOriginalFilename())) {
+            imgFilename += UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
+            System.out.println("img Filename: " + imgFilename);
+            Path imgPath = Paths.get("./upload/" + imgFilename);
+            try {
+                Files.write(imgPath, imgFile.getBytes());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
         Employment savingEmployment = saveDTO.toEntity(sessionUser, imgFilename);
         employmentRepository.save(savingEmployment, saveDTO.getEmployStack());
@@ -208,15 +204,17 @@ public class EmploymentService {
         // 1. 수정할 Employment 엔티티를 조회
         Employment employment = employmentRepository.findByEmploymentId(employmentId);
         if (employment == null) throw new RuntimeException("해당 채용공고를 찾을 수 없습니다.");
-
         MultipartFile imgFile = dto.getUploadingImg();
-        String imgFilename = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
-        System.out.println("img Filename: " + imgFilename);
-        Path imgPath = Paths.get("./upload/" + imgFilename);
-        try {
-            Files.write(imgPath, imgFile.getBytes());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        String imgFilename = null;
+        if (!"null".contains(imgFile.getOriginalFilename())) {
+            imgFilename += UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
+            System.out.println("img Filename: " + imgFilename);
+            Path imgPath = Paths.get("./upload/" + imgFilename);
+            try {
+                Files.write(imgPath, imgFile.getBytes());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
         // 2. Employment 엔티티의 update 메서드를 호출

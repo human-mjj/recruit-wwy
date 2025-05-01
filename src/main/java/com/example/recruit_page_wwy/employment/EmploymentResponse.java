@@ -16,6 +16,17 @@ import java.util.stream.Collectors;
 public class EmploymentResponse {
 
     @Data
+    public static class MainDTO {
+        private Boolean isCompanyUser;
+        private List<Employment> employmentList;
+
+        public MainDTO(User sessionUser, List<Employment> employmentList) {
+            this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
+            this.employmentList = employmentList;
+        }
+    }
+
+    @Data
     public static class TableDTO {
 
         private List<Job> jobList;             // 원본 직무 엔티티 리스트
@@ -163,7 +174,7 @@ public class EmploymentResponse {
             this.next = current + 1;
             this.nextPage = next + 1;
             this.isFirst = current == 0;
-            this.isLast = current == totalPage - 1;
+            this.isLast = current == totalPage - 1 || totalPage == 0;
             this.numbers = makeNumbers(current, totalPage);
 
             this.table = table;
@@ -196,11 +207,13 @@ public class EmploymentResponse {
 
         private List<Integer> makeNumbers(int current, int totalPage) {
             List<Integer> numbers = new ArrayList<>();
-            int start = (current / 5) * 5 + 1;
-            int end = Math.min(start + 4, totalPage);
+            int groupSize = 5;
+            int start = (current / groupSize) * groupSize + 1;
+            int end = Math.min(start + groupSize - 1, totalPage);
             for (int i = start; i <= end; i++) {
                 numbers.add(i);
             }
+            System.out.println(start);
             return numbers;
         }
     }
@@ -234,7 +247,7 @@ public class EmploymentResponse {
             this.next = current + 1;
 
             this.isFirst = current == 1;
-            this.isLast = current.equals(totalPage);
+            this.isLast = current.equals(totalPage) || totalPage == 0;
             this.numbers = makeNumbers(current, totalPage);
         }
 
