@@ -28,7 +28,7 @@ public class ResumeController {
     public String resumeDetail(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         ResumeResponse.DetailDTO detailDTO = resumeService.detailView(resumeId, sessionUser);
-        request.setAttribute("models", detailDTO);
+        request.setAttribute("model", detailDTO);
         System.out.println(detailDTO.getIsScrap());
         System.out.println(detailDTO.getLetter());
         return "resume/detail";
