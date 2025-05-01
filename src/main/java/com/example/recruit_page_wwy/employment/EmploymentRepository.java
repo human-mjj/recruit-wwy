@@ -140,7 +140,7 @@ public class EmploymentRepository {
     public List<Employment> findAllWithRecommend(String jobType, String careerLevel, List<String> skills, String sort, int page) {
         // 1. 기존 JPQL 쿼리 실행
         String jpql = """
-                    SELECT DISTINCT e, ()
+                    SELECT DISTINCT e
                     FROM Employment e
                     JOIN FETCH e.user
                     JOIN FETCH e.job
@@ -171,7 +171,7 @@ public class EmploymentRepository {
         }
 
         List<Employment> employmentList = query.getResultList();
-
+        System.out.println("3");
         // 2. 별도 쿼리로 scrapCount 가져오기 (JPQL)
         String countJpql = """
                     SELECT s.employment.id, COUNT(s.id)
@@ -181,7 +181,7 @@ public class EmploymentRepository {
                 """;
 
         List<Object[]> countResults = em.createQuery(countJpql, Object[].class).getResultList();
-
+        System.out.println("4");
         Map<Integer, Long> scrapMap = countResults.stream()
                 .collect(Collectors.toMap(
                         row -> (Integer) row[0],
@@ -192,11 +192,12 @@ public class EmploymentRepository {
         for (Employment e : employmentList) {
             e.setScrapCount(scrapMap.getOrDefault(e.getId(), 0L));
         }
-
+        System.out.println("5");
         // 4. 페이징 직접 하기
         employmentList.sort((e1, e2) -> Long.compare(e2.getScrapCount(), e1.getScrapCount()));
         int start = page * 16;
         int end = Math.min(start + 16, employmentList.size());
+        System.out.println("6");
         return employmentList.subList(start, end);
     }
 
