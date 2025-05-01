@@ -33,6 +33,14 @@ public class Employment {
     private String edu;
     private String shift;
 
+    // TODO: Teacher
+    @Transient
+    private Long scrapCount = 0L;
+
+    public void setScrapCount(Long scrapCount) {
+        this.scrapCount = scrapCount;
+    }
+
     // 기술 스택 리스트
     @OneToMany(mappedBy = "employment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<EmployStack> employStackList;

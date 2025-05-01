@@ -57,9 +57,19 @@ public class EmploymentService {
     public EmploymentResponse.EmploymentPageDTO employmentAllList(User sessionUser, String jobType, String careerLevel, List<String> skills, String sort, Integer page) {
         int realPage = page - 1;
         Long totalCount = employmentRepository.totalCount();
-        List<Employment> employmentList = employmentRepository.findAll(jobType, careerLevel, skills, sort, realPage);
+        List<Employment> employmentList;
+
+        // TODO: Teacher
+        if (sort.equals("recommend")) {
+            employmentList = employmentRepository.findAllWithRecommend(jobType, careerLevel, skills, sort, realPage);
+        } else {
+            employmentList = employmentRepository.findAll(jobType, careerLevel, skills, sort, realPage);
+        }
+
 
         List<EmploymentResponse.PublicListDTO> dtoList = new ArrayList<>();
+
+
         for (Employment e : employmentList) {
             dtoList.add(new EmploymentResponse.PublicListDTO(e, sessionUser));
         }
