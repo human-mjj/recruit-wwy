@@ -55,7 +55,7 @@ public class EmploymentService {
 
     // 채용공고 리스트, paging
     public EmploymentResponse.EmploymentPageDTO employmentAllList(User sessionUser, String jobType, String careerLevel, List<String> skills, String sort, Integer page) {
-        int realPage = page - 1;
+        int realPage = page;
         Long totalCount = employmentRepository.totalCount();
         List<Employment> employmentList = employmentRepository.findAll(jobType, careerLevel, skills, sort, realPage);
 

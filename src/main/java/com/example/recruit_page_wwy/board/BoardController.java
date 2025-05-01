@@ -1,5 +1,6 @@
 package com.example.recruit_page_wwy.board;
 
+import com.example.recruit_page_wwy._core.error.ex.Exception401;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -50,7 +51,11 @@ public class BoardController {
 
 
     @GetMapping("/board/{id}/update-form")
-    public String boardUpdateForm(@PathVariable("id") Integer id) {
+    public String boardUpdateForm(@PathVariable("id") Integer id, HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) throw new Exception401("로그인을 해 주세요.");
+        BoardResponse.UpdateViewDTO respDTO = boardService.updateView(id, sessionUser);
+        request.setAttribute("model", respDTO);
         return "board/update-form";
     }
 

@@ -42,7 +42,7 @@ public class BoardService {
 
         List<Reply> replys = replyRepository.findByBoardId(id);
         for (Reply reply : replys) {
-            BoardResponse.DetailDTO.ReplyDTO replyDTO = new BoardResponse.DetailDTO.ReplyDTO(reply);
+            BoardResponse.DetailDTO.ReplyDTO replyDTO = new BoardResponse.DetailDTO.ReplyDTO(reply, sessionUser);
             replyList.add(replyDTO);
         }
 
@@ -58,5 +58,10 @@ public class BoardService {
     @Transactional
     public void boardDelete(Integer id) {
         boardRepository.delete(id);
+    }
+
+    public BoardResponse.UpdateViewDTO updateView(Integer id, User sessionUser) {
+        Board boardPS = boardRepository.findById(id);
+        return new BoardResponse.UpdateViewDTO(boardPS, sessionUser);
     }
 }

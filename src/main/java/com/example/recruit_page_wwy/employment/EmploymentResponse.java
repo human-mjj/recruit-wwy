@@ -32,7 +32,9 @@ public class EmploymentResponse {
 
         private List<PublicListDTO> employments;
         private Integer prev;
+        private Integer prevPage;
         private Integer next;
+        private Integer nextPage;
 
         private Integer size;
         private Integer totalCount;
@@ -53,8 +55,10 @@ public class EmploymentResponse {
             this.totalCount = totalCount;
             this.totalPage = makeTotalPage(totalCount, size);
             this.current = current;
-            this.prev = current <= 0 ? 1 : current;
-            this.next = current + 2;
+            this.prev = current - 1;
+            this.prevPage = prev + 1;
+            this.next = current + 1;
+            this.nextPage = next + 1;
 
             this.isFirst = current == 0;
             this.isLast = current == totalPage - 1;
@@ -65,18 +69,18 @@ public class EmploymentResponse {
         }
 
         private Integer makeTotalPage(int totalCount, int size) {
-            int rest = totalCount % size > 0 ? 1 : 0;
+            int rest = totalCount % size > 0 ? 1 : 0; //나머지값은 0~2를 순회함
             return totalCount / size + rest;
         }
 
         private List<Integer> makeNumbers(int current, int totalPage) {
             List<Integer> numbers = new ArrayList<>();
 
-            int start = (current / 5) * 5;
-            int end = Math.min(start + 5, totalPage);
+            int start = (current / 5) * 5 + 1;
+            int end = Math.min(start + 4, totalPage);
 
-            for (int i = start; i < end; i++) {
-                numbers.add(i + 1); // 버튼 1부터 보이게 처리된 곳
+            for (int i = start; i <= end; i++) {
+                numbers.add(i);
             }
 
             return numbers;

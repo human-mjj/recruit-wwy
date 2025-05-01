@@ -1,7 +1,6 @@
 package com.example.recruit_page_wwy.employment;
 
 import com.example.recruit_page_wwy.user.User;
-import com.example.recruit_page_wwy.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -49,7 +48,7 @@ public class EmploymentController {
                                  @RequestParam(defaultValue = "latest") String sort,
                                  @RequestParam(required = false) List<String> skills) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        EmploymentResponse.EmploymentPageDTO model = employmentService.employmentAllList(sessionUser, jobType, careerLevel, skills, sort, page);
+        EmploymentResponse.EmploymentPageDTO model = employmentService.employmentAllList(sessionUser, jobType, careerLevel, skills, sort, page - 1);
         request.setAttribute("model", model);
 
         return "employment/list";

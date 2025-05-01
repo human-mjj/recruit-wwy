@@ -113,33 +113,6 @@
 								<div class="recommend-content d-flex flex-column border rounded gap-3 py-3 px-3">
 									<div class="top d-flex justify-content-between">
 										<h3 class="fs-6 fw-medium">{{title}}</h3>
-										{{#sessionUser}}
-											{{^model.isCompanyUser}}
-												{{#model.isScrap}}
-													<div class="btn-wrap mt-1">
-														<div class="toggle-btn">
-															<i id="scrapIcon" class="fa fa-star" style="
-                                        font-size: 24px;
-                                        color: yellow;
-                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
-                                  " onclick="deleteScrap({{model.scrapId}})"></i>
-														</div>
-													</div>
-												{{/model.isScrap}}
-												{{^model.isScrap}}
-													<div class="btn-wrap mt-1">
-														<div class="toggle-btn">
-															<i id="scrapIcon" class="fa fa-star" style="
-                                        font-size: 24px;
-                                        color: black;
-                                        text-shadow: 0 0 1px #000, 0 0 1px #000;
-                                  " onclick="saveScrap()"></i>
-														</div>
-													</div>
-												{{/model.isScrap}}
-											{{/model.isCompanyUser}}
-										{{/sessionUser}}
-
 										<!-- .toggle-btn end -->
 									</div>
 									<!-- .top end -->
@@ -175,7 +148,7 @@
 				<div class="pagging d-flex justify-content-center">
 					<ul class="pagination">
 						<li class="page-item {{#model.isFirst}}disabled{{/model.isFirst}}">
-							<a class="page-link" href="?page={{model.prev}}">Previous</a>
+							<a class="page-link" href="?page={{model.prevPage}}">Previous</a>
 						</li>
 						{{#model.numbers}}
 							<li class="page-item">
@@ -183,7 +156,7 @@
 							</li>
 						{{/model.numbers}}
 						<li class="page-item {{#model.isLast}}disabled{{/model.isLast}}">
-							<a class="page-link" href="?page={{model.next}}">Next</a>
+							<a class="page-link" href="?page={{model.nextPage}}">Next</a>
 						</li>
 					</ul>
 				</div>

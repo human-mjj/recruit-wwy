@@ -44,8 +44,6 @@ public class User {
     }
 
     public void update(User user) {
-        this.username = user.getUsername();
-        this.email = user.getEmail();
         this.phone = user.getPhone();
         this.password = user.getPassword();
         this.imgUrl = user.getImgUrl();
