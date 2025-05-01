@@ -161,6 +161,7 @@ public class EmploymentResponse {
     @Data
     public static class PublicListDTO {
         private Integer id;
+        private Long scrapCount; // TODO: Teacher
         private String title;
         private String comName;
         private String exp;
@@ -174,6 +175,7 @@ public class EmploymentResponse {
 
         public PublicListDTO(Employment e, User sessionUser) {
             this.id = e.getId();
+            this.scrapCount = e.getScrapCount();
             this.title = e.getTitle();
             this.comName = e.getUser().getComName();
             this.exp = e.getExp();
