@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Repository
@@ -109,7 +111,93 @@ public class EmploymentRepository {
         query.setFirstResult(page * 16);
         query.setMaxResults(16);
 
-        return query.getResultList();
+        List<Employment> employmentList = query.getResultList();
+
+        // 1. 별도 쿼리로 scrapCount 가져오기 (JPQL)
+        String countJpql = """
+                    SELECT s.employment.id, COUNT(s.id)
+                    FROM Scrap s
+                    WHERE s.resume IS NULL
+                    GROUP BY s.employment.id
+                """;
+
+        List<Object[]> countResults = em.createQuery(countJpql, Object[].class).getResultList();
+
+        Map<Integer, Long> scrapMap = countResults.stream()
+                .collect(Collectors.toMap(
+                        row -> (Integer) row[0],
+                        row -> (Long) row[1]
+                ));
+
+        // 2. scrapCount를 Employment에 주입
+        for (Employment e : employmentList) {
+            e.setScrapCount(scrapMap.getOrDefault(e.getId(), 0L));
+        }
+
+        return employmentList;
+    }
+
+    public List<Employment> findAllWithRecommend(String jobType, String careerLevel, List<String> skills, String sort, int page) {
+        // 1. 기존 JPQL 쿼리 실행
+        String jpql = """
+                    SELECT DISTINCT e, ()
+                    FROM Employment e
+                    JOIN FETCH e.user
+                    JOIN FETCH e.job
+                    LEFT JOIN FETCH e.employStackList es
+                    WHERE 1=1
+                """;
+
+        if (jobType != null && !jobType.isBlank()) {
+            jpql += " AND e.job.name = :jobType";
+        }
+        if (careerLevel != null && !careerLevel.isBlank()) {
+            jpql += " AND e.exp LIKE :careerLevel";
+        }
+        if (skills != null && !skills.isEmpty() && !skills.contains("all")) {
+            jpql += " AND es.skill IN :skills";
+        }
+
+        Query query = em.createQuery(jpql, Employment.class);
+
+        if (jobType != null && !jobType.isBlank()) {
+            query.setParameter("jobType", jobType);
+        }
+        if (careerLevel != null && !careerLevel.isBlank()) {
+            query.setParameter("careerLevel", "%" + careerLevel + "%");
+        }
+        if (skills != null && !skills.isEmpty() && !skills.contains("all")) {
+            query.setParameter("skills", skills);
+        }
+
+        List<Employment> employmentList = query.getResultList();
+
+        // 2. 별도 쿼리로 scrapCount 가져오기 (JPQL)
+        String countJpql = """
+                    SELECT s.employment.id, COUNT(s.id)
+                    FROM Scrap s
+                    WHERE s.resume IS NULL
+                    GROUP BY s.employment.id
+                """;
+
+        List<Object[]> countResults = em.createQuery(countJpql, Object[].class).getResultList();
+
+        Map<Integer, Long> scrapMap = countResults.stream()
+                .collect(Collectors.toMap(
+                        row -> (Integer) row[0],
+                        row -> (Long) row[1]
+                ));
+
+        // 3. scrapCount를 Employment에 주입
+        for (Employment e : employmentList) {
+            e.setScrapCount(scrapMap.getOrDefault(e.getId(), 0L));
+        }
+
+        // 4. 페이징 직접 하기
+        employmentList.sort((e1, e2) -> Long.compare(e2.getScrapCount(), e1.getScrapCount()));
+        int start = page * 16;
+        int end = Math.min(start + 16, employmentList.size());
+        return employmentList.subList(start, end);
     }
 
     public List<Employment> findTop4ByOrderByIdDesc() {
