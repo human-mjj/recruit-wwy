@@ -21,15 +21,35 @@ public class BoardRepository {
         query.executeUpdate();
     }
 
-    public Long totalCount() {
-        String sql = "select count(b) from Board b";
+    public Long totalCount(String keyword) {
+        String sql;
+        if (keyword.isBlank()) {
+            sql = "select count(b) from Board b";
+        } else {
+            sql = "select count(b) from Board b where b.title like :keyword";
+        }
+
         Query query = em.createQuery(sql, Long.class);
+
+        if (!keyword.isBlank()) {
+            query.setParameter("keyword", "%" + keyword + "%");
+        }
+
         return (Long) query.getSingleResult();
     }
 
-    public List<Board> findAll(int page) {
-        String sql = "select b from Board b order by b.id desc";
+    public List<Board> findAll(int page, String keyword) {
+        String sql;
+        if (keyword.isBlank()) {
+            sql = "select b from Board b order by b.id desc";
+        } else {
+            sql = "select b from Board b where b.title like :keyword order by b.id desc";
+        }
         Query query = em.createQuery(sql, Board.class);
+
+        if (!keyword.isBlank()) {
+            query.setParameter("keyword", "%" + keyword + "%");
+        }
 
         query.setFirstResult(page * 5);
         query.setMaxResults(5);

@@ -30,136 +30,151 @@
 
 <input type="hidden" id="resumeId" value="{{model.id}}">
 <div class="flex-fill" style="max-width: 75%">
-    <div class="bg-white border rounded p-4">
-        <div class="d-flex justify-content-between">
-            <h4 class="fw-bold">이력서 상세보기</h4>
-            <div class="d-flex align-items-center">
-                {{#model.isCompanyUser}}
-                    {{#model.isScrap}}
-                        <div class="btn-wrap mt-1">
-                            <div class="toggle-btn">
-                                <i id="scrapIcon" class="fa fa-star" style="
+<div class="bg-white border rounded p-4">
+    <div class="d-flex justify-content-between">
+        <h4 class="fw-bold">이력서 상세보기</h4>
+        <div class="d-flex align-items-center">
+            {{#model.isCompanyUser}}
+                {{#model.isScrap}}
+                    <div class="btn-wrap mt-1">
+                        <div class="toggle-btn">
+                            <i id="scrapIcon" class="fa fa-star" style="
                                         font-size: 24px;
                                         color: yellow;
                                         text-shadow: 0 0 1px #000, 0 0 1px #000;
                                   " onclick="deleteScrap({{model.scrapId}})"></i>
-                            </div>
                         </div>
-                    {{/model.isScrap}}
-                    {{^model.isScrap}}
-                        <div class="btn-wrap mt-1">
-                            <div class="toggle-btn">
-                                <i id="scrapIcon" class="fa fa-star" style="
+                    </div>
+                {{/model.isScrap}}
+                {{^model.isScrap}}
+                    <div class="btn-wrap mt-1">
+                        <div class="toggle-btn">
+                            <i id="scrapIcon" class="fa fa-star" style="
                                         font-size: 24px;
                                         color: black;
                                         text-shadow: 0 0 1px #000, 0 0 1px #000;
                                   " onclick="saveScrap()"></i>
-                            </div>
                         </div>
-                    {{/model.isScrap}}
-                {{/model.isCompanyUser}}
+                    </div>
+                {{/model.isScrap}}
+            {{/model.isCompanyUser}}
 
-                <a href="/resume/{{id}}/update-form">
-                    <button
-                            class="btn btn-warning fw-semibold ms-3"
-                    >
-                        수정
-                    </button>
-                </a>
-                <form method="post" action="/resume/{{id}}/delete">
-                    <button class="btn btn-danger fw-semibold ms-3">
-                        삭제
-                    </button>
-                </form>
+            <a href="/resume/{{id}}/update-form">
+                <button
+                        class="btn btn-warning fw-semibold ms-3"
+                >
+                    수정
+                </button>
+            </a>
+            <form method="post" action="/resume/{{id}}/delete">
+                <button class="btn btn-danger fw-semibold ms-3">
+                    삭제
+                </button>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <!-- 이력서 내용 -->
+{{#model}}
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="fw-semibold mb-0">{{title}}</h3>
+
+            {{#model.isCompanyUser}}
+                <div class="d-flex flex-column align-items-start">
+                    <!-- 소제목 -->
+                    <small class="text-muted fw-semibold mb-1">공고 제안</small>
+                    <!-- select + button 가로로 나란히 -->
+                    <form method="post" action="/resume/{{model.id}}/recommend" class="d-flex align-items-center">
+                        <select class="form-select me-2" name="employmentId" style="width: 200px;">
+                            {{#employmentList}}
+                                <option value="{{id}}">{{title}}</option>
+                            {{/employmentList}}
+
+                        </select>
+                        <input type="hidden" name="resumeId" value="{{model.id}}">
+                        <button type="submit" class="btn btn-success">제안하기</button>
+                    </form>
+                </div>
+            {{/model.isCompanyUser}}
+        </div>
+    {{#model.imgUrl}}
+            <img src="/upload/{{model.imgUrl}}" width="150" height="200" alt="사진없음">
+    {{/model.imgUrl}}
+
+    {{^model.imgUrl}}
+            <div class="logo-placeholder"
+                 style="width:150px; height:200px; background-color:#f8f9fa; display:flex; align-items:center; justify-content:center; border-radius:10px;">
+                <i class="fa-solid fa-user-tie text-secondary" style="font-size:8rem;"></i>
+            </div>
+    {{/model.imgUrl}}
+
+        <div class="row mb-3">
+            <div class="col-sm-3 fw-semibold text-secondary">이름</div>
+            <div class="col-sm-9">{{Username}}</div>
+        </div>
+    
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <p class="mb-1 fw-semibold text-secondary">이메일</p>
+                <p>{{email}}</p>
+            </div>
+            <div class="col-md-6">
+                <p class="mb-1 fw-semibold text-secondary">전화번호</p>
+                <p>{{phone}}</p>
             </div>
         </div>
-        <br/>
-        <!-- 이력서 내용 -->
-        {{#model}}
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 class="fw-semibold mb-0">{{title}}</h3>
 
-                {{#model.isCompanyUser}}
-                    <div class="d-flex flex-column align-items-start">
-                        <!-- 소제목 -->
-                        <small class="text-muted fw-semibold mb-1">공고 제안</small>
-                        <!-- select + button 가로로 나란히 -->
-                        <form method="post" action="/resume/{{model.id}}/recommend" class="d-flex align-items-center">
-                            <select class="form-select me-2" name="employmentId" style="width: 200px;">
-                                {{#employmentList}}
-                                    <option value="{{id}}">{{title}}</option>
-                                {{/employmentList}}
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <p class="mb-1 fw-semibold text-secondary">경력</p>
+                <p>{{exp}}</p>
+            </div>
+            <div class="col-md-6">
+                <p class="mb-1 fw-semibold text-secondary">학력</p>
+                <p>{{edu}}</p>
+            </div>
+        </div>
 
-                            </select>
-                            <input type="hidden" name="resumeId" value="{{model.id}}">
-                            <button type="submit" class="btn btn-success">제안하기</button>
-                        </form>
-                    </div>
-                {{/model.isCompanyUser}}
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <p class="mb-1 fw-semibold text-secondary">희망 직무</p>
+                <p>{{job.name}}</p>
             </div>
-            {{#model.imgUrl}}
-                <img src="/upload/{{model.imgUrl}}" width="150" height="200" alt="사진없음">
-            {{/model.imgUrl}}
+            <div class="col-md-6">
+                <p class="mb-1 fw-semibold text-secondary">희망 근무 지역</p>
+                <p>{{Location}}</p>
+            </div>
+        </div>
 
-            {{^model.imgUrl}}
-                <div class="logo-placeholder"
-                     style="width:150px; height:200px; background-color:#f8f9fa; display:flex; align-items:center; justify-content:center; border-radius:10px;">
-                    <i class="fa-solid fa-user-tie text-secondary" style="font-size:8rem;"></i>
-                </div>
-            {{/model.imgUrl}}
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <p class="mb-1 fw-semibold text-secondary">기술스택</p>
+                <ul class="mb-0">
+                    {{#resumeStack}}
+                        <li>{{skill}}</li>
+                    {{/resumeStack}}
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <p class="mb-1 fw-semibold text-secondary">수상/자격증</p>
+                <p>{{Qualified}}</p>
+            </div>
+        </div>
 
-            <div class="container mb-5 mt-3">
-                <h5 class="fw-semibold">이름</h5>
-                <div class="ps-4">{{Username}}</div>
-            </div>
-            <div class="container mb-5">
-                <h5 class="fw-semibold">이메일</h5>
-                <div class="ps-4">{{email}}</div>
-            </div>
-            <div class="container mb-5">
-                <h5 class="fw-semibold">전화번호</h5>
-                <div class="ps-4">{{phone}}</div>
-            </div>
-            <div class="container mb-5">
-                <h5 class="fw-semibold">경력</h5>
-                <div class="ps-4">{{exp}}</div>
-            </div>
-            <div class="container mb-5">
-                <h5 class="fw-semibold">학력</h5>
-                <div class="ps-4">{{edu}}</div>
-            </div>
-            <div class="container mb-5">
-                <h5 class="fw-semibold">희망 직무</h5>
-                <div class="ps-4">{{job.name}}</div>
-            </div>
+        <div class="mb-3">
+            <p class="mb-1 fw-semibold text-secondary">대외활동</p>
+            <p>{{activity}}</p>
+        </div>
 
-            <div class="container mb-5">
-                <h5 class="fw-semibold">기술스택</h5>
-                <div class="ps-4">  {{#resumeStack}}
-                    <li>{{skill}}</li>
-                {{/resumeStack}}</div>
-            </div>
-
-            <div class="container mb-5">
-                <h5 class="fw-semibold">희망 근무 지역</h5>
-                <div class="ps-4">{{Location}}</div>
-            </div>
-            <div class="container mb-5">
-                <h5 class="fw-semibold">수상/자격증</h5>
-                <div class="ps-4">{{Qualified}}</div>
-            </div>
-            <div class="container mb-5">
-                <h5 class="fw-semibold">대외활동</h5>
-                <div class="ps-4">{{activity}}</div>
-            </div>
-
-            <div class="container mb-5">
-                <h5 class="fw-semibold">자기소개서</h5>
-                <div class="ps-4">{{letter}}</div>
-            </div>
-
-        {{/model}}
+        <div>
+            <p class="mb-1 fw-semibold text-secondary">자기소개서</p>
+            <p>{{letter}}</p>
+        </div>
     </div>
+    </div>
+
+{{/model}}
+</div>
 </div>
 </div>
 

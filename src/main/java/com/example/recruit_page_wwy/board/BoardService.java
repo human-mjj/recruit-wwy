@@ -29,10 +29,10 @@ public class BoardService {
         boardRepository.save(saveDTO.getUser_id(), saveDTO.getTitle(), saveDTO.getContent());
     }
 
-    public BoardResponse.ListDTO boardList(Integer page, User sessionUser) {
-        Long totalCount = boardRepository.totalCount();
-        List<Board> boards = boardRepository.findAll(page);
-        return new BoardResponse.ListDTO(boards, page, totalCount.intValue(), sessionUser);
+    public BoardResponse.ListDTO boardList(Integer page, User sessionUser, String keyword) {
+        Long totalCount = boardRepository.totalCount(keyword);
+        List<Board> boards = boardRepository.findAll(page, keyword);
+        return new BoardResponse.ListDTO(boards, page, totalCount.intValue(), sessionUser, keyword);
     }
 
     public BoardResponse.DetailDTO boardDetail(Integer id, User sessionUser) {

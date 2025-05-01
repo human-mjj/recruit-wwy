@@ -32,10 +32,12 @@ public class BoardController {
 
     @GetMapping("/board")
     public String boardList(HttpServletRequest request,
-                            @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
+                            @RequestParam(required = false, value = "page", defaultValue = "1") Integer page,
+                            @RequestParam(required = false, value = "keyword", defaultValue = "") String keyword) {
+        System.out.println("keyword: " + keyword);
         User sessionUser = (User) session.getAttribute("sessionUser");
-        request.setAttribute("model", boardService.boardList(page - 1, sessionUser));
-        System.out.println(boardService.boardList(page - 1, sessionUser).getIsCompanyUser());
+        request.setAttribute("model", boardService.boardList(page - 1, sessionUser, keyword));
+        System.out.println(boardService.boardList(page - 1, sessionUser, keyword).getIsCompanyUser());
         return "board/list";
     }
 
