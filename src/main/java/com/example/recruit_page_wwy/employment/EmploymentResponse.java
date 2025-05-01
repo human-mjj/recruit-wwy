@@ -11,28 +11,73 @@ import lombok.Data;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EmploymentResponse {
 
     @Data
     public static class TableDTO {
-        List<Job> jobList;
-        List<Stack> stackList;
 
-        public TableDTO(List<Job> jobList, List<Stack> stackList) {
+        private List<Job> jobList;             // 원본 직무 엔티티 리스트
+        private List<Stack> stackList;         // 원본 기술 스택 엔티티 리스트
+
+        private List<JobOption> jobOptions;         // 직무 필터에 사용할 옵션
+        private List<StackOption> stackOptions;     // 기술 스택 필터에 사용할 옵션
+
+        public TableDTO(List<Job> jobList, List<Stack> stackList, String selectedJobType, List<String> selectedSkills) {
             this.jobList = jobList;
             this.stackList = stackList;
+
+            // jobOptions 매핑
+            this.jobOptions = jobList.stream()
+                    .map(job -> new JobOption(
+                            job.getName(),
+                            selectedJobType != null && selectedJobType.equals(job.getName())
+                    ))
+                    .collect(Collectors.toList());
+
+            // stackOptions 매핑
+            this.stackOptions = stackList.stream()
+                    .map(stack -> new StackOption(
+                            stack.getSkill(),
+                            selectedSkills != null && selectedSkills.contains(stack.getSkill())
+                    ))
+                    .collect(Collectors.toList());
+        }
+
+        @Data
+        public static class JobOption {
+            private String name;
+            private boolean isSelected;
+
+            public JobOption(String name, boolean isSelected) {
+                this.name = name;
+                this.isSelected = isSelected;
+            }
+        }
+
+        @Data
+        public static class StackOption {
+            private String name;
+            private boolean isChecked;
+
+            public StackOption(String name, boolean isChecked) {
+                this.name = name;
+                this.isChecked = isChecked;
+            }
         }
     }
 
     @Data
     public static class EmploymentPageDTO {
         private Integer sessionUserId;
-        private Boolean isCompanyUser; // 스크랩 버튼 노출 여부 (false면 보여줌)
+        private Boolean isCompanyUser;
 
         private List<PublicListDTO> employments;
         private Integer prev;
+        private Integer prevPage;
         private Integer next;
+        private Integer nextPage;
 
         private Integer size;
         private Integer totalCount;
@@ -44,7 +89,67 @@ public class EmploymentResponse {
         private TableDTO table;
         private List<String> careerLevels;
 
-        public EmploymentPageDTO(List<EmploymentResponse.PublicListDTO> employments, Integer current, Integer totalCount, TableDTO table, List<String> careerLevels, User sessionUser) {
+        private String jobTypeFilter;
+        private Boolean isJobTypeFiltered;
+        private String careerLevelFilter;
+        private Boolean isCareerLevelFiltered;
+        private String sort;
+        private List<String> skillsFilter;
+
+        private Boolean sortIsLatest;
+        private Boolean sortIsDeadline;
+        private Boolean sortIsRecommend;
+
+        private List<JobOption> jobOptions = new ArrayList<>();
+        private List<CareerOption> careerOptions = new ArrayList<>();
+        private List<SkillOption> skillOptions = new ArrayList<>();
+
+        @Data
+        public static class JobOption {
+            private String name;
+            private boolean isSelected;
+
+            public JobOption(String name, boolean isSelected) {
+                this.name = name;
+                this.isSelected = isSelected;
+            }
+        }
+
+        @Data
+        public static class CareerOption {
+            private String name;
+            private boolean isSelected;
+
+            public CareerOption(String name, boolean isSelected) {
+                this.name = name;
+                this.isSelected = isSelected;
+            }
+        }
+
+
+        // 기술 스택 반복용 내부 클래스
+        @Data
+        public static class SkillOption {
+            private String name;
+            private boolean isChecked;
+
+            public SkillOption(String name, boolean isChecked) {
+                this.name = name;
+                this.isChecked = isChecked;
+            }
+        }
+
+        public EmploymentPageDTO(List<EmploymentResponse.PublicListDTO> employments,
+                                 Integer current,
+                                 Integer totalCount,
+                                 TableDTO table,
+                                 List<String> careerLevels,
+                                 User sessionUser,
+                                 String jobTypeFilter,
+                                 String careerLevelFilter,
+                                 String sort,
+                                 List<String> skillsFilter) {
+
             this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
             this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
 
@@ -53,15 +158,35 @@ public class EmploymentResponse {
             this.totalCount = totalCount;
             this.totalPage = makeTotalPage(totalCount, size);
             this.current = current;
-            this.prev = current <= 0 ? 1 : current;
-            this.next = current + 2;
-
+            this.prev = current - 1;
+            this.prevPage = prev + 1;
+            this.next = current + 1;
+            this.nextPage = next + 1;
             this.isFirst = current == 0;
             this.isLast = current == totalPage - 1;
             this.numbers = makeNumbers(current, totalPage);
 
             this.table = table;
             this.careerLevels = careerLevels;
+
+            this.jobTypeFilter = jobTypeFilter;
+            this.careerLevelFilter = careerLevelFilter;
+            this.sort = sort;
+            this.skillsFilter = skillsFilter;
+
+            this.isJobTypeFiltered = jobTypeFilter != null;
+            this.isCareerLevelFiltered = careerLevelFilter != null;
+
+            this.sortIsLatest = "latest".equals(sort);
+            this.sortIsDeadline = "deadline".equals(sort);
+            this.sortIsRecommend = "recommend".equals(sort);
+
+            if (careerLevels != null) {
+                for (String level : careerLevels) {
+                    boolean selected = careerLevelFilter != null && careerLevelFilter.equals(level);
+                    this.careerOptions.add(new CareerOption(level, selected));
+                }
+            }
         }
 
         private Integer makeTotalPage(int totalCount, int size) {
@@ -71,17 +196,15 @@ public class EmploymentResponse {
 
         private List<Integer> makeNumbers(int current, int totalPage) {
             List<Integer> numbers = new ArrayList<>();
-
-            int start = (current / 5) * 5;
-            int end = Math.min(start + 5, totalPage);
-
-            for (int i = start; i < end; i++) {
-                numbers.add(i + 1); // 버튼 1부터 보이게 처리된 곳
+            int start = (current / 5) * 5 + 1;
+            int end = Math.min(start + 4, totalPage);
+            for (int i = start; i <= end; i++) {
+                numbers.add(i);
             }
-
             return numbers;
         }
     }
+
 
     @Data
     public static class EmploymentDashboardDTO {

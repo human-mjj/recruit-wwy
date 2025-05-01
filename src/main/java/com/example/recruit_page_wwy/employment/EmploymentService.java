@@ -55,30 +55,34 @@ public class EmploymentService {
 
     // 채용공고 리스트, paging
     public EmploymentResponse.EmploymentPageDTO employmentAllList(User sessionUser, String jobType, String careerLevel, List<String> skills, String sort, Integer page) {
-        int realPage = page - 1;
+        int realPage = page;
         Long totalCount = employmentRepository.totalCount();
-        List<Employment> employmentList;
-
+        List<Employment> employmentList = new ArrayList<>();
+        System.out.println("1");
         // TODO: Teacher
         if (sort.equals("recommend")) {
+            System.out.println("2");
             employmentList = employmentRepository.findAllWithRecommend(jobType, careerLevel, skills, sort, realPage);
+            System.out.println("7");
         } else {
             employmentList = employmentRepository.findAll(jobType, careerLevel, skills, sort, realPage);
         }
 
 
         List<EmploymentResponse.PublicListDTO> dtoList = new ArrayList<>();
-
+        System.out.println("8");
 
         for (Employment e : employmentList) {
+            System.out.println("9");
             dtoList.add(new EmploymentResponse.PublicListDTO(e, sessionUser));
         }
-
+        System.out.println("10");
         EmploymentResponse.TableDTO tableDTO = new EmploymentResponse.TableDTO(
                 employmentRepository.findAllJobs(),
-                employmentRepository.findAllStacks()
+                employmentRepository.findAllStacks(),
+                jobType, skills
         );
-
+        System.out.println("11");
         List<String> careerLevels = new ArrayList<>();
         careerLevels.add("신입");
         careerLevels.add("1 ~ 3년 차");
@@ -86,8 +90,8 @@ public class EmploymentService {
         careerLevels.add("5 ~ 7년 차");
         careerLevels.add("7 ~ 9년 차");
         careerLevels.add("10년 이상");
-
-        return new EmploymentResponse.EmploymentPageDTO(dtoList, realPage, totalCount.intValue(), tableDTO, careerLevels, sessionUser);
+        System.out.println("12");
+        return new EmploymentResponse.EmploymentPageDTO(dtoList, realPage, totalCount.intValue(), tableDTO, careerLevels, sessionUser, jobType, careerLevel, sort, skills);
     }
 
     public List<Employment> viewEmployList() {
@@ -132,7 +136,7 @@ public class EmploymentService {
     public EmploymentResponse.TableDTO viewJobAndStackList() {
         List<Job> jobList = employmentRepository.findAllJobs();
         List<Stack> stackList = employmentRepository.findAllStacks();
-        return new EmploymentResponse.TableDTO(jobList, stackList);
+        return new EmploymentResponse.TableDTO(jobList, stackList, null, null);
     }
 
     @Transactional

@@ -37,13 +37,16 @@ public class ResumeService {
     @Transactional
     public void save(ResumeRequest.SaveDTO saveDTO, User sessionUser) {
         MultipartFile imgFile = saveDTO.getUploadingImg();
-        String imgFilename = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
-        System.out.println("img Filename: " + imgFilename);
-        Path imgPath = Paths.get("./upload/" + imgFilename);
-        try {
-            Files.write(imgPath, imgFile.getBytes());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        String imgFilename = null;
+        if (!"null".contains(imgFile.getOriginalFilename())) {
+            imgFilename += UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
+            System.out.println("img Filename: " + imgFilename);
+            Path imgPath = Paths.get("./upload/" + imgFilename);
+            try {
+                Files.write(imgPath, imgFile.getBytes());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
         Resume resumePS = resumeRepository.save(saveDTO.toEntity(sessionUser, imgFilename));
         resumeRepository.updateStack(resumePS.getId(), saveDTO.getSkills());
@@ -85,13 +88,16 @@ public class ResumeService {
         Resume resume = resumeRepository.findByResumeId(id);
         if (resume == null) throw new Exception404("해당하는 이력서가 없습니다.");
         MultipartFile imgFile = updateDTO.getUploadingImg();
-        String imgFilename = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
-        System.out.println("img Filename: " + imgFilename);
-        Path imgPath = Paths.get("./upload/" + imgFilename);
-        try {
-            Files.write(imgPath, imgFile.getBytes());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        String imgFilename = null;
+        if (!"null".contains(imgFile.getOriginalFilename())) {
+            imgFilename += UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
+            System.out.println("img Filename: " + imgFilename);
+            Path imgPath = Paths.get("./upload/" + imgFilename);
+            try {
+                Files.write(imgPath, imgFile.getBytes());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
         resume.update(updateDTO, imgFilename);
         resumeRepository.updateStack(resume.getId(), updateDTO.getSkills());
@@ -99,7 +105,7 @@ public class ResumeService {
 
     public ResumeResponse.UpdateViewDTO findById(Integer resumeId) {
         Resume resume = resumeRepository.findByResumeId(resumeId);
-        if (resume == null) throw new RuntimeException("404 Not Found");
+        if (resume == null) throw new Exception404("404 Not Found");
 
         List<Job> jobList = resumeRepository.findAllJobs();
 

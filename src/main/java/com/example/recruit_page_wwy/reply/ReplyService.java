@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.reply;
 
 
+import com.example.recruit_page_wwy._core.error.ex.Exception400;
 import com.example.recruit_page_wwy.board.Board;
 import com.example.recruit_page_wwy.board.BoardRepository;
 import com.example.recruit_page_wwy.user.User;
@@ -23,6 +24,7 @@ public class ReplyService {
 
     @Transactional
     public Reply replySave(ReplyRequest.SaveDTO saveDTO, User sessionUser) {
+        if (saveDTO.getContent().isBlank()) throw new Exception400("댓글 내용을 입력하세요.");
         Board board = boardRepository.findById(saveDTO.getBoardId());
         if (board == null) {
             throw new RuntimeException("게시글을 찾을 수 없습니다. id = " + saveDTO.getBoardId());

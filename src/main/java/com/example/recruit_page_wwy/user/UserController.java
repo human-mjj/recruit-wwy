@@ -22,9 +22,7 @@ public class UserController {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         UserResponse.MyPageDTO myDTO = new UserResponse.MyPageDTO(sessionUser);
-        request.setAttribute("models", myDTO);
-
-        System.out.println(myDTO.getIsCompanyUser());
+        request.setAttribute("model", myDTO);
         return "/mypage/index";
     }
 

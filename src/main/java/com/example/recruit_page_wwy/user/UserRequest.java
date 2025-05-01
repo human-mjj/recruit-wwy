@@ -18,9 +18,7 @@ public class UserRequest {
 
     @Data
     public static class UpdateDTO {
-        private String username;
         private String comName;
-        private String email;
         private String phone;
         private String password;
         private Integer industryId;
@@ -30,19 +28,15 @@ public class UserRequest {
         public User toEntity(String imgUrl) {
             if (comName != null && !comName.isEmpty() && industryId != null)
                 return User.builder()
-                        .username(username)
                         .comName(comName)
                         .industryId(industryId)
                         .role(1)
-                        .email(email)
                         .phone(phone)
                         .password(password)
                         .imgUrl(imgUrl)
                         .build();
 
             else return User.builder()
-                    .username(username)
-                    .email(email)
                     .phone(phone)
                     .password(password)
                     .imgUrl(imgUrl)

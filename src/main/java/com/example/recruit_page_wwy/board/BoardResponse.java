@@ -19,6 +19,8 @@ public class BoardResponse {
         private List<Board> boards;
         private Integer prev;
         private Integer next;
+        private Integer prevPage;
+        private Integer nextPage;
 
         private Integer size;
         private Integer totalCount;
@@ -37,6 +39,8 @@ public class BoardResponse {
             this.size = 5;
             this.prev = current - 1;
             this.next = current + 1;
+            this.prevPage = prev + 1;
+            this.nextPage = next + 1;
             this.totalCount = totalCount;
             this.totalPage = makeTotalPage(totalCount, size);
             this.isFirst = current == 0;
@@ -97,20 +101,38 @@ public class BoardResponse {
         public static class ReplyDTO {
             private int boardId;
             private int id;
-            private int userId;
+            private String username;
             private String content;
             private Timestamp createdAt;
+            private Boolean isOwner;
 
             @Builder
-            public ReplyDTO(Reply reply) {
+            public ReplyDTO(Reply reply, User sessionUser) {
                 this.boardId = reply.getBoard().getId();
                 this.id = reply.getId();
-                this.userId = reply.getUser().getId();
+                this.username = reply.getUser().getUsername();
                 this.content = reply.getContent();
                 this.createdAt = reply.getCreatedAt();
+                this.isOwner = sessionUser != null && sessionUser.getId() == reply.getUser().getId();
             }
         }
 
 
+    }
+
+    @Data
+    public static class UpdateViewDTO {
+        private Integer id;
+        private String title;
+        private String content;
+
+        private Boolean isCompanyUser;
+
+        public UpdateViewDTO(Board board, User sessionUser) {
+            this.id = board.getId();
+            this.title = board.getTitle();
+            this.content = board.getContent();
+            this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
+        }
     }
 }
