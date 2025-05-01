@@ -30,8 +30,10 @@ public class BoardResponse {
         private Boolean isLast;
         private List<Integer> numbers;
 
+        private String keyword;
 
-        public ListDTO(List<Board> boards, Integer current, Integer totalCount, User sessionUser) {
+
+        public ListDTO(List<Board> boards, Integer current, Integer totalCount, User sessionUser, String keyword) {
             this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
             this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
 
@@ -46,6 +48,7 @@ public class BoardResponse {
             this.isFirst = current == 0;
             this.isLast = (totalPage - 1) == current;
             this.numbers = makeNumbers(current, totalPage);
+            this.keyword = keyword;
         }
 
         private Integer makeTotalPage(int totalCount, int size) {
