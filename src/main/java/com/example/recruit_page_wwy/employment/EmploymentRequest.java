@@ -1,6 +1,5 @@
 package com.example.recruit_page_wwy.employment;
 
-import com.example.recruit_page_wwy.employstack.EmployStack;
 import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.user.User;
 import lombok.Data;
