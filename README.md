@@ -1,3 +1,68 @@
+<img src="https://capsule-render.vercel.app/api?type=waving&color=DCDCDC&height=300&section=header&text=We%20Want%20You.&fontSize=90&fontColor=0099FF" />
+
+### 영상 넣을 자리
+
+# 휴먼클라우드 웹 - 미니 프로젝트 1 : WWY
+
+- 자바와 스프링부트, HTML/CSS를 활용한 웹 서버 제작 프로젝트입니다.
+
+<br>
+
+# Members
+
+|                                                          문정준                                                           |                                                           손영민                                                            |                                                       서회정                                                        |                                                        편준민                                                        |
+|:----------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------:|
+| <img src="https://github.com/human-mjj/recruit-wwy/blob/master/README/240125_ynn1.png?raw=true" alt="문정준" width="150"> | <img src="https://github.com/human-mjj/recruit-wwy/blob/master/README/Screenshot_38.png?raw=true" alt="손영민" width="150"> | <img src="https://github.com/human-mjj/recruit-wwy/blob/master/README/image.png?raw=true" alt="서회정" width="150"> | <img src="https://github.com/user-attachments/assets/beea8c64-19de-4d91-955f-ed24b813a638" alt="편준민" width="150"> |
+|                                                           PL                                                           |                                                            FE                                                            |                                                        FE                                                        |                                                        FE                                                         |
+|                                           [GitHub](https://github.com/Sxias)                                           |                                           [GitHub](https://github.com/son7571)                                           |                                      [GitHub](https://github.com/clubnerdy)                                      |                                       [GitHub](https://github.com/PJumMin)                                        |
+
+<br>
+
+# Developed With
+
+<a href="https://www.jetbrains.com/ko-kr/idea/">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/IntelliJ_IDEA_Icon.svg/800px-IntelliJ_IDEA_Icon.svg.png" width="200">
+</a>
+
+# Stacks Used
+
+<div>
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Java.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Bootstrap.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/JavaScript.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/HTMLCSS.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Ajax.png?raw=true" width="80">
+</div>
+
+# Cooperated With
+
+<div>
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Github.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Notion.png?raw=true" width="80">
+</div>
+
+<br>
+
+# Tasks & Responsibilities
+
+|     |                                                                                                                          |                                                                                                         |
+|-----|--------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| 문정준 | <img src="https://github.com/human-mjj/recruit-wwy/blob/master/README/240125_ynn1.png?raw=true" alt="문정준" width="100">   | <ul><li>프로젝트 계획 및 관리</li><li>팀 리딩 및 커뮤니케이션</li><li>제안, 지원, 매칭 기능 개발</li><li>전체 DTO 수정 및 디버깅</li></ul>   |
+| 손영민 | <img src="https://github.com/human-mjj/recruit-wwy/blob/master/README/Screenshot_38.png?raw=true" alt="손영민" width="100"> | <ul><li>추천 페이지 제작</li><li>이력서 관련 페이지 및 기능 개발</li><li>커뮤니티 관련 페이지 및 기능 개발</li></ul>                      |
+| 서회정 | <img src="https://github.com/human-mjj/recruit-wwy/blob/master/README/image.png?raw=true" alt="서회정" width="100">         | <ul><li>홈 페이지 제작</li><li>채용공고 관련 페이지 및 기능 개발</li><li>페이지네이션 기능 개발</li></ul>                             |
+| 편준민 | <img src="https://github.com/user-attachments/assets/beea8c64-19de-4d91-955f-ed24b813a638" alt="편준민" width="100">        | <ul><li>로그인 관련 페이지 및 기능 개발</li><li> 마이페이지 및 회원 정보 수정 개발</li><li>매칭, 지원 페이지 제작</li><li>인터셉터 개발</li></ul> |
+
+<br>
+
+# Information Architecture
+
+- 기업과 구직자 역할은 구분되어 있음
+- 검정색 기능은 공통 기능
+
+<img src="https://github.com/human-mjj/recruit-wwy/blob/master/README/projectia.png?raw=true">
+
+<br>
+
 # Table Setting
 
 ## user_tb
