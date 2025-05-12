@@ -1,6 +1,5 @@
 package com.example.recruit_page_wwy._core.intercetor;
 
-import com.example.recruit_page_wwy._core.error.ex.Exception401;
 import com.example.recruit_page_wwy._core.error.ex.ExceptionApi401;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,8 +19,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (sessionUser == null) {
             if (uri.contains("/api")) {
                 throw new ExceptionApi401("로그인 후 사용해주세요");
-            } else {
-                throw new Exception401("로그인 후 사용해주세요");
             }
         }
         return true;

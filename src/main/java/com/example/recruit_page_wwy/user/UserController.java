@@ -15,6 +15,7 @@ public class UserController {
     private final UserService userService;
     private final HttpSession session;
 
+    // TODO : 예외 처리
     // MyPage
     @GetMapping("/mypage")
     public String myPage(HttpServletRequest request) {
@@ -26,6 +27,7 @@ public class UserController {
         return "/mypage/index";
     }
 
+    // TODO : 예외 처리
     // MyPageUpdate
     @PostMapping("/mypage/update")
     public String userUpdate(UserRequest.UpdateDTO reqDTO) {

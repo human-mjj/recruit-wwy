@@ -13,6 +13,7 @@ public class ProposalController {
     private final ProposalService proposalService;
     private final HttpSession session;
 
+    // TODO : 예외 추가
     @PostMapping("/resume/{id}/recommend")
     public String recommend(@PathVariable("id") int id, ProposalRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");

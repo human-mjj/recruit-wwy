@@ -13,6 +13,7 @@ public class ReplyController {
     private final ReplyService replyService;
     private final HttpSession session;
 
+    // TODO : 예외 추가
     @PostMapping("/reply/save")
     public String replySave(ReplyRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -20,6 +21,7 @@ public class ReplyController {
         return "redirect:/board/" + saveDTO.getBoardId();
     }
 
+    // TODO : 예외 추가
     @PostMapping("/reply/{id}/delete")
     public String resumeDelete(@PathVariable("id") Integer id) {
         User sessionUser = (User) session.getAttribute("sessionUser");

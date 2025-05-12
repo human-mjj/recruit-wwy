@@ -1,7 +1,7 @@
 package com.example.recruit_page_wwy.resume;
 
 
-import com.example.recruit_page_wwy._core.error.ex.Exception404;
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi404;
 import com.example.recruit_page_wwy.employment.Employment;
 import com.example.recruit_page_wwy.employment.EmploymentRepository;
 import com.example.recruit_page_wwy.job.Job;
@@ -34,6 +34,7 @@ public class ResumeService {
     @PersistenceContext
     private EntityManager em;
 
+    // TODO : 이미지 Encoding 추가
     // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
     public void save(ResumeRequest.SaveDTO saveDTO, User sessionUser) {
@@ -84,11 +85,12 @@ public class ResumeService {
         return new ResumeResponse.DetailDTO(sessionUser, resume, employmentList, isScrap, scrapId);
     }
 
+    // TODO : 이미지 Encoding 추가
     // TODO : 업데이트 후 DTO에 담아서 반환
     @Transactional
     public void update(Integer id, ResumeRequest.SaveDTO updateDTO) {
         Resume resume = resumeRepository.findByResumeId(id);
-        if (resume == null) throw new Exception404("해당하는 이력서가 없습니다.");
+        if (resume == null) throw new ExceptionApi404("해당하는 이력서가 없습니다.");
         MultipartFile imgFile = updateDTO.getUploadingImg();
         String imgFilename = null;
         if (!"null".contains(imgFile.getOriginalFilename())) {
@@ -107,7 +109,7 @@ public class ResumeService {
 
     public ResumeResponse.UpdateViewDTO findById(Integer resumeId) {
         Resume resume = resumeRepository.findByResumeId(resumeId);
-        if (resume == null) throw new Exception404("404 Not Found");
+        if (resume == null) throw new ExceptionApi404("404 Not Found");
 
         List<Job> jobList = resumeRepository.findAllJobs();
 
