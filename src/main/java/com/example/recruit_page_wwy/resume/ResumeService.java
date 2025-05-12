@@ -34,6 +34,7 @@ public class ResumeService {
     @PersistenceContext
     private EntityManager em;
 
+    // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
     public void save(ResumeRequest.SaveDTO saveDTO, User sessionUser) {
         MultipartFile imgFile = saveDTO.getUploadingImg();
@@ -83,6 +84,7 @@ public class ResumeService {
         return new ResumeResponse.DetailDTO(sessionUser, resume, employmentList, isScrap, scrapId);
     }
 
+    // TODO : 업데이트 후 DTO에 담아서 반환
     @Transactional
     public void update(Integer id, ResumeRequest.SaveDTO updateDTO) {
         Resume resume = resumeRepository.findByResumeId(id);

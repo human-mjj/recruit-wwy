@@ -47,6 +47,7 @@ public class EmploymentResponse {
                     ))
                     .collect(Collectors.toList());
 
+            // TODO : 매핑 고치기
             // stackOptions 매핑
             this.stackOptions = stackList.stream()
                     .map(stack -> new StackOption(

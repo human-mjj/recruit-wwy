@@ -39,6 +39,7 @@ public class ScrapService {
 //        return comScrapList;
 //    }
 
+    // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
     public ScrapResponse.SaveDTO save(ScrapRequest.SaveDTO reqDTO, User sessionUser) {
         int scrapId = scrapRepository.save(reqDTO.toEntity(sessionUser));

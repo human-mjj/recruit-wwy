@@ -16,7 +16,7 @@ public class ReplyService {
     private final ReplyRepository replyRepository;
     private final BoardRepository boardRepository;
 
-
+    // TODO : Reply가 아니라 DTO에 담아서 반환
     @Transactional
     public Reply replySave(ReplyRequest.SaveDTO saveDTO, User sessionUser) {
         if (saveDTO.getContent().isBlank()) throw new Exception400("댓글 내용을 입력하세요.");

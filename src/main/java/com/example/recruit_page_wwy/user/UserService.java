@@ -17,17 +17,28 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository;
 
+    // JWT는 Access Token만 사용 (만료기간 1시간)
+
+    // TODO : 저장 후 DTO에 담아서 반환
+    // TODO : BCrypt 사용해서 비밀번호 해시 생성
+    // TODO : JWT 생성
     @Transactional
     public void joinUser(UserRequest.UserDTO reqDTO) {
         userRepository.saveUser(reqDTO.toEntity());
 
     }
 
+    // TODO : 저장 후 DTO에 담아서 반환
+    // TODO : BCrypt 사용해서 비밀번호 해시 생성
+    // TODO : JWT 생성
     @Transactional
     public void joinCom(UserRequest.ComDTO reqDTO) {
         userRepository.saveCom(reqDTO.toEntity());
     }
 
+    // TODO : User가 아니라 DTO에 담아서 반환
+    // TODO : BCrypt 사용해서 비밀번호 검증
+    // TODO : JWT 검증
     public User login(UserRequest.LoginDTO reqDTO) {
         User user = userRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword());
 
@@ -43,6 +54,11 @@ public class UserService {
         return user;
     }
 
+    // TODO : User가 아니라 DTO에 담아서 반환
+    // TODO : 이미지 null일 경우 안 올라가게 수정
+    // 이 아래는 userUpdate 수업 때 진행하고 나서 하기
+    // TODO : 비밀번호는 BCrypt 사용해서 해시 후 집어넣기
+    // TODO : JWT 재발행 (파기 후 다시 발급)
     @Transactional
     public User userUpdate(UserRequest.UpdateDTO reqDTO, User sessionUser) {
         User userPS = userRepository.findById(sessionUser.getId());
@@ -61,6 +77,7 @@ public class UserService {
         return userPS;
     }
 
+    // TODO : User가 아니라 DTO에 담아서 반환
     public User mypage(Integer id) {
         return userRepository.findById(id);
     }

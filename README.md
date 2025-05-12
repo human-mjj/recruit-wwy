@@ -1,12 +1,32 @@
 <img src="https://capsule-render.vercel.app/api?type=waving&color=DCDCDC&height=300&section=header&text=We%20Want%20You.&fontSize=90&fontColor=0099FF" />
 
-### 영상 넣을 자리
-
 # 휴먼클라우드 웹 - 미니 프로젝트 1 : WWY
 
 - 자바와 스프링부트, HTML/CSS를 활용한 웹 서버 제작 프로젝트입니다.
 
 <br>
+
+# 휴먼클라우드 웹 - 미니 프로젝트 2 : REST API 전환
+
+- JSON을 활용해서 데이터만 전송하는 REST 서버 전환 프로젝트입니다.
+
+### 변경점 & TODO
+
+- 모든 응답은 ResponseEntity로 반환
+- 모든 예외 처리 진행
+- Unit Test 적극 활용
+- 모든 데이터 전달은 DTO로 수행 : DTO 미흡 부분 수정
+- 화면 삭제
+- 더미 데이터 일치화
+- 필터 설정
+- 유효성 검사
+- 인터셉터 보완
+- enum (범주) 활용해보기
+- JWT : Access Token만 사용
+- BCrypt : 비밀번호 암호화
+- 주소 재설정
+- GET, POST, PUT, DELETE 활용
+- 이미지 전송 : JSON (Base64) - 이미지를 직접 저장하지 말고 String으로 전송
 
 # Members
 

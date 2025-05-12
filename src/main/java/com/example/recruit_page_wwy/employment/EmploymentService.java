@@ -132,6 +132,7 @@ public class EmploymentService {
         return new EmploymentResponse.TableDTO(jobList, stackList, null, null);
     }
 
+    // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
     public void save(EmploymentRequest.SaveDTO saveDTO, User sessionUser) {
         MultipartFile imgFile = saveDTO.getUploadingImg();
@@ -199,6 +200,7 @@ public class EmploymentService {
         return updateViewDTO;
     }
 
+    // TODO : 업데이트 후 DTO에 담아서 반환
     @Transactional
     public void update(int employmentId, EmploymentRequest.SaveDTO dto) {
         // 1. 수정할 Employment 엔티티를 조회

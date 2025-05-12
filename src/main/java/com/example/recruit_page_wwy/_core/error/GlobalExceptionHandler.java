@@ -50,9 +50,10 @@ public class GlobalExceptionHandler {
     }
 
 //    @ExceptionHandler(ExceptionApi404.class)
-//    public String exApi404(Exception e) {
-//        return Script.back(e.getMessage());
-//    }
+
+    /// /    public String exApi404(Exception e) {
+    /// /        return Script.back(e.getMessage());
+    /// /    }
 
     //Internal Server Error - 나머지 에러 (500)
     @ExceptionHandler(Exception.class)

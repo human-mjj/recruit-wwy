@@ -73,6 +73,7 @@ public class UserController {
         return "user/login-form";
     }
 
+    // TODO : 쿠키 비교 삭제
     // Login
     @PostMapping("/login")
     public String login(UserRequest.LoginDTO reqDTO, HttpServletResponse response) {
@@ -93,6 +94,7 @@ public class UserController {
         return "redirect:/";
     }
 
+    // TODO : 삭제 (안씀)
     // Logout
     @GetMapping("/logout")
     public String logout() {
