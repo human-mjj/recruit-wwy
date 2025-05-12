@@ -1,5 +1,6 @@
 package com.example.recruit_page_wwy.scrap;
 
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi401;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ public class ScrapController {
     private final ScrapService scrapService;
     private final HttpSession session;
 
+    // TODO : 예외 추가
     @GetMapping("/mypage/scrap")
     public String scrapUserList(HttpServletRequest request,
                                 @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
@@ -23,6 +25,7 @@ public class ScrapController {
         return "scrap/user-scrap";
     }
 
+    // TODO : 예외 추가
     @GetMapping("/mypage/scrap/com")
     public String scrapComList(HttpServletRequest request,
                                @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
@@ -39,7 +42,7 @@ public class ScrapController {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         if (sessionUser == null) {
-            throw new RuntimeException("로그인 해주세요");
+            throw new ExceptionApi401("로그인 해주세요");
         }
 
         ScrapResponse.SaveDTO respDTO = scrapService.save(reqDTO, sessionUser);
@@ -52,7 +55,7 @@ public class ScrapController {
     @ResponseBody
     public Object deleteScrap(@PathVariable("id") Integer employmentId) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-//        if (sessionUser == null) throw new RuntimeException("인증이 필요합니다");
+        if (sessionUser == null) throw new ExceptionApi401("인증이 필요합니다");
 
         ScrapResponse.DeleteDTO respDTO = scrapService.cancelScrap(employmentId);
 

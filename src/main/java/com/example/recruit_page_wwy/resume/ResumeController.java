@@ -16,6 +16,7 @@ public class ResumeController {
     private final ResumeService resumeService;
     private final HttpSession session;
 
+    // TODO : 예외 추가
     @GetMapping("/mypage/resume")
     public String resumeList(HttpServletRequest request, @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -23,7 +24,7 @@ public class ResumeController {
         return "resume/list";
     }
 
-
+    // TODO : 예외 추가
     @GetMapping("/resume/{id}")
     public String resumeDetail(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -34,7 +35,7 @@ public class ResumeController {
         return "resume/detail";
     }
 
-    // TODO DTO처리 0 - 끝
+    // TODO : 예외 추가
     @GetMapping("/resume/save-form")
     public String resumeSaveForm(HttpServletRequest request) {
         ResumeResponse.TableDTO tableDTO = resumeService.viewJobAndStackList();
@@ -42,6 +43,7 @@ public class ResumeController {
         return "resume/save-form";
     }
 
+    // TODO : 예외 추가
     @PostMapping("/resume/save")
     public String resumeSave(ResumeRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -49,6 +51,7 @@ public class ResumeController {
         return "redirect:/mypage/resume";
     }
 
+    // TODO : 예외 추가
     @GetMapping("/resume/{id}/update-form")
     public String resumeUpdateForm(@PathVariable("id") Integer id, HttpServletRequest request) {
         ResumeResponse.UpdateViewDTO updateViewDTO = resumeService.findById(id);
@@ -56,12 +59,14 @@ public class ResumeController {
         return "resume/update-form";
     }
 
+    // TODO : 예외 추가
     @PostMapping("/resume/{id}/update")
     public String resumeUpdate(@PathVariable("id") Integer id, ResumeRequest.SaveDTO updateDTO) {
         resumeService.update(id, updateDTO);
         return "redirect:/mypage/resume";
     }
 
+    // TODO : 예외 추가
     @PostMapping("/resume/{id}/delete")
     public String resumeDelete(@PathVariable("id") Integer resumeId) {
         resumeService.delete(resumeId);

@@ -13,6 +13,7 @@ public class MatchController {
     private final MatchService matchService;
     private final HttpSession session;
 
+    // TODO : 예외 추가
     @GetMapping("/match")
     public String matchList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -20,6 +21,7 @@ public class MatchController {
         return "match/list";
     }
 
+    // TODO : 예외 추가
     @GetMapping("/match/com")
     public String matchComList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");

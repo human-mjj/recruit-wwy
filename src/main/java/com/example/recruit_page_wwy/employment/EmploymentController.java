@@ -1,5 +1,6 @@
 package com.example.recruit_page_wwy.employment;
 
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi401;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -33,7 +34,7 @@ public class EmploymentController {
     public String manageEmployment(HttpServletRequest request,
                                    @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null) throw new RuntimeException("401 Unauthorized");
+        if (sessionUser == null) throw new ExceptionApi401("401 Unauthorized");
         EmploymentResponse.EmploymentDashboardDTO model = employmentService.employmentList(sessionUser, page);
         request.setAttribute("model", model);
         return "employment/dashboard";
@@ -65,6 +66,7 @@ public class EmploymentController {
         return "employment/detail";
     }
 
+    // TODO : 예외 추가
     @PostMapping("/employment/save")
     public String employmentSave(EmploymentRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -75,7 +77,7 @@ public class EmploymentController {
     @GetMapping("/employment/save-form")
     public String employmentSaveForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null || sessionUser.getRole() == 0) throw new RuntimeException("401 Unauthorized");
+        if (sessionUser == null || sessionUser.getRole() == 0) throw new ExceptionApi401("401 Unauthorized");
         EmploymentResponse.TableDTO tableDTO = employmentService.viewJobAndStackList();
         request.setAttribute("model", tableDTO);
         return "employment/save-form";
@@ -84,7 +86,7 @@ public class EmploymentController {
     @GetMapping("/employment/{id}/update-form")
     public String employmentUpdateForm(@PathVariable("id") int employmentId, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null || sessionUser.getRole() == 0) throw new RuntimeException("401 Unauthorized");
+        if (sessionUser == null || sessionUser.getRole() == 0) throw new ExceptionApi401("401 Unauthorized");
         EmploymentResponse.UpdateViewDTO updateViewDTO = employmentService.showUpdateView(employmentId);
         request.setAttribute("model", updateViewDTO);
         return "employment/update-form";
@@ -93,7 +95,7 @@ public class EmploymentController {
     @PostMapping("/employment/{id}/update")
     public String updateEmployment(@PathVariable("id") int employmentId, EmploymentRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null || sessionUser.getRole() == 0) throw new RuntimeException("401 Unauthorized");
+        if (sessionUser == null || sessionUser.getRole() == 0) throw new ExceptionApi401("401 Unauthorized");
         employmentService.update(employmentId, saveDTO);
         return "redirect:/employment/" + employmentId;
     }
@@ -101,7 +103,7 @@ public class EmploymentController {
     @PostMapping("/employment/{id}/delete")
     public String deleteEmployment(@PathVariable("id") int employmentId) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null || sessionUser.getRole() == 0) throw new RuntimeException("401 Unauthorized");
+        if (sessionUser == null || sessionUser.getRole() == 0) throw new ExceptionApi401("401 Unauthorized");
         employmentService.delete(employmentId);
         return "redirect:/mypage/employment";
     }

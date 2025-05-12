@@ -1,6 +1,8 @@
 package com.example.recruit_page_wwy.proposal;
 
 
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi403;
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi404;
 import com.example.recruit_page_wwy.employment.Employment;
 import com.example.recruit_page_wwy.employment.EmploymentRepository;
 import com.example.recruit_page_wwy.employstack.EmployStack;
@@ -27,10 +29,10 @@ public class ProposalService {
     @Transactional
     public void recommend(int resumeId, ProposalRequest.SaveDTO saveDTO, User sessionUser) {
         Resume resume = resumeRepository.findByResumeId(resumeId);
-        if (resume == null) throw new RuntimeException("404 Not Found");
+        if (resume == null) throw new ExceptionApi404("404 Not Found");
         Employment employment = employmentRepository.findByEmploymentId(saveDTO.getEmploymentId());
-        if (employment == null) throw new RuntimeException("404 Not Found");
-        if (employment.getUser().getId() != sessionUser.getId()) throw new RuntimeException("403 Forbidden");
+        if (employment == null) throw new ExceptionApi404("404 Not Found");
+        if (employment.getUser().getId() != sessionUser.getId()) throw new ExceptionApi403("403 Forbidden");
 
         boolean hasCommonJob = false;
         if (employment.getJob().getId() == resume.getJob().getId()) hasCommonJob = true;

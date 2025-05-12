@@ -132,6 +132,7 @@ public class EmploymentService {
         return new EmploymentResponse.TableDTO(jobList, stackList, null, null);
     }
 
+    // TODO : 이미지 Encoding 추가
     // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
     public void save(EmploymentRequest.SaveDTO saveDTO, User sessionUser) {
@@ -200,6 +201,7 @@ public class EmploymentService {
         return updateViewDTO;
     }
 
+    // TODO : 이미지 Encoding 추가
     // TODO : 업데이트 후 DTO에 담아서 반환
     @Transactional
     public void update(int employmentId, EmploymentRequest.SaveDTO dto) {

@@ -2,14 +2,13 @@ package com.example.recruit_page_wwy.apply;
 
 import com.example.recruit_page_wwy._core.util.Resp;
 import com.example.recruit_page_wwy.user.User;
-import com.example.recruit_page_wwy.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -18,6 +17,7 @@ public class ApplyController {
     private final ApplyService applyService;
     private final HttpSession session;
 
+    // TODO : 예외 처리
     @GetMapping("/mypage/apply")
     public String applyList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -28,6 +28,7 @@ public class ApplyController {
         return "resume/apply-list";
     }
 
+    // TODO : 예외 처리
     @GetMapping("/mypage/apply/com")
     public String applyManageList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -37,6 +38,7 @@ public class ApplyController {
         return "resume/com-apply-list";
     }
 
+    // TODO : 예외 처리
     // TODO : 인터셉터 만들어야함
     @PostMapping("/employment/{id}/apply")
     public String apply(@PathVariable("id") int employmentId, @RequestParam("resumeId") Integer resumeId) {
@@ -45,9 +47,10 @@ public class ApplyController {
         return "redirect:/mypage/apply";
     }
 
+    // TODO : DTO 반환에서 Body에 넣기
+    // TODO : Resp 수정
     @PostMapping("/api/apply")
-    @ResponseBody
-    public Resp<?> updateApplyProgress(@RequestBody Map<String, String> request) {
+    public ResponseEntity<?> updateApplyProgress(@RequestBody Map<String, String> request) {
         Integer applyId = Integer.valueOf(request.get("applyId"));
         String progress = request.get("progress");
 

@@ -1,7 +1,8 @@
 package com.example.recruit_page_wwy.reply;
 
 
-import com.example.recruit_page_wwy._core.error.ex.Exception400;
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi400;
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi404;
 import com.example.recruit_page_wwy.board.Board;
 import com.example.recruit_page_wwy.board.BoardRepository;
 import com.example.recruit_page_wwy.user.User;
@@ -19,10 +20,10 @@ public class ReplyService {
     // TODO : Reply가 아니라 DTO에 담아서 반환
     @Transactional
     public Reply replySave(ReplyRequest.SaveDTO saveDTO, User sessionUser) {
-        if (saveDTO.getContent().isBlank()) throw new Exception400("댓글 내용을 입력하세요.");
+        if (saveDTO.getContent().isBlank()) throw new ExceptionApi400("댓글 내용을 입력하세요.");
         Board board = boardRepository.findById(saveDTO.getBoardId());
         if (board == null) {
-            throw new RuntimeException("게시글을 찾을 수 없습니다. id = " + saveDTO.getBoardId());
+            throw new ExceptionApi404("게시글을 찾을 수 없습니다. id = " + saveDTO.getBoardId());
         }
 
         Reply reply = saveDTO.toEntity(sessionUser);
@@ -30,6 +31,7 @@ public class ReplyService {
         return replyRepository.replySave(reply);
     }
 
+    // TODO : 예외 처리
     @Transactional
     public Integer delete(Integer id, Integer sessionUserId) {
         Reply replyPS = replyRepository.findById(id);

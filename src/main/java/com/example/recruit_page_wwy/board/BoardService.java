@@ -23,7 +23,7 @@ public class BoardService {
     @PersistenceContext
     private EntityManager em;
 
-    // TODO : save -> persist (later)
+    // TODO : save -> persist
     // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
     public void boardSave(BoardRequest.SaveDTO saveDTO) {
@@ -50,7 +50,7 @@ public class BoardService {
         return new BoardResponse.DetailDTO(board, replyList, sessionUser);
     }
 
-    // TODO : update -> dirty checking (later)
+    // TODO : update -> dirty checking
     // TODO : 업데이트 후 DTO에 담아서 반환
     @Transactional
     public void boardUpdate(Integer id, BoardRequest.UpdateDTO updateDTO) {

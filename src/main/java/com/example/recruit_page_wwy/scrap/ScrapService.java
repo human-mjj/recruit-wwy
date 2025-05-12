@@ -29,16 +29,6 @@ public class ScrapService {
         return new ScrapRequest.ComScrapPageDTO(scraps, page, totalCount.intValue(), sessionUser);
     }
 
-//    public List<ScrapRequest.UserScrapDTO> scrapUserfind(User sessinUser) {
-//        List<ScrapRequest.UserScrapDTO> userScrapList = scrapRepository.findAllUserScrapById(sessinUser.getId());
-//        return userScrapList;
-//    }
-//
-//    public List<ScrapRequest.ComScrapDTO> scrapComfind(User sessinUser) {
-//        List<ScrapRequest.ComScrapDTO> comScrapList = scrapRepository.findAllComScrapById(sessinUser.getId());
-//        return comScrapList;
-//    }
-
     // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
     public ScrapResponse.SaveDTO save(ScrapRequest.SaveDTO reqDTO, User sessionUser) {
