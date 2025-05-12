@@ -272,3 +272,6 @@ create table employ_stack_tb
     primary key (id)
 )
 ```
+
+# Code Convention
+https://getinthere.notion.site/Code-Convention-1d58a08b6c0d805db749d4db6cfc9637?pvs=4
