@@ -32,10 +32,11 @@ public class ScrapRequest {
             this.totalCount = totalCount;
             this.totalPage = makeTotalPage(totalCount, size);
             this.current = current;
-            this.prev = (current <= 1) ? 1 : current - 1;
-            this.next = (current >= totalPage) ? totalPage : current + 1;
+            this.prev = current - 1;
+            this.next = current + 1;
+
             this.isFirst = current == 1;
-            this.isLast = current.equals(totalPage);
+            this.isLast = current.equals(totalPage) || totalPage == 0;
             this.numbers = makeNumbers(current, totalPage);
         }
 
@@ -99,10 +100,11 @@ public class ScrapRequest {
             this.totalCount = totalCount;
             this.totalPage = makeTotalPage(totalCount, size);
             this.current = current;
-            this.prev = (current <= 1) ? 1 : current - 1;
-            this.next = (current >= totalPage) ? totalPage : current + 1;
+            this.prev = current - 1;
+            this.next = current + 1;
+
             this.isFirst = current == 1;
-            this.isLast = current.equals(totalPage);
+            this.isLast = current.equals(totalPage) || totalPage == 0;
             this.numbers = makeNumbers(current, totalPage);
         }
 

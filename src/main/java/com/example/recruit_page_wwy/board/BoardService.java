@@ -24,6 +24,7 @@ public class BoardService {
     private EntityManager em;
 
     // TODO : save -> persist (later)
+    // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
     public void boardSave(BoardRequest.SaveDTO saveDTO) {
         boardRepository.save(saveDTO.getUser_id(), saveDTO.getTitle(), saveDTO.getContent());
@@ -50,6 +51,7 @@ public class BoardService {
     }
 
     // TODO : update -> dirty checking (later)
+    // TODO : 업데이트 후 DTO에 담아서 반환
     @Transactional
     public void boardUpdate(Integer id, BoardRequest.UpdateDTO updateDTO) {
         boardRepository.boardUpdate(id, updateDTO.getTitle(), updateDTO.getContent());

@@ -20,12 +20,11 @@ public class EmploymentController {
 
     @GetMapping("/")
     public String index(HttpSession session, HttpServletRequest request) {
-//        User sessionUser = (User) session.getAttribute("sessionUser");
-//        request.setAttribute("sessionUser", sessionUser);
-//        System.out.println(sessionUser);
+        User sessionUser = (User) session.getAttribute("sessionUser");
 
-        List<Employment> jobs = employmentService.viewEmployList();
-        request.setAttribute("model", jobs);
+        if (sessionUser == null) request.setAttribute("model", employmentService.viewEmployList(null));
+        else request.setAttribute("model", employmentService.viewEmployList(sessionUser));
+
 
         return "index";
     }
@@ -49,7 +48,7 @@ public class EmploymentController {
                                  @RequestParam(required = false) List<String> skills) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         EmploymentResponse.EmploymentPageDTO model = employmentService.employmentAllList(sessionUser, jobType, careerLevel, skills, sort, page - 1);
-        System.out.println("13");
+        System.out.println(model.getTotalPage());
         request.setAttribute("model", model);
 
         return "employment/list";

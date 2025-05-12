@@ -13,10 +13,10 @@ public class ReplyRequest {
         private Integer boardId;
         private String content;
 
-        public Reply toEntity(Board board, User sessionUser) {
+        public Reply toEntity(User sessionUser) {
             return Reply.builder()
                     .content(content)
-                    .board(board)
+                    .board(Board.builder().id(boardId).build())
                     .user(sessionUser)
                     .build();
         }

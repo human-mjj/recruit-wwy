@@ -197,7 +197,6 @@ public class EmploymentRepository {
         employmentList.sort((e1, e2) -> Long.compare(e2.getScrapCount(), e1.getScrapCount()));
         int start = page * 16;
         int end = Math.min(start + 16, employmentList.size());
-        System.out.println("6");
         return employmentList.subList(start, end);
     }
 

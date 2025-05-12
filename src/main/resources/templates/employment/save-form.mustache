@@ -19,7 +19,8 @@
 <main>
 	<section>
 		<div class="container mt-4 mb-5 p-5 rounded">
-			<form action="/employment/save" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-3">
+			<form action="/employment/save" method="post" enctype="multipart/form-data"
+			      class="d-flex flex-column gap-3">
 				<div class="title-wrap d-flex flex-column gap-3">
 					<label for="" class="fs-3 fw-medium"
 					>공고등록</label
@@ -35,11 +36,11 @@
 
 				<!-- .title-wrap end -->
 				<div class="select-wrap bg-white rounded p-5">
-                    <!-- ✅ 채용 공고 사진 업로드 -->
-                    <div class="img-container mb-5">
-                        <label class="fs-4 fw-medium gap-3 mb-3">채용 공고 사진</label>
-                        <input type="file" class="form-control" name="uploadingImg"/>
-                    </div>
+					<!-- ✅ 채용 공고 사진 업로드 -->
+					<div class="img-container mb-5">
+						<label class="fs-4 fw-medium gap-3 mb-3">채용 공고 사진</label>
+						<input type="file" class="form-control" name="uploadingImg"/>
+					</div>
 					<div class="radio-group d-flex flex-column gap-3 mb-5">
 						<label for="" class="fs-4 fw-medium">개발 직무</label>
 						<div class="d-flex flex-wrap gap-3">
@@ -255,7 +256,7 @@
 						<div class="form-group mt-3">
 							<h3 class="mb-0">학력</h3>
 							<div class="d-flex gap-3 mt-2">
-								<select class="form-select" name="edu">
+								<select class="form-select w-50" name="edu">
 									<option value=""
 									        disabled
 									        selected>학력을 선택하세요
@@ -270,12 +271,6 @@
 										고등학교 / 졸업
 									</option>
 								</select>
-								<input
-										type="text"
-										class="form-control"
-										name="schoolName"
-										placeholder="학교명을 입력하세요"
-								/>
 							</div>
 						</div>
 					</div>
