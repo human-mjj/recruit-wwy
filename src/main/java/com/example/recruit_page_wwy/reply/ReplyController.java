@@ -17,7 +17,7 @@ public class ReplyController {
     @PostMapping("/reply/save")
     public String replySave(ReplyRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Reply replyPS = replyService.replySave(saveDTO, sessionUser);
+        ReplyRequest.DTO respDTO = replyService.replySave(saveDTO, sessionUser);
         return "redirect:/board/" + saveDTO.getBoardId();
     }
 
