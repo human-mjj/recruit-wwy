@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 public class ReplyRequest {
 
+
     @Data
     public static class DTO {
         private int id;
