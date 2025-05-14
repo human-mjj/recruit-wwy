@@ -26,8 +26,9 @@ public class BoardService {
     // TODO : save -> persist
     // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
-    public BoardResponse.DTO boardSave(BoardRequest.SaveDTO reqDTO) {
+    public BoardResponse.DTO boardSave(BoardRequest.SaveDTO reqDTO, User sessionUser) {
         Board boardPS = boardRepository.save(reqDTO.getUser_id(), reqDTO.getTitle(), reqDTO.getContent());
+//                .orElseThrow(() -> new ExceptionApi401("사용자 인증이 필요합니다"));
         return new BoardResponse.DTO(boardPS);
     }
 
@@ -56,12 +57,14 @@ public class BoardService {
     @Transactional
     public BoardResponse.DTO boardUpdate(Integer id, BoardRequest.UpdateDTO reqDTO) {
         Board boardPS = boardRepository.boardUpdate(id, reqDTO.getTitle(), reqDTO.getContent());
+        //                .orElseThrow(() -> new ExceptionApi401("사용자 인증이 필요합니다"));
         return new BoardResponse.DTO(boardPS);
     }
 
     @Transactional
     public void boardDelete(Integer id) {
         boardRepository.delete(id);
+        //                .orElseThrow(() -> new ExceptionApi401("사용자 인증이 필요합니다"));
     }
 
     public BoardResponse.UpdateViewDTO updateView(Integer id, User sessionUser) {

@@ -19,7 +19,7 @@ public class BoardController {
     @PostMapping("/board/save")
     public ResponseEntity<?> boardSave(@RequestBody BoardRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        BoardResponse.DTO respDTO = boardService.boardSave(reqDTO);
+        BoardResponse.DTO respDTO = boardService.boardSave(reqDTO, sessionUser);
         System.out.println(respDTO);
         return Resp.ok(respDTO);
     }
