@@ -6,19 +6,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class MatchController {
     private final MatchService matchService;
     private final HttpSession session;
 
     // TODO : 예외 추가
     @GetMapping("/match")
-    public @ResponseBody ResponseEntity<?> matchList(HttpServletRequest request) {
+    public ResponseEntity<?> matchList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         MatchResponse.MatchDTO respDTO = matchService.matchEmployment(sessionUser);
         return Resp.ok(respDTO);
@@ -26,7 +25,7 @@ public class MatchController {
 
     // TODO : 예외 추가
     @GetMapping("/match/com")
-    public @ResponseBody ResponseEntity<?> matchComList(HttpServletRequest request) {
+    public ResponseEntity<?> matchComList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         MatchResponse.ResumeListDTO respDTO = matchService.matchResume(sessionUser);
         return Resp.ok(respDTO);
