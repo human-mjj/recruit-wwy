@@ -92,6 +92,6 @@ public class UserRequest {
         private String email;
         private String password;
         private int role;
-        private String rememberMe;
+//        private String rememberMe;
     }
 }

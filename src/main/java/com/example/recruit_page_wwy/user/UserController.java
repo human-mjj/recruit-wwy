@@ -1,6 +1,5 @@
 package com.example.recruit_page_wwy.user;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -83,15 +82,15 @@ public class UserController {
         session.setAttribute("sessionUser", sessionUser);
 
         // 유저 아이디 기억하는 로직
-        if (reqDTO.getRememberMe() == null) {
-            Cookie cookie = new Cookie("email", null);
-            cookie.setMaxAge(0); // 즉시 만료
-            response.addCookie(cookie);
-        } else {
-            Cookie cookie = new Cookie("email", reqDTO.getEmail());
-            cookie.setMaxAge(60 * 60 * 24 * 7);
-            response.addCookie(cookie);
-        }
+//        if (reqDTO.getRememberMe() == null) {
+//            Cookie cookie = new Cookie("email", null);
+//            cookie.setMaxAge(0); // 즉시 만료
+//            response.addCookie(cookie);
+//        } else {
+//            Cookie cookie = new Cookie("email", reqDTO.getEmail());
+//            cookie.setMaxAge(60 * 60 * 24 * 7);
+//            response.addCookie(cookie);
+//        }
 
         return "redirect:/";
     }

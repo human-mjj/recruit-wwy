@@ -13,12 +13,14 @@ import java.util.List;
 public class BoardRepository {
     private final EntityManager em;
 
-    public void save(Integer userId, String title, String content) {
+    public Board save(Integer userId, String title, String content) {
         Query query = em.createNativeQuery("insert into board_tb(user_id, title, content) values (?, ?, ?)");
         query.setParameter(1, userId);
         query.setParameter(2, title);
         query.setParameter(3, content);
         query.executeUpdate();
+
+        return em.find(Board.class, userId);
     }
 
     public Long totalCount(String keyword) {
@@ -72,12 +74,13 @@ public class BoardRepository {
     }
 
 
-    public void boardUpdate(Integer id, String title, String content) {
+    public Board boardUpdate(Integer id, String title, String content) {
         Query query = em.createNativeQuery("update board_tb set title = ?, content = ? where id = ?");
         query.setParameter(1, title);
         query.setParameter(2, content);
         query.setParameter(3, id);
         query.executeUpdate();
+        return em.find(Board.class, id);
     }
 
     public void delete(Integer id) {

@@ -24,7 +24,7 @@ public class BoardRequest {
         private String title;
         private String content;
 
-        public UpdateDTO(Integer id, String title, String content) {
+        public UpdateDTO(String title, String content) {
             this.title = title;
             this.content = content;
         }
