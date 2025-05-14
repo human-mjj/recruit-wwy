@@ -24,7 +24,7 @@ public class UserController {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        UserResponse.MyPageDTO respDTO = userService.mypage(sessionUser);
+        UserResponse.MyPageDTO respDTO = new UserResponse.MyPageDTO(sessionUser);
         // request.setAttribute("model", respDTO);
         return Resp.ok(respDTO);
     }

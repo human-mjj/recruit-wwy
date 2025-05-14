@@ -78,8 +78,8 @@ public class UserService {
     }
 
     // TODO : User가 아니라 DTO에 담아서 반환 ✅
-    public UserResponse.MyPageDTO mypage(User sessionUser) {
-        User user = userRepository.findById(sessionUser.getId());
+    public UserResponse.MyPageDTO mypage(Integer id) {
+        User user = userRepository.findById(id);
         return new UserResponse.MyPageDTO(user);
     }
 }
