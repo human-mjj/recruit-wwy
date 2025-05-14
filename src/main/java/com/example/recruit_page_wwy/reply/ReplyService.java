@@ -19,7 +19,7 @@ public class ReplyService {
 
     // TODO : Reply가 아니라 DTO에 담아서 반환
     @Transactional
-    public Reply replySave(ReplyRequest.SaveDTO saveDTO, User sessionUser) {
+    public ReplyRequest.DTO replySave(ReplyRequest.SaveDTO saveDTO, User sessionUser) {
         if (saveDTO.getContent().isBlank()) throw new ExceptionApi400("댓글 내용을 입력하세요.");
         Board board = boardRepository.findById(saveDTO.getBoardId());
         if (board == null) {
@@ -28,7 +28,8 @@ public class ReplyService {
 
         Reply reply = saveDTO.toEntity(sessionUser);
 
-        return replyRepository.replySave(reply);
+        Reply replyPS = replyRepository.replySave(reply);
+        return new ReplyRequest.DTO(replyPS, board, sessionUser);
     }
 
     // TODO : 예외 처리
