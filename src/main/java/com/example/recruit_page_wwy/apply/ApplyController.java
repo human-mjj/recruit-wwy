@@ -41,20 +41,20 @@ public class ApplyController {
     // TODO : 예외 처리
     // TODO : 인터셉터 만들어야함
     @PostMapping("/employment/{id}/apply")
-    public String apply(@PathVariable("id") int employmentId, @RequestParam("resumeId") Integer resumeId) {
+    public ResponseEntity<?> apply(@PathVariable("id") int employmentId, @RequestParam("resumeId") Integer resumeId) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        applyService.apply(sessionUser, resumeId, employmentId);
-        return "redirect:/mypage/apply";
+        ApplyResponse.DTO respDTO = applyService.apply(sessionUser, resumeId, employmentId);
+        return Resp.ok(respDTO);
     }
 
     // TODO : DTO 반환에서 Body에 넣기
     // TODO : Resp 수정
     @PostMapping("/api/apply")
-    public ResponseEntity<?> updateApplyProgress(@RequestBody Map<String, String> request) {
+    public @ResponseBody ResponseEntity<?> updateApplyProgress(@RequestBody Map<String, String> request) {
         Integer applyId = Integer.valueOf(request.get("applyId"));
         String progress = request.get("progress");
 
-        applyService.updateProgress(applyId, progress); // 실제 처리 로직
-        return Resp.ok(Map.of("status", "success"));
+        ApplyResponse.DTO respDTO = applyService.updateProgress(applyId, progress); // 실제 처리 로직
+        return Resp.ok(respDTO);
     }
 }

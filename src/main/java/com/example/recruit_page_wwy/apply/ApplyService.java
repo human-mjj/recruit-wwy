@@ -34,7 +34,7 @@ public class ApplyService {
     }
 
     @Transactional
-    public void apply(User sessionUser, Integer resumeId, int employmentId) {
+    public ApplyResponse.DTO apply(User sessionUser, Integer resumeId, int employmentId) {
         Resume resume = resumeRepository.findByResumeId(resumeId);
         if (resume == null) throw new RuntimeException("404 Not Found");
         if (resume.getUser().getId() != sessionUser.getId()) throw new RuntimeException("403 Forbidden");
@@ -67,11 +67,14 @@ public class ApplyService {
 
         // employment 함수 만들면 null 없애기
         Apply apply = ApplyRequest.SaveDTO.toEntity(sessionUser, resume, employment);
-        applyRepository.save(apply);
+        Apply applyPS = applyRepository.save(apply);
+
+        return new ApplyResponse.DTO(applyPS);
     }
 
     @Transactional
-    public void updateProgress(Integer applyId, String progress) {
-        applyRepository.update(applyId, progress);
+    public ApplyResponse.DTO updateProgress(Integer applyId, String progress) {
+        Apply applyPS = applyRepository.update(applyId, progress);
+        return new ApplyResponse.DTO(applyPS);
     }
 }

@@ -7,6 +7,24 @@ import lombok.Data;
 import java.util.List;
 
 public class ApplyResponse {
+    @Data
+    public static class DTO {
+        private int id;
+        private Integer userId;
+        private Integer resumeId;
+        private Integer employmentId;
+        private String createdAt;
+        private String progress;
+
+        public DTO(Apply apply) {
+            this.id = apply.getId();
+            this.userId = apply.getUser().getId();
+            this.resumeId = apply.getResume().getId();
+            this.employmentId = apply.getEmployment().getId();
+            this.createdAt = apply.getCreatedAt().toString();
+            this.progress = apply.getProgress();
+        }
+    }
 
     @Data
     public static class UserApplyListDTO {
