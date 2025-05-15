@@ -5,6 +5,30 @@ import lombok.Data;
 public class UserResponse {
 
     @Data
+    public static class DTO {
+        private String username;
+        private String password;
+        private String email;
+        private boolean isCompanyUser;
+        private String phone;
+        private int role;
+        private String comName;
+        private Integer industryId;
+        private User user;
+
+        public DTO(User user) {
+            this.email = user.getEmail();
+            this.isCompanyUser = user.getRole() == 1;
+            this.phone = user.getPhone();
+            this.role = user.getRole();
+            this.comName = user.getComName();
+            this.industryId = user.getIndustry() != null ? user.getIndustry().getId() : null;
+            this.user = user;
+            this.username = user.getUsername();
+        }
+    }
+
+    @Data
     public static class MyPageDTO {
         private String username;
         private String email;
@@ -20,6 +44,33 @@ public class UserResponse {
 
             this.username = sessionUser.getUsername();
             this.email = sessionUser.getEmail();
+        }
+    }
+
+    @Data
+    public static class UpdateDTO {
+        private int id;
+        private String username;
+        private String email;
+        private String phone;
+        private String imgUrl;
+
+        // 기업, 구직자 구분 : not null
+        private int role;
+
+        // 기업용 : 구직자는 null 처리해야 함
+        private String comName;
+        private Integer industryId;
+
+        public UpdateDTO(User user) {
+            this.id = user.getId();
+            this.username = user.getUsername();
+            this.email = user.getEmail();
+            this.phone = user.getPhone();
+            this.imgUrl = user.getImgUrl();
+            this.role = user.getRole();
+            this.comName = user.getComName();
+            this.industryId = user.getIndustry() != null ? user.getIndustry().getId() : null;
         }
     }
 }
