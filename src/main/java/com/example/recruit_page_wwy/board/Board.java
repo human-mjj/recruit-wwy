@@ -41,8 +41,8 @@ public class Board {
         this.createdAt = createdAt;
     }
 
-    public void update(String title, String content) {
-        this.title = title;
-        this.content = content;
+    public void update(BoardRequest.UpdateDTO dto) {
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
     }
 }

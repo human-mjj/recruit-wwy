@@ -72,7 +72,7 @@ public class BoardResponse {
         public ListDTO(List<Board> boards, Integer current, Integer totalCount, User sessionUser, String keyword) {
             this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
             this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
-            
+
             this.boards = boards.stream()
                     .map(BoardDTO::new)
                     .collect(Collectors.toList());
@@ -80,6 +80,7 @@ public class BoardResponse {
             this.size = 5;
             this.prev = current - 1;
             this.next = current + 1;
+            this.current = current;
             this.prevPage = prev + 1;
             this.nextPage = next + 1;
             this.totalCount = totalCount;

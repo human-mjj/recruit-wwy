@@ -24,11 +24,14 @@ public class BoardController {
         return Resp.ok(respDTO);
     }
 
-    @GetMapping("/board")
-    public ResponseEntity<?> boardList(@RequestParam(required = false, value = "page", defaultValue = "1") Integer page,
-                                       @RequestParam(required = false, value = "keyword", defaultValue = "") String keyword) {
+    @PostMapping("/board")
+    public ResponseEntity<?> boardList(@RequestBody BoardRequest.SearchRequestDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        BoardResponse.ListDTO respDTO = boardService.boardList(page - 1, sessionUser, keyword);
+
+        int page = reqDTO.getPage() != null && reqDTO.getPage() > 0 ? reqDTO.getPage() - 1 : 0;
+        String keyword = reqDTO.getKeyword() != null ? reqDTO.getKeyword() : "";
+
+        BoardResponse.ListDTO respDTO = boardService.boardList(page, sessionUser, keyword);
         return Resp.ok(respDTO);
     }
 
@@ -42,15 +45,20 @@ public class BoardController {
     }
 
     @PutMapping("/board/{id}/update")
-    public ResponseEntity<?> boardUpdate(@PathVariable("id") Integer id, @RequestBody BoardRequest.UpdateDTO reqDTO) {
-        BoardResponse.DTO respDTO = boardService.boardUpdate(id, reqDTO);
+    public ResponseEntity<?> boardUpdate(@PathVariable("id") Integer id, @RequestBody BoardRequest.UpdateDTO reqDTO, HttpSession session) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        Integer sessionUserId = sessionUser != null ? sessionUser.getId() : null;
+
+        BoardResponse.DTO respDTO = boardService.boardUpdate(id, reqDTO, sessionUserId);
         System.out.println(reqDTO);
         return Resp.ok(respDTO);
     }
 
     @DeleteMapping("/board/{id}/delete")
-    public ResponseEntity<?> deleteBoard(@PathVariable("id") Integer id) {
-        boardService.boardDelete(id);
+    public ResponseEntity<?> deleteBoard(@PathVariable("id") Integer id, HttpSession session) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        Integer sessionUserId = sessionUser != null ? sessionUser.getId() : null;
+        boardService.boardDelete(id, sessionUserId);
         return Resp.ok(null);
     }
 

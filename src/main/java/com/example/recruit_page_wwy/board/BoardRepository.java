@@ -13,14 +13,10 @@ import java.util.List;
 public class BoardRepository {
     private final EntityManager em;
 
-    public Board save(Integer userId, String title, String content) {
-        Query query = em.createNativeQuery("insert into board_tb(user_id, title, content) values (?, ?, ?)");
-        query.setParameter(1, userId);
-        query.setParameter(2, title);
-        query.setParameter(3, content);
-        query.executeUpdate();
+    public Board save(Board board) {
+        em.persist(board);
 
-        return em.find(Board.class, userId);
+        return board;
     }
 
     public Long totalCount(String keyword) {
