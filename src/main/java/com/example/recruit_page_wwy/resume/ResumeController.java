@@ -54,6 +54,7 @@ public class ResumeController {
     // TODO : 예외 추가
     @GetMapping("/resume/{id}/update-form")
     public String resumeUpdateForm(@PathVariable("id") Integer id, HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
         ResumeResponse.UpdateViewDTO updateViewDTO = resumeService.findById(id);
         request.setAttribute("model", updateViewDTO);
         return "resume/update-form";
@@ -62,14 +63,16 @@ public class ResumeController {
     // TODO : 예외 추가
     @PostMapping("/resume/{id}/update")
     public String resumeUpdate(@PathVariable("id") Integer id, ResumeRequest.SaveDTO updateDTO) {
-        resumeService.update(id, updateDTO);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        resumeService.update(id, updateDTO, sessionUser);
         return "redirect:/mypage/resume";
     }
 
     // TODO : 예외 추가
     @PostMapping("/resume/{id}/delete")
     public String resumeDelete(@PathVariable("id") Integer resumeId) {
-        resumeService.delete(resumeId);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        resumeService.delete(resumeId, sessionUser);
         return "redirect:/mypage/resume";
     }
 }
