@@ -69,6 +69,7 @@ public class EmploymentController {
     @PostMapping("/employment/save")
     public @ResponseBody ResponseEntity<?> employmentSave(@RequestBody EmploymentRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+//        System.out.println("sessionUser = " + sessionUser);
         EmploymentResponse.DTO respDTO = employmentService.save(saveDTO, sessionUser);
         return Resp.ok(respDTO);
     }
@@ -76,6 +77,7 @@ public class EmploymentController {
     @GetMapping("/employment/save-form")
     public String employmentSaveForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        System.out.println("sessionUser = " + sessionUser);
         if (sessionUser == null || sessionUser.getRole() == 0) throw new ExceptionApi401("401 Unauthorized");
         EmploymentResponse.TableDTO tableDTO = employmentService.viewJobAndStackList();
         request.setAttribute("model", tableDTO);
@@ -94,6 +96,7 @@ public class EmploymentController {
     @PutMapping("/employment/{id}")
     public @ResponseBody ResponseEntity<?> updateEmployment(@PathVariable("id") int employmentId, @RequestBody EmploymentRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        System.out.println("sessionUser = " + sessionUser);
         if (sessionUser == null || sessionUser.getRole() == 0) throw new ExceptionApi401("401 Unauthorized");
         EmploymentResponse.DTO respDTO = employmentService.update(employmentId, saveDTO, sessionUser);
         return Resp.ok(respDTO);
