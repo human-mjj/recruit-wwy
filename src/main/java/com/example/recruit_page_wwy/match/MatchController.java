@@ -14,17 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class MatchController {
     private final MatchService matchService;
     private final HttpSession session;
-
-    // TODO : 예외 추가
-    @GetMapping("/match")
+    
+    @GetMapping("/s/api/match")
     public ResponseEntity<?> matchList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         MatchResponse.MatchDTO respDTO = matchService.matchEmployment(sessionUser);
         return Resp.ok(respDTO);
     }
 
-    // TODO : 예외 추가
-    @GetMapping("/match/com")
+    @GetMapping("/s/api/match/com")
     public ResponseEntity<?> matchComList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         MatchResponse.ResumeListDTO respDTO = matchService.matchResume(sessionUser);

@@ -1,13 +1,17 @@
 package com.example.recruit_page_wwy.user;
 
+import com.example.recruit_page_wwy._core.util.Resp;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @RequiredArgsConstructor
 @Controller
@@ -30,10 +34,10 @@ public class UserController {
     // TODO : 예외 처리
     // MyPageUpdate
     @PostMapping("/mypage/update")
-    public String userUpdate(UserRequest.UpdateDTO reqDTO) {
+    public @ResponseBody ResponseEntity<?> userUpdate(@RequestBody UserRequest.UpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        session.setAttribute("sessionUser", userService.userUpdate(reqDTO, sessionUser));
-        return "redirect:/";
+        UserResponse.UpdateDTO respDTO = userService.userUpdate(reqDTO, sessionUser);
+        return Resp.ok(respDTO);
     }
 
     // JoinWayPage
