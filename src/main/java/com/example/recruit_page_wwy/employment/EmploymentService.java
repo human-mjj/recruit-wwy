@@ -14,14 +14,9 @@ import com.example.recruit_page_wwy.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -135,21 +130,23 @@ public class EmploymentService {
     // TODO : 이미지 Encoding 추가
     // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
-    public void save(EmploymentRequest.SaveDTO saveDTO, User sessionUser) {
-        MultipartFile imgFile = saveDTO.getUploadingImg();
+    public EmploymentResponse.DTO save(EmploymentRequest.SaveDTO saveDTO, User sessionUser) {
+//        MultipartFile imgFile = saveDTO.getUploadingImg();
         String imgFilename = null;
-        if (!"null".contains(imgFile.getOriginalFilename())) {
-            imgFilename += UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
-            System.out.println("img Filename: " + imgFilename);
-            Path imgPath = Paths.get("./upload/" + imgFilename);
-            try {
-                Files.write(imgPath, imgFile.getBytes());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
+//        if (!"null".contains(imgFile.getOriginalFilename())) {
+//            imgFilename += UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
+//            System.out.println("img Filename: " + imgFilename);
+//            Path imgPath = Paths.get("./upload/" + imgFilename);
+//            try {
+//                Files.write(imgPath, imgFile.getBytes());
+//            } catch (Exception e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
         Employment savingEmployment = saveDTO.toEntity(sessionUser, imgFilename);
-        employmentRepository.save(savingEmployment, saveDTO.getEmployStack());
+        Employment employmentPS = employmentRepository.save(savingEmployment, saveDTO.getEmployStack());
+
+        return new EmploymentResponse.DTO(employmentPS);
     }
 
     public EmploymentResponse.UpdateViewDTO showUpdateView(int employmentId) {
@@ -204,28 +201,31 @@ public class EmploymentService {
     // TODO : 이미지 Encoding 추가
     // TODO : 업데이트 후 DTO에 담아서 반환
     @Transactional
-    public void update(int employmentId, EmploymentRequest.SaveDTO dto) {
+    public EmploymentResponse.DTO update(int employmentId, EmploymentRequest.SaveDTO dto) {
         // 1. 수정할 Employment 엔티티를 조회
         Employment employment = employmentRepository.findByEmploymentId(employmentId);
         if (employment == null) throw new RuntimeException("해당 채용공고를 찾을 수 없습니다.");
-        MultipartFile imgFile = dto.getUploadingImg();
+//        MultipartFile imgFile = dto.getUploadingImg();
         String imgFilename = null;
-        if (!"null".contains(imgFile.getOriginalFilename())) {
-            imgFilename += UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
-            System.out.println("img Filename: " + imgFilename);
-            Path imgPath = Paths.get("./upload/" + imgFilename);
-            try {
-                Files.write(imgPath, imgFile.getBytes());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
+//        if (!"null".contains(imgFile.getOriginalFilename())) {
+//            imgFilename += UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
+//            System.out.println("img Filename: " + imgFilename);
+//            Path imgPath = Paths.get("./upload/" + imgFilename);
+//            try {
+//                Files.write(imgPath, imgFile.getBytes());
+//            } catch (Exception e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
 
         // 2. Employment 엔티티의 update 메서드를 호출
         employment.update(dto);
+        Employment employmentPS = employmentRepository.findByEmploymentId(employmentId);
 
         // 3. 스택(EmployStack) 수정은 별도로 처리 필요
         employmentRepository.updateStack(employmentId, dto.getEmployStack()); // 기존 스택 전부 삭제
+
+        return new EmploymentResponse.DTO(employmentPS);
     }
 
     @Transactional
