@@ -7,35 +7,32 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class ScrapController {
     private final ScrapService scrapService;
     private final HttpSession session;
 
     // TODO : 예외 추가
     @GetMapping("/s/api/mypage/scrap")
-    public String scrapUserList(HttpServletRequest request,
-                                @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
+    public ResponseEntity<?> scrapUserList(HttpServletRequest request,
+                                           @RequestBody ScrapRequest.PageDTO pageDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        ScrapRequest.UserScrapPageDTO model = scrapService.scrapUserfind(sessionUser, page);
-        request.setAttribute("model", model);
+        ScrapRequest.UserScrapPageDTO respDTO = scrapService.scrapUserfind(sessionUser, pageDTO.getPage());
 
-        return "scrap/user-scrap";
+        return Resp.ok(respDTO);
     }
 
     // TODO : 예외 추가
     @GetMapping("/s/api/mypage/scrap/com")
-    public String scrapComList(HttpServletRequest request,
-                               @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
+    public ResponseEntity<?> scrapComList(HttpServletRequest request,
+                                          @RequestBody ScrapRequest.PageDTO pageDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        ScrapRequest.ComScrapPageDTO model = scrapService.scrapComfind(sessionUser, page);
-        request.setAttribute("model", model);
+        ScrapRequest.ComScrapPageDTO respDTO = scrapService.scrapComfind(sessionUser, pageDTO.getPage());
 
-        return "scrap/com-scrap";
+        return Resp.ok(respDTO);
     }
 
     @PostMapping("/s/api/scrap")
