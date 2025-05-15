@@ -19,7 +19,7 @@ public class UserController {
 
     // TODO : 예외 처리
     // MyPage
-    @GetMapping("/mypage")
+    @GetMapping("/s/api/mypage")
     public @ResponseBody ResponseEntity<?> myPage(HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
@@ -30,7 +30,7 @@ public class UserController {
 
     // TODO : 예외 처리
     // MyPageUpdate
-    @PostMapping("/mypage/update")
+    @PostMapping("/api/mypage/update")
     public @ResponseBody ResponseEntity<?> userUpdate(@RequestBody UserRequest.UpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         UserResponse.DTO respDTO = userService.userUpdate(reqDTO, sessionUser);
