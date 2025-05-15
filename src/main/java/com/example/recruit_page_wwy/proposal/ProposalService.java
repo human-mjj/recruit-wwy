@@ -27,7 +27,7 @@ public class ProposalService {
 
     // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
-    public void recommend(int resumeId, ProposalRequest.SaveDTO saveDTO, User sessionUser) {
+    public ProposalResponse.DTO recommend(int resumeId, ProposalRequest.SaveDTO saveDTO, User sessionUser) {
         Resume resume = resumeRepository.findByResumeId(resumeId);
         if (resume == null) throw new ExceptionApi404("404 Not Found");
         Employment employment = employmentRepository.findByEmploymentId(saveDTO.getEmploymentId());
@@ -51,6 +51,8 @@ public class ProposalService {
 
         if (!hasCommonJob || !hasCommonSkill) throw new RuntimeException("403 Forbidden");
         Proposal proposal = saveDTO.toEntity(sessionUser, resume, employment);
-        proposalRepository.save(proposal);
+        Proposal proposalPS = proposalRepository.save(proposal);
+
+        return new ProposalResponse.DTO(proposalPS);
     }
 }
