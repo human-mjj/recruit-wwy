@@ -15,7 +15,7 @@ public class ScrapController {
     private final HttpSession session;
 
     // TODO : 예외 추가
-    @GetMapping("/mypage/scrap")
+    @GetMapping("/s/api/mypage/scrap")
     public String scrapUserList(HttpServletRequest request,
                                 @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -26,7 +26,7 @@ public class ScrapController {
     }
 
     // TODO : 예외 추가
-    @GetMapping("/mypage/scrap/com")
+    @GetMapping("/s/api/mypage/scrap/com")
     public String scrapComList(HttpServletRequest request,
                                @RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -36,7 +36,7 @@ public class ScrapController {
         return "scrap/com-scrap";
     }
 
-    @PostMapping("/api/scrap")
+    @PostMapping("/s/api/scrap")
     @ResponseBody
     public Object saveScrap(@RequestBody ScrapRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -51,7 +51,7 @@ public class ScrapController {
         return respDTO;
     }
 
-    @DeleteMapping("/api/scrap/{id}")
+    @DeleteMapping("/s/api/scrap/{id}")
     @ResponseBody
     public Object deleteScrap(@PathVariable("id") Integer employmentId) {
         User sessionUser = (User) session.getAttribute("sessionUser");
