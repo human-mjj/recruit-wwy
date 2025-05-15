@@ -3,7 +3,6 @@ package com.example.recruit_page_wwy.employment;
 import com.example.recruit_page_wwy.job.Job;
 import com.example.recruit_page_wwy.user.User;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Date;
 import java.util.List;
@@ -27,7 +26,7 @@ public class EmploymentRequest {
         private Integer jobId;
         private List<String> employStack;
 
-        private MultipartFile uploadingImg;
+        //        private MultipartFile uploadingImg;
         private String imgUrl;
 
         public Employment toEntity(User user, String imgUrl) {
