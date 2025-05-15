@@ -95,7 +95,7 @@ public class EmploymentController {
     public @ResponseBody ResponseEntity<?> updateEmployment(@PathVariable("id") int employmentId, @RequestBody EmploymentRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null || sessionUser.getRole() == 0) throw new ExceptionApi401("401 Unauthorized");
-        EmploymentResponse.DTO respDTO = employmentService.update(employmentId, saveDTO);
+        EmploymentResponse.DTO respDTO = employmentService.update(employmentId, saveDTO, sessionUser);
         return Resp.ok(respDTO);
     }
 

@@ -16,8 +16,12 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -207,7 +211,7 @@ public class EmploymentService {
     // TODO : 업데이트 후 DTO에 담아서 반환
     @Transactional
 
-    public EmploymentResponse.DTO update(int employmentId, EmploymentRequest.SaveDTO dto) {
+    public EmploymentResponse.DTO update(int employmentId, EmploymentRequest.SaveDTO dto, User sessionUser) {
         // 1. 수정할 Employment 엔티티를 조회
         Employment employment = employmentRepository.findByEmploymentId(employmentId);
         if (employment == null) throw new RuntimeException("해당 채용공고를 찾을 수 없습니다.");
