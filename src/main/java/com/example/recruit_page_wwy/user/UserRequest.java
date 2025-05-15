@@ -1,7 +1,6 @@
 package com.example.recruit_page_wwy.user;
 
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 public class UserRequest {
 
@@ -22,7 +21,7 @@ public class UserRequest {
         private String phone;
         private String password;
         private Integer industryId;
-        private MultipartFile uploadingImg;
+        //private MultipartFile uploadingImg;
         private String imgUrl;
 
         public User toEntity(String imgUrl) {
