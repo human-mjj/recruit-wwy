@@ -1,15 +1,14 @@
 package com.example.recruit_page_wwy.employment;
 
 import com.example.recruit_page_wwy._core.error.ex.ExceptionApi401;
+import com.example.recruit_page_wwy._core.util.Resp;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -68,10 +67,10 @@ public class EmploymentController {
 
     // TODO : 예외 추가
     @PostMapping("/employment/save")
-    public String employmentSave(EmploymentRequest.SaveDTO saveDTO) {
+    public @ResponseBody ResponseEntity<?> employmentSave(@RequestBody EmploymentRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        employmentService.save(saveDTO, sessionUser);
-        return "redirect:/mypage/employment";
+        EmploymentResponse.DTO respDTO = employmentService.save(saveDTO, sessionUser);
+        return Resp.ok(respDTO);
     }
 
     @GetMapping("/employment/save-form")
@@ -92,12 +91,12 @@ public class EmploymentController {
         return "employment/update-form";
     }
 
-    @PostMapping("/employment/{id}/update")
-    public String updateEmployment(@PathVariable("id") int employmentId, EmploymentRequest.SaveDTO saveDTO) {
+    @PutMapping("/employment/{id}")
+    public @ResponseBody ResponseEntity<?> updateEmployment(@PathVariable("id") int employmentId, @RequestBody EmploymentRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null || sessionUser.getRole() == 0) throw new ExceptionApi401("401 Unauthorized");
-        employmentService.update(employmentId, saveDTO);
-        return "redirect:/employment/" + employmentId;
+        EmploymentResponse.DTO respDTO = employmentService.update(employmentId, saveDTO, sessionUser);
+        return Resp.ok(respDTO);
     }
 
     @PostMapping("/employment/{id}/delete")
