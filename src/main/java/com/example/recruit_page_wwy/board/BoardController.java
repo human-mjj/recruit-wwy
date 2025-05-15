@@ -1,15 +1,14 @@
 package com.example.recruit_page_wwy.board;
 
 import com.example.recruit_page_wwy._core.error.ex.ExceptionApi401;
+import com.example.recruit_page_wwy._core.util.Resp;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -17,40 +16,51 @@ public class BoardController {
     private final BoardService boardService;
     private final HttpSession session;
 
-    @GetMapping("/board/save-form")
-    public String boardSaveForm() {
-        return "board/save-form";
-    }
-
     @PostMapping("/board/save")
-    public String boardSave(BoardRequest.SaveDTO saveDTO) {
+    public ResponseEntity<?> boardSave(@RequestBody BoardRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        saveDTO.setUser_id(sessionUser.getId());
-        boardService.boardSave(saveDTO);
-        return "redirect:/board";
+        BoardResponse.DTO respDTO = boardService.boardSave(reqDTO, sessionUser);
+        System.out.println(respDTO);
+        return Resp.ok(respDTO);
     }
 
-    @GetMapping("/board")
-    public String boardList(HttpServletRequest request,
-                            @RequestParam(required = false, value = "page", defaultValue = "1") Integer page,
-                            @RequestParam(required = false, value = "keyword", defaultValue = "") String keyword) {
-        System.out.println("keyword: " + keyword);
+    @PostMapping("/board")
+    public ResponseEntity<?> boardList(@RequestBody BoardRequest.SearchRequestDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        request.setAttribute("model", boardService.boardList(page - 1, sessionUser, keyword));
-        System.out.println(boardService.boardList(page - 1, sessionUser, keyword).getIsCompanyUser());
-        return "board/list";
+
+        int page = reqDTO.getPage() != null && reqDTO.getPage() > 0 ? reqDTO.getPage() - 1 : 0;
+        String keyword = reqDTO.getKeyword() != null ? reqDTO.getKeyword() : "";
+
+        BoardResponse.ListDTO respDTO = boardService.boardList(page, sessionUser, keyword);
+        return Resp.ok(respDTO);
     }
 
     @GetMapping("/board/{id}")
-    public String boardDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
+    public ResponseEntity<?> boardDetail(@PathVariable("id") Integer id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        BoardResponse.DetailDTO detailDTO = boardService.boardDetail(id, sessionUser);
-        request.setAttribute("model", detailDTO);
+        BoardResponse.DetailDTO respDTO = boardService.boardDetail(id, sessionUser);
 
-        return "board/detail";
+        return Resp.ok(respDTO);
     }
 
+    @PutMapping("/board/{id}/update")
+    public ResponseEntity<?> boardUpdate(@PathVariable("id") Integer id, @RequestBody BoardRequest.UpdateDTO reqDTO, HttpSession session) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        Integer sessionUserId = sessionUser != null ? sessionUser.getId() : null;
+
+        BoardResponse.DTO respDTO = boardService.boardUpdate(id, reqDTO, sessionUserId);
+        System.out.println(reqDTO);
+        return Resp.ok(respDTO);
+    }
+
+    @DeleteMapping("/board/{id}/delete")
+    public ResponseEntity<?> deleteBoard(@PathVariable("id") Integer id, HttpSession session) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        Integer sessionUserId = sessionUser != null ? sessionUser.getId() : null;
+        boardService.boardDelete(id, sessionUserId);
+        return Resp.ok(null);
+    }
 
     @GetMapping("/board/{id}/update-form")
     public String boardUpdateForm(@PathVariable("id") Integer id, HttpServletRequest request) {
@@ -59,18 +69,6 @@ public class BoardController {
         BoardResponse.UpdateViewDTO respDTO = boardService.updateView(id, sessionUser);
         request.setAttribute("model", respDTO);
         return "board/update-form";
-    }
-
-    @PostMapping("/board/{id}/update")
-    public String boardUpdate(@PathVariable("id") Integer id, BoardRequest.UpdateDTO updateDTO) {
-        boardService.boardUpdate(id, updateDTO);
-        return "redirect:/board";
-    }
-
-    @PostMapping("/board/{id}/delete")
-    public String deleteBoard(@PathVariable("id") Integer id) {
-        boardService.boardDelete(id);
-        return "redirect:/board";
     }
 
 }
