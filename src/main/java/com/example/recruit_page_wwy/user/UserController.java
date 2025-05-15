@@ -20,8 +20,7 @@ public class UserController {
     // TODO : 예외 처리
     // MyPage
     @GetMapping("/mypage")
-    public @ResponseBody ResponseEntity<?> myPage() {
-
+    public @ResponseBody ResponseEntity<?> myPage(HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         UserResponse.MyPageDTO respDTO = new UserResponse.MyPageDTO(sessionUser);
@@ -80,8 +79,9 @@ public class UserController {
     // TODO : 쿠키 비교 삭제
     // Login
     @PostMapping("/login")
-    public @ResponseBody ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO, HttpServletResponse response) {
+    public @ResponseBody ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO, HttpServletResponse response, HttpSession session) {
         UserResponse.DTO respDTO = userService.login(reqDTO);
+        session.setAttribute("sessionUser", respDTO.getUser());
 
         // 유저 아이디 기억하는 로직
 //        if (reqDTO.getRememberMe() == null) {

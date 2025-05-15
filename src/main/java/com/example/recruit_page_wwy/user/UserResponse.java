@@ -14,15 +14,17 @@ public class UserResponse {
         private int role;
         private String comName;
         private Integer industryId;
+        private User user;
 
         public DTO(User user) {
-            this.username = user.getUsername();
             this.email = user.getEmail();
             this.isCompanyUser = user.getRole() == 1;
             this.phone = user.getPhone();
             this.role = user.getRole();
             this.comName = user.getComName();
             this.industryId = user.getIndustry() != null ? user.getIndustry().getId() : null;
+            this.user = user;
+            this.username = user.getUsername();
         }
     }
 
