@@ -1,10 +1,12 @@
 package com.example.recruit_page_wwy.scrap;
 
 import com.example.recruit_page_wwy._core.error.ex.ExceptionApi401;
+import com.example.recruit_page_wwy._core.util.Resp;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +40,7 @@ public class ScrapController {
 
     @PostMapping("/s/api/scrap")
     @ResponseBody
-    public Object saveScrap(@RequestBody ScrapRequest.SaveDTO reqDTO) {
+    public ResponseEntity<?> saveScrap(@RequestBody ScrapRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         if (sessionUser == null) {
@@ -48,17 +50,17 @@ public class ScrapController {
         ScrapResponse.SaveDTO respDTO = scrapService.save(reqDTO, sessionUser);
         System.out.println(respDTO.getScrapId());
 
-        return respDTO;
+        return Resp.ok(respDTO);
     }
 
     @DeleteMapping("/s/api/scrap/{id}")
     @ResponseBody
-    public Object deleteScrap(@PathVariable("id") Integer employmentId) {
+    public ResponseEntity<?> deleteScrap(@PathVariable("id") Integer employmentId) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) throw new ExceptionApi401("인증이 필요합니다");
 
         ScrapResponse.DeleteDTO respDTO = scrapService.cancelScrap(employmentId);
 
-        return respDTO;
+        return Resp.ok(respDTO);
     }
 }
