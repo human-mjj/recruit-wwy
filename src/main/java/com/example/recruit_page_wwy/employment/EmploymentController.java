@@ -96,7 +96,7 @@ public class EmploymentController {
     public String updateEmployment(@PathVariable("id") int employmentId, EmploymentRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null || sessionUser.getRole() == 0) throw new ExceptionApi401("401 Unauthorized");
-        employmentService.update(employmentId, saveDTO);
+        employmentService.update(employmentId, saveDTO, sessionUser);
         return "redirect:/employment/" + employmentId;
     }
 
