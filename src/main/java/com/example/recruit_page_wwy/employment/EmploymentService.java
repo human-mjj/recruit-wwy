@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.employment;
 
 
+import com.example.recruit_page_wwy._core.util.Base64Util;
 import com.example.recruit_page_wwy.employstack.EmployStack;
 import com.example.recruit_page_wwy.employstack.EmployStackRepository;
 import com.example.recruit_page_wwy.job.Job;
@@ -127,22 +128,27 @@ public class EmploymentService {
         return new EmploymentResponse.TableDTO(jobList, stackList, null, null);
     }
 
-    // TODO : 이미지 Encoding 추가
     // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
     public EmploymentResponse.DTO save(EmploymentRequest.SaveDTO saveDTO, User sessionUser) {
-//        MultipartFile imgFile = saveDTO.getUploadingImg();
+        User userPS = userRepository.findUserById(sessionUser.getId());
         String imgFilename = null;
-//        if (!"null".contains(imgFile.getOriginalFilename())) {
-//            imgFilename += UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
-//            System.out.println("img Filename: " + imgFilename);
-//            Path imgPath = Paths.get("./upload/" + imgFilename);
-//            try {
-//                Files.write(imgPath, imgFile.getBytes());
-//            } catch (Exception e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
+
+        // 새 이미지가 Base64 문자열로 넘어온 경우에만 저장
+        String imgUrl = saveDTO.getImgUrl();
+        if (imgUrl != null && imgUrl.startsWith("data:image/")) {
+            imgFilename = UUID.randomUUID() + "_" + userPS.getUsername();
+            Path imgPath = Paths.get("./upload/" + imgFilename);
+
+            try {
+                // 폴더가 없으면 생성, 있으면 넘어감
+                Files.createDirectories(imgPath.getParent());
+                byte[] decodedImageBytes = Base64Util.decodeAsBytes(imgUrl);
+                Files.write(imgPath, decodedImageBytes);
+            } catch (Exception e) {
+                throw new RuntimeException("이미지 저장 실패", e);
+            }
+        }
         Employment savingEmployment = saveDTO.toEntity(sessionUser, imgFilename);
         Employment employmentPS = employmentRepository.save(savingEmployment, saveDTO.getEmployStack());
 
@@ -198,25 +204,31 @@ public class EmploymentService {
         return updateViewDTO;
     }
 
-    // TODO : 이미지 Encoding 추가
     // TODO : 업데이트 후 DTO에 담아서 반환
     @Transactional
+
     public EmploymentResponse.DTO update(int employmentId, EmploymentRequest.SaveDTO dto) {
         // 1. 수정할 Employment 엔티티를 조회
         Employment employment = employmentRepository.findByEmploymentId(employmentId);
         if (employment == null) throw new RuntimeException("해당 채용공고를 찾을 수 없습니다.");
-//        MultipartFile imgFile = dto.getUploadingImg();
+        User userPS = userRepository.findUserById(sessionUser.getId());
         String imgFilename = null;
-//        if (!"null".contains(imgFile.getOriginalFilename())) {
-//            imgFilename += UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
-//            System.out.println("img Filename: " + imgFilename);
-//            Path imgPath = Paths.get("./upload/" + imgFilename);
-//            try {
-//                Files.write(imgPath, imgFile.getBytes());
-//            } catch (Exception e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
+
+        // 새 이미지가 Base64 문자열로 넘어온 경우에만 저장
+        String imgUrl = dto.getImgUrl();
+        if (imgUrl != null && imgUrl.startsWith("data:image/")) {
+            imgFilename = UUID.randomUUID() + "_" + userPS.getUsername();
+            Path imgPath = Paths.get("./upload/" + imgFilename);
+
+            try {
+                // 폴더가 없으면 생성, 있으면 넘어감
+                Files.createDirectories(imgPath.getParent());
+                byte[] decodedImageBytes = Base64Util.decodeAsBytes(imgUrl);
+                Files.write(imgPath, decodedImageBytes);
+            } catch (Exception e) {
+                throw new RuntimeException("이미지 저장 실패", e);
+            }
+        }
 
         // 2. Employment 엔티티의 update 메서드를 호출
         employment.update(dto);
