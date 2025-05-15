@@ -17,7 +17,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         if (sessionUser == null) {
-            if (uri.contains("/api")) {
+            if (uri.startsWith("/s")) {
                 throw new ExceptionApi401("로그인 후 사용해주세요");
             }
         }

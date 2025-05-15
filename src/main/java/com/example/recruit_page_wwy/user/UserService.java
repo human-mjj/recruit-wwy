@@ -5,12 +5,6 @@ import com.example.recruit_page_wwy._core.error.ex.ExceptionApi401;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -61,21 +55,24 @@ public class UserService {
     // TODO : 비밀번호는 BCrypt 사용해서 해시 후 집어넣기
     // TODO : JWT 재발행 (파기 후 다시 발급)
     @Transactional
-    public User userUpdate(UserRequest.UpdateDTO reqDTO, User sessionUser) {
+    public UserResponse.UpdateDTO userUpdate(UserRequest.UpdateDTO reqDTO, User sessionUser) {
         User userPS = userRepository.findById(sessionUser.getId());
-        MultipartFile imgFile = reqDTO.getUploadingImg();
-        String imgFilename = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
-        System.out.println("img Filename: " + imgFilename);
-        Path imgPath = Paths.get("./upload/" + imgFilename);
-        try {
-            Files.write(imgPath, imgFile.getBytes());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        //MultipartFile imgFile = reqDTO.getUploadingImg();
+        String imgFilename = null;
+        /*if (imgFile != null && !imgFile.isEmpty()) {
+            imgFilename += UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
+            System.out.println("img Filename: " + imgFilename);
+            Path imgPath = Paths.get("./upload/" + imgFilename);
+            try {
+                Files.write(imgPath, imgFile.getBytes());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }*/
 
         // 더티 체킹
         userPS.update(reqDTO.toEntity(imgFilename));
-        return userPS;
+        return new UserResponse.UpdateDTO(userPS);
     }
 
     // TODO : User가 아니라 DTO에 담아서 반환
