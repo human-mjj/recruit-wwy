@@ -11,6 +11,11 @@ import java.util.List;
 public class ScrapRequest {
 
     @Data
+    public static class PageDTO {
+        private Integer page = 1;
+    }
+
+    @Data
     public static class UserScrapPageDTO {
         private List<UserScrapDTO> scraps;
         private Integer prev;
