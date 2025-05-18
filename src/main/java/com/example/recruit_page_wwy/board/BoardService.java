@@ -23,9 +23,6 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final ReplyRepository replyRepository;
 
-    @PersistenceContext
-    private EntityManager em;
-
     // TODO : save -> persist
     // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
