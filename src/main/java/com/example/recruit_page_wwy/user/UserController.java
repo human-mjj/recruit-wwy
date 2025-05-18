@@ -5,21 +5,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class UserController {
     private final UserService userService;
     private final HttpSession session;
 
     // TODO : 예외 처리
     // MyPage
-    @GetMapping("/mypage")
+    @GetMapping("/s/api/mypage")
     public @ResponseBody ResponseEntity<?> myPage(HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
@@ -30,7 +26,7 @@ public class UserController {
 
     // TODO : 예외 처리
     // MyPageUpdate
-    @PostMapping("/mypage/update")
+    @PostMapping("/api/mypage/update")
     public @ResponseBody ResponseEntity<?> userUpdate(@RequestBody UserRequest.UpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         UserResponse.DTO respDTO = userService.userUpdate(reqDTO, sessionUser);

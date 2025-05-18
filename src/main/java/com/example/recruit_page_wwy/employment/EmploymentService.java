@@ -135,13 +135,12 @@ public class EmploymentService {
     // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
     public EmploymentResponse.DTO save(EmploymentRequest.SaveDTO saveDTO, User sessionUser) {
-        User userPS = userRepository.findUserById(sessionUser.getId());
         String imgFilename = null;
 
         // 새 이미지가 Base64 문자열로 넘어온 경우에만 저장
         String imgUrl = saveDTO.getImgUrl();
         if (imgUrl != null && imgUrl.startsWith("data:image/")) {
-            imgFilename = UUID.randomUUID() + "_" + userPS.getUsername();
+            imgFilename = UUID.randomUUID() + "_" + saveDTO.getTitle();
             Path imgPath = Paths.get("./upload/" + imgFilename);
 
             try {
@@ -235,7 +234,7 @@ public class EmploymentService {
         }
 
         // 2. Employment 엔티티의 update 메서드를 호출
-        employment.update(dto);
+        employment.update(dto, imgFilename);
         Employment employmentPS = employmentRepository.findByEmploymentId(employmentId);
 
         // 3. 스택(EmployStack) 수정은 별도로 처리 필요
