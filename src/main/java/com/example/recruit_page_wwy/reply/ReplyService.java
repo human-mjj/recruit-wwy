@@ -2,6 +2,7 @@ package com.example.recruit_page_wwy.reply;
 
 
 import com.example.recruit_page_wwy._core.error.ex.ExceptionApi400;
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi403;
 import com.example.recruit_page_wwy._core.error.ex.ExceptionApi404;
 import com.example.recruit_page_wwy.board.Board;
 import com.example.recruit_page_wwy.board.BoardRepository;
@@ -17,7 +18,6 @@ public class ReplyService {
     private final ReplyRepository replyRepository;
     private final BoardRepository boardRepository;
 
-    // TODO : Reply가 아니라 DTO에 담아서 반환
     @Transactional
     public ReplyResponse.DTO replySave(ReplyRequest.SaveDTO saveDTO, User sessionUser) {
         if (saveDTO.getContent().isBlank()) throw new ExceptionApi400("댓글 내용을 입력하세요.");
@@ -30,16 +30,15 @@ public class ReplyService {
 
         return new ReplyResponse.DTO(replyPS);
     }
-
-    // TODO : 예외 처리
+    
     @Transactional
-    public Integer delete(Integer id, Integer sessionUserId) {
+    public void delete(Integer id, User sessionUser) {
         Reply replyPS = replyRepository.findById(id);
+        if (replyPS == null) throw new ExceptionApi404("404 Not Found");
+        if (replyPS.getUser().getId() != sessionUser.getId()) throw new ExceptionApi403("403 Forbidden");
 
         int boardId = replyPS.getBoard().getId();
 
         replyRepository.deleteById(id);
-
-        return boardId;
     }
 }

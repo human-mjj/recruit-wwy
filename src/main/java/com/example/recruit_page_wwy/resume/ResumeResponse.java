@@ -13,9 +13,39 @@ import java.util.List;
 
 public class ResumeResponse {
 
+    public static class DTO {
+        private int id;
+        private String title;
+        private Integer userId;
+        private String exp;
+        private String edu;
+        private List<ResumeStack> resumeStackList;
+        private Integer jobId;
+        private String location;
+        private String qualified;
+        private String activity;
+        private String letter;
+        private String imgUrl;
+
+        public DTO(Resume resume) {
+            this.id = resume.getId();
+            this.title = resume.getTitle();
+            this.userId = resume.getUser().getId();
+            this.exp = resume.getExp();
+            this.edu = resume.getEdu();
+            this.resumeStackList = resume.getResumeStackList();
+            this.jobId = resume.getJob().getId();
+            this.location = resume.getLocation();
+            this.qualified = resume.getQualified();
+            this.activity = resume.getActivity();
+            this.letter = resume.getLetter();
+            this.imgUrl = resume.getImgUrl();
+        }
+    }
+
     @Data
     public static class MainDTO {
-        private List<Resume> resumes;
+        private List<ResumeDTO> resumes;
         private Integer prev;
         private Integer next;
         private Integer size;
@@ -26,8 +56,28 @@ public class ResumeResponse {
         private Boolean isLast;
         private List<Integer> numbers;
 
+        @Data
+        public static class ResumeDTO {
+            private Integer id;
+            private String title;
+            private String username;
+            private String exp;
+            private String edu;
+
+            public ResumeDTO(Resume resume) {
+                this.id = resume.getId();
+                this.title = resume.getTitle();
+                this.username = resume.getUser().getUsername(); // 연관된 유저 정보 접근
+                this.exp = resume.getExp();
+                this.edu = resume.getEdu();
+            }
+        }
+
         public MainDTO(List<Resume> resumes, Integer current, Integer totalCount) {
-            this.resumes = resumes;
+            this.resumes = resumes.stream()
+                    .map(ResumeDTO::new)
+                    .toList();
+
             this.size = 5;
             this.totalCount = totalCount;
             this.totalPage = makeTotalPage(totalCount, size);

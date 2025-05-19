@@ -6,15 +6,12 @@ import com.example.recruit_page_wwy._core.error.ex.ExceptionApi404;
 import com.example.recruit_page_wwy.reply.Reply;
 import com.example.recruit_page_wwy.reply.ReplyRepository;
 import com.example.recruit_page_wwy.user.User;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -52,34 +49,30 @@ public class BoardService {
         return new BoardResponse.DetailDTO(board, replyList, sessionUser);
     }
 
-    // TODO : update -> dirty checking
-    // TODO : 업데이트 후 DTO에 담아서 반환
     @Transactional
-    public BoardResponse.DTO boardUpdate(Integer id, BoardRequest.UpdateDTO reqDTO, Integer sessionUserId) {
-        Board board = boardRepository.findById(id);
-
-        System.out.println("sessionUserId = " + sessionUserId);
-        if (board == null) {
-            throw new ExceptionApi404("자원을 찾을 수 없습니다");
-        }
-
-        if (!Objects.equals(board.getUser().getId(), sessionUserId)) {
-            throw new ExceptionApi403("권한이 없습니다");
-        }
-
-        board.update(reqDTO);
-
-        return new BoardResponse.DTO(board);
-    }
-
-    @Transactional
-    public void boardDelete(Integer id, Integer sessionUserId) {
+    public BoardResponse.DTO boardUpdate(Integer id, BoardRequest.UpdateDTO reqDTO, User sessionUser) {
         Board boardPS = boardRepository.findById(id);
         if (boardPS == null) {
             throw new ExceptionApi404("자원을 찾을 수 없습니다");
         }
 
-        if (!Objects.equals(boardPS.getUser().getId(), sessionUserId)) {
+        if (sessionUser == null || sessionUser.getId() == boardPS.getUser().getId()) {
+            throw new ExceptionApi403("권한이 없습니다");
+        }
+
+        boardPS.update(reqDTO);
+
+        return new BoardResponse.DTO(boardPS);
+    }
+
+    @Transactional
+    public void boardDelete(Integer id, User sessionUser) {
+        Board boardPS = boardRepository.findById(id);
+        if (boardPS == null) {
+            throw new ExceptionApi404("자원을 찾을 수 없습니다");
+        }
+
+        if (sessionUser == null || sessionUser.getId() == boardPS.getUser().getId()) {
             throw new ExceptionApi403("권한이 없습니다");
         }
         boardRepository.delete(id);
