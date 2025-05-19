@@ -34,7 +34,7 @@ public class ResumeService {
 
     // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
-    public void save(ResumeRequest.SaveDTO saveDTO, User sessionUser) {
+    public ResumeResponse.DTO save(ResumeRequest.SaveDTO saveDTO, User sessionUser) {
         User userPS = userRepository.findUserById(sessionUser.getId());
         String imgFilename = null;
 
@@ -55,6 +55,8 @@ public class ResumeService {
         }
         Resume resumePS = resumeRepository.save(saveDTO.toEntity(sessionUser, imgFilename));
         resumeRepository.updateStack(resumePS.getId(), saveDTO.getSkills());
+
+        return new ResumeResponse.DTO(resumePS);
     }
 
     public ResumeResponse.MainDTO findAll(Integer userId, Integer page) {
@@ -90,7 +92,7 @@ public class ResumeService {
 
     // TODO : 업데이트 후 DTO에 담아서 반환
     @Transactional
-    public void update(Integer id, ResumeRequest.SaveDTO updateDTO, User sessionUser) {
+    public ResumeResponse.DTO update(Integer id, ResumeRequest.SaveDTO updateDTO, User sessionUser) {
         Resume resume = resumeRepository.findByResumeId(id);
         if (resume == null) throw new ExceptionApi404("해당하는 이력서가 없습니다.");
         User userPS = userRepository.findUserById(sessionUser.getId());
@@ -113,6 +115,8 @@ public class ResumeService {
         }
         resume.update(updateDTO, imgFilename);
         resumeRepository.updateStack(resume.getId(), updateDTO.getSkills());
+
+        return new ResumeResponse.DTO(resume);
     }
 
     public ResumeResponse.UpdateViewDTO findById(Integer resumeId) {
