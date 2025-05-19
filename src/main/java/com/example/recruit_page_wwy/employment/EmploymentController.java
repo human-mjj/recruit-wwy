@@ -67,10 +67,10 @@ public class EmploymentController {
 
     // TODO : 예외 추가
     @PostMapping("/employment/save")
-    public @ResponseBody ResponseEntity<?> employmentSave(@RequestBody EmploymentRequest.SaveDTO saveDTO) {
+    public @ResponseBody ResponseEntity<?> employmentSave(@RequestBody EmploymentRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 //        System.out.println("sessionUser = " + sessionUser);
-        EmploymentResponse.DTO respDTO = employmentService.save(saveDTO, sessionUser);
+        EmploymentResponse.DTO respDTO = employmentService.save(reqDTO, sessionUser);
         return Resp.ok(respDTO);
     }
 
