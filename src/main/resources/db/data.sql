@@ -110,33 +110,46 @@ values ('국제, 외국기관');
 
 -- 유저 테이블 dummy
 insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
-values ('손영민', 'ssar@nate.com', '01012345678', '1234', null, 0, null, null);
+values ('손영민', 'ssar@nate.com', '01012345678', '$2a$10$cz2AcRni0FxJCFMW6fWaAOl4.CSKtRzaQQsMQ2JCeQOXjW3gaIGae', null, 0,
+        null, null);
 insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
-values ('서회정', 'cos@nate.com', '01087654321', '1234', null, 0, null, null);
+values ('서회정', 'cos@nate.com', '01087654321', '$2a$10$cz2AcRni0FxJCFMW6fWaAOl4.CSKtRzaQQsMQ2JCeQOXjW3gaIGae', null, 0,
+        null, null);
 insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
-values ('편준민', 'love@nate.com', '01013572468', '1234', null, 0, null, null);
+values ('편준민', 'love@nate.com', '01013572468', '$2a$10$cz2AcRni0FxJCFMW6fWaAOl4.CSKtRzaQQsMQ2JCeQOXjW3gaIGae', null, 0,
+        null, null);
 -- 추가 구직자 회원 더미 데이터 (구직자회원 2명 추가)
 insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
-values ('김민지', 'mjkim@nate.com', '01077778888', '1234', null, 0, null, null);
+values ('김민지', 'mjkim@nate.com', '01077778888', '$2a$10$cz2AcRni0FxJCFMW6fWaAOl4.CSKtRzaQQsMQ2JCeQOXjW3gaIGae', null, 0,
+        null, null);
 insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
-values ('박서준', 'sjpark@nate.com', '01088889999', '1234', null, 0, null, null);
+values ('박서준', 'sjpark@nate.com', '01088889999', '$2a$10$cz2AcRni0FxJCFMW6fWaAOl4.CSKtRzaQQsMQ2JCeQOXjW3gaIGae', null,
+        0, null, null);
 insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
-values ('문정준', 'a32176740@gmail.com', '01032176740', '1234', null, 1, 'WWY', 1);
+values ('문정준', 'a32176740@gmail.com', '01032176740', '$2a$10$cz2AcRni0FxJCFMW6fWaAOl4.CSKtRzaQQsMQ2JCeQOXjW3gaIGae',
+        null, 1, 'WWY', 1);
 insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
-values ('홍길동', '1234@nate.com', '01022223333', '1234', null, 1, 'HOG', 1);
+values ('홍길동', '1234@nate.com', '01022223333', '$2a$10$cz2AcRni0FxJCFMW6fWaAOl4.CSKtRzaQQsMQ2JCeQOXjW3gaIGae', null, 1,
+        'HOG', 1);
 -- 추가 기업회원 더미 데이터 (기업회원 6명 추가)
 insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
-values ('이상훈', 'shlee@nate.com', '01011112222', '1234', null, 1, '에이펙스 테크놀로지', 2);
+values ('이상훈', 'shlee@nate.com', '01011112222', '$2a$10$cz2AcRni0FxJCFMW6fWaAOl4.CSKtRzaQQsMQ2JCeQOXjW3gaIGae', null, 1,
+        '에이펙스 테크놀로지', 2);
 insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
-values ('김수진', 'sjkim@nate.com', '01022223344', '1234', null, 1, '넥스트소프트', 3);
+values ('김수진', 'sjkim@nate.com', '01022223344', '$2a$10$cz2AcRni0FxJCFMW6fWaAOl4.CSKtRzaQQsMQ2JCeQOXjW3gaIGae', null, 1,
+        '넥스트소프트', 3);
 insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
-values ('박정수', 'jspark@nate.com', '01033334455', '1234', null, 1, '씨에스 솔루션즈', 2);
+values ('박정수', 'jspark@nate.com', '01033334455', '$2a$10$cz2AcRni0FxJCFMW6fWaAOl4.CSKtRzaQQsMQ2JCeQOXjW3gaIGae', null,
+        1, '씨에스 솔루션즈', 2);
 insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
-values ('최은지', 'ejchoi@nate.com', '01044445566', '1234', null, 1, '이지커머스', 4);
+values ('최은지', 'ejchoi@nate.com', '01044445566', '$2a$10$cz2AcRni0FxJCFMW6fWaAOl4.CSKtRzaQQsMQ2JCeQOXjW3gaIGae', null,
+        1, '이지커머스', 4);
 insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
-values ('오세훈', 'shoh@nate.com', '01055556677', '1234', null, 1, '에버IT', 1);
+values ('오세훈', 'shoh@nate.com', '01055556677', '$2a$10$cz2AcRni0FxJCFMW6fWaAOl4.CSKtRzaQQsMQ2JCeQOXjW3gaIGae', null, 1,
+        '에버IT', 1);
 insert into user_tb(username, email, phone, password, img_url, role, com_name, industry_id)
-values ('강채은', 'cekang@nate.com', '01066667788', '1234', null, 1, '그림솔루션', 5);
+values ('강채은', 'cekang@nate.com', '01066667788', '$2a$10$cz2AcRni0FxJCFMW6fWaAOl4.CSKtRzaQQsMQ2JCeQOXjW3gaIGae', null,
+        1, '그림솔루션', 5);
 
 -- 채용 공고 테이블 dummy
 -- 채용 공고 테이블 dummy
