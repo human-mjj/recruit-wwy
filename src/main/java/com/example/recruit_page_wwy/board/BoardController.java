@@ -1,22 +1,19 @@
 package com.example.recruit_page_wwy.board;
 
-import com.example.recruit_page_wwy._core.error.ex.ExceptionApi401;
 import com.example.recruit_page_wwy._core.util.Resp;
 import com.example.recruit_page_wwy.user.User;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class BoardController {
     private final BoardService boardService;
     private final HttpSession session;
 
-    @PostMapping("/board/save")
+    @PostMapping("/s/api/board")
     public ResponseEntity<?> boardSave(@RequestBody BoardRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         BoardResponse.DTO respDTO = boardService.boardSave(reqDTO, sessionUser);
@@ -24,18 +21,15 @@ public class BoardController {
         return Resp.ok(respDTO);
     }
 
-    @PostMapping("/board")
-    public ResponseEntity<?> boardList(@RequestBody BoardRequest.SearchRequestDTO reqDTO) {
+    @GetMapping("/api/board")
+    public ResponseEntity<?> boardList(@RequestParam(required = false, value = "page", defaultValue = "0") Integer page,
+                                       @RequestParam(required = false, value = "keyword", defaultValue = "") String keyword) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
-        int page = reqDTO.getPage() != null && reqDTO.getPage() > 0 ? reqDTO.getPage() - 1 : 0;
-        String keyword = reqDTO.getKeyword() != null ? reqDTO.getKeyword() : "";
-
         BoardResponse.ListDTO respDTO = boardService.boardList(page, sessionUser, keyword);
         return Resp.ok(respDTO);
     }
 
-    @GetMapping("/board/{id}")
+    @GetMapping("/api/board/{id}")
     public ResponseEntity<?> boardDetail(@PathVariable("id") Integer id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
@@ -44,31 +38,25 @@ public class BoardController {
         return Resp.ok(respDTO);
     }
 
-    @PutMapping("/board/{id}/update")
-    public ResponseEntity<?> boardUpdate(@PathVariable("id") Integer id, @RequestBody BoardRequest.UpdateDTO reqDTO, HttpSession session) {
+    @PutMapping("/s/api/board/{id}")
+    public ResponseEntity<?> boardUpdate(@PathVariable("id") Integer id, @RequestBody BoardRequest.UpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Integer sessionUserId = sessionUser != null ? sessionUser.getId() : null;
-
-        BoardResponse.DTO respDTO = boardService.boardUpdate(id, reqDTO, sessionUserId);
-        System.out.println(reqDTO);
+        BoardResponse.DTO respDTO = boardService.boardUpdate(id, reqDTO, sessionUser);
         return Resp.ok(respDTO);
     }
 
-    @DeleteMapping("/board/{id}/delete")
-    public ResponseEntity<?> deleteBoard(@PathVariable("id") Integer id, HttpSession session) {
+    @DeleteMapping("/s/api/board/{id}")
+    public ResponseEntity<?> deleteBoard(@PathVariable("id") Integer id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Integer sessionUserId = sessionUser != null ? sessionUser.getId() : null;
-        boardService.boardDelete(id, sessionUserId);
+        boardService.boardDelete(id, sessionUser);
         return Resp.ok(null);
     }
 
-    @GetMapping("/board/{id}/update-form")
-    public String boardUpdateForm(@PathVariable("id") Integer id, HttpServletRequest request) {
+    @GetMapping("/s/api/board/{id}")
+    public ResponseEntity<?> boardUpdateForm(@PathVariable("id") Integer id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null) throw new ExceptionApi401("로그인을 해 주세요.");
         BoardResponse.UpdateViewDTO respDTO = boardService.updateView(id, sessionUser);
-        request.setAttribute("model", respDTO);
-        return "board/update-form";
+        return Resp.ok(respDTO);
     }
 
 }

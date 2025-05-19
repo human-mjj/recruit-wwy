@@ -10,24 +10,22 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ResumeResponse {
 
-
-    @Data
     public static class DTO {
-        private Integer id;
+        private int id;
         private String title;
         private Integer userId;
         private String exp;
         private String edu;
+        private List<ResumeStack> resumeStackList;
         private Integer jobId;
         private String location;
         private String qualified;
         private String activity;
-        private String img_url;
         private String letter;
+        private String imgUrl;
 
         public DTO(Resume resume) {
             this.id = resume.getId();
@@ -35,19 +33,19 @@ public class ResumeResponse {
             this.userId = resume.getUser().getId();
             this.exp = resume.getExp();
             this.edu = resume.getEdu();
+            this.resumeStackList = resume.getResumeStackList();
             this.jobId = resume.getJob().getId();
             this.location = resume.getLocation();
             this.qualified = resume.getQualified();
             this.activity = resume.getActivity();
-            this.img_url = resume.getImgUrl();
             this.letter = resume.getLetter();
+            this.imgUrl = resume.getImgUrl();
         }
     }
 
-
     @Data
     public static class MainDTO {
-        private List<ResumeResponse.DTO> resumes;
+        private List<ResumeDTO> resumes;
         private Integer prev;
         private Integer next;
         private Integer size;
@@ -58,10 +56,28 @@ public class ResumeResponse {
         private Boolean isLast;
         private List<Integer> numbers;
 
+        @Data
+        public static class ResumeDTO {
+            private Integer id;
+            private String title;
+            private String username;
+            private String exp;
+            private String edu;
+
+            public ResumeDTO(Resume resume) {
+                this.id = resume.getId();
+                this.title = resume.getTitle();
+                this.username = resume.getUser().getUsername(); // 연관된 유저 정보 접근
+                this.exp = resume.getExp();
+                this.edu = resume.getEdu();
+            }
+        }
+
         public MainDTO(List<Resume> resumes, Integer current, Integer totalCount) {
             this.resumes = resumes.stream()
-                    .map(ResumeResponse.DTO::new)
-                    .collect(Collectors.toList());
+                    .map(ResumeDTO::new)
+                    .toList();
+
             this.size = 5;
             this.totalCount = totalCount;
             this.totalPage = makeTotalPage(totalCount, size);
@@ -73,7 +89,6 @@ public class ResumeResponse {
             this.isLast = current.equals(totalPage) || totalPage == 0;
             this.numbers = makeNumbers(current, totalPage);
         }
-
 
         private Integer makeTotalPage(int totalCount, int size) {
             int rest = totalCount % size > 0 ? 1 : 0;

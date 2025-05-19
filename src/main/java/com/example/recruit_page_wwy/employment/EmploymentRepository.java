@@ -314,7 +314,7 @@ public class EmploymentRepository {
                 .getResultList();
     }
 
-    public void deleteById(int employmentId) {
-        em.remove(em.find(Employment.class, employmentId));
+    public void delete(Employment employment) {
+        em.remove(employment);
     }
 }
