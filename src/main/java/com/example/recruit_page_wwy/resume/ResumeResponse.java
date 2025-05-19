@@ -10,12 +10,44 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ResumeResponse {
 
+
+    @Data
+    public static class DTO {
+        private Integer id;
+        private String title;
+        private Integer userId;
+        private String exp;
+        private String edu;
+        private Integer jobId;
+        private String location;
+        private String qualified;
+        private String activity;
+        private String img_url;
+        private String letter;
+
+        public DTO(Resume resume) {
+            this.id = resume.getId();
+            this.title = resume.getTitle();
+            this.userId = resume.getUser().getId();
+            this.exp = resume.getExp();
+            this.edu = resume.getEdu();
+            this.jobId = resume.getJob().getId();
+            this.location = resume.getLocation();
+            this.qualified = resume.getQualified();
+            this.activity = resume.getActivity();
+            this.img_url = resume.getImgUrl();
+            this.letter = resume.getLetter();
+        }
+    }
+
+
     @Data
     public static class MainDTO {
-        private List<Resume> resumes;
+        private List<ResumeResponse.DTO> resumes;
         private Integer prev;
         private Integer next;
         private Integer size;
@@ -27,7 +59,9 @@ public class ResumeResponse {
         private List<Integer> numbers;
 
         public MainDTO(List<Resume> resumes, Integer current, Integer totalCount) {
-            this.resumes = resumes;
+            this.resumes = resumes.stream()
+                    .map(ResumeResponse.DTO::new)
+                    .collect(Collectors.toList());
             this.size = 5;
             this.totalCount = totalCount;
             this.totalPage = makeTotalPage(totalCount, size);
@@ -39,6 +73,7 @@ public class ResumeResponse {
             this.isLast = current.equals(totalPage) || totalPage == 0;
             this.numbers = makeNumbers(current, totalPage);
         }
+
 
         private Integer makeTotalPage(int totalCount, int size) {
             int rest = totalCount % size > 0 ? 1 : 0;

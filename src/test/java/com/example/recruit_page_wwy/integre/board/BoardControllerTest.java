@@ -1,4 +1,4 @@
-package com.example.recruit_page_wwy.integre;
+package com.example.recruit_page_wwy.integre.board;
 
 import com.example.recruit_page_wwy._core.util.JwtUtil;
 import com.example.recruit_page_wwy.board.BoardRequest;
@@ -180,8 +180,7 @@ public class BoardControllerTest {
         String responseBody = actions.andReturn().getResponse().getContentAsString();
         System.out.println(responseBody);
 
-
-//        // then
+        // then
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body").value(nullValue()));
