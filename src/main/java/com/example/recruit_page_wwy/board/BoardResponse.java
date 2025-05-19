@@ -8,15 +8,52 @@ import lombok.Data;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BoardResponse {
 
     @Data
+    public static class DTO {
+        private Integer id;
+        private String title;
+        private String content;
+        private Integer userId;
+        private String createdAt;
+
+        public DTO(Board board) {
+            this.id = board.getId();
+            this.title = board.getTitle();
+            this.content = board.getContent();
+            this.userId = board.getUser().getId();
+            this.createdAt = board.getCreatedAt().toString();
+        }
+    }
+
+
+    @Data
+    public static class BoardDTO {
+        private Integer id;
+        private String title;
+        private String content;
+        private String username;
+        private String createdAt;
+
+        public BoardDTO(Board board) {
+            this.id = board.getId();
+            this.title = board.getTitle();
+            this.content = board.getContent();
+            this.createdAt = String.valueOf(board.getCreatedAt());
+            this.username = board.getUser().getUsername();
+        }
+    }
+
+
+    @Data
     public static class ListDTO {
         private Integer sessionUserId;
-        private Boolean isCompanyUser; // 스크랩 버튼 노출 여부 (false면 보여줌)
+        private Boolean isCompanyUser;
+        private List<BoardDTO> boards;
 
-        private List<Board> boards;
         private Integer prev;
         private Integer next;
         private Integer prevPage;
@@ -32,15 +69,18 @@ public class BoardResponse {
 
         private String keyword;
 
-
         public ListDTO(List<Board> boards, Integer current, Integer totalCount, User sessionUser, String keyword) {
             this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
             this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
 
-            this.boards = boards;
+            this.boards = boards.stream()
+                    .map(BoardDTO::new)
+                    .collect(Collectors.toList());
+
             this.size = 5;
             this.prev = current - 1;
             this.next = current + 1;
+            this.current = current;
             this.prevPage = prev + 1;
             this.nextPage = next + 1;
             this.totalCount = totalCount;
@@ -138,4 +178,6 @@ public class BoardResponse {
             this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
         }
     }
+
+
 }

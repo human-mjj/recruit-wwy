@@ -3,6 +3,7 @@ package com.example.recruit_page_wwy.user;
 
 import com.example.recruit_page_wwy._core.error.ex.ExceptionApi401;
 import com.example.recruit_page_wwy._core.util.Base64Util;
+import com.example.recruit_page_wwy._core.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +41,7 @@ public class UserService {
     // TODO : User가 아니라 DTO에 담아서 반환 ✅
     // TODO : BCrypt 사용해서 비밀번호 검증
     // TODO : JWT 검증
-    public UserResponse.DTO login(UserRequest.LoginDTO reqDTO) {
+    public UserResponse.TokenDTO login(UserRequest.LoginDTO reqDTO) {
         User user = userRepository.findByEmail(reqDTO.getEmail());
 
         if (user == null) throw new ExceptionApi401("아이디 혹은 비밀번호가 틀렸습니다.");
@@ -52,7 +53,11 @@ public class UserService {
         if (user.getRole() != reqDTO.getRole()) {
             throw new ExceptionApi401("구분이 틀렸습니다.");
         }
-        return new UserResponse.DTO(user);
+
+        String accessToken = JwtUtil.create(user);
+
+
+        return UserResponse.TokenDTO.builder().accessToken(accessToken).build();
     }
 
     // TODO : User가 아니라 DTO에 담아서 반환 ✅
