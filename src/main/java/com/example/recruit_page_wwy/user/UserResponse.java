@@ -15,8 +15,9 @@ public class UserResponse {
         private int role;
         private String comName;
         private Integer industryId;
+        private String accessToken;
 
-        public DTO(User user) {
+        public DTO(User user, String accessToken) {
             this.username = user.getUsername();
             this.email = user.getEmail();
             this.isCompanyUser = user.getRole() == 1;
@@ -24,6 +25,7 @@ public class UserResponse {
             this.role = user.getRole();
             this.comName = user.getComName() != null ? user.getComName() : "";
             this.industryId = user.getIndustry() != null ? user.getIndustry().getId() : null;
+            this.accessToken = accessToken == null ? null : accessToken;
         }
     }
 

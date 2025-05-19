@@ -25,7 +25,7 @@ public class UserController {
 
     // TODO : 예외 처리
     // MyPageUpdate
-    @PostMapping("/s/api/mypage/update")
+    @PutMapping("/s/api/mypage")
     public @ResponseBody ResponseEntity<?> userUpdate(@RequestBody UserRequest.UpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         UserResponse.DTO respDTO = userService.userUpdate(reqDTO, sessionUser);
