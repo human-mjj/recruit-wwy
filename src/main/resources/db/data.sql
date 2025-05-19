@@ -155,7 +155,7 @@ values ('강채은', 'cekang@nate.com', '01066667788', '$2a$10$cz2AcRni0FxJCFMW6
 -- 채용 공고 테이블 dummy
 INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualification, sal, working_time, location,
                            end_date, img_url)
-VALUES ('Spring 백엔드 개발자 모집', 6, '10년 이상', '대학교 / 졸업', '정규직', 3,
+VALUES ('Spring 백엔드 개발자 모집', 6, '10년 이상', '대학교 / 졸업', '정규직', 1,
         'REST API 개발 및 유지보수$기존 서비스 코드 리팩토링$MySQL 기반 데이터 처리$협업을 위한 문서화',
         'Java/Spring 경력 1년 이상$MySQL 경험 우대$협업 및 커뮤니케이션 능력$Git 사용 가능자', 4200, '09:30 ~ 18:30', '서울특별시 강남구', '2025-05-31',
         NULL);
@@ -670,6 +670,8 @@ INSERT INTO employment_tb (title, user_id, exp, edu, shift, job_id, duty, qualif
                            end_date, img_url)
 VALUES ('데이터 분석가 팀원 채용합니다', 13, '3 ~ 5년 차', '대학교 / 졸업', '정규직', 14, 'Python을 이용한 데이터 분석 및 리포트 작성$$', '정보보안 자격증 보유자 우대',
         4124, '09:00 ~ 18:00', '서울특별시 강서구', '2025-05-31', NULL);
+
+
 -- 이력서 테이블 dummy
 insert into resume_tb(title, user_id, exp, edu, job_id, location, qualified, activity, img_url, letter)
 values ('백엔드 신입 개발자 지원서', 1, '컴퓨터공학 전공, 인턴 경험 3개월', '부산대학교 컴퓨터공학과 졸업', 1, '서울', '정보처리기사', '멋쟁이사자처럼 10기 활동', NULL,
@@ -1058,11 +1060,7 @@ values (15, 13, '울회사는 이미 도입했는데 나쁘지 않은듯 합니�
 
 -- 채용공고-스택 테이블 dummy
 INSERT INTO employ_stack_tb (employment_id, skill)
-VALUES (1, 'spring boot');
-INSERT INTO employ_stack_tb (employment_id, skill)
-VALUES (1, 'react');
-INSERT INTO employ_stack_tb (employment_id, skill)
-VALUES (1, 'css');
+VALUES (1, 'java');
 INSERT INTO employ_stack_tb (employment_id, skill)
 VALUES (2, 'mysql');
 INSERT INTO employ_stack_tb (employment_id, skill)
@@ -1609,8 +1607,6 @@ VALUES (86, 'typescript');
 -- 이력서-스택 테이블 dummy
 insert into resume_stack_tb(resume_id, skill)
 values (1, 'java'),
-       (1, 'spring boot'),
-       (1, 'mysql'),
        (2, 'html'),
        (2, 'css'),
        (2, 'javascript'),
