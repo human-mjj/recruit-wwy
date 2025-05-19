@@ -10,16 +10,19 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ResumeResponse {
 
+    @Data
     public static class DTO {
-        private int id;
+        private Integer id;
         private String title;
         private Integer userId;
         private String exp;
         private String edu;
-        private List<ResumeStack> resumeStackList;
+        private List<ResumeSummaryDTO> resumeStackList;
         private Integer jobId;
         private String location;
         private String qualified;
@@ -30,11 +33,15 @@ public class ResumeResponse {
         public DTO(Resume resume) {
             this.id = resume.getId();
             this.title = resume.getTitle();
-            this.userId = resume.getUser().getId();
+            this.userId = resume.getUser() != null ? resume.getUser().getId() : null;
             this.exp = resume.getExp();
             this.edu = resume.getEdu();
-            this.resumeStackList = resume.getResumeStackList();
-            this.jobId = resume.getJob().getId();
+            this.resumeStackList = Optional.ofNullable(resume.getResumeStackList())
+                    .orElse(List.of())
+                    .stream()
+                    .map(ResumeSummaryDTO::new)
+                    .collect(Collectors.toList());
+            this.jobId = resume.getJob() != null ? resume.getJob().getId() : null;
             this.location = resume.getLocation();
             this.qualified = resume.getQualified();
             this.activity = resume.getActivity();
@@ -44,8 +51,19 @@ public class ResumeResponse {
     }
 
     @Data
+    public static class ResumeSummaryDTO {
+        private Integer id;
+        private String skill;
+
+        public ResumeSummaryDTO(ResumeStack rs) {
+            this.id = rs.getId();
+            this.skill = rs.getSkill();
+        }
+    }
+
+    @Data
     public static class MainDTO {
-        private List<ResumeDTO> resumes;
+        private List<Resume> resumes;
         private Integer prev;
         private Integer next;
         private Integer size;
@@ -56,28 +74,8 @@ public class ResumeResponse {
         private Boolean isLast;
         private List<Integer> numbers;
 
-        @Data
-        public static class ResumeDTO {
-            private Integer id;
-            private String title;
-            private String username;
-            private String exp;
-            private String edu;
-
-            public ResumeDTO(Resume resume) {
-                this.id = resume.getId();
-                this.title = resume.getTitle();
-                this.username = resume.getUser().getUsername(); // 연관된 유저 정보 접근
-                this.exp = resume.getExp();
-                this.edu = resume.getEdu();
-            }
-        }
-
         public MainDTO(List<Resume> resumes, Integer current, Integer totalCount) {
-            this.resumes = resumes.stream()
-                    .map(ResumeDTO::new)
-                    .toList();
-
+            this.resumes = resumes;
             this.size = 5;
             this.totalCount = totalCount;
             this.totalPage = makeTotalPage(totalCount, size);

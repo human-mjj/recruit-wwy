@@ -7,7 +7,7 @@ public class ScrapResponse {
     public static class DTO {
         private Integer scrapId;
 
-        public SaveDTO(Integer scrapId) {
+        public DTO(Integer scrapId) {
             this.scrapId = scrapId;
         }
     }

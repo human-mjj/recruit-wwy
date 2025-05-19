@@ -2,24 +2,17 @@ package com.example.recruit_page_wwy.integre.scrap;
 
 
 import com.example.recruit_page_wwy._core.util.JwtUtil;
-import com.example.recruit_page_wwy.resume.ResumeRequest;
 import com.example.recruit_page_wwy.user.User;
 import com.example.recruit_page_wwy.util.config.FilterConfigTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Import(FilterConfigTest.class)
 @Transactional
@@ -54,7 +47,7 @@ public class ScrapControllerTest {
         System.out.println("tearDown");
     }
 
-    @Test
+//    @Test
 //    public void scrap_user_list_test() throws Exception {
 //        // given
 //        ResumeRequest.SaveDTO reqDTO = new ResumeRequest.SaveDTO();
