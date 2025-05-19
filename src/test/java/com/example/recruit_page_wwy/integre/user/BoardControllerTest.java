@@ -2,6 +2,7 @@ package com.example.recruit_page_wwy.integre.user;
 
 import com.example.recruit_page_wwy._core.util.JwtUtil;
 import com.example.recruit_page_wwy.user.User;
+import com.example.recruit_page_wwy.user.UserRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.Matchers.nullValue;
 
 
@@ -87,5 +89,156 @@ public class BoardControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.imgUrl").value("/img/Screenshot_14.png"));
     }
 
+    @Test
+    public void MypageUpdate_test() throws Exception {
+        // given
+        UserRequest.UpdateDTO reqDTO = new UserRequest.UpdateDTO();
+        reqDTO.setPhone("01033331111");
+        reqDTO.setPassword("123456");
 
+        String requestBody = om.writeValueAsString(reqDTO);
+//        System.out.println(requestBody);
+
+        // when
+        ResultActions actions = mvc.perform(
+                MockMvcRequestBuilders
+                        .post("/s/api/mypage/update")
+                        .content(requestBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + accessToken)
+        );
+
+//         eye
+        String responseBody = actions.andReturn().getResponse().getContentAsString();
+//        System.out.println(responseBody);
+
+
+        // then
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
+
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.username").value("손영민"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.password").value(nullValue()));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.email").value("ssar@nate.com"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.phone").value("01033331111"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.role").value(0));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.comName").value(""));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.industryId").value(nullValue()));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.companyUser").value(false));
+    }
+
+    @Test
+    public void UserJoin_test() throws Exception {
+        // given
+        UserRequest.UserDTO reqDTO = new UserRequest.UserDTO();
+        reqDTO.setUsername("haha");
+        reqDTO.setEmail("haha@nate.com");
+        reqDTO.setPhone("01012341234");
+        reqDTO.setPassword("1234");
+        reqDTO.setRole(0);
+
+        String requestBody = om.writeValueAsString(reqDTO);
+//        System.out.println(requestBody);
+
+        // when
+        ResultActions actions = mvc.perform(
+                MockMvcRequestBuilders
+                        .post("/join-user")
+                        .content(requestBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + accessToken)
+        );
+
+//         eye
+        String responseBody = actions.andReturn().getResponse().getContentAsString();
+//        System.out.println(responseBody);
+
+
+        // then
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
+
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.username").value("haha"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.password").value(nullValue()));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.email").value("haha@nate.com"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.phone").value("01012341234"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.role").value(0));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.comName").value(""));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.industryId").value(nullValue()));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.companyUser").value(false));
+    }
+
+    @Test
+    public void ComJoin_test() throws Exception {
+        // given
+        UserRequest.ComDTO reqDTO = new UserRequest.ComDTO();
+        reqDTO.setUsername("haha");
+        reqDTO.setEmail("haha@nate.com");
+        reqDTO.setPhone("01012341239");
+        reqDTO.setPassword("1234");
+        reqDTO.setRole(1);
+        reqDTO.setComName("하하컴퍼");
+        reqDTO.setIndustryId(2);
+
+
+        String requestBody = om.writeValueAsString(reqDTO);
+//        System.out.println(requestBody);
+
+        // when
+        ResultActions actions = mvc.perform(
+                MockMvcRequestBuilders
+                        .post("/join-com")
+                        .content(requestBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + accessToken)
+        );
+
+//         eye
+        String responseBody = actions.andReturn().getResponse().getContentAsString();
+//        System.out.println(responseBody);
+
+        // then
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
+
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.username").value("haha"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.password").value(nullValue()));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.email").value("haha@nate.com"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.phone").value("01012341239"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.role").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.comName").value("하하컴퍼"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.industryId").value(2));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.companyUser").value(true));
+    }
+
+    @Test
+    public void Login_test() throws Exception {
+        // given
+        UserRequest.LoginDTO reqDTO = new UserRequest.LoginDTO();
+        reqDTO.setEmail("ssar@nate.com");
+        reqDTO.setPassword("1234");
+        reqDTO.setRole(0);
+
+        String requestBody = om.writeValueAsString(reqDTO);
+//        System.out.println(requestBody);
+
+        // when
+        ResultActions actions = mvc.perform(
+                MockMvcRequestBuilders
+                        .post("/login")
+                        .content(requestBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + accessToken)
+        );
+
+//         eye
+        String responseBody = actions.andReturn().getResponse().getContentAsString();
+//        System.out.println(responseBody);
+
+        // then
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.accessToken",
+                matchesPattern("^[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+$")));
+    }
 }
