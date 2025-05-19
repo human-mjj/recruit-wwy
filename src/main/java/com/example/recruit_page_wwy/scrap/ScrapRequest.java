@@ -56,6 +56,7 @@ public class ScrapRequest {
         }
     }
 
+    @Data
     public static class UserScrapDTO {
         String title;
         String comName;
@@ -124,6 +125,7 @@ public class ScrapRequest {
         }
     }
 
+    @Data
     public static class ComScrapDTO {
         Integer id;
         Integer resumeId;

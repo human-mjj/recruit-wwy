@@ -1,5 +1,7 @@
 package com.example.recruit_page_wwy.board;
 
+import com.example.recruit_page_wwy.user.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 public class BoardRequest {
@@ -11,22 +13,34 @@ public class BoardRequest {
         private String content;
 
 
-        public SaveDTO(Integer user_id, String title, String content) {
-            this.user_id = user_id;
-            this.title = title;
-            this.content = content;
-        }
+        public Board toEntity(User user) {
+            return Board.builder()
+                    .title(title)
+                    .content(content)
 
+                    .user(user) // user객체 필요
+                    .build();
+
+        }
     }
 
+    @AllArgsConstructor
     @Data
     public static class UpdateDTO {
         private String title;
         private String content;
 
-        public UpdateDTO(Integer id, String title, String content) {
-            this.title = title;
-            this.content = content;
+    }
+
+    @Data
+    public static class SearchRequestDTO {
+        private String keyword;
+        private Integer page;
+
+
+        public SearchRequestDTO(String keyword, int page) {
+            this.keyword = keyword;
+            this.page = page;
         }
     }
 }
