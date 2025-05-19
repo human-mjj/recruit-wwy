@@ -24,7 +24,7 @@ import static org.hamcrest.Matchers.nullValue;
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class BoardControllerTest {
+public class UserControllerTest {
 
     @Autowired
     private ObjectMapper om;
