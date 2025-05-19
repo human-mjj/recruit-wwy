@@ -24,6 +24,7 @@ public class JwtUtil {
                 .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .withClaim("id", user.getId())
                 .withClaim("username", user.getUsername())
+                .withClaim("role", user.getRole())
                 .sign(Algorithm.HMAC512("metacoding"));
         return jwt;
     }
@@ -32,10 +33,12 @@ public class JwtUtil {
         DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512("metacoding")).build().verify(jwt);
         int id = decodedJWT.getClaim("id").asInt();
         String username = decodedJWT.getClaim("username").asString();
+        int role = decodedJWT.getClaim("role").asInt();
 
         return User.builder()
                 .id(id)
                 .username(username)
+                .role(role)
                 .build();
     }
 }
