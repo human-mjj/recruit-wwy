@@ -1,30 +1,32 @@
 package com.example.recruit_page_wwy.reply;
 
+import com.example.recruit_page_wwy._core.util.Resp;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class ReplyController {
     private final ReplyService replyService;
     private final HttpSession session;
 
-    @PostMapping("/reply/save")
-    public String replySave(ReplyRequest.SaveDTO saveDTO) {
+    // TODO : 예외 추가
+    @PostMapping("/s/api/reply")
+    public ResponseEntity<?> replySave(@RequestBody ReplyRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        replyService.replySave(saveDTO, sessionUser);
-        return "redirect:/board/" + saveDTO.getBoardId();
+        ReplyResponse.DTO respDTO = replyService.replySave(saveDTO, sessionUser);
+        return Resp.ok(respDTO);
     }
 
-    @PostMapping("/reply/{id}/delete")
-    public String resumeDelete(@PathVariable("id") Integer id) {
+    // TODO : 예외 추가
+    @DeleteMapping("/s/api/reply/{id}")
+    public ResponseEntity<?> resumeDelete(@PathVariable("id") Integer id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        int boardId = replyService.delete(id, sessionUser.getId());
-        return "redirect:/board/" + boardId;
+        replyService.delete(id, sessionUser);
+        return Resp.ok(null);
     }
 
 }

@@ -1,80 +1,79 @@
 package com.example.recruit_page_wwy.employment;
 
+import com.example.recruit_page_wwy._core.util.Resp;
 import com.example.recruit_page_wwy.user.User;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class EmploymentController {
     private final EmploymentService employmentService;
     private final HttpSession session;
 
     @GetMapping("/")
-    public String index(HttpSession session, HttpServletRequest request) {
+    public ResponseEntity<?> index() {
         User sessionUser = (User) session.getAttribute("sessionUser");
-//        request.setAttribute("sessionUser", sessionUser);
-//        System.out.println(sessionUser);
-
-        List<Employment> jobs = employmentService.viewEmployList();
-        request.setAttribute("models", jobs);
-
-        return "index";
+        EmploymentResponse.MainDTO respDTO = employmentService.viewEmployList(sessionUser);
+        return Resp.ok(respDTO);
     }
 
-    @GetMapping("/mypage/employment")
-    public String manageEmployment(HttpServletRequest request) {
-
-
-        // 마이페이지에서 아직 세션 정보 불러와지지 않음. 유저id 임시로 4 줌
-        //User sessionUser = (User) session.getAttribute("sessionUser");
-        //request.setAttribute("models", employmentService.employmentList(sessionUser.getId()));
-
-        // TODO
-        // 세션 받아오는 코드로 변경 필요
-        int testUserId = 4;
-        request.setAttribute("models", employmentService.employmentList(testUserId));
-        return "employment/dashboard";
-    }
-
-    // TODO
-    // 검색필터, 페이징 구현 필요
-    @GetMapping("/employment")
-    public String employmentList(HttpServletRequest request) {
+    @GetMapping("/s/api/mypage/employment")
+    public ResponseEntity<?> manageEmployment(@RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Integer userId = (sessionUser != null) ? sessionUser.getId() : null; // 로그인 안해도 접근할 수 있게
-        request.setAttribute("models", employmentService.emplymentAllList(userId));
-        return "employment/list";
+        EmploymentResponse.EmploymentDashboardDTO respDTO = employmentService.employmentList(sessionUser, page);
+        return Resp.ok(respDTO);
     }
 
-    @GetMapping("/employment/{id}")
-    public String employmentDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
+    @GetMapping("/api/employment")
+    public ResponseEntity<?> employmentList(@RequestParam(required = false, value = "page", defaultValue = "1") Integer page,
+                                            @RequestParam(required = false) String jobType,
+                                            @RequestParam(required = false) String careerLevel,
+                                            @RequestParam(defaultValue = "latest") String sort,
+                                            @RequestParam(required = false) List<String> skills) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Integer sessionUserId = (sessionUser != null) ? sessionUser.getId() : null;
-
-        EmploymentResponse.DetailDTO detailDTO = employmentService.findEmploymentDetail(id, sessionUserId);
-        request.setAttribute("models", detailDTO);
-
-        return "employment/detail";
+        EmploymentResponse.EmploymentPageDTO respDTO = employmentService.employmentAllList(sessionUser, jobType, careerLevel, skills, sort, page - 1);
+        return Resp.ok(respDTO);
     }
 
-    @PostMapping("/employment/save")
-    public String employmentSave(EmploymentRequest.SaveDTO saveDTO) {
-//        User sessionUser = (User) session.getAttribute("sessionUser");
-//        saveDTO.setUser_id(sessionUser.getId());
-//        employmentService.save(saveDTO);
-        return "redirect:/mypage/employment";
+    @GetMapping("/api/employment/{id}")
+    public ResponseEntity<?> employmentDetail(@PathVariable("id") Integer id) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        EmploymentResponse.DetailDTO respDTO = employmentService.findEmploymentDetail(id, sessionUser);
+        return Resp.ok(respDTO);
     }
 
-    @GetMapping("/employment/save-form")
-    public String employmentSaveForm() {
-        return "employment/save-form";
+
+    @PostMapping("/s/api/employment")
+    public ResponseEntity<?> employmentSave(@RequestBody EmploymentRequest.SaveDTO reqDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        EmploymentResponse.DTO respDTO = employmentService.save(reqDTO, sessionUser);
+        return Resp.ok(respDTO);
     }
+
+    @GetMapping("/s/api/employment/{id}")
+    public ResponseEntity<?> employmentUpdateForm(@PathVariable("id") int employmentId) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        EmploymentResponse.UpdateViewDTO respDTO = employmentService.showUpdateView(employmentId);
+        return Resp.ok(respDTO);
+    }
+
+    @PutMapping("/s/api/employment/{id}")
+    public ResponseEntity<?> updateEmployment(@PathVariable("id") int employmentId, @RequestBody EmploymentRequest.SaveDTO saveDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        EmploymentResponse.DTO respDTO = employmentService.update(employmentId, saveDTO, sessionUser);
+        return Resp.ok(respDTO);
+    }
+
+    @DeleteMapping("/s/api/employment/{id}")
+    public ResponseEntity<?> deleteEmployment(@PathVariable("id") int employmentId) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        employmentService.delete(employmentId, sessionUser);
+        return Resp.ok(null);
+    }
+
 }

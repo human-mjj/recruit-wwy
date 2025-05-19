@@ -10,20 +10,21 @@ import org.springframework.stereotype.Repository;
 public class UserRepository {
     private final EntityManager em;
 
-    public void saveUser(User user) {
+    public User saveUser(User user) {
         em.persist(user);
+        return user;
     }
 
-    public void saveCom(User user) {
+    public User saveCom(User user) {
         em.persist(user);
+        return user;
     }
 
 
-    public User findByEmailAndPassword(String email, String password) {
+    public User findByEmail(String email) {
         try {
-            return em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password= :password", User.class)
+            return em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
                     .setParameter("email", email)
-                    .setParameter("password", password)
                     .getSingleResult();
         } catch (Exception e) {
             return null;

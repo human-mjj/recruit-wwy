@@ -1,67 +1,73 @@
 package com.example.recruit_page_wwy.resume;
 
+import com.example.recruit_page_wwy._core.util.Resp;
 import com.example.recruit_page_wwy.user.User;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class ResumeController {
     private final ResumeService resumeService;
     private final HttpSession session;
 
-    @GetMapping("/mypage/resume")
-    public String resumeList(HttpServletRequest request) {
+    // TODO : 예외 추가
+    @GetMapping("/s/api/mypage/resume")
+    public ResponseEntity<?> resumeList(@RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        request.setAttribute("models", resumeService.findAll(sessionUser.getId()));
-        return "resume/list";
+        ResumeResponse.MainDTO respDTO = resumeService.findAll(sessionUser.getId(), page);
+        return Resp.ok(respDTO);
     }
 
-
-    @GetMapping("/resume/{id}")
-    public String resumeDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
-        ResumeResponse.DetailDTO detailDTO = resumeService.Detail(id);
-        request.setAttribute("models", detailDTO);
-        return "resume/detail";
-    }
-
-    @GetMapping("/resume/save-form")
-    public String resumeSaveForm() {
-        return "resume/save-form";
-    }
-
-    @PostMapping("/resume/save")
-    public String resumeSave(ResumeRequest.SaveDTO saveDTO) {
+    // TODO : 예외 추가
+    @GetMapping("/api/resume/{id}")
+    public ResponseEntity<?> resumeDetail(@PathVariable("id") Integer resumeId) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        saveDTO.setUser_id(sessionUser.getId());
-        resumeService.save(saveDTO);
-        return "redirect:/mypage/resume";
+        ResumeResponse.DetailDTO respDTO = resumeService.detailView(resumeId, sessionUser);
+        return Resp.ok(respDTO);
     }
 
-    @GetMapping("/resume/{id}/update-form")
-    public String resumeUpdateForm(@PathVariable("id") Integer id, HttpServletRequest request) {
-        Resume resume = resumeService.findById(id);
-        request.setAttribute("model", resume);
-        return "resume/update-form";
+    // TODO : 예외 추가
+    @GetMapping("/s/api/resume")
+    public ResponseEntity<?> resumeSaveForm() {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        ResumeResponse.TableDTO respDTO = resumeService.viewJobAndStackList();
+        return Resp.ok(respDTO);
     }
 
-    @PostMapping("/resume/{id}/update")
-    public String resumeUpdate(@PathVariable("id") Integer id, ResumeRequest.UpdateDTO updateDTO) {
-        resumeService.update(id, updateDTO);
-        return "redirect:/mypage/resume";
+    // TODO : 예외 추가
+    @PostMapping("/s/api/resume")
+    public ResponseEntity<?> resumeSave(@RequestBody ResumeRequest.SaveDTO reqDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        ResumeResponse.DTO respDTO = resumeService.save(reqDTO, sessionUser);
+        return Resp.ok(respDTO);
     }
 
-    @PostMapping("/resume/{id}/delete")
-    public String resumeDelete(@PathVariable("id") Integer resumeId) {
-        resumeService.delete(resumeId);
-        return "redirect:/mypage/resume";
+    // TODO : 예외 추가
+    @GetMapping("/s/api/resume/{id}")
+    public ResponseEntity<?> resumeUpdateForm(@PathVariable("id") Integer id) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        ResumeResponse.UpdateViewDTO respDTO = resumeService.findById(id);
+        return Resp.ok(respDTO);
     }
 
+    // TODO : 예외 추가
+    @PutMapping("/s/api/resume/{id}")
+    public ResponseEntity<?> resumeUpdate(@PathVariable("id") Integer id, @RequestBody ResumeRequest.SaveDTO reqDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        ResumeResponse.DTO respDTO = resumeService.update(id, reqDTO, sessionUser);
+        return Resp.ok(respDTO);
+    }
+
+    // TODO : 예외 추가
+    @DeleteMapping("/s/api/resume/{id}")
+    public ResponseEntity<?> resumeDelete(@PathVariable("id") Integer resumeId) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        resumeService.delete(resumeId, sessionUser);
+        return Resp.ok(null);
+    }
 }
 
 

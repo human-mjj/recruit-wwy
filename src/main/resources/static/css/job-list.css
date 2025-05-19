@@ -66,3 +66,13 @@ body {
     width: 100%;
     padding: 56px 0;
 }
+
+.scrap-box {
+    position: absolute;
+    z-index: 999;
+    right: 10px;
+}
+
+.a-box {
+    position: relative;
+}

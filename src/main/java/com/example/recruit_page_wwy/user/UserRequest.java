@@ -17,17 +17,29 @@ public class UserRequest {
 
     @Data
     public static class UpdateDTO {
-        private String username;
-        private String email;
+        private String comName;
         private String phone;
         private String password;
+        private Integer industryId;
+        //private MultipartFile uploadingImg;
+        private String imgUrl;
 
-        public User toEntity() {
-            return User.builder()
-                    .username(username)
-                    .email(email)
+        public User toEntity(String imgUrl) {
+            if (comName != null && !comName.isEmpty() && industryId != null)
+                return User.builder()
+                        .comName(comName)
+                        .industryId(industryId)
+                        .role(1)
+                        .phone(phone)
+                        .password(password)
+                        .imgUrl(imgUrl)
+                        .build();
+
+            else return User.builder()
                     .phone(phone)
                     .password(password)
+                    .imgUrl(imgUrl)
+                    .role(0)
                     .build();
         }
     }
@@ -79,5 +91,6 @@ public class UserRequest {
         private String email;
         private String password;
         private int role;
+//        private String rememberMe;
     }
 }

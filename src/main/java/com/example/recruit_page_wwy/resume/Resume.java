@@ -8,6 +8,7 @@ import com.example.recruit_page_wwy.resumestack.ResumeStack;
 import com.example.recruit_page_wwy.scrap.Scrap;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +18,6 @@ import java.util.List;
 @Getter
 @Table(name = "resume_tb")
 @Entity
-
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,5 +57,36 @@ public class Resume {
     private String letter;
     private String imgUrl;
 
+    @Builder
+    public Resume(int id, String title, User user, String exp, String edu, List<ResumeStack> resumeStackList, List<Apply> applyList, List<Proposal> proposalList, List<Scrap> scrapList, Job job, String location, String qualified, String activity, String letter, String imgUrl) {
+        this.id = id;
+        this.title = title;
+        this.user = user;
+        this.exp = exp;
+        this.edu = edu;
+        this.resumeStackList = resumeStackList;
+        this.applyList = applyList;
+        this.proposalList = proposalList;
+        this.scrapList = scrapList;
+        this.job = job;
+        this.location = location;
+        this.qualified = qualified;
+        this.activity = activity;
+        this.letter = letter;
+        this.imgUrl = imgUrl;
+    }
 
+    public void update(ResumeRequest.SaveDTO dto, String savedImgUrl) {
+        this.title = dto.getTitle();
+        this.exp = "신입".equals(dto.getPersonalHistory())
+                ? "신입"
+                : "경력 " + dto.getExperiencedDate();
+        this.edu = dto.getEducationLevel() + " $" + dto.getSchoolName();
+        this.location = dto.getRegion() + " " + dto.getRegionDetail();
+        this.qualified = dto.getQualified();
+        this.activity = dto.getActivity();
+        this.letter = dto.getLetter();
+        this.imgUrl = savedImgUrl;
+        this.job = Job.builder().id(dto.getJobId()).build();
+    }
 }

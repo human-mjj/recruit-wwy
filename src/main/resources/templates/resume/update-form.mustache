@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Blog</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-    <link rel="stylesheet" href="/css/font.css">
+	<title>Blog</title>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+	/>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+	/>
+	<link rel="stylesheet" href="/css/font.css">
 </head>
 
 {{> layout/header}}
@@ -23,472 +23,221 @@
 
 <!-- 오른쪽 박스 -->
 <div class="flex-fill" style="max-width: 75%">
-    <form action="/resume/{{model.id}}/update" method="post">
-        <div class="bg-white border rounded p-4">
-            <div class="d-flex justify-content-between">
-                <h4 class="fw-bold">이력서 수정하기</h4>
-            </div>
-            <br/>
-            <!-- 이력서 제목 -->
-            <div class="container mb-5">
-                <h5 class="fw-semibold">이력서 제목</h5>
-                <input
-                        type="text"
-                        class="form-control form-control-sm mt-2"
-                        placeholder="이력서 제목을 입력하세요"
-                        name="title"
-                        value="이력서입니다1"
-                />
-            </div>
-            <!-- 경력 입력 -->
-            <div class="container mb-5 align-items-center">
-                <h5 class="fw-semibold">경력</h5>
-                <div class="d-flex ms-3">
-                    <!-- 신입 라디오 버튼 -->
-                    <div class="d-flex align-items-center me-4">
-                        <div class="form-check m-0">
-                            <input
-                                    class="form-check-input"
-                                    type="radio"
-                                    name="personalHistory"
-                                    id="inexperienced"
-                                    value="inexperienced"
-                                    checked
-                            />
-                            <label
-                                    class="form-check-label"
-                                    for="inexperienced"
-                            >신입</label
-                            >
-                        </div>
-                    </div>
+	<form action="/resume/{{model.id}}/update" method="post" enctype="multipart/form-data">
+		<div class="bg-white border rounded p-4">
+			<div class="d-flex justify-content-between">
+				<h4 class="fw-bold">이력서 수정하기</h4>
+			</div>
+			<br/>
 
-                    <!-- 경력 라디오 버튼 + 셀렉트 박스 -->
-                    <div class="d-flex align-items-center gap-2">
-                        <div class="form-check m-0">
-                            <input
-                                    class="form-check-input"
-                                    type="radio"
-                                    name="personalHistory"
-                                    id="experienced"
-                                    value="experienced"
-                            />
-                            <label
-                                    class="form-check-label"
-                                    for="experienced"
-                            >경력</label
-                            >
-                        </div>
+			<!-- 이력서 제목 -->
+			<div class="container mb-5">
+				<h5 class="fw-semibold">이력서 제목</h5>
+				<input type="text" class="form-control form-control-sm mt-2" name="title" value="{{model.title}}"/>
+			</div>
 
-                        <select
-                                class="form-select form-select-sm"
-                                style="width: 120px"
-                                name="experiencedDate"
-                        >
-                            <option value="1">1 ~ 3년 차</option>
-                            <option value="2">3 ~ 5년 차</option>
-                            <option value="3">5 ~ 7년 차</option>
-                            <option value="4">7 ~ 9년 차</option>
-                            <option value="5">10년 이상</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <!-- 학력 및 학교명 입력 -->
-            <div class="container mb-5">
-                <h5 class="fw-semibold">학력</h5>
-                <div class="row g-3">
-                    <!-- 카드 1: 학력 -->
-                    <div class="col-md-6">
-                        <div class="card h-100 border-0">
-                            <div class="card-body">
-                                <h6 class="card-title fw-semibold mb-3">
-                                    학력
-                                </h6>
-                                <select
-                                        class="form-select form-select-sm" name="educationLevel">
-                                    <option
-                                            value=""
-                                            disabled
-                                            selected
-                                    >
-                                        학력을 선택하세요
-                                    </option>
-                                    <option value="univ_graduated" selected>
-                                        대학교 / 졸업
-                                    </option>
-                                    <option value="univ_enrolled">
-                                        대학교 / 재학
-                                    </option>
-                                    <option
-                                            value="highschool_graduated"
-                                    >
-                                        고등학교 / 졸업
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+			<!-- 이력서 사진 업로드 -->
+			<div class="container mb-5">
+				<h5 class="fw-semibold">이력서 사진</h5>
+				<input type="file" class="form-control" name="uploadingImg"/>
+			</div>
 
-                    <!-- 카드 2: 학교명 -->
-                    <div class="col-md-6">
-                        <div class="card h-100 border-0">
-                            <div class="card-body">
-                                <h6
-                                        class="card-title fw-semibold mb-3"
-                                >
-                                    학교명
-                                </h6>
-                                <input
-                                        type="text"
-                                        class="form-control form-control-sm"
-                                        placeholder="학교명을 입력하세요"
-                                        name="schoolName"
-                                        value="동의대학교"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 희망 직무 -->
-            <div class="container mb-5">
-                <h5 class="fw-semibold">희망 직무</h5>
-                <div class="row row-cols-2 row-cols-md-5 g-2 ps-2">
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="job1" name="job" checked
-                                   value="웹 풀스택 개발자"/>
-                            <label class="form-check-label" for="job1">웹 풀스택 개발자</label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="job2" name="job" value="HTML 개발자"/>
-                            <label class="form-check-label" for="job2">HTML 개발자</label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="job3" name="job" value="CSS 개발자"/>
-                            <label class="form-check-label" for="job3">CSS 개발자</label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="job4" name="job"
-                                   value="JavaScript 개발자"/>
-                            <label class="form-check-label" for="job4">JavaScript 개발자</label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="job5" name="job"
-                                   value="Python 개발자"/>
-                            <label class="form-check-label" for="job5">Python 개발자</label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="job6" name="job" value="C++ 개발자"/>
-                            <label class="form-check-label" for="job6">C++ 개발자</label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="job7" name="job"
-                                   value="Spring 개발자"/>
-                            <label class="form-check-label" for="job7">Spring 개발자</label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="job8" name="job"
-                                   value="React 개발자"/>
-                            <label class="form-check-label" for="job8">React 개발자</label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="job9" name="job"
-                                   value="Node.js 개발자"/>
-                            <label class="form-check-label" for="job9">Node.js 개발자</label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="job10" name="job"
-                                   value="MySQL 개발자"/>
-                            <label class="form-check-label" for="job10">MySQL 개발자</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<!-- 경력 입력 -->
+			<div class="container mb-5 align-items-center">
+				<h5 class="fw-semibold">경력</h5>
+				<div class="d-flex ms-3">
+					<div class="d-flex align-items-center me-4">
+						<div class="form-check m-0">
+							<input class="form-check-input" type="radio" name="personalHistory" value="inexperienced"
+							       {{#model.isNewbie}}checked{{/model.isNewbie}}/>
+							<label class="form-check-label">신입</label>
+						</div>
+					</div>
+					<div class="d-flex align-items-center gap-2">
+						<div class="form-check m-0">
+							<input class="form-check-input" type="radio" name="personalHistory" value="experienced"
+							       {{^model.isNewbie}}checked{{/model.isNewbie}}/>
+							<label class="form-check-label">경력</label>
+						</div>
+						<select class="form-select form-select-sm" name="experiencedDate">
+							<option value="1" {{#model.isJunior}}selected{{/model.isJunior}}>1 ~ 3년 차</option>
+							<option value="2" {{#model.isSenior}}selected{{/model.isSenior}}>3 ~ 5년 차</option>
+							<option value="3" {{#model.isPrincipal}}selected{{/model.isPrincipal}}>5 ~ 7년 차</option>
+							<option value="4" {{#model.isManager}}selected{{/model.isManager}}>7 ~ 9년 차</option>
+							<option value="5" {{#model.isMaster}}selected{{/model.isMaster}}>10년 이상</option>
+						</select>
+					</div>
+				</div>
+			</div>
 
-            <!-- 기술스택 -->
-            <div class="container mb-5">
-                <h5 class="fw-semibold">기술스택</h5>
-                <div class="row row-cols-2 row-cols-md-5 g-2 ps-2">
-                    <div class="col">
-                        <div class="form-check">
-                            <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="stack1"
-                                    name="skills"
-                                    value="Java"
-                            />
-                            <label
-                                    class="form-check-label"
-                                    for="stack1"
-                            >Java</label
-                            >
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="stack2"
-                                    name="skills"
-                                    value="HTML"
-                            />
-                            <label
-                                    class="form-check-label"
-                                    for="stack2"
-                            >HTML</label
-                            >
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="stack3"
-                                    name="skills"
-                                    value="CSS"
-                            />
-                            <label
-                                    class="form-check-label"
-                                    for="stack3"
-                            >CSS</label
-                            >
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="stack4"
-                                    name="skills"
-                                    value="JavaScript"
-                            />
-                            <label
-                                    class="form-check-label"
-                                    for="stack4"
-                            >JavaScript</label
-                            >
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="stack5"
-                                    name="skills"
-                                    value="Python"
-                            />
-                            <label
-                                    class="form-check-label"
-                                    for="stack5"
-                            >Python</label
-                            >
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="stack6"
-                                    name="skills"
-                                    value="C++"
-                            />
-                            <label
-                                    class="form-check-label"
-                                    for="stack6"
-                            >C++</label
-                            >
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="stack7"
-                                    name="skills"
-                                    value="Spring"
-                            />
-                            <label
-                                    class="form-check-label"
-                                    for="stack7"
-                            >Spring</label
-                            >
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="stack8"
-                                    name="skills"
-                                    value="React"
-                            />
-                            <label
-                                    class="form-check-label"
-                                    for="stack8"
-                            >React</label
-                            >
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="stack9"
-                                    name="skills"
-                                    value="Node.js"
-                            />
-                            <label
-                                    class="form-check-label"
-                                    for="stack9"
-                            >Node.js</label
-                            >
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="stack10"
-                                    name="skills"
-                                    value="MySQL"
-                            />
-                            <label
-                                    class="form-check-label"
-                                    for="stack10"
-                            >MySQL</label
-                            >
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<!-- 학력 및 학교명 입력 -->
+			<div class="container mb-5">
+				<h5 class="fw-semibold">학력</h5>
+				<div class="row g-3">
+					<div class="col-md-6">
+						<div class="card h-100 border-0">
+							<div class="card-body">
+								<select class="form-select form-select-sm" name="educationLevel">
+									<option disabled selected>학력을 선택하세요</option>
+									<option value="대학교 / 졸업"
+									        {{#model.isUnivGraduated}}selected{{/model.isUnivGraduated}}>대학교 / 졸업
+									</option>
+									<option value="대학교 / 재학"
+									        {{#model.isUnivEnrolled}}selected{{/model.isUnivEnrolled}}>대학교 / 재학
+									</option>
+									<option value="고등학교 / 졸업"
+									        {{#model.isHighGraduated}}selected{{/model.isHighGraduated}}>고등학교 / 졸업
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card h-100 border-0">
+							<div class="card-body">
+								<input type="text" class="form-control form-control-sm" name="schoolName"
+								       value="{{model.schoolName}}"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <!-- 희망 근무지역 입력 -->
-            <div class="container mb-5">
-                <h5 class="fw-semibold">희망 근무지역</h5>
-                <div class="row g-3">
-                    <!-- 카드 1: 특별시, 광역시, 도 -->
-                    <div class="col-md-6">
-                        <div class="card h-100 border-0">
-                            <div class="card-body">
-                                <h6 class="card-title fw-semibold mb-3">지역 선택</h6>
-                                <select class="form-select form-select-sm" name="region">
-                                    <option value="" disabled selected>지역을 선택하세요</option>
-                                    <optgroup label="특별시">
-                                        <option value="서울특별시">서울특별시</option>
-                                    </optgroup>
-                                    <optgroup label="광역시">
-                                        <option value="부산광역시" selected>부산광역시</option>
-                                        <option value="대구광역시">대구광역시</option>
-                                        <option value="인천광역시">인천광역시</option>
-                                        <option value="광주광역시">광주광역시</option>
-                                        <option value="대전광역시">대전광역시</option>
-                                        <option value="울산광역시">울산광역시</option>
-                                        <option value="세종특별자치시">세종특별자치시</option>
-                                    </optgroup>
-                                    <optgroup label="도">
-                                        <option value="경기도">경기도</option>
-                                        <option value="강원특별자치도">강원특별자치도</option>
-                                        <option value="충청북도">충청북도</option>
-                                        <option value="충청남도">충청남도</option>
-                                        <option value="전라북도">전라북도</option>
-                                        <option value="전라남도">전라남도</option>
-                                        <option value="경상북도">경상북도</option>
-                                        <option value="경상남도">경상남도</option>
-                                        <option value="제주특별자치도">제주특별자치도</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+			<!-- 희망 직무 -->
+			<div class="container mb-5">
+				<h5 class="fw-semibold">희망 직무</h5>
+				<div class="row row-cols-2 row-cols-md-5 g-2 ps-2">
+					{{#model.jobList}}
+						<div class="col">
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="jobId" value="{{id}}"
+								       {{#isJobSelected}}checked{{/isJobSelected}}/>
+								<label class="form-check-label">{{name}}</label>
+							</div>
+						</div>
+					{{/model.jobList}}
+				</div>
+			</div>
 
-                    <!-- 카드 2: 세부 주소 입력 -->
-                    <div class="col-md-6">
-                        <div class="card h-100 border-0">
-                            <div class="card-body">
-                                <h6 class="card-title fw-semibold mb-3">상세 지역(구/군 등)</h6>
-                                <input
-                                        type="text"
-                                        class="form-control form-control-sm"
-                                        placeholder="예: 강남구, 해운대구 등"
-                                        name="regionDetail"
-                                        value="부산진구"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<!-- 기술 스택 -->
+			<div class="container mb-5">
+				<h5 class="fw-semibold">기술스택</h5>
+				<div class="row row-cols-2 row-cols-md-5 g-2 ps-2">
+					{{#model.stackList}}
+						<div class="col">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" name="skills" value="{{skill}}"
+								       {{#isStackChecked}}checked{{/isStackChecked}}/>
+								<label class="form-check-label">{{skill}}</label>
+							</div>
+						</div>
+					{{/model.stackList}}
+				</div>
+			</div>
 
-            <!-- 수상/자격증 -->
-            <div class="container mb-5">
-                <h5 class="fw-semibold">수상/자격증</h5>
-                <input
-                        type="text"
-                        class="form-control form-control-sm mt-2"
-                        placeholder="수상 내역이나 자격증을 입력하세요"
-                        name="qualified"
-                />
-            </div>
+			<!-- 지역 선택 -->
+			<div class="container mb-5">
+				<h5 class="fw-semibold">희망 근무지역</h5>
+				<div class="row g-3">
+					<div class="col-md-6">
+						<div class="card h-100 border-0">
+							<div class="card-body">
+								<select class="form-select form-select-sm" name="region">
+									<option disabled selected>지역을 선택하세요</option>
+									<optgroup label="특별시">
+										<option value="서울특별시" {{#model.isSeoul}}selected{{/model.isSeoul}}>서울특별시
+										</option>
+									</optgroup>
+									<optgroup label="광역시">
+										<option value="부산광역시" {{#model.isBusan}}selected{{/model.isBusan}}>부산광역시
+										</option>
+										<option value="대구광역시" {{#model.isDaegu}}selected{{/model.isDaegu}}>대구광역시
+										</option>
+										<option value="인천광역시" {{#model.isIncheon}}selected{{/model.isIncheon}}>인천광역시
+										</option>
+										<option value="광주광역시" {{#model.isGwangju}}selected{{/model.isGwangju}}>광주광역시
+										</option>
+										<option value="대전광역시" {{#model.isDaejeon}}selected{{/model.isDaejeon}}>대전광역시
+										</option>
+										<option value="울산광역시" {{#model.isUlsan}}selected{{/model.isUlsan}}>울산광역시
+										</option>
+										<option value="세종특별자치시" {{#model.isSejong}}selected{{/model.isSejong}}>세종특별자치시
+										</option>
+									</optgroup>
+									<optgroup label="도">
+										<option value="경기도" {{#model.isGyeonggi}}selected{{/model.isGyeonggi}}>경기도
+										</option>
+										<option value="강원특별자치도" {{#model.isGangwon}}selected{{/model.isGangwon}}>
+											강원특별자치도
+										</option>
+										<option value="충청북도" {{#model.isChungbuk}}selected{{/model.isChungbuk}}>충청북도
+										</option>
+										<option value="충청남도" {{#model.isChungnam}}selected{{/model.isChungnam}}>충청남도
+										</option>
+										<option value="전라북도" {{#model.isJeonbuk}}selected{{/model.isJeonbuk}}>전라북도
+										</option>
+										<option value="전라남도" {{#model.isJeonnam}}selected{{/model.isJeonnam}}>전라남도
+										</option>
+										<option value="경상북도" {{#model.isGyeongbuk}}selected{{/model.isGyeongbuk}}>경상북도
+										</option>
+										<option value="경상남도" {{#model.isGyeongnam}}selected{{/model.isGyeongnam}}>경상남도
+										</option>
+										<option value="제주특별자치도" {{#model.isJeju}}selected{{/model.isJeju}}>제주특별자치도
+										</option>
+									</optgroup>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card h-100 border-0">
+							<div class="card-body">
+								<input type="text" class="form-control form-control-sm" name="regionDetail"
+								       value="{{model.regionDetail}}"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <!-- 대외활동 -->
-            <div class="container mb-5">
-                <h5 class="fw-semibold">대외활동</h5>
-                <input
-                        type="text"
-                        class="form-control form-control-sm mt-2"
-                        placeholder="대외활동 내용을 입력하세요"
-                        name="activity"
-                />
-            </div>
+			<!-- 수상/자격증 -->
+			<div class="container mb-5">
+				<h5 class="fw-semibold">수상/자격증</h5>
+				<input type="text" class="form-control form-control-sm mt-2" name="qualified"
+				       value="{{model.qualified}}"/>
+			</div>
 
-            <!-- 자기소개서 -->
-            <!--			<div class="container mb-5">-->
-            <!--				<h5 class="fw-semibold">자기소개서</h5>-->
-            <!--				<textarea-->
-            <!--						class="form-control"-->
-            <!--						rows="5"-->
-            <!--						name="content"-->
-            <!--				>test</textarea>-->
-            <!--			</div>-->
+			<!-- 대외활동 -->
+			<div class="container mb-5">
+				<h5 class="fw-semibold">대외활동</h5>
+				<input type="text" class="form-control form-control-sm mt-2" name="activity"
+				       value="{{model.activity}}"/>
+			</div>
 
-            <div class="d-flex">
-                <button type="submit" class="btn btn-primary w-100 ms-3 fw-semibold">수정하기</button>
-                <button onclick="cancel()" class="btn btn-danger w-100 ms-3 fw-semibold">취소하기</button>
-            </div>
-        </div>
-    </form>
+			<!-- 자기소개서 -->
+			<div class="container mb-5">
+				<h5 class="fw-semibold">자기소개서</h5>
+				<textarea class="form-control" rows="5" name="letter">{{model.letter}}</textarea>
+			</div>
+
+			<div class="d-flex">
+				<button type="submit" class="btn btn-primary w-100 ms-3 fw-semibold">수정하기</button>
+				<button type="button" onclick="cancel()" class="btn btn-danger w-100 ms-3 fw-semibold">취소하기</button>
+			</div>
+		</div>
+	</form>
 </div>
+
 <!-- sidebar 닫는 태그이므로 지우지 말 것 -->
 </div>
 </div>
+
+<script>
+	function cancel() {
+		const confirmed = confirm("정말 취소하시겠습니까?");
+		if (confirmed) {
+			history.back(); // 이전 페이지로 이동
+		}
+	}
+</script>
 {{> layout/footer}}

@@ -1,6 +1,8 @@
 package com.example.recruit_page_wwy.apply;
 
 
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi403;
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi404;
 import com.example.recruit_page_wwy.employment.Employment;
 import com.example.recruit_page_wwy.employment.EmploymentRepository;
 import com.example.recruit_page_wwy.employstack.EmployStack;
@@ -23,23 +25,25 @@ public class ApplyService {
     private final EmploymentRepository employmentRepository;
     private final ResumeRepository resumeRepository;
 
-    public List<ApplyResponse.UserApplyDTO> findUserApply(User sessionUser) {
-        List<ApplyResponse.UserApplyDTO> userApplyDTO = applyRepository.findUserApplyById(sessionUser.getId());
+    public ApplyResponse.UserApplyListDTO findUserApply(User sessionUser) {
+        if (sessionUser.getRole() != 0) throw new ExceptionApi403("403 Forbidden");
+        ApplyResponse.UserApplyListDTO userApplyDTO = applyRepository.findUserApplyById(sessionUser.getId(), sessionUser);
         return userApplyDTO;
     }
 
-    public List<ApplyResponse.ComApplyDTO> findComApply(User sessionUser) {
-        List<ApplyResponse.ComApplyDTO> comApplyDTO = applyRepository.findComApplyById(sessionUser.getId());
+    public ApplyResponse.ComApplyListDTO findComApply(User sessionUser) {
+        if (sessionUser.getRole() != 1) throw new ExceptionApi403("403 Forbidden");
+        ApplyResponse.ComApplyListDTO comApplyDTO = applyRepository.findComApplyById(sessionUser.getId(), sessionUser);
         return comApplyDTO;
     }
 
     @Transactional
-    public void apply(User sessionUser, ApplyRequest.SaveDTO saveDTO, int employmentId) {
-        Resume resume = resumeRepository.findByResumeId(saveDTO.getResumeId());
-        if (resume == null) throw new RuntimeException("404 Not Found");
-        if (resume.getUser().getId() != sessionUser.getId()) throw new RuntimeException("403 Forbidden");
-        Employment employment = employmentRepository.findByEmploymentId(employmentId);
-        if (employment == null) throw new RuntimeException("404 Not Found");
+    public ApplyResponse.DTO apply(User sessionUser, ApplyRequest.SaveDTO reqDTO) {
+        Resume resume = resumeRepository.findByResumeId(reqDTO.getResumeId());
+        if (resume == null) throw new ExceptionApi404("404 Not Found");
+        if (resume.getUser().getId() != sessionUser.getId()) throw new ExceptionApi403("403 Forbidden");
+        Employment employment = employmentRepository.findByEmploymentId(reqDTO.getEmploymentId());
+        if (employment == null) throw new ExceptionApi404("404 Not Found");
 
         boolean hasCommonJob = false;
         if (resume.getJob().getId() == employment.getJob().getId()) hasCommonJob = true;
@@ -63,10 +67,18 @@ public class ApplyService {
             }
         }
 
-        if (!hasCommonJob || !hasCommonSkill) throw new RuntimeException("403 Forbidden");
+        if (!hasCommonJob || !hasCommonSkill) throw new ExceptionApi403("403 Forbidden");
 
         // employment 함수 만들면 null 없애기
-        Apply apply = saveDTO.toEntity(sessionUser, resume, employment);
-        applyRepository.save(apply);
+        Apply apply = ApplyRequest.SaveDTO.toEntity(sessionUser, resume, employment);
+        Apply applyPS = applyRepository.save(apply);
+
+        return new ApplyResponse.DTO(applyPS);
+    }
+
+    @Transactional
+    public ApplyResponse.DTO updateProgress(Integer applyId, String progress) {
+        Apply applyPS = applyRepository.update(applyId, progress);
+        return new ApplyResponse.DTO(applyPS);
     }
 }

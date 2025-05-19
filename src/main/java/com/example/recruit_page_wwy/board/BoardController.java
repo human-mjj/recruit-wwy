@@ -1,63 +1,62 @@
 package com.example.recruit_page_wwy.board;
 
+import com.example.recruit_page_wwy._core.util.Resp;
 import com.example.recruit_page_wwy.user.User;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class BoardController {
     private final BoardService boardService;
     private final HttpSession session;
 
-    @GetMapping("/board/save-form")
-    public String boardSaveForm() {
-        return "board/save-form";
-    }
-
-    @PostMapping("/board/save")
-    public String boardSave(BoardRequest.SaveDTO saveDTO) {
+    @PostMapping("/s/api/board")
+    public ResponseEntity<?> boardSave(@RequestBody BoardRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        saveDTO.setUser_id(sessionUser.getId());
-        boardService.boardSave(saveDTO);
-        return "redirect:/board";
+        BoardResponse.DTO respDTO = boardService.boardSave(reqDTO, sessionUser);
+        System.out.println(respDTO);
+        return Resp.ok(respDTO);
     }
 
-    @GetMapping("/board")
-    public String boardList(HttpServletRequest request) {
-        boardService.boardList();
-        request.setAttribute("models", boardService.boardList());
-        return "board/list";
+    @GetMapping("/api/board")
+    public ResponseEntity<?> boardList(@RequestParam(required = false, value = "page", defaultValue = "0") Integer page,
+                                       @RequestParam(required = false, value = "keyword", defaultValue = "") String keyword) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        BoardResponse.ListDTO respDTO = boardService.boardList(page, sessionUser, keyword);
+        return Resp.ok(respDTO);
     }
 
-    @GetMapping("/board/{id}")
-    public String boardDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
-        BoardResponse.DetailDTO detailDTO = boardService.boardDetail(id);
-        request.setAttribute("models", detailDTO);
-        return "board/detail";
+    @GetMapping("/api/board/{id}")
+    public ResponseEntity<?> boardDetail(@PathVariable("id") Integer id) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+
+        BoardResponse.DetailDTO respDTO = boardService.boardDetail(id, sessionUser);
+
+        return Resp.ok(respDTO);
     }
 
-
-    @GetMapping("/board/{id}/update-form")
-    public String boardUpdateForm(@PathVariable("id") Integer id) {
-        return "board/update-form";
+    @PutMapping("/s/api/board/{id}")
+    public ResponseEntity<?> boardUpdate(@PathVariable("id") Integer id, @RequestBody BoardRequest.UpdateDTO reqDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        BoardResponse.DTO respDTO = boardService.boardUpdate(id, reqDTO, sessionUser);
+        return Resp.ok(respDTO);
     }
 
-    @PostMapping("/board/{id}/update")
-    public String boardUpdate(@PathVariable("id") Integer id, BoardRequest.UpdateDTO updateDTO) {
-        boardService.boardUpdate(id, updateDTO);
-        return "redirect:/board";
+    @DeleteMapping("/s/api/board/{id}")
+    public ResponseEntity<?> deleteBoard(@PathVariable("id") Integer id) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        boardService.boardDelete(id, sessionUser);
+        return Resp.ok(null);
     }
 
-    @PostMapping("/board/{id}/delete")
-    public String deleteBoard(@PathVariable("id") Integer id) {
-        boardService.boardDelete(id);
-        return "redirect:/board";
+    @GetMapping("/s/api/board/{id}")
+    public ResponseEntity<?> boardUpdateForm(@PathVariable("id") Integer id) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        BoardResponse.UpdateViewDTO respDTO = boardService.updateView(id, sessionUser);
+        return Resp.ok(respDTO);
     }
 
 }

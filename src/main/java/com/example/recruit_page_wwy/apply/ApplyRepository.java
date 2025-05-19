@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.apply;
 
 
+import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +15,13 @@ import java.util.List;
 public class ApplyRepository {
     private final EntityManager em;
 
-    public void save(Apply apply) {
+    public Apply save(Apply apply) {
         em.persist(apply);
+        return apply;
     }
 
     // UserApply
-    public List<ApplyResponse.UserApplyDTO> findUserApplyById(int userId) {
+    public ApplyResponse.UserApplyListDTO findUserApplyById(int userId, User sessionUser) {
         String sql = """
                 SELECT DISTINCT u.com_name, j.name, FORMATDATETIME(a.created_at, 'yyyy-MM-dd'), a.progress
                 FROM APPLY_TB a
@@ -44,11 +46,12 @@ public class ApplyRepository {
             result.add(new ApplyResponse.UserApplyDTO(comName, name, createdAt, progress));
         }
 
-        return result;
+
+        return new ApplyResponse.UserApplyListDTO(sessionUser, result);
     }
 
     // ComApply
-    public List<ApplyResponse.ComApplyDTO> findComApplyById(int userId) {
+    public ApplyResponse.ComApplyListDTO findComApplyById(int userId, User sessionUser) {
         String sql = """
                 SELECT a.id, e.title, u.username, j.name, FORMATDATETIME(a.created_at, 'yyyy-MM-dd'), a.PROGRESS
                 FROM APPLY_TB a
@@ -73,7 +76,15 @@ public class ApplyRepository {
             String progress = (String) row[5];
             result.add(new ApplyResponse.ComApplyDTO(ApplyId, title, username, name, createdAt, progress));
         }
+        return new ApplyResponse.ComApplyListDTO(sessionUser, result);
+    }
 
-        return result;
+    public Apply update(Integer applyId, String progress) {
+        em.createNativeQuery("update APPLY_TB set progress = ? where id = ?")
+                .setParameter(1, progress)
+                .setParameter(2, applyId)
+                .executeUpdate();
+        Apply apply = em.find(Apply.class, applyId);
+        return apply;
     }
 }

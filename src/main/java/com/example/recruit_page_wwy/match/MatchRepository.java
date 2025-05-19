@@ -1,6 +1,7 @@
 package com.example.recruit_page_wwy.match;
 
 
+import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
@@ -56,7 +57,8 @@ public class MatchRepository {
         return result;
     }
 
-    public List<MatchResponse.ResumeDTO> findAllRecommendedResumes(int userId) {
+    public MatchResponse.ResumeListDTO findAllRecommendedResumes(int userId, User sessionUser
+    ) {
         String sql = """
                 SELECT DISTINCT r.id, r.title, u.username
                 FROM resume_tb r
@@ -80,16 +82,42 @@ public class MatchRepository {
         query.setParameter(2, userId);
 
         List<Object[]> resultList = query.getResultList();
-        List<MatchResponse.ResumeDTO> result = new ArrayList<>();
+        List<MatchResponse.ResumeDTO> resumeList = new ArrayList<>();
 
         for (Object[] row : resultList) {
             Integer resumeId = ((Number) row[0]).intValue();
             String title = (String) row[1];
             String author = (String) row[2];
 
-            result.add(new MatchResponse.ResumeDTO(resumeId, title, author));
+            resumeList.add(new MatchResponse.ResumeDTO(resumeId, title, author));
         }
 
+        return new MatchResponse.ResumeListDTO(sessionUser, resumeList);
+    }
+
+    public List<MatchResponse.EmploymentDTO> findAllProposals(int userId) {
+        String sql = """
+                select distinct e.id, e.title, eu.com_name, e.exp, e.location
+                from employment_tb e
+                join proposal_tb p on p.employment_id = e.id
+                join user_tb eu on eu.id = e.user_id
+                join resume_tb r on p.resume_id = r.id
+                join user_tb u on r.user_id = u.id
+                where u.id = ?
+                """;
+        Query query = em.createNativeQuery(sql);
+        query.setParameter(1, userId);
+        List<Object[]> resultList = query.getResultList();
+        List<MatchResponse.EmploymentDTO> result = new ArrayList<>();
+
+        for (Object[] row : resultList) {
+            Integer employmentId = ((Number) row[0]).intValue();
+            String title = (String) row[1];
+            String comName = (String) row[2];
+            String exp = (String) row[3];
+            String location = (String) row[4];
+            result.add(new MatchResponse.EmploymentDTO(employmentId, title, comName, exp, location));
+        }
         return result;
     }
 }

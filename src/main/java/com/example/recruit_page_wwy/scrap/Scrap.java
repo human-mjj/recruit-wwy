@@ -5,6 +5,7 @@ import com.example.recruit_page_wwy.employment.Employment;
 import com.example.recruit_page_wwy.resume.Resume;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,4 +28,11 @@ public class Scrap {
     // 2. resumeId == null when employmentId != null
     @ManyToOne(fetch = FetchType.LAZY)
     private Employment employment;
+
+    @Builder
+    public Scrap(User user, Resume resume, Employment employment) {
+        this.user = user;
+        this.resume = resume;
+        this.employment = employment;
+    }
 }
