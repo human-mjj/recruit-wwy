@@ -114,6 +114,6 @@ public class MatchControllerTest {
 
 
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.sessionUserId").value(7));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isCompanyUser").value(false));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isCompanyUser").value(true));
     }
 }
