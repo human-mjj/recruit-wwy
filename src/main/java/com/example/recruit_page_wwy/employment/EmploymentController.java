@@ -1,9 +1,7 @@
 package com.example.recruit_page_wwy.employment;
 
-import com.example.recruit_page_wwy._core.error.ex.ExceptionApi401;
 import com.example.recruit_page_wwy._core.util.Resp;
 import com.example.recruit_page_wwy.user.User;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +50,7 @@ public class EmploymentController {
 
 
     @PostMapping("/s/api/employment")
-    public ResponseEntity<?> employmentSave(@RequestBody EmploymentRequest.SaveDTO saveDTO) {
+    public ResponseEntity<?> employmentSave(@RequestBody EmploymentRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         EmploymentResponse.DTO respDTO = employmentService.save(reqDTO, sessionUser);
         return Resp.ok(respDTO);
