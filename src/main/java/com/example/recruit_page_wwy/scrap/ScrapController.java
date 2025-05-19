@@ -1,9 +1,7 @@
 package com.example.recruit_page_wwy.scrap;
 
-import com.example.recruit_page_wwy._core.error.ex.ExceptionApi401;
 import com.example.recruit_page_wwy._core.util.Resp;
 import com.example.recruit_page_wwy.user.User;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,47 +15,32 @@ public class ScrapController {
 
     // TODO : 예외 추가
     @GetMapping("/s/api/mypage/scrap")
-    public ResponseEntity<?> scrapUserList(HttpServletRequest request,
-                                           @RequestBody ScrapRequest.PageDTO pageDTO) {
+    public ResponseEntity<?> scrapUserList(@RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        ScrapRequest.UserScrapPageDTO respDTO = scrapService.scrapUserfind(sessionUser, pageDTO.getPage());
+        ScrapRequest.UserScrapPageDTO respDTO = scrapService.scrapUserfind(sessionUser, page);
 
         return Resp.ok(respDTO);
     }
 
     // TODO : 예외 추가
     @GetMapping("/s/api/mypage/scrap/com")
-    public ResponseEntity<?> scrapComList(HttpServletRequest request,
-                                          @RequestBody ScrapRequest.PageDTO pageDTO) {
+    public ResponseEntity<?> scrapComList(@RequestParam(required = false, value = "page", defaultValue = "1") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        ScrapRequest.ComScrapPageDTO respDTO = scrapService.scrapComfind(sessionUser, pageDTO.getPage());
-
+        ScrapRequest.ComScrapPageDTO respDTO = scrapService.scrapComfind(sessionUser, page);
         return Resp.ok(respDTO);
     }
 
     @PostMapping("/s/api/scrap")
-    @ResponseBody
     public ResponseEntity<?> saveScrap(@RequestBody ScrapRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
-        if (sessionUser == null) {
-            throw new ExceptionApi401("로그인 해주세요");
-        }
-
         ScrapResponse.SaveDTO respDTO = scrapService.save(reqDTO, sessionUser);
-        System.out.println(respDTO.getScrapId());
-
         return Resp.ok(respDTO);
     }
 
     @DeleteMapping("/s/api/scrap/{id}")
-    @ResponseBody
-    public ResponseEntity<?> deleteScrap(@PathVariable("id") Integer employmentId) {
+    public ResponseEntity<?> deleteScrap(@PathVariable("id") Integer id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null) throw new ExceptionApi401("인증이 필요합니다");
-
-        ScrapResponse.DeleteDTO respDTO = scrapService.cancelScrap(employmentId);
-
-        return Resp.ok(respDTO);
+        scrapService.cancelScrap(id, sessionUser);
+        return Resp.ok(null);
     }
 }

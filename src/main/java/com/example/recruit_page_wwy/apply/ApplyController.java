@@ -15,24 +15,33 @@ public class ApplyController {
     private final ApplyService applyService;
     private final HttpSession session;
 
-
-    // TODO : 예외 처리
-    // TODO : 인터셉터 만들어야함
-    @PostMapping("/s/api/employment/{id}/apply")
-    public ResponseEntity<?> apply(@PathVariable("id") int employmentId, @RequestParam("resumeId") Integer resumeId) {
+    @PostMapping("/s/api/apply")
+    public ResponseEntity<?> apply(@RequestBody ApplyRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        ApplyResponse.DTO respDTO = applyService.apply(sessionUser, resumeId, employmentId);
+        ApplyResponse.DTO respDTO = applyService.apply(sessionUser, reqDTO);
         return Resp.ok(respDTO);
     }
 
-    // TODO : DTO 반환에서 Body에 넣기
-    // TODO : Resp 수정
-    @PutMapping("/api/apply")
+    @PutMapping("/s/api/apply")
     public ResponseEntity<?> updateApplyProgress(@RequestBody Map<String, String> request) {
         Integer applyId = Integer.valueOf(request.get("applyId"));
         String progress = request.get("progress");
 
         ApplyResponse.DTO respDTO = applyService.updateProgress(applyId, progress); // 실제 처리 로직
+        return Resp.ok(respDTO);
+    }
+
+    @GetMapping("/s/api/apply")
+    public ResponseEntity<?> applyList() {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        ApplyResponse.UserApplyListDTO respDTO = applyService.findUserApply(sessionUser);
+        return Resp.ok(respDTO);
+    }
+
+    @GetMapping("/s/api/apply/com")
+    public ResponseEntity<?> applyManageList() {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        ApplyResponse.ComApplyListDTO respDTO = applyService.findComApply(sessionUser);
         return Resp.ok(respDTO);
     }
 }

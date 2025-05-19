@@ -11,11 +11,6 @@ import java.util.List;
 public class ScrapRequest {
 
     @Data
-    public static class PageDTO {
-        private Integer page = 1;
-    }
-
-    @Data
     public static class UserScrapPageDTO {
         private List<UserScrapDTO> scraps;
         private Integer prev;
@@ -61,6 +56,7 @@ public class ScrapRequest {
         }
     }
 
+    @Data
     public static class UserScrapDTO {
         String title;
         String comName;
@@ -129,6 +125,7 @@ public class ScrapRequest {
         }
     }
 
+    @Data
     public static class ComScrapDTO {
         Integer id;
         Integer resumeId;
