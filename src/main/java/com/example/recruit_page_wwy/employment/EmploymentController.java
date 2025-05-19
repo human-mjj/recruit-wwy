@@ -47,10 +47,11 @@ public class EmploymentController {
         return Resp.ok(respDTO);
     }
 
+
     @PostMapping("/s/api/employment")
     public ResponseEntity<?> employmentSave(@RequestBody EmploymentRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        EmploymentResponse.DTO respDTO = employmentService.save(saveDTO, sessionUser);
+        EmploymentResponse.DTO respDTO = employmentService.save(reqDTO, sessionUser);
         return Resp.ok(respDTO);
     }
 
