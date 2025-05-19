@@ -67,6 +67,7 @@ public class ResumeRequest {
             this.page = page;
         }
     }
+
 }
 
 

@@ -58,6 +58,7 @@ public class ResumeService {
         return new ResumeResponse.DTO(resumePS);
     }
 
+    @Transactional
     public ResumeResponse.MainDTO findAll(Integer userId, Integer page) {
         int realPage = page - 1;
         int size = 5;

@@ -10,8 +10,6 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class ResumeResponse {
 
@@ -22,44 +20,28 @@ public class ResumeResponse {
         private Integer userId;
         private String exp;
         private String edu;
-        private List<ResumeSummaryDTO> resumeStackList;
         private Integer jobId;
         private String location;
         private String qualified;
         private String activity;
+        private String img_url;
         private String letter;
-        private String imgUrl;
 
         public DTO(Resume resume) {
             this.id = resume.getId();
             this.title = resume.getTitle();
-            this.userId = resume.getUser() != null ? resume.getUser().getId() : null;
+            this.userId = resume.getUser().getId();
             this.exp = resume.getExp();
             this.edu = resume.getEdu();
-            this.resumeStackList = Optional.ofNullable(resume.getResumeStackList())
-                    .orElse(List.of())
-                    .stream()
-                    .map(ResumeSummaryDTO::new)
-                    .collect(Collectors.toList());
-            this.jobId = resume.getJob() != null ? resume.getJob().getId() : null;
+            this.jobId = resume.getJob().getId();
             this.location = resume.getLocation();
             this.qualified = resume.getQualified();
             this.activity = resume.getActivity();
+            this.img_url = resume.getImgUrl();
             this.letter = resume.getLetter();
-            this.imgUrl = resume.getImgUrl();
         }
     }
 
-    @Data
-    public static class ResumeSummaryDTO {
-        private Integer id;
-        private String skill;
-
-        public ResumeSummaryDTO(ResumeStack rs) {
-            this.id = rs.getId();
-            this.skill = rs.getSkill();
-        }
-    }
 
     @Data
     public static class MainDTO {

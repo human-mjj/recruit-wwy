@@ -61,15 +61,14 @@ public class ResumeControllerTest {
     @Test
     public void list_test() throws Exception {
         // given
-        ResumeRequest.PageRequestDTO reqDTO = new ResumeRequest.PageRequestDTO(2);
+        Integer page = 2;
 
-        String requestBody = om.writeValueAsString(reqDTO);
 
         // when
         ResultActions actions = mvc.perform(
                 MockMvcRequestBuilders
                         .get("/s/api/mypage/resume")
-                        .content(requestBody)
+                        .param("page", page.toString())
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + accessToken)
         );
