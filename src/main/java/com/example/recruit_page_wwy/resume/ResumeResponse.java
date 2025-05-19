@@ -45,7 +45,7 @@ public class ResumeResponse {
 
     @Data
     public static class MainDTO {
-        private List<Resume> resumes;
+        private List<ResumeDTO> resumes;
         private Integer prev;
         private Integer next;
         private Integer size;
@@ -56,8 +56,8 @@ public class ResumeResponse {
         private Boolean isLast;
         private List<Integer> numbers;
 
-        public MainDTO(List<Resume> resumes, Integer current, Integer totalCount) {
-            this.resumes = resumes;
+        public MainDTO(List<Resume> resumeList, Integer current, Integer totalCount) {
+            this.resumes = resumeList.stream().map(ResumeDTO::new).toList();
             this.size = 5;
             this.totalCount = totalCount;
             this.totalPage = makeTotalPage(totalCount, size);
@@ -84,6 +84,24 @@ public class ResumeResponse {
             }
             return numbers;
         }
+
+        @Data
+        public static class ResumeDTO {
+            private Integer id;
+            private String title;
+            private String username;
+            private String exp;
+            private String edu;
+
+            public ResumeDTO(Resume resume) {
+                this.id = resume.getId();
+                this.title = resume.getTitle();
+                this.username = resume.getUser().getUsername();
+                this.exp = resume.getExp();
+                this.edu = resume.getEdu();
+            }
+        }
+
     }
 
 
