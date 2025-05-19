@@ -102,7 +102,7 @@ public class UserControllerTest {
         // when
         ResultActions actions = mvc.perform(
                 MockMvcRequestBuilders
-                        .post("/s/api/mypage/update")
+                        .put("/s/api/mypage")
                         .content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + accessToken)
