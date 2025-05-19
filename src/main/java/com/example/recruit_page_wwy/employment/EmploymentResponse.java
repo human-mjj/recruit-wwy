@@ -66,11 +66,33 @@ public class EmploymentResponse {
     @Data
     public static class MainDTO {
         private Boolean isCompanyUser;
-        private List<Employment> employmentList;
+        private List<EmploymentDTO> employmentList;
+
+        @Data
+        public static class EmploymentDTO {
+            private int id;
+            private String title;
+            private String companyName;
+            private String exp;
+            private String location;
+            private String imgUrl;
+
+            public EmploymentDTO(Employment e) {
+                this.id = e.getId();
+                this.title = e.getTitle();
+                this.exp = e.getExp();
+                this.location = e.getLocation();
+                this.companyName = e.getUser().getComName();
+                this.imgUrl = e.getImgUrl();
+            }
+        }
 
         public MainDTO(User sessionUser, List<Employment> employmentList) {
             this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
-            this.employmentList = employmentList;
+            // Employment → EmploymentDTO로 변환
+            this.employmentList = employmentList.stream()
+                    .map(EmploymentDTO::new)
+                    .toList();
         }
     }
 
