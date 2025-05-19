@@ -5,10 +5,7 @@ import com.example.recruit_page_wwy.user.User;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -17,7 +14,7 @@ public class ReplyController {
     private final HttpSession session;
 
     // TODO : 예외 추가
-    @PostMapping("/reply/save")
+    @PostMapping("/s/api/reply")
     public ResponseEntity<?> replySave(@RequestBody ReplyRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         ReplyResponse.DTO respDTO = replyService.replySave(saveDTO, sessionUser);
@@ -25,11 +22,11 @@ public class ReplyController {
     }
 
     // TODO : 예외 추가
-    @PostMapping("/reply/{id}/delete")
-    public String resumeDelete(@PathVariable("id") Integer id) {
+    @DeleteMapping("/s/api/reply/{id}")
+    public ResponseEntity<?> resumeDelete(@PathVariable("id") Integer id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        int boardId = replyService.delete(id, sessionUser.getId());
-        return "redirect:/board/" + boardId;
+        replyService.delete(id, sessionUser);
+        return Resp.ok(null);
     }
 
 }
