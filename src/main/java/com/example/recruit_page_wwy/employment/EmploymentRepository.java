@@ -269,7 +269,7 @@ public class EmploymentRepository {
         return em.createQuery("select s from Stack s", Stack.class).getResultList();
     }
 
-    public void save(Employment savingEmployment, List<String> stackList) {
+    public Employment save(Employment savingEmployment, List<String> stackList) {
         em.persist(savingEmployment);
         em.flush(); // 여기서 DB에 insert 실행되고 id가 채워짐
         int employmentId = savingEmployment.getId(); // 바로 id 꺼내기
@@ -284,6 +284,9 @@ public class EmploymentRepository {
                     .setParameter(2, s)
                     .executeUpdate();
         }
+
+        Employment employment = em.find(Employment.class, employmentId);
+        return employment;
     }
 
     public List<EmployStack> findAllStacksByEmploymentId(int employmentId) {

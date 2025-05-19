@@ -96,4 +96,8 @@ public class ResumeRepository {
                 .setParameter("resumeId", resumeId)
                 .getResultList();
     }
+
+    public void delete(int resumeId) {
+        em.remove(em.find(Resume.class, resumeId));
+    }
 }

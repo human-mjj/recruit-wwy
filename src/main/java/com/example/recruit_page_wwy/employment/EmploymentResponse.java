@@ -1,8 +1,11 @@
 package com.example.recruit_page_wwy.employment;
 
+import com.example.recruit_page_wwy.apply.Apply;
 import com.example.recruit_page_wwy.employstack.EmployStack;
 import com.example.recruit_page_wwy.job.Job;
+import com.example.recruit_page_wwy.proposal.Proposal;
 import com.example.recruit_page_wwy.resume.Resume;
+import com.example.recruit_page_wwy.scrap.Scrap;
 import com.example.recruit_page_wwy.stack.Stack;
 import com.example.recruit_page_wwy.user.User;
 import lombok.Builder;
@@ -14,6 +17,51 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EmploymentResponse {
+
+    @Data
+    public static class DTO {
+        private int id;
+        private String title;
+        private Integer userId;
+        private String exp;
+        private String edu;
+        private String shift;
+        private Long scrapCount = 0L;
+        private List<EmployStack> employStackList;
+        private List<Apply> applyList;
+        private List<Proposal> proposalList;
+        private List<Scrap> scrapList;
+        private Job job;
+        private String duty;
+        private String qualification;
+        private Integer sal;
+        private String workingTime;
+        private String location;
+        private Date endDate;
+        private String imgUrl;
+
+        public DTO(Employment employment) {
+            this.id = employment.getId();
+            this.title = employment.getTitle();
+            this.userId = employment.getUser().getId();
+            this.exp = employment.getExp();
+            this.edu = employment.getEdu();
+            this.shift = employment.getShift();
+            this.employStackList = employment.getEmployStackList();
+            this.applyList = employment.getApplyList();
+            this.proposalList = employment.getProposalList();
+            this.scrapList = employment.getScrapList();
+            this.job = employment.getJob();
+            this.duty = employment.getDuty();
+            this.qualification = employment.getQualification();
+            this.sal = employment.getSal();
+            this.workingTime = employment.getWorkingTime();
+            this.location = employment.getLocation();
+            this.endDate = employment.getEndDate();
+            this.imgUrl = employment.getImgUrl();
+            this.scrapCount = employment.getScrapCount();
+        }
+    }
 
     @Data
     public static class MainDTO {
