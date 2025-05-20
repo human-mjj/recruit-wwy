@@ -45,7 +45,6 @@ public class EmploymentControllerTest {
                 .role(1)
                 .build();
         accessToken = JwtUtil.create(user);
-        // System.out.println(user.getRole());
     }
 
     @AfterEach

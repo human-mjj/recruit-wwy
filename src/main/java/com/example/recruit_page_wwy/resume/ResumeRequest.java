@@ -32,7 +32,7 @@ public class ResumeRequest {
         // edu
         @NotBlank(message = "학력 구분은 비어 있을 수 없습니다.")
         @Size(max = 20, message = "학력 구분은 20자 이내여야 합니다.")
-        @Pattern(regexp = "^[가-힣a-zA-Z0-9]*$", message = "학력 구분은 한글, 영문, 숫자만 허용됩니다.")
+        @Pattern(regexp = "^[가-힣a-zA-Z0-9/ ]*$", message = "학력 구분은 한글, 영문, 숫자만 허용됩니다.")
         private String educationLevel;     // "univ_graduated" 등
         @NotBlank(message = "학교명은 비어 있을 수 없습니다.")
         @Size(max = 50, message = "학교명은 50자 이내여야 합니다.")
@@ -51,12 +51,10 @@ public class ResumeRequest {
         @Pattern(regexp = "^[가-힣0-9]+$", message = "상세 지역은 한글과 숫자만 입력할 수 있습니다.")
         private String regionDetail;
 
-        @NotBlank(message = "자격사항은 비어 있을 수 없습니다.")
         @Size(max = 50, message = "자격사항은 50자 이내여야 합니다.")
         @Pattern(regexp = "^[^\\s].*\\S.*$", message = "자격사항은 앞뒤 공백 없이 최소 한 글자 이상 입력되어야 합니다.")
         private String qualified;
 
-        @NotBlank(message = "활동 내용은 비어 있을 수 없습니다.")
         @Size(max = 50, message = "활동 내용은 50자 이내여야 합니다.")
         @Pattern(regexp = "^[가-힣a-zA-Z0-9\\s]*$", message = "활동 내용은 한글, 영문, 숫자만 허용되며 <, >, = 는 사용 불가합니다.")
         private String activity;
@@ -82,7 +80,7 @@ public class ResumeRequest {
                     .edu(edu)
                     .location(location)
                     .qualified(qualified == null ? "없음" : qualified)
-                    .activity(activity)
+                    .activity(activity == null ? "없음" : activity)
                     .letter(letter)
                     .imgUrl(savedImgUrl)
                     .job(Job.builder().id(jobId).build())
