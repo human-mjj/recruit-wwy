@@ -131,10 +131,10 @@ public class UserControllerTest {
     public void UserJoin_test() throws Exception {
         // given
         UserRequest.UserDTO reqDTO = new UserRequest.UserDTO();
-        reqDTO.setUsername("haha");
+        reqDTO.setUsername("하하");
         reqDTO.setEmail("haha@nate.com");
         reqDTO.setPhone("01012341234");
-        reqDTO.setPassword("1234");
+        reqDTO.setPassword("Haha1!");
         reqDTO.setRole(0);
 
         String requestBody = om.writeValueAsString(reqDTO);
@@ -158,7 +158,7 @@ public class UserControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
 
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.username").value("haha"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.username").value("하하"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.password").value(nullValue()));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.email").value("haha@nate.com"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.phone").value("01012341234"));
@@ -172,10 +172,10 @@ public class UserControllerTest {
     public void ComJoin_test() throws Exception {
         // given
         UserRequest.ComDTO reqDTO = new UserRequest.ComDTO();
-        reqDTO.setUsername("haha");
+        reqDTO.setUsername("하하");
         reqDTO.setEmail("haha@nate.com");
         reqDTO.setPhone("01012341239");
-        reqDTO.setPassword("1234");
+        reqDTO.setPassword("Haha1!");
         reqDTO.setRole(1);
         reqDTO.setComName("하하컴퍼");
         reqDTO.setIndustryId(2);
@@ -201,7 +201,7 @@ public class UserControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
 
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.username").value("haha"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.username").value("하하"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.password").value(nullValue()));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.email").value("haha@nate.com"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.phone").value("01012341239"));
