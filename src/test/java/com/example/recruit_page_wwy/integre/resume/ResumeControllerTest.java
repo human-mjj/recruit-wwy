@@ -79,20 +79,13 @@ public class ResumeControllerTest {
 
 
         // then
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].id").value(6));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].title").value("스프링 시큐리티 인증 인가 구축"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].username").value("손영민"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].exp").value("JWT 인증 구현 경험"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].edu").value("부산대학교 컴퓨터공학과 졸업"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].jobId").value(1));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].location").value("대구"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].qualified").value("정보보안기사"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].activity").value("보안 동아리 활동"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].img_url").value(nullValue()));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].letter").value("기술 공유 세션을 자발적으로 열어 팀원들과 지식을 나누는 것을 즐깁니다."));
-
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].id").value(6));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].title").value("스프링 시큐리티 인증 인가 구축"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].username").value("손영민"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].exp").value("JWT 인증 구현 경험"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].edu").value("부산대학교 컴퓨터공학과 졸업"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.current").value(1));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.totalCount").value(6));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.prev").value(0));
@@ -253,16 +246,34 @@ public class ResumeControllerTest {
 
 
         // then
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.replyList[0].boardId").value(1));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.replyList[0].id").value(1));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.replyList[0].username").value("서회정"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.replyList[0].content").value("저도 포폴 준비중인데 개빡세요ㅠㅠ 같이 힘내요!"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.replyList[0].isOwner").value(false));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.username").value("손영민"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.title").value("첫 이직 준비 넘 힘든데 포폴 꼭 해야 하나요?"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.content").value("첫 이직 준비 중인데 포트폴리오 꼭 만들어야 하나요 ㅠㅠ 아무리 해도 부족한 느낌이라 너무 스트레스받아요.."));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.id").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.title").value("백엔드 신입 개발자 지원서"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.userId").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.username").value("손영민"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.email").value("ssar@nate.com"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.phone").value("01012345678"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.exp").value("컴퓨터공학 전공, 인턴 경험 3개월"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.edu").value("부산대학교 컴퓨터공학과 졸업"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.location").value("서울"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.qualified").value("정보처리기사"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.activity").value("멋쟁이사자처럼 10기 활동"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.letter").value("사용자 중심의 웹 서비스를 만드는 것이 저의 목표입니다. HTML, CSS, JavaScript를 활용해 여러 웹 프로젝트를 진행했으며, 특히 반응형 UI 구현에 강점을 가지고 있습니다. 새로운 기술에 대한 학습을 즐기며 팀과의 소통을 중요시합니다."));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.imgUrl").isEmpty());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isScrap").value(false));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.scrapId").value(0));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.sessionUserId").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.sessionUserRole").value(0));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isOwner").value(true));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isCompanyUser").value(false));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isApplicant").value(false));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.job.id").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.job.name").value("백엔드 개발자"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumeStack", hasSize(1)));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumeStack[0].skill").value("java"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.employmentList", hasSize(0)));
+
     }
 
 }
