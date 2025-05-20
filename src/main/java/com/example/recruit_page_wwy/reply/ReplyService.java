@@ -19,23 +19,25 @@ public class ReplyService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public ReplyResponse.DTO replySave(ReplyRequest.SaveDTO saveDTO, User sessionUser) {
-        if (saveDTO.getContent().isBlank()) throw new ExceptionApi400("댓글 내용을 입력하세요.");
-        Board board = boardRepository.findById(saveDTO.getBoardId());
+    public ReplyResponse.DTO replySave(ReplyRequest.SaveDTO reqDTO, User sessionUser) {
+        if (reqDTO.getContent().isBlank()) throw new ExceptionApi400("댓글 내용을 입력하세요.");
+        Board board = boardRepository.findById(reqDTO.getBoardId());
         if (board == null) {
-            throw new ExceptionApi404("게시글을 찾을 수 없습니다. id = " + saveDTO.getBoardId());
+            throw new ExceptionApi404("게시글을 찾을 수 없습니다. id = " + reqDTO.getBoardId());
         }
 
-        Reply replyPS = replyRepository.replySave(saveDTO.toEntity(sessionUser));
+        Reply replyPS = replyRepository.replySave(reqDTO.toEntity(sessionUser));
 
         return new ReplyResponse.DTO(replyPS);
     }
-    
+
     @Transactional
     public void delete(Integer id, User sessionUser) {
         Reply replyPS = replyRepository.findById(id);
-        if (replyPS == null) throw new ExceptionApi404("404 Not Found");
-        if (replyPS.getUser().getId() != sessionUser.getId()) throw new ExceptionApi403("403 Forbidden");
+        System.out.println("sessionUser.getId " + sessionUser.getId());
+        System.out.println("replyPS.getUser().getId()" + replyPS.getUser().getId());
+        if (replyPS == null) throw new ExceptionApi404("자원을 찾을 수 없습니다");
+        if (replyPS.getUser().getId() != sessionUser.getId()) throw new ExceptionApi403("권한이 없습니다");
 
         int boardId = replyPS.getBoard().getId();
 
