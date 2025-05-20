@@ -3,8 +3,10 @@ package com.example.recruit_page_wwy.user;
 import com.example.recruit_page_wwy._core.util.Resp;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -26,7 +28,7 @@ public class UserController {
     // TODO : 예외 처리
     // MyPageUpdate
     @PutMapping("/s/api/mypage")
-    public @ResponseBody ResponseEntity<?> userUpdate(@RequestBody UserRequest.UpdateDTO reqDTO) {
+    public @ResponseBody ResponseEntity<?> userUpdate(@Valid @RequestBody UserRequest.UpdateDTO reqDTO, Errors errors) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         UserResponse.DTO respDTO = userService.userUpdate(reqDTO, sessionUser);
         return Resp.ok(respDTO);
@@ -34,21 +36,21 @@ public class UserController {
 
     // UserJoin
     @PostMapping("/join-user")
-    public @ResponseBody ResponseEntity<?> userJoin(@RequestBody UserRequest.UserDTO reqDTO) {
+    public @ResponseBody ResponseEntity<?> userJoin(@Valid @RequestBody UserRequest.UserDTO reqDTO, Errors errors) {
         UserResponse.DTO respDTO = userService.joinUser(reqDTO);
         return Resp.ok(respDTO);
     }
 
     // ComJoin
     @PostMapping("/join-com")
-    public @ResponseBody ResponseEntity<?> comJoin(@RequestBody UserRequest.ComDTO reqDTO) {
+    public @ResponseBody ResponseEntity<?> comJoin(@Valid @RequestBody UserRequest.ComDTO reqDTO, Errors errors) {
         UserResponse.DTO respDTO = userService.joinCom(reqDTO);
         return Resp.ok(respDTO);
     }
 
     // Login
     @PostMapping("/login")
-    public @ResponseBody ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO, HttpServletResponse response, HttpSession session) {
+    public @ResponseBody ResponseEntity<?> login(@Valid @RequestBody UserRequest.LoginDTO reqDTO, Errors errors, HttpServletResponse response, HttpSession session) {
         UserResponse.TokenDTO respDTO = userService.login(reqDTO);
         return Resp.ok(respDTO);
     }
