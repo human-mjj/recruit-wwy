@@ -33,7 +33,7 @@ public class EmploymentRequest {
             return Employment.builder()
                     .title(title)
                     .exp(exp)
-                    .edu(edu + "$" + schoolName)
+                    .edu(edu)
                     .shift(shift)
                     .sal(sal)
                     .workingTime(workingTime)

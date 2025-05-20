@@ -1,11 +1,8 @@
 package com.example.recruit_page_wwy.employment;
 
-import com.example.recruit_page_wwy.apply.Apply;
 import com.example.recruit_page_wwy.employstack.EmployStack;
 import com.example.recruit_page_wwy.job.Job;
-import com.example.recruit_page_wwy.proposal.Proposal;
 import com.example.recruit_page_wwy.resume.Resume;
-import com.example.recruit_page_wwy.scrap.Scrap;
 import com.example.recruit_page_wwy.stack.Stack;
 import com.example.recruit_page_wwy.user.User;
 import lombok.Builder;
@@ -27,10 +24,10 @@ public class EmploymentResponse {
         private String edu;
         private String shift;
         private Long scrapCount = 0L;
-        private List<EmployStack> employStackList;
-        private List<Apply> applyList;
-        private List<Proposal> proposalList;
-        private List<Scrap> scrapList;
+        private List<EmployStackDTO> employStackList;
+        //        private List<Apply> applyList;
+//        private List<Proposal> proposalList;
+//        private List<Scrap> scrapList;
         private Job job;
         private String duty;
         private String qualification;
@@ -40,17 +37,26 @@ public class EmploymentResponse {
         private Date endDate;
         private String imgUrl;
 
-        public DTO(Employment employment) {
+        @Data
+        public static class EmployStackDTO {
+            private String skill;
+
+            public EmployStackDTO(String skill) {
+                this.skill = skill;
+            }
+        }
+
+        public DTO(Employment employment, List<EmployStack> stackList) {
             this.id = employment.getId();
             this.title = employment.getTitle();
             this.userId = employment.getUser().getId();
             this.exp = employment.getExp();
             this.edu = employment.getEdu();
             this.shift = employment.getShift();
-            this.employStackList = employment.getEmployStackList();
-            this.applyList = employment.getApplyList();
-            this.proposalList = employment.getProposalList();
-            this.scrapList = employment.getScrapList();
+            this.employStackList = stackList.stream().map(stack -> new EmployStackDTO(stack.getSkill())).collect(Collectors.toList());
+//            this.applyList = employment.getApplyList();
+//            this.proposalList = employment.getProposalList();
+//            this.scrapList = employment.getScrapList();
             this.job = employment.getJob();
             this.duty = employment.getDuty();
             this.qualification = employment.getQualification();

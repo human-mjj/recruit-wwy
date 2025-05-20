@@ -5,12 +5,13 @@ import com.example.recruit_page_wwy.user.User;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-@RestController
+@Controller
 public class EmploymentController {
     private final EmploymentService employmentService;
     private final HttpSession session;
