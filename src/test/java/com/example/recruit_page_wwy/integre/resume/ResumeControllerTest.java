@@ -61,13 +61,13 @@ public class ResumeControllerTest {
     @Test
     public void list_test() throws Exception {
         // given
-
+        int page = 1;
 
         // when
         ResultActions actions = mvc.perform(
                 MockMvcRequestBuilders
                         .get("/s/api/mypage/resume")
-                        .param("page", page.toString())
+                        .param("page", Integer.toString(page))
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + accessToken)
         );
@@ -87,13 +87,6 @@ public class ResumeControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].username").value("손영민"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].exp").value("JWT 인증 구현 경험"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].edu").value("부산대학교 컴퓨터공학과 졸업"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].jobId").value(1));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].location").value("대구"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].qualified").value("정보보안기사"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].activity").value("보안 동아리 활동"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].img_url").value(nullValue()));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumes[0].letter").value("기술 공유 세션을 자발적으로 열어 팀원들과 지식을 나누는 것을 즐깁니다."));
-
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.current").value(1));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.totalCount").value(6));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.prev").value(0));

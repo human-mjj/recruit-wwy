@@ -16,7 +16,7 @@ public class ResumeResponse {
 
     @Data
     public static class DTO {
-        private int id;
+        private Integer id;
         private String title;
         private Integer userId;
         private String exp;
