@@ -21,7 +21,6 @@ public class ResumeResponse {
         private Integer userId;
         private String exp;
         private String edu;
-        private List<ResumeStack> resumeStackList;
         private Integer jobId;
         private String location;
         private String qualified;
@@ -36,7 +35,6 @@ public class ResumeResponse {
             this.userId = resume.getUser().getId();
             this.exp = resume.getExp();
             this.edu = resume.getEdu();
-            this.resumeStackList = resume.getResumeStackList();
             this.jobId = resume.getJob().getId();
             this.location = resume.getLocation();
             this.qualified = resume.getQualified();
