@@ -36,10 +36,7 @@ public class ResumeRequest {
         private List<String> skills;
 
         public Resume toEntity(User user, String savedImgUrl) {
-            String exp = "신입".equals(personalHistory)
-                    ? "신입"
-                    : "경력 " + experiencedDate;
-
+            String exp = personalHistory + " " + experiencedDate;
             String edu = educationLevel + " $" + schoolName;
             String location = region + " " + regionDetail;
 
@@ -48,7 +45,7 @@ public class ResumeRequest {
                     .exp(exp)
                     .edu(edu)
                     .location(location)
-                    .qualified(qualified)
+                    .qualified(qualified == null ? "없음" : qualified)
                     .activity(activity)
                     .letter(letter)
                     .imgUrl(savedImgUrl)

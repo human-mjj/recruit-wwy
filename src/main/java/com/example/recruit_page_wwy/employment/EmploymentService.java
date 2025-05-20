@@ -156,7 +156,7 @@ public class EmploymentService {
         Employment savingEmployment = saveDTO.toEntity(sessionUser, imgFilename);
         Employment employmentPS = employmentRepository.save(savingEmployment, saveDTO.getEmployStack());
 
-        List<EmployStack> stackList = employmentPS.getEmployStackList();
+        List<EmployStack> stackList = employmentRepository.findAllStacksByEmploymentId(employmentPS.getId());
 
         return new EmploymentResponse.DTO(employmentPS, stackList);
 
@@ -205,7 +205,7 @@ public class EmploymentService {
                 .employment(employment)
                 .jobList(jobDTOList)
                 .stackList(stackDTOList)
-                .selectedStacks(selectedStackList)
+                .selectedStackEntities(selectedStackList) // ← 여기!
                 .build();
 
         return updateViewDTO;
@@ -238,13 +238,16 @@ public class EmploymentService {
             }
         }
 
+        Job jobPS = employmentRepository.findJobById(dto.getJobId())
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 직무입니다."));
+
         // 2. Employment 엔티티의 update 메서드를 호출
-        employment.update(dto, imgFilename);
+        employment.update(dto, jobPS, imgFilename);
         Employment employmentPS = employmentRepository.findByEmploymentId(employmentId);
 
         // 3. 스택(EmployStack) 수정은 별도로 처리 필요
         employmentRepository.updateStack(employmentId, dto.getEmployStack()); // 기존 스택 전부 삭제
-        List<EmployStack> stackList = employmentPS.getEmployStackList();
+        List<EmployStack> stackList = employmentRepository.findAllStacksByEmploymentId(employmentPS.getId());
 
         return new EmploymentResponse.DTO(employmentPS, stackList);
     }
