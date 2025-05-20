@@ -10,22 +10,25 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ResumeResponse {
 
     @Data
     public static class DTO {
-        private Integer id;
+        private int id;
         private String title;
         private Integer userId;
         private String exp;
         private String edu;
+        private List<ResumeStack> resumeStackList;
         private Integer jobId;
         private String location;
         private String qualified;
         private String activity;
         private String img_url;
         private String letter;
+        private String imgUrl;
 
         public DTO(Resume resume) {
             this.id = resume.getId();
@@ -33,19 +36,21 @@ public class ResumeResponse {
             this.userId = resume.getUser().getId();
             this.exp = resume.getExp();
             this.edu = resume.getEdu();
+            this.resumeStackList = resume.getResumeStackList();
             this.jobId = resume.getJob().getId();
             this.location = resume.getLocation();
             this.qualified = resume.getQualified();
             this.activity = resume.getActivity();
             this.img_url = resume.getImgUrl();
             this.letter = resume.getLetter();
+            this.imgUrl = resume.getImgUrl();
         }
     }
 
 
     @Data
     public static class MainDTO {
-        private List<Resume> resumes;
+        private List<ResumeDTO> resumes;
         private Integer prev;
         private Integer next;
         private Integer size;
@@ -56,8 +61,8 @@ public class ResumeResponse {
         private Boolean isLast;
         private List<Integer> numbers;
 
-        public MainDTO(List<Resume> resumes, Integer current, Integer totalCount) {
-            this.resumes = resumes;
+        public MainDTO(List<Resume> resumeList, Integer current, Integer totalCount) {
+            this.resumes = resumeList.stream().map(ResumeDTO::new).toList();
             this.size = 5;
             this.totalCount = totalCount;
             this.totalPage = makeTotalPage(totalCount, size);
@@ -84,6 +89,24 @@ public class ResumeResponse {
             }
             return numbers;
         }
+
+        @Data
+        public static class ResumeDTO {
+            private Integer id;
+            private String title;
+            private String username;
+            private String exp;
+            private String edu;
+
+            public ResumeDTO(Resume resume) {
+                this.id = resume.getId();
+                this.title = resume.getTitle();
+                this.username = resume.getUser().getUsername();
+                this.exp = resume.getExp();
+                this.edu = resume.getEdu();
+            }
+        }
+
     }
 
 
@@ -100,8 +123,8 @@ public class ResumeResponse {
         private String email;
         private String phone;
         private Integer userId;
-        private Job job;
-        private List<ResumeStack> resumeStack;
+        private JobDTO job;
+        private List<ResumeStackDTO> resumeStack;
         private Integer jobId;
         private String title;
         private String exp;
@@ -127,6 +150,26 @@ public class ResumeResponse {
             }
         }
 
+        @Data
+        public static class ResumeStackDTO {
+            private String skill;
+
+            public ResumeStackDTO(ResumeStack rs) {
+                this.skill = rs.getSkill();
+            }
+        }
+
+        @Data
+        public static class JobDTO {
+            private Integer id;
+            private String name;
+
+            public JobDTO(Job job) {
+                this.id = job.getId();
+                this.name = job.getName();
+            }
+        }
+
         public DetailDTO(User sessionUser, Resume resume, List<EmployDTO> employmentList, boolean isScrap, Integer scrapId) {
             this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
             this.sessionUserRole = sessionUser != null ? sessionUser.getRole() : null;
@@ -136,8 +179,11 @@ public class ResumeResponse {
 
             this.id = resume.getId();
             this.userId = resume.getUser().getId();
-            this.job = resume.getJob();
-            this.resumeStack = resume.getResumeStackList();
+            this.job = resume.getJob() != null ? new JobDTO(resume.getJob()) : null;
+            this.resumeStack = resume.getResumeStackList()
+                    .stream()
+                    .map(ResumeStackDTO::new)
+                    .collect(Collectors.toList());
             this.username = resume.getUser().getUsername();
             this.email = resume.getUser().getEmail();
             this.phone = resume.getUser().getPhone();

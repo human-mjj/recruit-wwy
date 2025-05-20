@@ -59,7 +59,7 @@ public class EmploymentService {
     public EmploymentResponse.EmploymentPageDTO employmentAllList(User sessionUser, String jobType, String careerLevel, List<String> skills, String sort, Integer page) {
         Long totalCount = employmentRepository.totalCount();
         List<Employment> employmentList = new ArrayList<>();
-        
+
         if (sort.equals("recommend")) {
             employmentList = employmentRepository.findAllWithRecommend(jobType, careerLevel, skills, sort, page);
         } else {
@@ -156,7 +156,10 @@ public class EmploymentService {
         Employment savingEmployment = saveDTO.toEntity(sessionUser, imgFilename);
         Employment employmentPS = employmentRepository.save(savingEmployment, saveDTO.getEmployStack());
 
-        return new EmploymentResponse.DTO(employmentPS);
+        List<EmployStack> stackList = employmentPS.getEmployStackList();
+
+        return new EmploymentResponse.DTO(employmentPS, stackList);
+
     }
 
     public EmploymentResponse.UpdateViewDTO showUpdateView(int employmentId) {
@@ -241,8 +244,9 @@ public class EmploymentService {
 
         // 3. 스택(EmployStack) 수정은 별도로 처리 필요
         employmentRepository.updateStack(employmentId, dto.getEmployStack()); // 기존 스택 전부 삭제
+        List<EmployStack> stackList = employmentPS.getEmployStackList();
 
-        return new EmploymentResponse.DTO(employmentPS);
+        return new EmploymentResponse.DTO(employmentPS, stackList);
     }
 
     @Transactional
