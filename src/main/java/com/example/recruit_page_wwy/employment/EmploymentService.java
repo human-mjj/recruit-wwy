@@ -156,7 +156,7 @@ public class EmploymentService {
         Employment savingEmployment = saveDTO.toEntity(sessionUser, imgFilename);
         Employment employmentPS = employmentRepository.save(savingEmployment, saveDTO.getEmployStack());
 
-        List<EmployStack> stackList = employmentPS.getEmployStackList();
+        List<EmployStack> stackList = employmentRepository.findAllStacksByEmploymentId(employmentPS.getId());
 
         return new EmploymentResponse.DTO(employmentPS, stackList);
 
@@ -244,7 +244,7 @@ public class EmploymentService {
 
         // 3. 스택(EmployStack) 수정은 별도로 처리 필요
         employmentRepository.updateStack(employmentId, dto.getEmployStack()); // 기존 스택 전부 삭제
-        List<EmployStack> stackList = employmentPS.getEmployStackList();
+        List<EmployStack> stackList = employmentRepository.findAllStacksByEmploymentId(employmentPS.getId());
 
         return new EmploymentResponse.DTO(employmentPS, stackList);
     }

@@ -272,6 +272,7 @@ public class EmploymentRepository {
     public Employment save(Employment savingEmployment, List<String> stackList) {
         em.persist(savingEmployment);
         em.flush(); // 여기서 DB에 insert 실행되고 id가 채워짐
+        em.clear();
         int employmentId = savingEmployment.getId(); // 바로 id 꺼내기
 
         em.createNativeQuery("delete from employ_stack_tb where employment_id = ?")
@@ -290,8 +291,8 @@ public class EmploymentRepository {
     }
 
     public List<EmployStack> findAllStacksByEmploymentId(int employmentId) {
-        return em.createQuery("select es from EmployStack es where es.employment.id = :employmentId", EmployStack.class)
-                .setParameter("employmentId", employmentId)
+        return em.createNativeQuery("select * from employ_stack_tb where employment_id = ?", EmployStack.class)
+                .setParameter(1, employmentId)
                 .getResultList();
     }
 

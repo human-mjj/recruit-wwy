@@ -107,14 +107,17 @@ public class EmploymentControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.exp").value("10년 이상"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.edu").value("대학교 / 졸업"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.shift").value("정규직"));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.job.id").value(3));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.jobName").value("풀스택 개발자"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.sal").value(4200));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.workingTime").value("09:30 ~ 18:30"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.location").value("서울특별시 강남구"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.endDate").value("2025-05-31"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.duty").value("REST API 개발 및 유지보수$기존 서비스 코드 리팩토링$MySQL 기반 데이터 처리$협업을 위한 문서화"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.qualification").value("Java/Spring 경력 1년 이상$MySQL 경험 우대$협업 및 커뮤니케이션 능력$Git 사용 가능자"));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.employStackList").value("Spring$Java$MySQL"));
-
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.employStackList[0].skill").value("Spring"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.employStackList[1].skill").value("Java"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.employStackList[2].skill").value("MySQL"));
     }
+
+    
 }

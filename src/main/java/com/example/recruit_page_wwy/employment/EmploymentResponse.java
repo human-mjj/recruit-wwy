@@ -28,7 +28,7 @@ public class EmploymentResponse {
         //        private List<Apply> applyList;
 //        private List<Proposal> proposalList;
 //        private List<Scrap> scrapList;
-        private Job job;
+        private String jobName;
         private String duty;
         private String qualification;
         private Integer sal;
@@ -49,7 +49,7 @@ public class EmploymentResponse {
         public DTO(Employment employment, List<EmployStack> stackList) {
             this.id = employment.getId();
             this.title = employment.getTitle();
-            this.userId = employment.getUser().getId();
+            this.userId = (employment.getUser() != null) ? employment.getUser().getId() : null;
             this.exp = employment.getExp();
             this.edu = employment.getEdu();
             this.shift = employment.getShift();
@@ -57,7 +57,7 @@ public class EmploymentResponse {
 //            this.applyList = employment.getApplyList();
 //            this.proposalList = employment.getProposalList();
 //            this.scrapList = employment.getScrapList();
-            this.job = employment.getJob();
+            this.jobName = (employment.getJob() != null) ? employment.getJob().getName() : null;
             this.duty = employment.getDuty();
             this.qualification = employment.getQualification();
             this.sal = employment.getSal();
