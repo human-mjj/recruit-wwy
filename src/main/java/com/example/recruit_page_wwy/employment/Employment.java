@@ -33,7 +33,6 @@ public class Employment {
     private String edu;
     private String shift;
 
-    // TODO: Teacher
     @Transient
     private Long scrapCount = 0L;
 
@@ -88,7 +87,7 @@ public class Employment {
         this.imgUrl = imgUrl;
     }
 
-    public void update(EmploymentRequest.SaveDTO dto, String imgFilename) {
+    public void update(EmploymentRequest.SaveDTO dto, Job job, String imgFilename) {
         this.title = dto.getTitle();
         this.exp = dto.getExp();
         this.edu = dto.getEdu() + "$" + dto.getSchoolName();
@@ -99,7 +98,7 @@ public class Employment {
         this.endDate = dto.getEndDate();
         this.duty = String.join("$", dto.getDuty());
         this.qualification = String.join("$", dto.getQualification());
-        this.job = Job.builder().id(dto.getJobId()).build(); // 연관관계 수정
+        this.job = job; // 연관관계 수정
         this.imgUrl = imgFilename;
     }
 }

@@ -1,11 +1,8 @@
 package com.example.recruit_page_wwy.employment;
 
-import com.example.recruit_page_wwy.apply.Apply;
 import com.example.recruit_page_wwy.employstack.EmployStack;
 import com.example.recruit_page_wwy.job.Job;
-import com.example.recruit_page_wwy.proposal.Proposal;
 import com.example.recruit_page_wwy.resume.Resume;
-import com.example.recruit_page_wwy.scrap.Scrap;
 import com.example.recruit_page_wwy.stack.Stack;
 import com.example.recruit_page_wwy.user.User;
 import lombok.Builder;
@@ -27,11 +24,11 @@ public class EmploymentResponse {
         private String edu;
         private String shift;
         private Long scrapCount = 0L;
-        private List<EmployStack> employStackList;
-        private List<Apply> applyList;
-        private List<Proposal> proposalList;
-        private List<Scrap> scrapList;
-        private Job job;
+        private List<EmployStackDTO> employStackList;
+        //        private List<Apply> applyList;
+//        private List<Proposal> proposalList;
+//        private List<Scrap> scrapList;
+        private String jobName;
         private String duty;
         private String qualification;
         private Integer sal;
@@ -40,18 +37,27 @@ public class EmploymentResponse {
         private Date endDate;
         private String imgUrl;
 
-        public DTO(Employment employment) {
+        @Data
+        public static class EmployStackDTO {
+            private String skill;
+
+            public EmployStackDTO(String skill) {
+                this.skill = skill;
+            }
+        }
+
+        public DTO(Employment employment, List<EmployStack> stackList) {
             this.id = employment.getId();
             this.title = employment.getTitle();
-            this.userId = employment.getUser().getId();
+            this.userId = (employment.getUser() != null) ? employment.getUser().getId() : null;
             this.exp = employment.getExp();
             this.edu = employment.getEdu();
             this.shift = employment.getShift();
-            this.employStackList = employment.getEmployStackList();
-            this.applyList = employment.getApplyList();
-            this.proposalList = employment.getProposalList();
-            this.scrapList = employment.getScrapList();
-            this.job = employment.getJob();
+            this.employStackList = stackList.stream().map(stack -> new EmployStackDTO(stack.getSkill())).collect(Collectors.toList());
+//            this.applyList = employment.getApplyList();
+//            this.proposalList = employment.getProposalList();
+//            this.scrapList = employment.getScrapList();
+            this.jobName = (employment.getJob() != null) ? employment.getJob().getName() : null;
             this.duty = employment.getDuty();
             this.qualification = employment.getQualification();
             this.sal = employment.getSal();
@@ -565,36 +571,31 @@ public class EmploymentResponse {
 
         // ===== Builder =====
         @Builder
-        public UpdateViewDTO(Employment employment, List<JobDTO> jobList, List<StackDTO> stackList, List<EmployStack> selectedStacks) {
+        public UpdateViewDTO(Employment employment, List<JobDTO> jobList, List<StackDTO> stackList, List<EmployStack> selectedStackEntities) {
             this.id = employment.getId();
             this.title = employment.getTitle();
             this.workingTime = employment.getWorkingTime();
             this.sal = employment.getSal();
             this.shift = employment.getShift();
-            this.endDate = employment.getEndDate() != null ? employment.getEndDate().toString() : null; // Date를 String 변환
+            this.endDate = employment.getEndDate() != null ? employment.getEndDate().toString() : null;
 
             String[] locationParts = parseLocation(employment.getLocation());
             this.location = locationParts[0];
             this.specificLocation = locationParts[1];
 
-            // === exp 파싱
             String[] expParts = parseExp(employment.getExp());
             this.exp = expParts[0];
             this.expYear = expParts[1];
 
-            // === edu 파싱
             String[] eduParts = parseEdu(employment.getEdu());
             this.edu = eduParts[0];
             this.schoolName = eduParts[1];
 
-            // === 주요업무, 자격요건
             this.dutyList = parseDutyOrQualification(employment.getDuty());
             this.qualificationList = parseDutyOrQualification(employment.getQualification());
 
-            // === 직무 선택
             this.jobList = jobList;
             this.selectedJobId = employment.getJob() != null ? employment.getJob().getId() : null;
-
             if (jobList != null) {
                 for (JobDTO job : jobList) {
                     if (job.getId() != null && job.getId().equals(selectedJobId)) {
@@ -603,21 +604,19 @@ public class EmploymentResponse {
                 }
             }
 
-            // === 스택 선택
             this.stackList = stackList;
-            this.selectedStacks = toSelectedStackNames(selectedStacks);
-            if (stackList != null && selectedStacks != null) {
+            List<String> selectedStackNames = toSelectedStackNames(selectedStackEntities);
+            this.selectedStacks = selectedStackNames;
+            if (stackList != null && selectedStackNames != null) {
                 for (StackDTO stack : stackList) {
-                    if (selectedStacks.contains(stack.getSkill())) {
+                    if (selectedStackNames.stream()
+                            .anyMatch(s -> s.trim().equalsIgnoreCase(stack.getSkill().trim()))) {
                         stack.setStackChecked(true);
                     }
                 }
             }
 
-            // === 신입 여부
             this.isNewbie = "신입".equals(this.exp);
-
-            // === 경력 연차 플래그
             if (!this.isNewbie) {
                 this.isJunior = "1 ~ 3년 차".equals(this.expYear);
                 this.isSenior = "3 ~ 5년 차".equals(this.expYear);
@@ -626,12 +625,10 @@ public class EmploymentResponse {
                 this.isMaster = "10년 이상".equals(this.expYear);
             }
 
-            // === 학력 플래그
             this.isUnivGraduated = this.edu != null && this.edu.contains("대학교 / 졸업");
             this.isUnivEnrolled = this.edu != null && this.edu.contains("대학교 / 재학");
             this.isHighGraduated = this.edu != null && this.edu.contains("고등학교 / 졸업");
 
-            // === 지역 플래그
             this.isSeoul = "서울특별시".equals(location);
             this.isBusan = "부산광역시".equals(location);
             this.isDaegu = "대구광역시".equals(location);
@@ -651,16 +648,10 @@ public class EmploymentResponse {
             this.isJeju = "제주특별자치도".equals(location);
         }
 
-        // ===== 파싱 메서드 =====
         private static String[] parseLocation(String dbLocation) {
-            if (dbLocation == null || dbLocation.isBlank()) {
-                return new String[]{"", ""};
-            }
-            String[] parts = dbLocation.split("\\s+", 2); // 공백 1개 이상 기준으로 최대 2개로 나눈다
-            if (parts.length == 1) {
-                return new String[]{parts[0], ""}; // 시/도만 있을 경우
-            }
-            return parts; // 시/도 + 시/군/구
+            if (dbLocation == null || dbLocation.isBlank()) return new String[]{"", ""};
+            String[] parts = dbLocation.split("\\s+", 2);
+            return parts.length == 1 ? new String[]{parts[0], ""} : parts;
         }
 
         private static String[] parseEdu(String dbEdu) {
@@ -674,26 +665,22 @@ public class EmploymentResponse {
         }
 
         private static List<String> parseDutyOrQualification(String str) {
-            if (str == null || str.isEmpty()) {
-                return List.of("", "", "");
-            }
+            if (str == null || str.isEmpty()) return List.of("", "", "");
             List<String> parts = List.of(str.split("\\$"));
-            while (parts.size() < 3) {
-                parts.add("");
-            }
+            while (parts.size() < 3) parts.add("");
             return parts;
         }
 
         private List<String> toSelectedStackNames(List<EmployStack> selectedStackList) {
-            List<String> selectedStacks = new ArrayList<>();
+            List<String> selectedStackNames = new ArrayList<>();
             if (selectedStackList != null) {
                 for (EmployStack es : selectedStackList) {
                     if (es.getSkill() != null) {
-                        selectedStacks.add(es.getSkill());
+                        selectedStackNames.add(es.getSkill());
                     }
                 }
             }
-            return selectedStacks;
+            return selectedStackNames;
         }
     }
 }

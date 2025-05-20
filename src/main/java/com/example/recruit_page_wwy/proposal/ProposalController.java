@@ -17,7 +17,7 @@ public class ProposalController {
     private final HttpSession session;
 
     // TODO : 예외 추가
-    @PostMapping("/s/api/recommend")
+    @PostMapping("/s/api/recommend/{id}")
     public ResponseEntity<?> recommend(@PathVariable("id") int id, @RequestBody ProposalRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         ProposalResponse.DTO respDTO = proposalService.recommend(id, saveDTO, sessionUser);

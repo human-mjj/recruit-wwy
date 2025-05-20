@@ -32,15 +32,4 @@ public class BoardRequest {
 
     }
 
-    @Data
-    public static class SearchRequestDTO {
-        private String keyword;
-        private Integer page;
-
-
-        public SearchRequestDTO(String keyword, int page) {
-            this.keyword = keyword;
-            this.page = page;
-        }
-    }
 }
