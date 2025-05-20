@@ -174,6 +174,7 @@ public class ResumeResponse {
             this.isOwner = sessionUser != null && sessionUser.getId() == resume.getUser().getId();
             this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
             this.isApplicant = false; // 기본 false (지원 여부 체크는 별도로)
+
             this.id = resume.getId();
             this.userId = resume.getUser().getId();
             this.job = resume.getJob() != null ? new JobDTO(resume.getJob()) : null;

@@ -15,15 +15,15 @@ public class ReplyController {
 
     // TODO : 예외 추가
     @PostMapping("/s/api/reply")
-    public ResponseEntity<?> replySave(@RequestBody ReplyRequest.SaveDTO saveDTO) {
+    public ResponseEntity<?> replySave(@RequestBody ReplyRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        ReplyResponse.DTO respDTO = replyService.replySave(saveDTO, sessionUser);
+        ReplyResponse.DTO respDTO = replyService.replySave(reqDTO, sessionUser);
         return Resp.ok(respDTO);
     }
 
     // TODO : 예외 추가
     @DeleteMapping("/s/api/reply/{id}")
-    public ResponseEntity<?> resumeDelete(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> replyDelete(@PathVariable("id") Integer id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         replyService.delete(id, sessionUser);
         return Resp.ok(null);
