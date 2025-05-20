@@ -22,3 +22,4 @@ public class Job {
         this.name = name;
     }
 }
+

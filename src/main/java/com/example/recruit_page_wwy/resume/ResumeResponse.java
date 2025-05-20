@@ -10,6 +10,7 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ResumeResponse {
 
@@ -118,8 +119,8 @@ public class ResumeResponse {
         private String email;
         private String phone;
         private Integer userId;
-        private Job job;
-        private List<ResumeStack> resumeStack;
+        private JobDTO job;
+        private List<ResumeStackDTO> resumeStack;
         private Integer jobId;
         private String title;
         private String exp;
@@ -145,17 +146,39 @@ public class ResumeResponse {
             }
         }
 
+        @Data
+        public static class ResumeStackDTO {
+            private String skill;
+
+            public ResumeStackDTO(ResumeStack rs) {
+                this.skill = rs.getSkill();
+            }
+        }
+
+        @Data
+        public static class JobDTO {
+            private Integer id;
+            private String name;
+
+            public JobDTO(Job job) {
+                this.id = job.getId();
+                this.name = job.getName();
+            }
+        }
+
         public DetailDTO(User sessionUser, Resume resume, List<EmployDTO> employmentList, boolean isScrap, Integer scrapId) {
             this.sessionUserId = sessionUser != null ? sessionUser.getId() : null;
             this.sessionUserRole = sessionUser != null ? sessionUser.getRole() : null;
             this.isOwner = sessionUser != null && sessionUser.getId() == resume.getUser().getId();
             this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
             this.isApplicant = false; // 기본 false (지원 여부 체크는 별도로)
-
             this.id = resume.getId();
             this.userId = resume.getUser().getId();
-            this.job = resume.getJob();
-            this.resumeStack = resume.getResumeStackList();
+            this.job = resume.getJob() != null ? new JobDTO(resume.getJob()) : null;
+            this.resumeStack = resume.getResumeStackList()
+                    .stream()
+                    .map(ResumeStackDTO::new)
+                    .collect(Collectors.toList());
             this.username = resume.getUser().getUsername();
             this.email = resume.getUser().getEmail();
             this.phone = resume.getUser().getPhone();

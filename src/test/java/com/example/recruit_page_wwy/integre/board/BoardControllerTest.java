@@ -189,4 +189,35 @@ public class BoardControllerTest {
 
     }
 
+    @Test
+    public void detail_test() throws Exception {
+        // given
+        Integer id = 1;
+
+        // when
+        ResultActions actions = mvc.perform(
+                MockMvcRequestBuilders
+                        .get("/api/board/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + accessToken)
+        );
+
+//        // eye
+        String responseBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println(responseBody);
+
+
+        // then
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.replyList[0].boardId").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.replyList[0].id").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.replyList[0].username").value("서회정"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.replyList[0].content").value("저도 포폴 준비중인데 개빡세요ㅠㅠ 같이 힘내요!"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.replyList[0].isOwner").value(false));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.username").value("손영민"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.title").value("첫 이직 준비 넘 힘든데 포폴 꼭 해야 하나요?"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.content").value("첫 이직 준비 중인데 포트폴리오 꼭 만들어야 하나요 ㅠㅠ 아무리 해도 부족한 느낌이라 너무 스트레스받아요.."));
+    }
+
 }
