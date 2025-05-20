@@ -34,12 +34,12 @@ public class ResumeService {
 
     // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
-    public void save(ResumeRequest.SaveDTO saveDTO, User sessionUser) {
+    public ResumeResponse.DTO save(ResumeRequest.SaveDTO reqDTO, User sessionUser) {
         User userPS = userRepository.findUserById(sessionUser.getId());
         String imgFilename = null;
 
         // 새 이미지가 Base64 문자열로 넘어온 경우에만 저장
-        String imgUrl = saveDTO.getImgUrl();
+        String imgUrl = reqDTO.getImgUrl();
         if (imgUrl != null && imgUrl.startsWith("data:image/")) {
             imgFilename = UUID.randomUUID() + "_" + userPS.getUsername();
             Path imgPath = Paths.get("./upload/" + imgFilename);
@@ -53,13 +53,14 @@ public class ResumeService {
                 throw new RuntimeException("이미지 저장 실패", e);
             }
         }
-        Resume resumePS = resumeRepository.save(saveDTO.toEntity(sessionUser, imgFilename));
-        resumeRepository.updateStack(resumePS.getId(), saveDTO.getSkills());
+        Resume resumePS = resumeRepository.save(reqDTO.toEntity(sessionUser, imgFilename));
+        resumeRepository.updateStack(resumePS.getId(), reqDTO.getSkills());
+        return new ResumeResponse.DTO(resumePS);
     }
 
+    @Transactional
     public ResumeResponse.MainDTO findAll(Integer userId, Integer page) {
         int realPage = page - 1;
-        int size = 5;
         Long totalCount = resumeRepository.totalCount(userId);
         List<Resume> resumes = resumeRepository.findAll(userId, realPage);
         return new ResumeResponse.MainDTO(resumes, page, totalCount.intValue());
@@ -90,14 +91,14 @@ public class ResumeService {
 
     // TODO : 업데이트 후 DTO에 담아서 반환
     @Transactional
-    public void update(Integer id, ResumeRequest.SaveDTO updateDTO, User sessionUser) {
-        Resume resume = resumeRepository.findByResumeId(id);
-        if (resume == null) throw new ExceptionApi404("해당하는 이력서가 없습니다.");
+    public ResumeResponse.DTO update(Integer id, ResumeRequest.SaveDTO reqDTO, User sessionUser) {
+        Resume resumePS = resumeRepository.findByResumeId(id);
+        if (resumePS == null) throw new ExceptionApi404("해당하는 이력서가 없습니다.");
         User userPS = userRepository.findUserById(sessionUser.getId());
         String imgFilename = null;
 
         // 새 이미지가 Base64 문자열로 넘어온 경우에만 저장
-        String imgUrl = updateDTO.getImgUrl();
+        String imgUrl = reqDTO.getImgUrl();
         if (imgUrl != null && imgUrl.startsWith("data:image/")) {
             imgFilename = UUID.randomUUID() + "_" + userPS.getUsername();
             Path imgPath = Paths.get("./upload/" + imgFilename);
@@ -111,8 +112,9 @@ public class ResumeService {
                 throw new RuntimeException("이미지 저장 실패", e);
             }
         }
-        resume.update(updateDTO, imgFilename);
-        resumeRepository.updateStack(resume.getId(), updateDTO.getSkills());
+        resumePS.update(reqDTO, imgFilename);
+        resumeRepository.updateStack(resumePS.getId(), reqDTO.getSkills());
+        return new ResumeResponse.DTO(resumePS);
     }
 
     public ResumeResponse.UpdateViewDTO findById(Integer resumeId) {

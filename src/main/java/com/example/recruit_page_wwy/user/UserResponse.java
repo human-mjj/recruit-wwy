@@ -1,5 +1,6 @@
 package com.example.recruit_page_wwy.user;
 
+import lombok.Builder;
 import lombok.Data;
 
 public class UserResponse {
@@ -14,17 +15,17 @@ public class UserResponse {
         private int role;
         private String comName;
         private Integer industryId;
-        private User user;
+        private String accessToken;
 
-        public DTO(User user) {
+        public DTO(User user, String accessToken) {
+            this.username = user.getUsername();
             this.email = user.getEmail();
             this.isCompanyUser = user.getRole() == 1;
             this.phone = user.getPhone();
             this.role = user.getRole();
-            this.comName = user.getComName();
+            this.comName = user.getComName() != null ? user.getComName() : "";
             this.industryId = user.getIndustry() != null ? user.getIndustry().getId() : null;
-            this.user = user;
-            this.username = user.getUsername();
+            this.accessToken = accessToken == null ? null : accessToken;
         }
     }
 
@@ -69,8 +70,19 @@ public class UserResponse {
             this.phone = user.getPhone();
             this.imgUrl = user.getImgUrl();
             this.role = user.getRole();
-            this.comName = user.getComName();
+            this.comName = user.getComName() != null ? user.getComName() : "";
             this.industryId = user.getIndustry() != null ? user.getIndustry().getId() : null;
         }
     }
+
+    @Data
+    public static class TokenDTO {
+        private String accessToken;
+
+        @Builder
+        public TokenDTO(String accessToken) {
+            this.accessToken = accessToken;
+        }
+    }
+
 }

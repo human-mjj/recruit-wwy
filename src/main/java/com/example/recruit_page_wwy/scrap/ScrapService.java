@@ -1,6 +1,8 @@
 package com.example.recruit_page_wwy.scrap;
 
 
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi403;
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi404;
 import com.example.recruit_page_wwy.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -38,12 +40,10 @@ public class ScrapService {
     }
 
     @Transactional
-    public ScrapResponse.DeleteDTO cancelScrap(Integer employmentId) {
-        Scrap scrapPS = scrapRepository.findById(employmentId);
-        if (scrapPS == null) throw new RuntimeException("좋아요를 하지 않았습니다.");
-
-        scrapRepository.deleteById(employmentId);
-
-        return new ScrapResponse.DeleteDTO(employmentId);
+    public void cancelScrap(Integer scrapId, User sessionUser) {
+        Scrap scrapPS = scrapRepository.findById(scrapId);
+        if (scrapPS == null) throw new ExceptionApi404("좋아요를 하지 않았습니다.");
+        if (scrapPS.getUser().getId() != sessionUser.getId()) throw new ExceptionApi403("403 Forbidden");
+        scrapRepository.deleteById(scrapId);
     }
 }

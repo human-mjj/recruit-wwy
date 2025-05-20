@@ -1,6 +1,8 @@
 package com.example.recruit_page_wwy.employment;
 
 
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi403;
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi404;
 import com.example.recruit_page_wwy._core.util.Base64Util;
 import com.example.recruit_page_wwy.employstack.EmployStack;
 import com.example.recruit_page_wwy.employstack.EmployStackRepository;
@@ -57,8 +59,7 @@ public class EmploymentService {
     public EmploymentResponse.EmploymentPageDTO employmentAllList(User sessionUser, String jobType, String careerLevel, List<String> skills, String sort, Integer page) {
         Long totalCount = employmentRepository.totalCount();
         List<Employment> employmentList = new ArrayList<>();
-        System.out.println("1");
-        // TODO: Teacher
+
         if (sort.equals("recommend")) {
             employmentList = employmentRepository.findAllWithRecommend(jobType, careerLevel, skills, sort, page);
         } else {
@@ -132,9 +133,9 @@ public class EmploymentService {
         return new EmploymentResponse.TableDTO(jobList, stackList, null, null);
     }
 
-    // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
     public EmploymentResponse.DTO save(EmploymentRequest.SaveDTO saveDTO, User sessionUser) {
+        if (sessionUser == null || sessionUser.getRole() != 1) throw new ExceptionApi403("403 Forbidden");
         String imgFilename = null;
 
         // 새 이미지가 Base64 문자열로 넘어온 경우에만 저장
@@ -155,7 +156,10 @@ public class EmploymentService {
         Employment savingEmployment = saveDTO.toEntity(sessionUser, imgFilename);
         Employment employmentPS = employmentRepository.save(savingEmployment, saveDTO.getEmployStack());
 
-        return new EmploymentResponse.DTO(employmentPS);
+        List<EmployStack> stackList = employmentPS.getEmployStackList();
+
+        return new EmploymentResponse.DTO(employmentPS, stackList);
+
     }
 
     public EmploymentResponse.UpdateViewDTO showUpdateView(int employmentId) {
@@ -209,8 +213,9 @@ public class EmploymentService {
 
     // TODO : 업데이트 후 DTO에 담아서 반환
     @Transactional
-
     public EmploymentResponse.DTO update(int employmentId, EmploymentRequest.SaveDTO dto, User sessionUser) {
+        if (sessionUser == null || sessionUser.getRole() != 1) throw new ExceptionApi403("403 Forbidden");
+
         // 1. 수정할 Employment 엔티티를 조회
         Employment employment = employmentRepository.findByEmploymentId(employmentId);
         if (employment == null) throw new RuntimeException("해당 채용공고를 찾을 수 없습니다.");
@@ -239,12 +244,16 @@ public class EmploymentService {
 
         // 3. 스택(EmployStack) 수정은 별도로 처리 필요
         employmentRepository.updateStack(employmentId, dto.getEmployStack()); // 기존 스택 전부 삭제
+        List<EmployStack> stackList = employmentPS.getEmployStackList();
 
-        return new EmploymentResponse.DTO(employmentPS);
+        return new EmploymentResponse.DTO(employmentPS, stackList);
     }
 
     @Transactional
-    public void delete(int employmentId) {
-        employmentRepository.deleteById(employmentId);
+    public void delete(int employmentId, User sessionUser) {
+        Employment employmentPS = employmentRepository.findByEmploymentId(employmentId);
+        if (employmentPS == null) throw new ExceptionApi404("404 Not Found");
+        if (sessionUser.getId() != employmentPS.getUser().getId()) throw new ExceptionApi403("403 Forbidden");
+        employmentRepository.delete(employmentPS);
     }
 }
