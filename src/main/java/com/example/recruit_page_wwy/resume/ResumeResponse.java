@@ -27,6 +27,7 @@ public class ResumeResponse {
         private String activity;
         private String img_url;
         private String letter;
+        private String imgUrl;
 
         public DTO(Resume resume) {
             this.id = resume.getId();
@@ -40,6 +41,7 @@ public class ResumeResponse {
             this.activity = resume.getActivity();
             this.img_url = resume.getImgUrl();
             this.letter = resume.getLetter();
+            this.imgUrl = resume.getImgUrl();
         }
     }
 
