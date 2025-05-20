@@ -41,7 +41,7 @@ public class BoardController {
     }
 
     @PutMapping("/s/api/board/{id}")
-    public ResponseEntity<?> boardUpdate(@PathVariable("id") Integer id, @RequestBody BoardRequest.UpdateDTO reqDTO) {
+    public ResponseEntity<?> boardUpdate(@PathVariable("id") Integer id, @RequestBody @Valid BoardRequest.UpdateDTO reqDTO, Errors errors) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         BoardResponse.DTO respDTO = boardService.boardUpdate(id, reqDTO, sessionUser);
         return Resp.ok(respDTO);
