@@ -1,4 +1,4 @@
-package com.example.recruit_page_wwy.integre;
+package com.example.recruit_page_wwy.integre.board;
 
 import com.example.recruit_page_wwy._core.util.JwtUtil;
 import com.example.recruit_page_wwy.board.BoardRequest;

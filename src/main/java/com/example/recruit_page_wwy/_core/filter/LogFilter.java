@@ -1,16 +1,13 @@
 package com.example.recruit_page_wwy._core.filter;
 
-import com.example.recruit_page_wwy.user.UserRepository;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
-@RequiredArgsConstructor
+@Slf4j
 public class LogFilter implements Filter {
-
-    private final UserRepository userRepository;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -20,7 +17,7 @@ public class LogFilter implements Filter {
         String ip = req.getRemoteAddr();
         String userAgent = req.getHeader("User-Agent");
 
-        System.out.printf("[로그] %s | IP: %s | UA: %s\n", uri, ip, userAgent);
+        log.info("[로그] " + uri + " | IP: " + ip + " | UA: " + userAgent + "\n");
         filterChain.doFilter(servletRequest, servletResponse);
     }
 }

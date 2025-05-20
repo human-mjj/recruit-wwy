@@ -1,6 +1,7 @@
-package com.example.recruit_page_wwy.employment;
+package com.example.recruit_page_wwy.integre.employment;
 
 import com.example.recruit_page_wwy._core.util.JwtUtil;
+import com.example.recruit_page_wwy.employment.EmploymentRequest;
 import com.example.recruit_page_wwy.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
