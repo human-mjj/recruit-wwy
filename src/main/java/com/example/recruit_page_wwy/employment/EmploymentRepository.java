@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -317,5 +318,10 @@ public class EmploymentRepository {
 
     public void delete(Employment employment) {
         em.remove(employment);
+    }
+
+    public Optional<Job> findJobById(Integer jobId) {
+        Job job = em.find(Job.class, jobId);
+        return Optional.ofNullable(job);
     }
 }
