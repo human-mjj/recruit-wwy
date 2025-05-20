@@ -56,14 +56,14 @@ public class BoardControllerTest {
     @Test
     public void list_test() throws Exception {
         // given
-        int page = 1;
+        Integer page = 1;
         String keyword = "";
 
         // when
         ResultActions actions = mvc.perform(
                 MockMvcRequestBuilders
                         .get("/api/board")
-                        .param("page", Integer.toString(page))
+                        .param("page", page.toString())
                         .param("keyword", keyword)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + accessToken)

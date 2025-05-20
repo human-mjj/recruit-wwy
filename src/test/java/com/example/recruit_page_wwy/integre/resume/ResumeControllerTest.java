@@ -61,20 +61,21 @@ public class ResumeControllerTest {
     @Test
     public void list_test() throws Exception {
         // given
-        Integer page = 1;
-
+        int page = 1;
 
         // when
         ResultActions actions = mvc.perform(
                 MockMvcRequestBuilders
                         .get("/s/api/mypage/resume")
-                        .param("page", page.toString())
+                        .param("page", Integer.toString(page))
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + accessToken)
         );
 
 //        // eye
         String responseBody = actions.andReturn().getResponse().getContentAsString();
+        User user = JwtUtil.verify(accessToken); // user 먼저 선언
+        System.out.println("sessionUser = " + user.getId());
         System.out.println(responseBody);
 
 
@@ -273,7 +274,6 @@ public class ResumeControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumeStack", hasSize(1)));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumeStack[0].skill").value("java"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.employmentList", hasSize(0)));
-
     }
 
 }
