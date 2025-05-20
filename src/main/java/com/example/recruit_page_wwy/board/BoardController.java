@@ -3,8 +3,10 @@ package com.example.recruit_page_wwy.board;
 import com.example.recruit_page_wwy._core.util.Resp;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -14,7 +16,7 @@ public class BoardController {
     private final HttpSession session;
 
     @PostMapping("/s/api/board")
-    public ResponseEntity<?> boardSave(@RequestBody BoardRequest.SaveDTO reqDTO) {
+    public ResponseEntity<?> boardSave(@RequestBody @Valid BoardRequest.SaveDTO reqDTO, Errors errors) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         BoardResponse.DTO respDTO = boardService.boardSave(reqDTO, sessionUser);
         System.out.println(respDTO);
