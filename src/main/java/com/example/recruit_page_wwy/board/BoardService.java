@@ -56,7 +56,7 @@ public class BoardService {
             throw new ExceptionApi404("자원을 찾을 수 없습니다");
         }
 
-        if (sessionUser == null || sessionUser.getId() == boardPS.getUser().getId()) {
+        if (sessionUser == null || sessionUser.getId() != boardPS.getUser().getId()) {
             throw new ExceptionApi403("권한이 없습니다");
         }
 
@@ -72,7 +72,7 @@ public class BoardService {
             throw new ExceptionApi404("자원을 찾을 수 없습니다");
         }
 
-        if (sessionUser == null || sessionUser.getId() == boardPS.getUser().getId()) {
+        if (sessionUser == null || sessionUser.getId() != boardPS.getUser().getId()) {
             throw new ExceptionApi403("권한이 없습니다");
         }
         boardRepository.delete(id);

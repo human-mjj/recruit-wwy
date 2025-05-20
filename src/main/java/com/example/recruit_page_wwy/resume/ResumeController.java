@@ -39,9 +39,9 @@ public class ResumeController {
 
     // TODO : 예외 추가
     @PostMapping("/s/api/resume")
-    public ResponseEntity<?> resumeSave(@RequestBody ResumeRequest.SaveDTO saveDTO) {
+    public ResponseEntity<?> resumeSave(@RequestBody ResumeRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        ResumeResponse.DTO respDTO = resumeService.save(saveDTO, sessionUser);
+        ResumeResponse.DTO respDTO = resumeService.save(reqDTO, sessionUser);
         return Resp.ok(respDTO);
     }
 
@@ -55,9 +55,9 @@ public class ResumeController {
 
     // TODO : 예외 추가
     @PutMapping("/s/api/resume/{id}")
-    public ResponseEntity<?> resumeUpdate(@PathVariable("id") Integer id, @RequestBody ResumeRequest.SaveDTO updateDTO) {
+    public ResponseEntity<?> resumeUpdate(@PathVariable("id") Integer id, @RequestBody ResumeRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        ResumeResponse.DTO respDTO = resumeService.update(id, updateDTO, sessionUser);
+        ResumeResponse.DTO respDTO = resumeService.update(id, reqDTO, sessionUser);
         return Resp.ok(respDTO);
     }
 

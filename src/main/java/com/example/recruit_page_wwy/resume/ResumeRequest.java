@@ -57,6 +57,17 @@ public class ResumeRequest {
                     .build();
         }
     }
+
+    @Data
+    public static class PageRequestDTO {
+        private Integer page;
+
+
+        public PageRequestDTO(int page) {
+            this.page = page;
+        }
+    }
+
 }
 
 
