@@ -113,8 +113,8 @@ public class ResumeControllerTest {
         reqDTO.setSkills(List.of("Java", "mySql"));
         reqDTO.setRegion("부산광역시");
         reqDTO.setRegionDetail("해운대구");
-        reqDTO.setQualified("정보처리기사");
-        reqDTO.setActivity("멋쟁이사자처럼 10기 활동");
+        reqDTO.setQualified(null);
+        reqDTO.setActivity(null);
         reqDTO.setLetter("웹 서비스를 만드는 것이 저의 목표입니다.");
 
 
@@ -144,8 +144,8 @@ public class ResumeControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.edu").value("대학교 / 졸업 $부산대학교"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.jobId").value(2));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.location").value("부산광역시 해운대구"));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.qualified").value("정보처리기사"));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.activity").value("멋쟁이사자처럼 10기 활동"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.qualified").value("없음"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.activity").value("없음"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.img_url").value(nullValue()));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.letter").value("웹 서비스를 만드는 것이 저의 목표입니다."));
 

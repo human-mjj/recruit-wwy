@@ -83,8 +83,8 @@ public class Resume {
                 : "경력 " + dto.getExperiencedDate();
         this.edu = dto.getEducationLevel() + " $" + dto.getSchoolName();
         this.location = dto.getRegion() + " " + dto.getRegionDetail();
-        this.qualified = dto.getQualified();
-        this.activity = dto.getActivity();
+        this.qualified = dto.getQualified() == null ? "없음" : dto.getQualified();
+        this.activity = dto.getActivity() == null ? "없음" : dto.getActivity();
         this.letter = dto.getLetter();
         this.imgUrl = savedImgUrl;
         this.job = Job.builder().id(dto.getJobId()).build();
