@@ -114,7 +114,7 @@ public class EmploymentControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.endDate").value("2025-05-31"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.duty").value("REST API 개발 및 유지보수$기존 서비스 코드 리팩토링$MySQL 기반 데이터 처리$협업을 위한 문서화"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.qualification").value("Java/Spring 경력 1년 이상$MySQL 경험 우대$협업 및 커뮤니케이션 능력$Git 사용 가능자"));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.employStack").value("Spring$Java$MySQL"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.employStackList").value("Spring$Java$MySQL"));
 
     }
 }
