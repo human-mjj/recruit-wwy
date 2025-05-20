@@ -32,7 +32,7 @@ public class ProposalService {
         if (resume == null) throw new ExceptionApi404("404 Not Found");
         Employment employment = employmentRepository.findByEmploymentId(saveDTO.getEmploymentId());
         if (employment == null) throw new ExceptionApi404("404 Not Found");
-        if (employment.getUser().getId() != sessionUser.getId()) throw new ExceptionApi403("403 Forbidden");
+        if (employment.getUser().getId() != sessionUser.getId()) throw new ExceptionApi403("403 Forbidden 유저 아님");
 
         boolean hasCommonJob = false;
         if (employment.getJob().getId() == resume.getJob().getId()) hasCommonJob = true;
@@ -49,7 +49,7 @@ public class ProposalService {
             }
         }
 
-        if (!hasCommonJob || !hasCommonSkill) throw new ExceptionApi403("403 Forbidden");
+        if (!hasCommonJob || !hasCommonSkill) throw new ExceptionApi403("403 Forbidden 조건 불일치");
         Proposal proposal = saveDTO.toEntity(sessionUser, resume, employment);
         Proposal proposalPS = proposalRepository.save(proposal);
         return new ProposalResponse.DTO(proposalPS);
