@@ -3,6 +3,7 @@ package com.example.recruit_page_wwy.reply;
 import com.example.recruit_page_wwy._core.util.Resp;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class ReplyController {
 
     // TODO : 예외 추가
     @PostMapping("/s/api/reply")
-    public ResponseEntity<?> replySave(@RequestBody ReplyRequest.SaveDTO reqDTO) {
+    public ResponseEntity<?> replySave(@RequestBody @Valid ReplyRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         ReplyResponse.DTO respDTO = replyService.replySave(reqDTO, sessionUser);
         return Resp.ok(respDTO);

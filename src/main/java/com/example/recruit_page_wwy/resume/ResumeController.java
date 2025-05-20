@@ -3,8 +3,10 @@ package com.example.recruit_page_wwy.resume;
 import com.example.recruit_page_wwy._core.util.Resp;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -39,7 +41,7 @@ public class ResumeController {
 
     // TODO : 예외 추가
     @PostMapping("/s/api/resume")
-    public ResponseEntity<?> resumeSave(@RequestBody ResumeRequest.SaveDTO reqDTO) {
+    public ResponseEntity<?> resumeSave(@RequestBody @Valid ResumeRequest.SaveDTO reqDTO, Errors errors) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         ResumeResponse.DTO respDTO = resumeService.save(reqDTO, sessionUser);
         return Resp.ok(respDTO);
@@ -55,7 +57,7 @@ public class ResumeController {
 
     // TODO : 예외 추가
     @PutMapping("/s/api/resume/{id}")
-    public ResponseEntity<?> resumeUpdate(@PathVariable("id") Integer id, @RequestBody ResumeRequest.SaveDTO reqDTO) {
+    public ResponseEntity<?> resumeUpdate(@PathVariable("id") Integer id, @RequestBody @Valid ResumeRequest.SaveDTO reqDTO, Errors errors) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         ResumeResponse.DTO respDTO = resumeService.update(id, reqDTO, sessionUser);
         return Resp.ok(respDTO);

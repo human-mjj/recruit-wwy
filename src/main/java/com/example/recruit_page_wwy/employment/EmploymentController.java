@@ -3,6 +3,7 @@ package com.example.recruit_page_wwy.employment;
 import com.example.recruit_page_wwy._core.util.Resp;
 import com.example.recruit_page_wwy.user.User;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -50,7 +51,7 @@ public class EmploymentController {
 
 
     @PostMapping("/s/api/employment")
-    public ResponseEntity<?> employmentSave(@RequestBody EmploymentRequest.SaveDTO reqDTO) {
+    public ResponseEntity<?> employmentSave(@RequestBody @Valid EmploymentRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         EmploymentResponse.DTO respDTO = employmentService.save(reqDTO, sessionUser);
         return Resp.ok(respDTO);
@@ -64,7 +65,7 @@ public class EmploymentController {
     }
 
     @PutMapping("/s/api/employment/{id}")
-    public ResponseEntity<?> updateEmployment(@PathVariable("id") int employmentId, @RequestBody EmploymentRequest.SaveDTO saveDTO) {
+    public ResponseEntity<?> updateEmployment(@PathVariable("id") int employmentId, @RequestBody @Valid EmploymentRequest.SaveDTO saveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         EmploymentResponse.DTO respDTO = employmentService.update(employmentId, saveDTO, sessionUser);
         return Resp.ok(respDTO);
