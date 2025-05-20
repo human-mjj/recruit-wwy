@@ -29,11 +29,11 @@ public class EmploymentRequest {
         //        private MultipartFile uploadingImg;
         private String imgUrl;
 
-        public Employment toEntity(User user, String imgUrl) {
+        public Employment toEntity(User sessionUser, String imgUrl) {
             return Employment.builder()
                     .title(title)
                     .exp(exp)
-                    .edu(edu + "$" + schoolName)
+                    .edu(edu)
                     .shift(shift)
                     .sal(sal)
                     .workingTime(workingTime)
@@ -42,7 +42,7 @@ public class EmploymentRequest {
                     .duty(String.join("$", duty))
                     .qualification(String.join("$", qualification))
                     .job(Job.builder().id(jobId).build())
-                    .user(user)
+                    .user(sessionUser)
                     .imgUrl(imgUrl)
                     .build();
         }

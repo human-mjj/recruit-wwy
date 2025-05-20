@@ -1,6 +1,9 @@
 package com.example.recruit_page_wwy.employment;
 
 
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi403;
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi404;
+import com.example.recruit_page_wwy._core.util.Base64Util;
 import com.example.recruit_page_wwy.employstack.EmployStack;
 import com.example.recruit_page_wwy.employstack.EmployStackRepository;
 import com.example.recruit_page_wwy.job.Job;
@@ -15,8 +18,12 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -52,8 +59,7 @@ public class EmploymentService {
     public EmploymentResponse.EmploymentPageDTO employmentAllList(User sessionUser, String jobType, String careerLevel, List<String> skills, String sort, Integer page) {
         Long totalCount = employmentRepository.totalCount();
         List<Employment> employmentList = new ArrayList<>();
-        System.out.println("1");
-        // TODO: Teacher
+
         if (sort.equals("recommend")) {
             employmentList = employmentRepository.findAllWithRecommend(jobType, careerLevel, skills, sort, page);
         } else {
@@ -127,26 +133,33 @@ public class EmploymentService {
         return new EmploymentResponse.TableDTO(jobList, stackList, null, null);
     }
 
-    // TODO : 이미지 Encoding 추가
-    // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
     public EmploymentResponse.DTO save(EmploymentRequest.SaveDTO saveDTO, User sessionUser) {
-//        MultipartFile imgFile = saveDTO.getUploadingImg();
+        if (sessionUser == null || sessionUser.getRole() != 1) throw new ExceptionApi403("403 Forbidden");
         String imgFilename = null;
-//        if (!"null".contains(imgFile.getOriginalFilename())) {
-//            imgFilename += UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
-//            System.out.println("img Filename: " + imgFilename);
-//            Path imgPath = Paths.get("./upload/" + imgFilename);
-//            try {
-//                Files.write(imgPath, imgFile.getBytes());
-//            } catch (Exception e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
+
+        // 새 이미지가 Base64 문자열로 넘어온 경우에만 저장
+        String imgUrl = saveDTO.getImgUrl();
+        if (imgUrl != null && imgUrl.startsWith("data:image/")) {
+            imgFilename = UUID.randomUUID() + "_" + saveDTO.getTitle();
+            Path imgPath = Paths.get("./upload/" + imgFilename);
+
+            try {
+                // 폴더가 없으면 생성, 있으면 넘어감
+                Files.createDirectories(imgPath.getParent());
+                byte[] decodedImageBytes = Base64Util.decodeAsBytes(imgUrl);
+                Files.write(imgPath, decodedImageBytes);
+            } catch (Exception e) {
+                throw new RuntimeException("이미지 저장 실패", e);
+            }
+        }
         Employment savingEmployment = saveDTO.toEntity(sessionUser, imgFilename);
         Employment employmentPS = employmentRepository.save(savingEmployment, saveDTO.getEmployStack());
 
-        return new EmploymentResponse.DTO(employmentPS);
+        List<EmployStack> stackList = employmentPS.getEmployStackList();
+
+        return new EmploymentResponse.DTO(employmentPS, stackList);
+
     }
 
     public EmploymentResponse.UpdateViewDTO showUpdateView(int employmentId) {
@@ -198,38 +211,49 @@ public class EmploymentService {
         return updateViewDTO;
     }
 
-    // TODO : 이미지 Encoding 추가
     // TODO : 업데이트 후 DTO에 담아서 반환
     @Transactional
-    public EmploymentResponse.DTO update(int employmentId, EmploymentRequest.SaveDTO dto) {
+    public EmploymentResponse.DTO update(int employmentId, EmploymentRequest.SaveDTO dto, User sessionUser) {
+        if (sessionUser == null || sessionUser.getRole() != 1) throw new ExceptionApi403("403 Forbidden");
+
         // 1. 수정할 Employment 엔티티를 조회
         Employment employment = employmentRepository.findByEmploymentId(employmentId);
         if (employment == null) throw new RuntimeException("해당 채용공고를 찾을 수 없습니다.");
-//        MultipartFile imgFile = dto.getUploadingImg();
+        User userPS = userRepository.findUserById(sessionUser.getId());
         String imgFilename = null;
-//        if (!"null".contains(imgFile.getOriginalFilename())) {
-//            imgFilename += UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
-//            System.out.println("img Filename: " + imgFilename);
-//            Path imgPath = Paths.get("./upload/" + imgFilename);
-//            try {
-//                Files.write(imgPath, imgFile.getBytes());
-//            } catch (Exception e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
+
+        // 새 이미지가 Base64 문자열로 넘어온 경우에만 저장
+        String imgUrl = dto.getImgUrl();
+        if (imgUrl != null && imgUrl.startsWith("data:image/")) {
+            imgFilename = UUID.randomUUID() + "_" + userPS.getUsername();
+            Path imgPath = Paths.get("./upload/" + imgFilename);
+
+            try {
+                // 폴더가 없으면 생성, 있으면 넘어감
+                Files.createDirectories(imgPath.getParent());
+                byte[] decodedImageBytes = Base64Util.decodeAsBytes(imgUrl);
+                Files.write(imgPath, decodedImageBytes);
+            } catch (Exception e) {
+                throw new RuntimeException("이미지 저장 실패", e);
+            }
+        }
 
         // 2. Employment 엔티티의 update 메서드를 호출
-        employment.update(dto);
+        employment.update(dto, imgFilename);
         Employment employmentPS = employmentRepository.findByEmploymentId(employmentId);
 
         // 3. 스택(EmployStack) 수정은 별도로 처리 필요
         employmentRepository.updateStack(employmentId, dto.getEmployStack()); // 기존 스택 전부 삭제
+        List<EmployStack> stackList = employmentPS.getEmployStackList();
 
-        return new EmploymentResponse.DTO(employmentPS);
+        return new EmploymentResponse.DTO(employmentPS, stackList);
     }
 
     @Transactional
-    public void delete(int employmentId) {
-        employmentRepository.deleteById(employmentId);
+    public void delete(int employmentId, User sessionUser) {
+        Employment employmentPS = employmentRepository.findByEmploymentId(employmentId);
+        if (employmentPS == null) throw new ExceptionApi404("404 Not Found");
+        if (sessionUser.getId() != employmentPS.getUser().getId()) throw new ExceptionApi403("403 Forbidden");
+        employmentRepository.delete(employmentPS);
     }
 }

@@ -1,7 +1,9 @@
 package com.example.recruit_page_wwy.resume;
 
 
+import com.example.recruit_page_wwy._core.error.ex.ExceptionApi403;
 import com.example.recruit_page_wwy._core.error.ex.ExceptionApi404;
+import com.example.recruit_page_wwy._core.util.Base64Util;
 import com.example.recruit_page_wwy.employment.Employment;
 import com.example.recruit_page_wwy.employment.EmploymentRepository;
 import com.example.recruit_page_wwy.job.Job;
@@ -10,12 +12,10 @@ import com.example.recruit_page_wwy.scrap.Scrap;
 import com.example.recruit_page_wwy.scrap.ScrapRepository;
 import com.example.recruit_page_wwy.stack.Stack;
 import com.example.recruit_page_wwy.user.User;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import com.example.recruit_page_wwy.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,33 +30,37 @@ public class ResumeService {
     private final ResumeRepository resumeRepository;
     private final EmploymentRepository employmentRepository;
     private final ScrapRepository scrapRepository;
+    private final UserRepository userRepository;
 
-    @PersistenceContext
-    private EntityManager em;
-
-    // TODO : 이미지 Encoding 추가
     // TODO : 저장 후 DTO에 담아서 반환
     @Transactional
-    public void save(ResumeRequest.SaveDTO saveDTO, User sessionUser) {
-        MultipartFile imgFile = saveDTO.getUploadingImg();
+    public ResumeResponse.DTO save(ResumeRequest.SaveDTO reqDTO, User sessionUser) {
+        User userPS = userRepository.findUserById(sessionUser.getId());
         String imgFilename = null;
-        if (!"null".contains(imgFile.getOriginalFilename())) {
-            imgFilename += UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
-            System.out.println("img Filename: " + imgFilename);
+
+        // 새 이미지가 Base64 문자열로 넘어온 경우에만 저장
+        String imgUrl = reqDTO.getImgUrl();
+        if (imgUrl != null && imgUrl.startsWith("data:image/")) {
+            imgFilename = UUID.randomUUID() + "_" + userPS.getUsername();
             Path imgPath = Paths.get("./upload/" + imgFilename);
+
             try {
-                Files.write(imgPath, imgFile.getBytes());
+                // 폴더가 없으면 생성, 있으면 넘어감
+                Files.createDirectories(imgPath.getParent());
+                byte[] decodedImageBytes = Base64Util.decodeAsBytes(imgUrl);
+                Files.write(imgPath, decodedImageBytes);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("이미지 저장 실패", e);
             }
         }
-        Resume resumePS = resumeRepository.save(saveDTO.toEntity(sessionUser, imgFilename));
-        resumeRepository.updateStack(resumePS.getId(), saveDTO.getSkills());
+        Resume resumePS = resumeRepository.save(reqDTO.toEntity(sessionUser, imgFilename));
+        resumeRepository.updateStack(resumePS.getId(), reqDTO.getSkills());
+        return new ResumeResponse.DTO(resumePS);
     }
 
+    @Transactional
     public ResumeResponse.MainDTO findAll(Integer userId, Integer page) {
         int realPage = page - 1;
-        int size = 5;
         Long totalCount = resumeRepository.totalCount(userId);
         List<Resume> resumes = resumeRepository.findAll(userId, realPage);
         return new ResumeResponse.MainDTO(resumes, page, totalCount.intValue());
@@ -85,26 +89,32 @@ public class ResumeService {
         return new ResumeResponse.DetailDTO(sessionUser, resume, employmentList, isScrap, scrapId);
     }
 
-    // TODO : 이미지 Encoding 추가
     // TODO : 업데이트 후 DTO에 담아서 반환
     @Transactional
-    public void update(Integer id, ResumeRequest.SaveDTO updateDTO) {
-        Resume resume = resumeRepository.findByResumeId(id);
-        if (resume == null) throw new ExceptionApi404("해당하는 이력서가 없습니다.");
-        MultipartFile imgFile = updateDTO.getUploadingImg();
+    public ResumeResponse.DTO update(Integer id, ResumeRequest.SaveDTO reqDTO, User sessionUser) {
+        Resume resumePS = resumeRepository.findByResumeId(id);
+        if (resumePS == null) throw new ExceptionApi404("해당하는 이력서가 없습니다.");
+        User userPS = userRepository.findUserById(sessionUser.getId());
         String imgFilename = null;
-        if (!"null".contains(imgFile.getOriginalFilename())) {
-            imgFilename += UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
-            System.out.println("img Filename: " + imgFilename);
+
+        // 새 이미지가 Base64 문자열로 넘어온 경우에만 저장
+        String imgUrl = reqDTO.getImgUrl();
+        if (imgUrl != null && imgUrl.startsWith("data:image/")) {
+            imgFilename = UUID.randomUUID() + "_" + userPS.getUsername();
             Path imgPath = Paths.get("./upload/" + imgFilename);
+
             try {
-                Files.write(imgPath, imgFile.getBytes());
+                // 폴더가 없으면 생성, 있으면 넘어감
+                Files.createDirectories(imgPath.getParent());
+                byte[] decodedImageBytes = Base64Util.decodeAsBytes(imgUrl);
+                Files.write(imgPath, decodedImageBytes);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("이미지 저장 실패", e);
             }
         }
-        resume.update(updateDTO, imgFilename);
-        resumeRepository.updateStack(resume.getId(), updateDTO.getSkills());
+        resumePS.update(reqDTO, imgFilename);
+        resumeRepository.updateStack(resumePS.getId(), reqDTO.getSkills());
+        return new ResumeResponse.DTO(resumePS);
     }
 
     public ResumeResponse.UpdateViewDTO findById(Integer resumeId) {
@@ -144,12 +154,16 @@ public class ResumeService {
         return updateViewDTO;
     }
 
+    // TODO : CSR 구조 미준수로 인한 수정
     @Transactional
-    public void delete(int resumeId) {
-        Resume resume = em.find(Resume.class, resumeId);
-        if (resume != null) {
-            em.remove(resume);
-        }
+    public void delete(int resumeId, User sessionUser) {
+        Resume resume = resumeRepository.findByResumeId(resumeId);
+        if (resume == null) throw new ExceptionApi404("404 Not Found");
+        User userPS = userRepository.findUserById(sessionUser.getId());
+        if (userPS == null) throw new ExceptionApi404("404 Not Found");
+        if (userPS.getId() != resume.getUser().getId()) throw new ExceptionApi403("403 Forbidden");
+
+        resumeRepository.delete(resumeId);
     }
 
     public ResumeResponse.TableDTO viewJobAndStackList() {

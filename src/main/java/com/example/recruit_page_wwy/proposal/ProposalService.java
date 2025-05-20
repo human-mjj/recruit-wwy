@@ -49,10 +49,9 @@ public class ProposalService {
             }
         }
 
-        if (!hasCommonJob || !hasCommonSkill) throw new RuntimeException("403 Forbidden");
+        if (!hasCommonJob || !hasCommonSkill) throw new ExceptionApi403("403 Forbidden");
         Proposal proposal = saveDTO.toEntity(sessionUser, resume, employment);
         Proposal proposalPS = proposalRepository.save(proposal);
-
         return new ProposalResponse.DTO(proposalPS);
     }
 }
