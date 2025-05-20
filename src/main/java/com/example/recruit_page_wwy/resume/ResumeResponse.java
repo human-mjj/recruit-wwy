@@ -27,6 +27,7 @@ public class ResumeResponse {
         private String activity;
         private String img_url;
         private String letter;
+        private String imgUrl;
 
         public DTO(Resume resume) {
             this.id = resume.getId();
@@ -40,6 +41,7 @@ public class ResumeResponse {
             this.activity = resume.getActivity();
             this.img_url = resume.getImgUrl();
             this.letter = resume.getLetter();
+            this.imgUrl = resume.getImgUrl();
         }
     }
 
@@ -172,6 +174,7 @@ public class ResumeResponse {
             this.isOwner = sessionUser != null && sessionUser.getId() == resume.getUser().getId();
             this.isCompanyUser = sessionUser != null && sessionUser.getRole() == 1;
             this.isApplicant = false; // 기본 false (지원 여부 체크는 별도로)
+
             this.id = resume.getId();
             this.userId = resume.getUser().getId();
             this.job = resume.getJob() != null ? new JobDTO(resume.getJob()) : null;

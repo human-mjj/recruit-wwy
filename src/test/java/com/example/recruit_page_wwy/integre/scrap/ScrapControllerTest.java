@@ -83,8 +83,6 @@ public class ScrapControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.scraps[0].location").value("서울특별시 강남구"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.scraps[0].name").value("백엔드 개발자"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.scraps[0].employmentId").value(1));
-
-// ✅ 페이지네이션 정보
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.current").value(1));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.totalCount").value(10));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.prev").value(0));
