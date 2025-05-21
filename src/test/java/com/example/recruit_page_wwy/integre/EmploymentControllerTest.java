@@ -1,5 +1,6 @@
-package com.example.recruit_page_wwy.integre.employment;
+package com.example.recruit_page_wwy.integre;
 
+import com.example.recruit_page_wwy.RestDoc;
 import com.example.recruit_page_wwy._core.util.JwtUtil;
 import com.example.recruit_page_wwy.employment.EmploymentRequest;
 import com.example.recruit_page_wwy.user.User;
@@ -11,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,13 +26,10 @@ import static org.hamcrest.Matchers.containsString;
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest
-public class EmploymentControllerTest {
+public class EmploymentControllerTest extends RestDoc {
 
     @Autowired
     private ObjectMapper om = new ObjectMapper();
-
-    @Autowired
-    private MockMvc mvc;
 
     private String accessToken;
 
@@ -54,7 +52,7 @@ public class EmploymentControllerTest {
     }
 
     @Test
-    public void employment_save_test() throws Exception {
+    public void save_test() throws Exception {
 
         // given
         EmploymentRequest.SaveDTO reqDTO = new EmploymentRequest.SaveDTO();
@@ -118,6 +116,7 @@ public class EmploymentControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.employStackList[0].skill").value("Spring"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.employStackList[1].skill").value("Java"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.employStackList[2].skill").value("MySQL"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -145,10 +144,11 @@ public class EmploymentControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.body.employmentList[0].exp").value("1 ~ 3년 차"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.body.employmentList[0].location").value("서울특별시 노원구"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.body.employmentList[0].imgUrl").doesNotExist()); // null이면 이 방식
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
-    public void manage_employment_test() throws Exception {
+    public void mypage_employment_test() throws Exception {
         // when
         ResultActions actions = mvc.perform(
                 MockMvcRequestBuilders
@@ -175,6 +175,7 @@ public class EmploymentControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.body.employments[0].imgUrl").value("/img/job_dummy.jpg"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.body.employments[0].thereImg").value(false))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.body.employments[0].companyUser").value(true));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -206,6 +207,64 @@ public class EmploymentControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.body.employments[0].jobName").value("데이터 분석가"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.body.employments[0].imgUrl").value("/img/job_dummy.jpg"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.body.employments[0].thereImg").value(false));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @Test
+    public void detail_test() throws Exception {
+        // when
+        ResultActions actions = mvc.perform(
+                MockMvcRequestBuilders
+                        .get("/api/employment/2")
+                        .header("Authorization", "Bearer " + accessToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        System.out.println("accessToken = " + accessToken);
+
+        // eye
+        String responseBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println(responseBody);
+
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"))
+
+                // 기본 필드
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.id").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.title").value("프론트엔드 React 개발자 채용"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.workingTime").value("10:00 ~ 19:00"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.sal").value(3800))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.shift").value("정규직"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.location").value("서울특별시 마포구"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.endDate").value("2025-06-15"))
+
+                // stack
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.stack[0]").value("mysql"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.stack[1]").value("html"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.stack[2]").value("node.js"))
+
+                // duty
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.duty[0]").value("웹 서비스 프론트 개발"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.duty[1]").value("반응형 UI 구현"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.duty[2]").value("API 연동 작업"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.duty[3]").value("컴포넌트 단위 개발 및 유지보수"))
+
+                // qualification
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.qualification[0]").value("React 사용 가능자"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.qualification[1]").value("포트폴리오 필수"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.qualification[2]").value("HTML/CSS/JS 기본 지식"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.qualification[3]").value("Git 사용 가능자"))
+
+                // 직무명
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.jobName").value("프론트엔드 개발자"))
+
+                // 이미지 URL
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.userImgUrl").value("/img/naver_logo_basic.png"))
+
+                // 회사명
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body.comName").value("WWY"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+
     }
 
     @Test
@@ -265,8 +324,8 @@ public class EmploymentControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.body.qualificationList[2]").value("HTML/CSS/JS 기본 지식"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.body.qualificationList[3]").value("Git 사용 가능자"))
 
-                // ✅ 지역 플래그: 현재 지역이 서울이므로 seoul = true 만 확인
                 .andExpect(MockMvcResultMatchers.jsonPath("$.body.seoul").value(true));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
@@ -335,6 +394,7 @@ public class EmploymentControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.employStackList[0].skill").value("Spring"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.employStackList[1].skill").value("Java"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.employStackList[2].skill").value("MySQL"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -355,6 +415,7 @@ public class EmploymentControllerTest {
         // then
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 }

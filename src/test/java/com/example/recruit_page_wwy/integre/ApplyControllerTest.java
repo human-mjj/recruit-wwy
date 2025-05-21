@@ -1,5 +1,6 @@
-package com.example.recruit_page_wwy.integre.apply;
+package com.example.recruit_page_wwy.integre;
 
+import com.example.recruit_page_wwy.RestDoc;
 import com.example.recruit_page_wwy._core.util.JwtUtil;
 import com.example.recruit_page_wwy.apply.ApplyRequest;
 import com.example.recruit_page_wwy.user.User;
@@ -11,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,13 +27,10 @@ import static org.hamcrest.Matchers.matchesPattern;
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class ApplyControllerTest {
+public class ApplyControllerTest extends RestDoc {
 
     @Autowired
     private ObjectMapper om;
-
-    @Autowired
-    private MockMvc mvc;
 
     private String accessToken;
 
@@ -55,7 +53,7 @@ public class ApplyControllerTest {
     }
 
     @Test
-    public void Apply_test() throws Exception {
+    public void apply_test() throws Exception {
         // given
         ApplyRequest.SaveDTO reqDTO = new ApplyRequest.SaveDTO();
         reqDTO.setResumeId(1);
@@ -89,10 +87,11 @@ public class ApplyControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.createdAt")
                 .value(matchesPattern("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d+")));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.progress").value("대기"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
-    public void UpdateApplyProgress_test() throws Exception {
+    public void update_apply_progress_test() throws Exception {
         // given
         Map<String, String> reqDTO = new HashMap<>();
         reqDTO.put("applyId", "1");
@@ -125,10 +124,11 @@ public class ApplyControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.createdAt")
                 .value(matchesPattern("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d+")));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.progress").value("진행 중"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
-    public void applyLists_test() throws Exception {
+    public void list_test() throws Exception {
         // when
         ResultActions actions = mvc.perform(
                 MockMvcRequestBuilders
@@ -153,10 +153,11 @@ public class ApplyControllerTest {
 
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.sessionUserId").value(1));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isCompanyUser").value(false));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
-    public void applyManageList_test() throws Exception {
+    public void apply_manage_list_test() throws Exception {
         // given
         User hog = User.builder()
                 .id(7)
@@ -184,5 +185,6 @@ public class ApplyControllerTest {
 
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.sessionUserId").value(7));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isCompanyUser").value(true));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

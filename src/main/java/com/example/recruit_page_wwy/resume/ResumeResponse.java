@@ -279,7 +279,7 @@ public class ResumeResponse {
         }
 
         @Builder
-        public UpdateViewDTO(Resume resume, List<JobDTO> jobList, List<StackDTO> stackList, List<ResumeStack> selectedStacks) {
+        public UpdateViewDTO(Resume resume, List<JobDTO> jobList, List<StackDTO> stackList, List<ResumeStack> selectedStackEntities) {
             this.id = resume.getId();
             this.title = resume.getTitle();
             this.qualified = resume.getQualified();
@@ -322,10 +322,12 @@ public class ResumeResponse {
 
             // === 기술 스택 ===
             this.stackList = stackList;
-            this.selectedStacks = toSelectedStackNames(selectedStacks);
-            if (stackList != null && selectedStacks != null) {
-                for (StackDTO stack : stackList) {
-                    if (selectedStacks.contains(stack.getSkill())) {
+            List<String> selectedStackNames = toSelectedStackNames(selectedStackEntities);
+            this.selectedStacks = selectedStackNames;
+            if (stackList != null && selectedStackNames != null) {
+                for (ResumeResponse.UpdateViewDTO.StackDTO stack : stackList) {
+                    if (selectedStackNames.stream()
+                            .anyMatch(s -> s.trim().equalsIgnoreCase(stack.getSkill().trim()))) {
                         stack.setStackChecked(true);
                     }
                 }
@@ -368,9 +370,16 @@ public class ResumeResponse {
             return new String[]{parts[0], parts[1]};
         }
 
-        private static List<String> toSelectedStackNames(List<ResumeStack> stackList) {
-            if (stackList == null) return List.of();
-            return stackList.stream().map(ResumeStack::getSkill).toList();
+        private List<String> toSelectedStackNames(List<ResumeStack> selectedStackList) {
+            List<String> selectedStackNames = new ArrayList<>();
+            if (selectedStackList != null) {
+                for (ResumeStack rs : selectedStackList) {
+                    if (rs.getSkill() != null) {
+                        selectedStackNames.add(rs.getSkill());
+                    }
+                }
+            }
+            return selectedStackNames;
         }
     }
 }

@@ -1,5 +1,6 @@
-package com.example.recruit_page_wwy.integre.reply;
+package com.example.recruit_page_wwy.integre;
 
+import com.example.recruit_page_wwy.RestDoc;
 import com.example.recruit_page_wwy._core.util.JwtUtil;
 import com.example.recruit_page_wwy.reply.ReplyRequest;
 import com.example.recruit_page_wwy.user.User;
@@ -11,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,13 +24,10 @@ import static org.hamcrest.Matchers.nullValue;
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class ReplyControllerTest {
+public class ReplyControllerTest extends RestDoc {
 
     @Autowired
     private ObjectMapper om;
-
-    @Autowired
-    private MockMvc mvc;
 
     private String accessToken;
 
@@ -84,6 +82,7 @@ public class ReplyControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.content").value("content"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.createdAt",
                 matchesPattern("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d+")));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
@@ -110,6 +109,7 @@ public class ReplyControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body").value(nullValue()));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 

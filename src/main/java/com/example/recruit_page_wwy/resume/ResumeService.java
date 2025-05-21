@@ -112,7 +112,11 @@ public class ResumeService {
                 throw new RuntimeException("이미지 저장 실패", e);
             }
         }
-        resumePS.update(reqDTO, imgFilename);
+
+        Job jobPS = employmentRepository.findJobById(reqDTO.getJobId())
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 직무입니다."));
+
+        resumePS.update(reqDTO, jobPS, imgFilename);
         resumeRepository.updateStack(resumePS.getId(), reqDTO.getSkills());
         return new ResumeResponse.DTO(resumePS);
     }
@@ -154,7 +158,6 @@ public class ResumeService {
         return updateViewDTO;
     }
 
-    // TODO : CSR 구조 미준수로 인한 수정
     @Transactional
     public void delete(int resumeId, User sessionUser) {
         Resume resume = resumeRepository.findByResumeId(resumeId);

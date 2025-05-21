@@ -1,6 +1,7 @@
-package com.example.recruit_page_wwy.integre.scrap;
+package com.example.recruit_page_wwy.integre;
 
 
+import com.example.recruit_page_wwy.RestDoc;
 import com.example.recruit_page_wwy._core.util.JwtUtil;
 import com.example.recruit_page_wwy.scrap.ScrapRequest;
 import com.example.recruit_page_wwy.user.User;
@@ -14,9 +15,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,13 +29,10 @@ import static org.hamcrest.Matchers.nullValue;
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 
-public class ScrapControllerTest {
+public class ScrapControllerTest extends RestDoc {
 
     @Autowired
     private ObjectMapper om;
-
-    @Autowired
-    private MockMvc mvc;
 
     private String accessToken;
 
@@ -57,7 +55,7 @@ public class ScrapControllerTest {
     }
 
     @Test
-    public void scrap_user_list_test() throws Exception {
+    public void scrap_list_test() throws Exception {
         // given
         Integer page = 1;
 
@@ -93,10 +91,11 @@ public class ScrapControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isFirst").value(true));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isLast").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.numbers", hasSize(2)));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
-    public void save_scrap_test() throws Exception {
+    public void save_test() throws Exception {
         // given
         ScrapRequest.SaveDTO reqDTO = new ScrapRequest.SaveDTO();
         reqDTO.setEmploymentId(1);
@@ -120,11 +119,11 @@ public class ScrapControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.scrapId").value(101));
-
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
-    public void delete_scrap_test() throws Exception {
+    public void delete_test() throws Exception {
         // given
         int id = 1;
 
@@ -145,7 +144,7 @@ public class ScrapControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body").value(nullValue()));
-
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 

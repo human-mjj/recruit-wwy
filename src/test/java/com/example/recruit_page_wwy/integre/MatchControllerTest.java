@@ -1,5 +1,6 @@
-package com.example.recruit_page_wwy.integre.match;
+package com.example.recruit_page_wwy.integre;
 
+import com.example.recruit_page_wwy.RestDoc;
 import com.example.recruit_page_wwy._core.util.JwtUtil;
 import com.example.recruit_page_wwy.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,13 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class MatchControllerTest {
+public class MatchControllerTest extends RestDoc {
 
     @Autowired
     private ObjectMapper om;
-
-    @Autowired
-    private MockMvc mvc;
 
     private String accessToken;
 
@@ -49,7 +47,7 @@ public class MatchControllerTest {
     }
 
     @Test
-    public void MatchList_test() throws Exception {
+    public void match_list_test() throws Exception {
         // when
         ResultActions actions = mvc.perform(
                 MockMvcRequestBuilders
@@ -79,10 +77,11 @@ public class MatchControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.recommendationList[0].exp").value("10년 이상"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.recommendationList[0].location").value("서울특별시 강남구"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.companyUser").value(false));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
-    public void MatchComList_test() throws Exception {
+    public void match_com_list_test() throws Exception {
         // given
         User hog = User.builder()
                 .id(7)
@@ -115,5 +114,6 @@ public class MatchControllerTest {
 
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.sessionUserId").value(7));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isCompanyUser").value(true));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }
