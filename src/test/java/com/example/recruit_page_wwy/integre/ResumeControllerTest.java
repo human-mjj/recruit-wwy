@@ -1,5 +1,6 @@
-package com.example.recruit_page_wwy.integre.resume;
+package com.example.recruit_page_wwy.integre;
 
+import com.example.recruit_page_wwy.RestDoc;
 import com.example.recruit_page_wwy._core.util.JwtUtil;
 import com.example.recruit_page_wwy.resume.ResumeRequest;
 import com.example.recruit_page_wwy.user.User;
@@ -13,9 +14,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,13 +31,10 @@ import static org.hamcrest.Matchers.nullValue;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 
 
-public class ResumeControllerTest {
+public class ResumeControllerTest extends RestDoc {
 
     @Autowired
     private ObjectMapper om;
-
-    @Autowired
-    private MockMvc mvc;
 
     private String accessToken;
 
@@ -96,6 +94,7 @@ public class ResumeControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isFirst").value(true));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isLast").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.numbers", hasSize(2)));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
@@ -148,8 +147,7 @@ public class ResumeControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.activity").value("없음"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.img_url").value(nullValue()));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.letter").value("웹 서비스를 만드는 것이 저의 목표입니다."));
-
-
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -202,6 +200,7 @@ public class ResumeControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.activity").value("멋쟁이사자처럼 10기 활동"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.img_url").value(nullValue()));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.letter").value("웹 서비스를 만드는 것이 저의 목표입니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -226,6 +225,7 @@ public class ResumeControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body").value(nullValue()));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -274,6 +274,45 @@ public class ResumeControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumeStack", hasSize(1)));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.resumeStack[0].skill").value("java"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.employmentList", hasSize(0)));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @Test
+    public void update_view_test() throws Exception {
+        // given
+        Integer id = 1;
+
+        // when
+        ResultActions actions = mvc.perform(
+                MockMvcRequestBuilders
+                        .get("/s/api/resume/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + accessToken)
+        );
+
+//        // eye
+        String responseBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println(responseBody);
+
+
+        // then
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.id").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.title").value("백엔드 신입 개발자 지원서"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.exp").value("컴퓨터공학"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.expYear").value("전공, 인턴 경험 3개월"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.edu").value(""));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.schoolName").value(""));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.location").value("서울"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.qualified").value("정보처리기사"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.activity").value("멋쟁이사자처럼 10기 활동"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.letter").value("사용자 중심의 웹 서비스를 만드는 것이 저의 목표입니다. HTML, CSS, JavaScript를 활용해 여러 웹 프로젝트를 진행했으며, 특히 반응형 UI 구현에 강점을 가지고 있습니다. 새로운 기술에 대한 학습을 즐기며 팀과의 소통을 중요시합니다."));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.selectedJobId").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.selectedStacks[0]").value("java"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.jobList[0].jobSelected").value(true));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.stackList[0].stackChecked").value(true));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 }

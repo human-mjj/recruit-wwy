@@ -1,0 +1,408 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+:apply: apply-controller-test
+:board: board-controller-test
+:employment: employment-controller-test
+:match: match-controller-test
+:proposal: proposal-controller-test
+:reply: reply-controller-test
+:resume: resume-controller-test
+:scrap: scrap-controller-test
+:user: user-controller-test
+
+= REST API
+:toc: left
+:toclevels: 2
+:source-highlighter: highlightjs
+
+== 회원
+
+=== 1. 구직자 회원가입
+
+===== Request Example
+
+include::{snippets}/{user}/join_user_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{user}/join_user_test/http-response.adoc[]
+
+=== 2. 기업 회원가입
+
+===== Request Example
+
+include::{snippets}/{user}/join_com_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{user}/join_com_test/http-response.adoc[]
+
+=== 3. 로그인
+
+===== Request Example
+
+include::{snippets}/{user}/login_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{user}/login_test/http-response.adoc[]
+
+=== 4. 마이페이지 정보 확인
+
+===== Request Example
+
+include::{snippets}/{user}/mypage_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{user}/mypage_test/http-response.adoc[]
+
+=== 5. 회원정보 수정
+
+===== Request Example
+
+include::{snippets}/{user}/update_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{user}/update_test/http-response.adoc[]
+
+== 채용 공고
+
+=== 1. 메인 화면
+
+===== Request Example
+
+include::{snippets}/{employment}/index_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{employment}/index_test/http-response.adoc[]
+
+=== 2. 채용 공고 관리
+
+===== Request Example
+
+include::{snippets}/{employment}/mypage_employment_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{employment}/mypage_employment_test/http-response.adoc[]
+
+=== 3. 채용 공고 리스트
+
+===== Request Example
+
+include::{snippets}/{employment}/list_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{employment}/list_test/http-response.adoc[]
+
+=== 4. 채용 공고 상세보기
+
+===== Request Example
+
+include::{snippets}/{employment}/detail_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{employment}/detail_test/http-response.adoc[]
+
+=== 5. 채용 공고 작성하기
+
+===== Request Example
+
+include::{snippets}/{employment}/save_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{employment}/save_test/http-response.adoc[]
+
+=== 6. 채용 공고 수정 화면
+
+===== Request Example
+
+include::{snippets}/{employment}/update_view_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{employment}/update_view_test/http-response.adoc[]
+
+=== 7. 채용 공고 수정
+
+===== Request Example
+
+include::{snippets}/{employment}/update_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{employment}/update_test/http-response.adoc[]
+
+=== 8. 채용 공고 삭제
+
+===== Request Example
+
+include::{snippets}/{employment}/delete_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{employment}/delete_test/http-response.adoc[]
+
+== 이력서
+
+=== 1. 이력서 리스트
+
+===== Request Example
+
+include::{snippets}/{resume}/list_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{resume}/list_test/http-response.adoc[]
+
+=== 2. 이력서 상세보기
+
+===== Request Example
+
+include::{snippets}/{resume}/detail_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{resume}/detail_test/http-response.adoc[]
+
+=== 3. 이력서 작성
+
+===== Request Example
+
+include::{snippets}/{resume}/save_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{resume}/save_test/http-response.adoc[]
+
+=== 4. 이력서 수정 화면
+
+===== Request Example
+
+include::{snippets}/{resume}/update_view_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{resume}/update_view_test/http-response.adoc[]
+
+=== 5. 이력서 수정
+
+===== Request Example
+
+include::{snippets}/{resume}/update_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{resume}/update_test/http-response.adoc[]
+
+=== 6. 이력서 삭제
+
+===== Request Example
+
+include::{snippets}/{resume}/delete_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{resume}/delete_test/http-response.adoc[]
+
+== 추천
+
+=== 1. 받은 제안 및 추천 채용 공고
+
+===== Request Example
+
+include::{snippets}/{match}/match_list_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{match}/match_list_test/http-response.adoc[]
+
+=== 2. 추천 이력서
+
+===== Request Example
+
+include::{snippets}/{match}/match_com_list_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{match}/match_com_list_test/http-response.adoc[]
+
+== 스크랩
+
+=== 1. 스크랩 리스트
+
+===== Request Example
+
+include::{snippets}/{scrap}/scrap_list_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{scrap}/scrap_list_test/http-response.adoc[]
+
+=== 2. 스크랩
+
+===== Request Example
+
+include::{snippets}/{scrap}/save_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{scrap}/save_test/http-response.adoc[]
+
+=== 3. 스크랩 삭제
+
+===== Request Example
+
+include::{snippets}/{scrap}/delete_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{scrap}/delete_test/http-response.adoc[]
+
+== 제안
+
+=== 1. 제안하기
+
+===== Request Example
+
+include::{snippets}/{proposal}/recommend_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{proposal}/recommend_test/http-response.adoc[]
+
+== 지원
+
+=== 1. 지원 목록
+
+===== Request Example
+
+include::{snippets}/{apply}/list_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{apply}/list_test/http-response.adoc[]
+
+=== 2. 지원 현황 관리
+
+===== Request Example
+
+include::{snippets}/{apply}/apply_manage_list_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{apply}/apply_manage_list_test/http-response.adoc[]
+
+=== 3. 지원하기
+
+===== Request Example
+
+include::{snippets}/{apply}/apply_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{apply}/apply_test/http-response.adoc[]
+
+=== 4. 지원 상태 수정
+
+===== Request Example
+
+include::{snippets}/{apply}/update_apply_progress_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{apply}/update_apply_progress_test/http-response.adoc[]
+
+== 커뮤니티
+
+=== 1. 게시글 목록
+
+===== Request Example
+
+include::{snippets}/{board}/list_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{board}/list_test/http-response.adoc[]
+
+=== 2. 게시글 상세보기
+
+===== Request Example
+
+include::{snippets}/{board}/detail_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{board}/detail_test/http-response.adoc[]
+
+=== 3. 게시글 작성
+
+===== Request Example
+
+include::{snippets}/{board}/save_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{board}/save_test/http-response.adoc[]
+
+=== 4. 게시글 수정화면
+
+===== Request Example
+
+include::{snippets}/{board}/update_view_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{board}/update_view_test/http-response.adoc[]
+
+=== 5. 게시글 수정
+
+===== Request Example
+
+include::{snippets}/{board}/update_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{board}/update_test/http-response.adoc[]
+
+=== 6. 게시글 삭제
+
+===== Request Example
+
+include::{snippets}/{board}/delete_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{board}/delete_test/http-response.adoc[]
+
+== 댓글
+
+=== 1. 댓글 작성
+
+===== Request Example
+
+include::{snippets}/{reply}/save_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{reply}/save_test/http-response.adoc[]
+
+=== 2. 댓글 삭제
+
+===== Request Example
+
+include::{snippets}/{reply}/delete_test/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/{reply}/delete_test/http-response.adoc[]
+
+

@@ -1,0 +1,3860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<title>REST API</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite::before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+:not(pre)>code.nobreak{word-wrap:normal}
+:not(pre)>code.nowrap{white-space:nowrap}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
+table.tableblock{max-width:100%;border-collapse:separate}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+td.tableblock>.content>:last-child.sidebarblock{margin-bottom:0}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot,table.frame-ends{border-width:1px 0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>REST API</h1>
+<div class="details">
+<span id="revnumber">version 0.0.1-SNAPSHOT</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_회원">회원</a>
+<ul class="sectlevel2">
+<li><a href="#_1_구직자_회원가입">1. 구직자 회원가입</a></li>
+<li><a href="#_2_기업_회원가입">2. 기업 회원가입</a></li>
+<li><a href="#_3_로그인">3. 로그인</a></li>
+<li><a href="#_4_마이페이지_정보_확인">4. 마이페이지 정보 확인</a></li>
+<li><a href="#_5_회원정보_수정">5. 회원정보 수정</a></li>
+</ul>
+</li>
+<li><a href="#_채용_공고">채용 공고</a>
+<ul class="sectlevel2">
+<li><a href="#_1_메인_화면">1. 메인 화면</a></li>
+<li><a href="#_2_채용_공고_관리">2. 채용 공고 관리</a></li>
+<li><a href="#_3_채용_공고_리스트">3. 채용 공고 리스트</a></li>
+<li><a href="#_4_채용_공고_상세보기">4. 채용 공고 상세보기</a></li>
+<li><a href="#_5_채용_공고_작성하기">5. 채용 공고 작성하기</a></li>
+<li><a href="#_6_채용_공고_수정_화면">6. 채용 공고 수정 화면</a></li>
+<li><a href="#_7_채용_공고_수정">7. 채용 공고 수정</a></li>
+<li><a href="#_8_채용_공고_삭제">8. 채용 공고 삭제</a></li>
+</ul>
+</li>
+<li><a href="#_이력서">이력서</a>
+<ul class="sectlevel2">
+<li><a href="#_1_이력서_리스트">1. 이력서 리스트</a></li>
+<li><a href="#_2_이력서_상세보기">2. 이력서 상세보기</a></li>
+<li><a href="#_3_이력서_작성">3. 이력서 작성</a></li>
+<li><a href="#_4_이력서_수정_화면">4. 이력서 수정 화면</a></li>
+<li><a href="#_5_이력서_수정">5. 이력서 수정</a></li>
+<li><a href="#_6_이력서_삭제">6. 이력서 삭제</a></li>
+</ul>
+</li>
+<li><a href="#_추천">추천</a>
+<ul class="sectlevel2">
+<li><a href="#_1_받은_제안_및_추천_채용_공고">1. 받은 제안 및 추천 채용 공고</a></li>
+<li><a href="#_2_추천_이력서">2. 추천 이력서</a></li>
+</ul>
+</li>
+<li><a href="#_스크랩">스크랩</a>
+<ul class="sectlevel2">
+<li><a href="#_1_스크랩_리스트">1. 스크랩 리스트</a></li>
+<li><a href="#_2_스크랩">2. 스크랩</a></li>
+<li><a href="#_3_스크랩_삭제">3. 스크랩 삭제</a></li>
+</ul>
+</li>
+<li><a href="#_제안">제안</a>
+<ul class="sectlevel2">
+<li><a href="#_1_제안하기">1. 제안하기</a></li>
+</ul>
+</li>
+<li><a href="#_지원">지원</a>
+<ul class="sectlevel2">
+<li><a href="#_1_지원_목록">1. 지원 목록</a></li>
+<li><a href="#_2_지원_현황_관리">2. 지원 현황 관리</a></li>
+<li><a href="#_3_지원하기">3. 지원하기</a></li>
+<li><a href="#_4_지원_상태_수정">4. 지원 상태 수정</a></li>
+</ul>
+</li>
+<li><a href="#_커뮤니티">커뮤니티</a>
+<ul class="sectlevel2">
+<li><a href="#_1_게시글_목록">1. 게시글 목록</a></li>
+<li><a href="#_2_게시글_상세보기">2. 게시글 상세보기</a></li>
+<li><a href="#_3_게시글_작성">3. 게시글 작성</a></li>
+<li><a href="#_4_게시글_수정화면">4. 게시글 수정화면</a></li>
+<li><a href="#_5_게시글_수정">5. 게시글 수정</a></li>
+<li><a href="#_6_게시글_삭제">6. 게시글 삭제</a></li>
+</ul>
+</li>
+<li><a href="#_댓글">댓글</a>
+<ul class="sectlevel2">
+<li><a href="#_1_댓글_작성">1. 댓글 작성</a></li>
+<li><a href="#_2_댓글_삭제">2. 댓글 삭제</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_회원">회원</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_구직자_회원가입">1. 구직자 회원가입</h3>
+<div class="sect4">
+<h5 id="_request_example">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /join-user HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyOCwidXNlcm5hbWUiOiJzc2FyIn0.gypNkUgZSx_SbgnSCBVEZTQ0Gtr4XO5TOVkgJyKBfwdrPMOLo5VQAOyr6GM_2VWWRTUYq9D7lm_Yl1CbtKxkLg
+Content-Length: 128
+Host: localhost:8080
+
+{
+  "username" : "하하",
+  "email" : "haha@nate.com",
+  "phone" : "01012341234",
+  "password" : "Haha1!",
+  "role" : 0
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 295
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "accessToken" : null,
+    "username" : "하하",
+    "password" : null,
+    "email" : "haha@nate.com",
+    "phone" : "01012341234",
+    "role" : 0,
+    "comName" : "",
+    "industryId" : null,
+    "companyUser" : false
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_기업_회원가입">2. 기업 회원가입</h3>
+<div class="sect4">
+<h5 id="_request_example_2">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /join-com HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyOCwidXNlcm5hbWUiOiJzc2FyIn0.gypNkUgZSx_SbgnSCBVEZTQ0Gtr4XO5TOVkgJyKBfwdrPMOLo5VQAOyr6GM_2VWWRTUYq9D7lm_Yl1CbtKxkLg
+Content-Length: 180
+Host: localhost:8080
+
+{
+  "username" : "하하",
+  "email" : "haha@nate.com",
+  "phone" : "01012341239",
+  "password" : "Haha1!",
+  "role" : 1,
+  "comName" : "하하컴퍼",
+  "industryId" : 2
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_2">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 303
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "accessToken" : null,
+    "username" : "하하",
+    "password" : null,
+    "email" : "haha@nate.com",
+    "phone" : "01012341239",
+    "role" : 1,
+    "comName" : "하하컴퍼",
+    "industryId" : 2,
+    "companyUser" : true
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_로그인">3. 로그인</h3>
+<div class="sect4">
+<h5 id="_request_example_3">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /login HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyOCwidXNlcm5hbWUiOiJzc2FyIn0.gypNkUgZSx_SbgnSCBVEZTQ0Gtr4XO5TOVkgJyKBfwdrPMOLo5VQAOyr6GM_2VWWRTUYq9D7lm_Yl1CbtKxkLg
+Content-Length: 72
+Host: localhost:8080
+
+{
+  "email" : "ssar@nate.com",
+  "password" : "1234",
+  "role" : 0
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_3">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 305
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "accessToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyOCwidXNlcm5hbWUiOiLshpDsmIHrr7wifQ.2mL4ddEn-3Vmb0YJErAp9uVq4hqAZF5q1DfjO2FJb5u8cSA7sEp3NKwqVITo-Nm13ZOVP-W2QaY9QxbFOlVXWw"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_마이페이지_정보_확인">4. 마이페이지 정보 확인</h3>
+<div class="sect4">
+<h5 id="_request_example_4">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /s/api/mypage HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyOCwidXNlcm5hbWUiOiJzc2FyIn0.gypNkUgZSx_SbgnSCBVEZTQ0Gtr4XO5TOVkgJyKBfwdrPMOLo5VQAOyr6GM_2VWWRTUYq9D7lm_Yl1CbtKxkLg
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_4">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 422
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "sessionUser" : {
+      "id" : 1,
+      "username" : "ssar",
+      "email" : null,
+      "phone" : null,
+      "password" : null,
+      "imgUrl" : null,
+      "role" : 0,
+      "comName" : null,
+      "industry" : null
+    },
+    "username" : "ssar",
+    "email" : null,
+    "isCompanyUser" : false,
+    "imgUrl" : "/img/Screenshot_14.png"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_5_회원정보_수정">5. 회원정보 수정</h3>
+<div class="sect4">
+<h5 id="_request_example_5">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">PUT /s/api/mypage HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyOCwidXNlcm5hbWUiOiJzc2FyIn0.gypNkUgZSx_SbgnSCBVEZTQ0Gtr4XO5TOVkgJyKBfwdrPMOLo5VQAOyr6GM_2VWWRTUYq9D7lm_Yl1CbtKxkLg
+Content-Length: 122
+Host: localhost:8080
+
+{
+  "comName" : null,
+  "phone" : "01033331111",
+  "password" : "123456",
+  "industryId" : null,
+  "imgUrl" : null
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_5">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 514
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "accessToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyOCwidXNlcm5hbWUiOiLshpDsmIHrr7wifQ.2mL4ddEn-3Vmb0YJErAp9uVq4hqAZF5q1DfjO2FJb5u8cSA7sEp3NKwqVITo-Nm13ZOVP-W2QaY9QxbFOlVXWw",
+    "username" : "손영민",
+    "password" : null,
+    "email" : "ssar@nate.com",
+    "phone" : "01033331111",
+    "role" : 0,
+    "comName" : "",
+    "industryId" : null,
+    "companyUser" : false
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_채용_공고">채용 공고</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_메인_화면">1. 메인 화면</h3>
+<div class="sect4">
+<h5 id="_request_example_6">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET / HTTP/1.1
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MSwiaWQiOjYsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiLrrLjsoJXspIAifQ.AO3af2CtpSi_iW9DtPIXJ0tc14QWMC6QWsNfzDQGBRUNaHPsS2vNOnMyMR45wY2W2ILl6SLA1atiy59LaC6FNg
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_6">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 1085
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "employmentList" : [ {
+      "id" : 32,
+      "title" : "보안 엔지니어 팀원 채용합니다",
+      "companyName" : "에이펙스 테크놀로지",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 노원구",
+      "imgUrl" : null
+    }, {
+      "id" : 30,
+      "title" : "UI 디자이너 팀원 채용합니다",
+      "companyName" : "에이펙스 테크놀로지",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 은평구",
+      "imgUrl" : null
+    }, {
+      "id" : 56,
+      "title" : "함께 성장할 데이터 엔지니어 구인",
+      "companyName" : "씨에스 솔루션즈",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 용산구",
+      "imgUrl" : null
+    }, {
+      "id" : 12,
+      "title" : "백엔드 개발자 팀원 채용합니다",
+      "companyName" : "WWY",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 종로구",
+      "imgUrl" : null
+    } ],
+    "isCompanyUser" : false
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_채용_공고_관리">2. 채용 공고 관리</h3>
+<div class="sect4">
+<h5 id="_request_example_7">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /s/api/mypage/employment HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MSwiaWQiOjYsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiLrrLjsoJXspIAifQ.AO3af2CtpSi_iW9DtPIXJ0tc14QWMC6QWsNfzDQGBRUNaHPsS2vNOnMyMR45wY2W2ILl6SLA1atiy59LaC6FNg
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_7">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 2910
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "employments" : [ {
+      "id" : 14,
+      "title" : "보안 엔지니어 팀원 채용합니다",
+      "comName" : "WWY",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 은평구",
+      "jobName" : "보안 엔지니어",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "companyUser" : true,
+      "thereImg" : false
+    }, {
+      "id" : 13,
+      "title" : "WWY에서 DevOps 엔지니어 찾습니다",
+      "comName" : "WWY",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 종로구",
+      "jobName" : "devops 엔지니어",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "companyUser" : true,
+      "thereImg" : false
+    }, {
+      "id" : 12,
+      "title" : "백엔드 개발자 팀원 채용합니다",
+      "comName" : "WWY",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 종로구",
+      "jobName" : "백엔드 개발자",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "companyUser" : true,
+      "thereImg" : false
+    }, {
+      "id" : 11,
+      "title" : "데이터 분석가 팀원 채용합니다",
+      "comName" : "WWY",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 성동구",
+      "jobName" : "데이터 분석가",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "companyUser" : true,
+      "thereImg" : false
+    }, {
+      "id" : 10,
+      "title" : "신입 데이터 분석가 채용",
+      "comName" : "WWY",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 강남구",
+      "jobName" : "데이터 분석가",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "companyUser" : true,
+      "thereImg" : false
+    }, {
+      "id" : 9,
+      "title" : "신입 QA 엔지니어 채용",
+      "comName" : "WWY",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 마포구",
+      "jobName" : "qa 엔지니어",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "companyUser" : true,
+      "thereImg" : false
+    }, {
+      "id" : 8,
+      "title" : "UX 디자이너 팀원 채용합니다",
+      "comName" : "WWY",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 강서구",
+      "jobName" : "ux 디자이너",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "companyUser" : true,
+      "thereImg" : false
+    }, {
+      "id" : 7,
+      "title" : "신입 기획자 채용",
+      "comName" : "WWY",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 용산구",
+      "jobName" : "기획자",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "companyUser" : true,
+      "thereImg" : false
+    } ],
+    "current" : 1,
+    "totalCount" : 14,
+    "prev" : 0,
+    "next" : 2,
+    "size" : 8,
+    "totalPage" : 2,
+    "isFirst" : true,
+    "isLast" : false,
+    "numbers" : [ 1, 2 ],
+    "companyUser" : true
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_채용_공고_리스트">3. 채용 공고 리스트</h3>
+<div class="sect4">
+<h5 id="_request_example_8">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/employment HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MSwiaWQiOjYsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiLrrLjsoJXspIAifQ.AO3af2CtpSi_iW9DtPIXJ0tc14QWMC6QWsNfzDQGBRUNaHPsS2vNOnMyMR45wY2W2ILl6SLA1atiy59LaC6FNg
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_8">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 11536
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "employments" : [ {
+      "id" : 87,
+      "scrapCount" : 0,
+      "title" : "데이터 분석가 팀원 채용합니다",
+      "comName" : "그림솔루션",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 강서구",
+      "jobName" : "데이터 분석가",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "isCompanyUser" : false,
+      "thereImg" : false
+    }, {
+      "id" : 86,
+      "scrapCount" : 0,
+      "title" : "데이터 분석가 팀원 채용합니다",
+      "comName" : "그림솔루션",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 강서구",
+      "jobName" : "데이터 분석가",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "isCompanyUser" : false,
+      "thereImg" : false
+    }, {
+      "id" : 85,
+      "scrapCount" : 0,
+      "title" : "UI 디자이너 신입/경력자 모집",
+      "comName" : "그림솔루션",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 노원구",
+      "jobName" : "ui 디자이너",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "isCompanyUser" : false,
+      "thereImg" : false
+    }, {
+      "id" : 84,
+      "scrapCount" : 0,
+      "title" : "그림솔루션에서 DevOps 엔지니어 찾습니다",
+      "comName" : "그림솔루션",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 강남구",
+      "jobName" : "devops 엔지니어",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "isCompanyUser" : false,
+      "thereImg" : false
+    }, {
+      "id" : 83,
+      "scrapCount" : 0,
+      "title" : "풀스택 개발자 신입/경력자 모집",
+      "comName" : "그림솔루션",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 노원구",
+      "jobName" : "풀스택 개발자",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "isCompanyUser" : false,
+      "thereImg" : false
+    }, {
+      "id" : 82,
+      "scrapCount" : 0,
+      "title" : "DevOps 엔지니어 팀원 채용합니다",
+      "comName" : "그림솔루션",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 서초구",
+      "jobName" : "devops 엔지니어",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "isCompanyUser" : false,
+      "thereImg" : false
+    }, {
+      "id" : 81,
+      "scrapCount" : 0,
+      "title" : "신입 웹 퍼블리셔 채용",
+      "comName" : "그림솔루션",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 노원구",
+      "jobName" : "웹 퍼블리셔",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "isCompanyUser" : false,
+      "thereImg" : false
+    }, {
+      "id" : 80,
+      "scrapCount" : 0,
+      "title" : "신입 백엔드 개발자 채용",
+      "comName" : "그림솔루션",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 종로구",
+      "jobName" : "백엔드 개발자",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "isCompanyUser" : false,
+      "thereImg" : false
+    }, {
+      "id" : 79,
+      "scrapCount" : 0,
+      "title" : "함께 성장할 기획자 구인",
+      "comName" : "그림솔루션",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 강남구",
+      "jobName" : "기획자",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "isCompanyUser" : false,
+      "thereImg" : false
+    }, {
+      "id" : 78,
+      "scrapCount" : 3,
+      "title" : "AI 엔지니어 팀원 채용합니다",
+      "comName" : "그림솔루션",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 마포구",
+      "jobName" : "ai 엔지니어",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "isCompanyUser" : false,
+      "thereImg" : false
+    }, {
+      "id" : 77,
+      "scrapCount" : 0,
+      "title" : "DevOps 엔지니어 팀원 채용합니다",
+      "comName" : "그림솔루션",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 강남구",
+      "jobName" : "devops 엔지니어",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "isCompanyUser" : false,
+      "thereImg" : false
+    }, {
+      "id" : 76,
+      "scrapCount" : 0,
+      "title" : "함께 성장할 AI 엔지니어 구인",
+      "comName" : "에버IT",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 은평구",
+      "jobName" : "ai 엔지니어",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "isCompanyUser" : false,
+      "thereImg" : false
+    }, {
+      "id" : 75,
+      "scrapCount" : 0,
+      "title" : "에버IT에서 앱 개발자 찾습니다",
+      "comName" : "에버IT",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 용산구",
+      "jobName" : "앱 개발자",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "isCompanyUser" : false,
+      "thereImg" : false
+    }, {
+      "id" : 74,
+      "scrapCount" : 0,
+      "title" : "3년 이상 앱 개발자 채용",
+      "comName" : "에버IT",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 종로구",
+      "jobName" : "앱 개발자",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "isCompanyUser" : false,
+      "thereImg" : false
+    }, {
+      "id" : 73,
+      "scrapCount" : 0,
+      "title" : "데이터 엔지니어 팀원 채용합니다",
+      "comName" : "에버IT",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 중구",
+      "jobName" : "데이터 엔지니어",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "isCompanyUser" : false,
+      "thereImg" : false
+    }, {
+      "id" : 72,
+      "scrapCount" : 0,
+      "title" : "함께 성장할 앱 개발자 구인",
+      "comName" : "에버IT",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 마포구",
+      "jobName" : "앱 개발자",
+      "imgUrl" : "/img/job_dummy.jpg",
+      "isCompanyUser" : false,
+      "thereImg" : false
+    } ],
+    "current" : 0,
+    "totalCount" : 87,
+    "table" : {
+      "jobList" : [ {
+        "id" : 1,
+        "name" : "백엔드 개발자"
+      }, {
+        "id" : 2,
+        "name" : "프론트엔드 개발자"
+      }, {
+        "id" : 3,
+        "name" : "풀스택 개발자"
+      }, {
+        "id" : 4,
+        "name" : "데이터 엔지니어"
+      }, {
+        "id" : 5,
+        "name" : "ai 엔지니어"
+      }, {
+        "id" : 6,
+        "name" : "웹 퍼블리셔"
+      }, {
+        "id" : 7,
+        "name" : "앱 개발자"
+      }, {
+        "id" : 8,
+        "name" : "qa 엔지니어"
+      }, {
+        "id" : 9,
+        "name" : "devops 엔지니어"
+      }, {
+        "id" : 10,
+        "name" : "보안 엔지니어"
+      }, {
+        "id" : 11,
+        "name" : "프로덕트 매니저"
+      }, {
+        "id" : 12,
+        "name" : "ui 디자이너"
+      }, {
+        "id" : 13,
+        "name" : "ux 디자이너"
+      }, {
+        "id" : 14,
+        "name" : "데이터 분석가"
+      }, {
+        "id" : 15,
+        "name" : "기획자"
+      } ],
+      "stackList" : [ {
+        "id" : 1,
+        "skill" : "java"
+      }, {
+        "id" : 2,
+        "skill" : "spring boot"
+      }, {
+        "id" : 3,
+        "skill" : "mysql"
+      }, {
+        "id" : 4,
+        "skill" : "javascript"
+      }, {
+        "id" : 5,
+        "skill" : "react"
+      }, {
+        "id" : 6,
+        "skill" : "html"
+      }, {
+        "id" : 7,
+        "skill" : "css"
+      }, {
+        "id" : 8,
+        "skill" : "node.js"
+      }, {
+        "id" : 9,
+        "skill" : "typescript"
+      }, {
+        "id" : 10,
+        "skill" : "python"
+      }, {
+        "id" : 11,
+        "skill" : "postgresql"
+      }, {
+        "id" : 12,
+        "skill" : "aws"
+      }, {
+        "id" : 13,
+        "skill" : "git"
+      }, {
+        "id" : 14,
+        "skill" : "figma"
+      }, {
+        "id" : 15,
+        "skill" : "next.js"
+      }, {
+        "id" : 16,
+        "skill" : "tailwind css"
+      } ],
+      "jobOptions" : [ {
+        "name" : "백엔드 개발자",
+        "selected" : false
+      }, {
+        "name" : "프론트엔드 개발자",
+        "selected" : false
+      }, {
+        "name" : "풀스택 개발자",
+        "selected" : false
+      }, {
+        "name" : "데이터 엔지니어",
+        "selected" : false
+      }, {
+        "name" : "ai 엔지니어",
+        "selected" : false
+      }, {
+        "name" : "웹 퍼블리셔",
+        "selected" : false
+      }, {
+        "name" : "앱 개발자",
+        "selected" : false
+      }, {
+        "name" : "qa 엔지니어",
+        "selected" : false
+      }, {
+        "name" : "devops 엔지니어",
+        "selected" : false
+      }, {
+        "name" : "보안 엔지니어",
+        "selected" : false
+      }, {
+        "name" : "프로덕트 매니저",
+        "selected" : false
+      }, {
+        "name" : "ui 디자이너",
+        "selected" : false
+      }, {
+        "name" : "ux 디자이너",
+        "selected" : false
+      }, {
+        "name" : "데이터 분석가",
+        "selected" : false
+      }, {
+        "name" : "기획자",
+        "selected" : false
+      } ],
+      "stackOptions" : [ {
+        "name" : "java",
+        "checked" : false
+      }, {
+        "name" : "spring boot",
+        "checked" : false
+      }, {
+        "name" : "mysql",
+        "checked" : false
+      }, {
+        "name" : "javascript",
+        "checked" : false
+      }, {
+        "name" : "react",
+        "checked" : false
+      }, {
+        "name" : "html",
+        "checked" : false
+      }, {
+        "name" : "css",
+        "checked" : false
+      }, {
+        "name" : "node.js",
+        "checked" : false
+      }, {
+        "name" : "typescript",
+        "checked" : false
+      }, {
+        "name" : "python",
+        "checked" : false
+      }, {
+        "name" : "postgresql",
+        "checked" : false
+      }, {
+        "name" : "aws",
+        "checked" : false
+      }, {
+        "name" : "git",
+        "checked" : false
+      }, {
+        "name" : "figma",
+        "checked" : false
+      }, {
+        "name" : "next.js",
+        "checked" : false
+      }, {
+        "name" : "tailwind css",
+        "checked" : false
+      } ]
+    },
+    "careerLevels" : [ "신입", "1 ~ 3년 차", "3 ~ 5년 차", "5 ~ 7년 차", "7 ~ 9년 차", "10년 이상" ],
+    "jobTypeFilter" : null,
+    "careerLevelFilter" : null,
+    "sort" : "latest",
+    "skillsFilter" : null,
+    "sessionUserId" : null,
+    "isCompanyUser" : false,
+    "prev" : -1,
+    "prevPage" : 0,
+    "next" : 1,
+    "nextPage" : 2,
+    "size" : 16,
+    "totalPage" : 6,
+    "isFirst" : true,
+    "isLast" : false,
+    "numbers" : [ 1, 2, 3, 4, 5 ],
+    "isJobTypeFiltered" : false,
+    "isCareerLevelFiltered" : false,
+    "sortIsLatest" : true,
+    "sortIsDeadline" : false,
+    "sortIsRecommend" : false,
+    "jobOptions" : [ ],
+    "careerOptions" : [ {
+      "name" : "신입",
+      "selected" : false
+    }, {
+      "name" : "1 ~ 3년 차",
+      "selected" : false
+    }, {
+      "name" : "3 ~ 5년 차",
+      "selected" : false
+    }, {
+      "name" : "5 ~ 7년 차",
+      "selected" : false
+    }, {
+      "name" : "7 ~ 9년 차",
+      "selected" : false
+    }, {
+      "name" : "10년 이상",
+      "selected" : false
+    } ],
+    "skillOptions" : [ ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_채용_공고_상세보기">4. 채용 공고 상세보기</h3>
+<div class="sect4">
+<h5 id="_request_example_9">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/employment/2 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MSwiaWQiOjYsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiLrrLjsoJXspIAifQ.AO3af2CtpSi_iW9DtPIXJ0tc14QWMC6QWsNfzDQGBRUNaHPsS2vNOnMyMR45wY2W2ILl6SLA1atiy59LaC6FNg
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_9">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 1058
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "resumeList" : [ ],
+    "isScrap" : false,
+    "scrapId" : 0,
+    "sessionUserId" : null,
+    "sessionUserRole" : null,
+    "isOwner" : false,
+    "isApplicant" : false,
+    "isCompanyUser" : false,
+    "id" : 2,
+    "userImgUrl" : "/img/naver_logo_basic.png",
+    "title" : "프론트엔드 React 개발자 채용",
+    "comName" : "WWY",
+    "exp" : "1 ~ 3년 차",
+    "edu" : "고등학교 / 졸업",
+    "shift" : "정규직",
+    "sal" : 3800,
+    "workingTime" : "10:00 ~ 19:00",
+    "location" : "서울특별시 마포구",
+    "endDate" : "2025-06-15",
+    "duty" : [ "웹 서비스 프론트 개발", "반응형 UI 구현", "API 연동 작업", "컴포넌트 단위 개발 및 유지보수" ],
+    "qualification" : [ "React 사용 가능자", "포트폴리오 필수", "HTML/CSS/JS 기본 지식", "Git 사용 가능자" ],
+    "jobName" : "프론트엔드 개발자",
+    "stack" : [ "mysql", "html", "node.js" ],
+    "stackStr" : "mysql, html, node.js"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_5_채용_공고_작성하기">5. 채용 공고 작성하기</h3>
+<div class="sect4">
+<h5 id="_request_example_10">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /s/api/employment HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MSwiaWQiOjYsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiLrrLjsoJXspIAifQ.AO3af2CtpSi_iW9DtPIXJ0tc14QWMC6QWsNfzDQGBRUNaHPsS2vNOnMyMR45wY2W2ILl6SLA1atiy59LaC6FNg
+Content-Length: 704
+Host: localhost:8080
+
+{
+  "title" : "Spring 백엔드 개발자 모집",
+  "exp" : "10년 이상",
+  "edu" : "대학교 / 졸업",
+  "schoolName" : null,
+  "shift" : "정규직",
+  "sal" : 4200,
+  "workingTime" : "09:30 ~ 18:30",
+  "location" : "서울특별시",
+  "specificLocation" : "강남구",
+  "endDate" : "2025-05-31",
+  "duty" : [ "REST API 개발 및 유지보수", "기존 서비스 코드 리팩토링", "MySQL 기반 데이터 처리", "협업을 위한 문서화" ],
+  "qualification" : [ "Java/Spring 경력 1년 이상", "MySQL 경험 우대", "협업 및 커뮤니케이션 능력", "Git 사용 가능자" ],
+  "jobId" : 3,
+  "employStack" : [ "Spring", "Java", "MySQL" ],
+  "imgUrl" : null
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_10">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 874
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "id" : 88,
+    "title" : "Spring 백엔드 개발자 모집",
+    "userId" : 6,
+    "exp" : "10년 이상",
+    "edu" : "대학교 / 졸업",
+    "shift" : "정규직",
+    "scrapCount" : 0,
+    "employStackList" : [ {
+      "skill" : "Spring"
+    }, {
+      "skill" : "Java"
+    }, {
+      "skill" : "MySQL"
+    } ],
+    "jobName" : "풀스택 개발자",
+    "duty" : "REST API 개발 및 유지보수$기존 서비스 코드 리팩토링$MySQL 기반 데이터 처리$협업을 위한 문서화",
+    "qualification" : "Java/Spring 경력 1년 이상$MySQL 경험 우대$협업 및 커뮤니케이션 능력$Git 사용 가능자",
+    "sal" : 4200,
+    "workingTime" : "09:30 ~ 18:30",
+    "location" : "서울특별시 강남구",
+    "endDate" : "2025-05-31",
+    "imgUrl" : null
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_채용_공고_수정_화면">6. 채용 공고 수정 화면</h3>
+<div class="sect4">
+<h5 id="_request_example_11">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /s/api/employment/2 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MSwiaWQiOjYsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiLrrLjsoJXspIAifQ.AO3af2CtpSi_iW9DtPIXJ0tc14QWMC6QWsNfzDQGBRUNaHPsS2vNOnMyMR45wY2W2ILl6SLA1atiy59LaC6FNg
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_11">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 3932
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "jobList" : [ {
+      "id" : 1,
+      "name" : "백엔드 개발자",
+      "jobSelected" : false
+    }, {
+      "id" : 2,
+      "name" : "프론트엔드 개발자",
+      "jobSelected" : true
+    }, {
+      "id" : 3,
+      "name" : "풀스택 개발자",
+      "jobSelected" : false
+    }, {
+      "id" : 4,
+      "name" : "데이터 엔지니어",
+      "jobSelected" : false
+    }, {
+      "id" : 5,
+      "name" : "ai 엔지니어",
+      "jobSelected" : false
+    }, {
+      "id" : 6,
+      "name" : "웹 퍼블리셔",
+      "jobSelected" : false
+    }, {
+      "id" : 7,
+      "name" : "앱 개발자",
+      "jobSelected" : false
+    }, {
+      "id" : 8,
+      "name" : "qa 엔지니어",
+      "jobSelected" : false
+    }, {
+      "id" : 9,
+      "name" : "devops 엔지니어",
+      "jobSelected" : false
+    }, {
+      "id" : 10,
+      "name" : "보안 엔지니어",
+      "jobSelected" : false
+    }, {
+      "id" : 11,
+      "name" : "프로덕트 매니저",
+      "jobSelected" : false
+    }, {
+      "id" : 12,
+      "name" : "ui 디자이너",
+      "jobSelected" : false
+    }, {
+      "id" : 13,
+      "name" : "ux 디자이너",
+      "jobSelected" : false
+    }, {
+      "id" : 14,
+      "name" : "데이터 분석가",
+      "jobSelected" : false
+    }, {
+      "id" : 15,
+      "name" : "기획자",
+      "jobSelected" : false
+    } ],
+    "stackList" : [ {
+      "skill" : "java",
+      "stackChecked" : false
+    }, {
+      "skill" : "spring boot",
+      "stackChecked" : false
+    }, {
+      "skill" : "mysql",
+      "stackChecked" : true
+    }, {
+      "skill" : "javascript",
+      "stackChecked" : false
+    }, {
+      "skill" : "react",
+      "stackChecked" : false
+    }, {
+      "skill" : "html",
+      "stackChecked" : true
+    }, {
+      "skill" : "css",
+      "stackChecked" : false
+    }, {
+      "skill" : "node.js",
+      "stackChecked" : true
+    }, {
+      "skill" : "typescript",
+      "stackChecked" : false
+    }, {
+      "skill" : "python",
+      "stackChecked" : false
+    }, {
+      "skill" : "postgresql",
+      "stackChecked" : false
+    }, {
+      "skill" : "aws",
+      "stackChecked" : false
+    }, {
+      "skill" : "git",
+      "stackChecked" : false
+    }, {
+      "skill" : "figma",
+      "stackChecked" : false
+    }, {
+      "skill" : "next.js",
+      "stackChecked" : false
+    }, {
+      "skill" : "tailwind css",
+      "stackChecked" : false
+    } ],
+    "id" : 2,
+    "title" : "프론트엔드 React 개발자 채용",
+    "selectedJobId" : 2,
+    "selectedStacks" : [ "mysql", "html", "node.js" ],
+    "dutyList" : [ "웹 서비스 프론트 개발", "반응형 UI 구현", "API 연동 작업", "컴포넌트 단위 개발 및 유지보수" ],
+    "qualificationList" : [ "React 사용 가능자", "포트폴리오 필수", "HTML/CSS/JS 기본 지식", "Git 사용 가능자" ],
+    "workingTime" : "10:00 ~ 19:00",
+    "sal" : 3800,
+    "shift" : "정규직",
+    "exp" : "",
+    "expYear" : "",
+    "edu" : "",
+    "schoolName" : "",
+    "endDate" : "2025-06-15",
+    "location" : "서울특별시",
+    "specificLocation" : "마포구",
+    "principal" : false,
+    "manager" : false,
+    "univGraduated" : false,
+    "gyeongbuk" : false,
+    "gyeonggi" : false,
+    "highGraduated" : false,
+    "gyeongnam" : false,
+    "univEnrolled" : false,
+    "chungbuk" : false,
+    "chungnam" : false,
+    "gangwon" : false,
+    "newbie" : false,
+    "master" : false,
+    "daejeon" : false,
+    "junior" : false,
+    "incheon" : false,
+    "ulsan" : false,
+    "senior" : false,
+    "seoul" : true,
+    "gwangju" : false,
+    "sejong" : false,
+    "jeonbuk" : false,
+    "jeonnam" : false,
+    "busan" : false,
+    "jeju" : false,
+    "daegu" : false
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_7_채용_공고_수정">7. 채용 공고 수정</h3>
+<div class="sect4">
+<h5 id="_request_example_12">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">PUT /s/api/employment/2 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MSwiaWQiOjYsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiLrrLjsoJXspIAifQ.AO3af2CtpSi_iW9DtPIXJ0tc14QWMC6QWsNfzDQGBRUNaHPsS2vNOnMyMR45wY2W2ILl6SLA1atiy59LaC6FNg
+Content-Length: 704
+Host: localhost:8080
+
+{
+  "title" : "Spring 백엔드 개발자 모집",
+  "exp" : "10년 이상",
+  "edu" : "대학교 / 졸업",
+  "schoolName" : null,
+  "shift" : "정규직",
+  "sal" : 4200,
+  "workingTime" : "09:30 ~ 18:30",
+  "location" : "서울특별시",
+  "specificLocation" : "강남구",
+  "endDate" : "2025-05-31",
+  "duty" : [ "REST API 개발 및 유지보수", "기존 서비스 코드 리팩토링", "MySQL 기반 데이터 처리", "협업을 위한 문서화" ],
+  "qualification" : [ "Java/Spring 경력 1년 이상", "MySQL 경험 우대", "협업 및 커뮤니케이션 능력", "Git 사용 가능자" ],
+  "jobId" : 3,
+  "employStack" : [ "Spring", "Java", "MySQL" ],
+  "imgUrl" : null
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_12">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 878
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "id" : 2,
+    "title" : "Spring 백엔드 개발자 모집",
+    "userId" : 6,
+    "exp" : "10년 이상",
+    "edu" : "대학교 / 졸업$null",
+    "shift" : "정규직",
+    "scrapCount" : 0,
+    "employStackList" : [ {
+      "skill" : "Spring"
+    }, {
+      "skill" : "Java"
+    }, {
+      "skill" : "MySQL"
+    } ],
+    "jobName" : "풀스택 개발자",
+    "duty" : "REST API 개발 및 유지보수$기존 서비스 코드 리팩토링$MySQL 기반 데이터 처리$협업을 위한 문서화",
+    "qualification" : "Java/Spring 경력 1년 이상$MySQL 경험 우대$협업 및 커뮤니케이션 능력$Git 사용 가능자",
+    "sal" : 4200,
+    "workingTime" : "09:30 ~ 18:30",
+    "location" : "서울특별시 강남구",
+    "endDate" : "2025-05-31",
+    "imgUrl" : null
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_8_채용_공고_삭제">8. 채용 공고 삭제</h3>
+<div class="sect4">
+<h5 id="_request_example_13">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">DELETE /s/api/employment/2 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MSwiaWQiOjYsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiLrrLjsoJXspIAifQ.AO3af2CtpSi_iW9DtPIXJ0tc14QWMC6QWsNfzDQGBRUNaHPsS2vNOnMyMR45wY2W2ILl6SLA1atiy59LaC6FNg
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_13">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 61
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : null
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_이력서">이력서</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_이력서_리스트">1. 이력서 리스트</h3>
+<div class="sect4">
+<h5 id="_request_example_14">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /s/api/mypage/resume?page=1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyOCwidXNlcm5hbWUiOiJzc2FyIn0.gypNkUgZSx_SbgnSCBVEZTQ0Gtr4XO5TOVkgJyKBfwdrPMOLo5VQAOyr6GM_2VWWRTUYq9D7lm_Yl1CbtKxkLg
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_14">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 1427
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "current" : 1,
+    "totalCount" : 6,
+    "resumes" : [ {
+      "id" : 6,
+      "title" : "스프링 시큐리티 인증 인가 구축",
+      "username" : "손영민",
+      "exp" : "JWT 인증 구현 경험",
+      "edu" : "부산대학교 컴퓨터공학과 졸업"
+    }, {
+      "id" : 5,
+      "title" : "Redis, Kafka 활용 경험",
+      "username" : "손영민",
+      "exp" : "대용량 데이터 처리 경험",
+      "edu" : "부산대학교 컴퓨터공학과 졸업"
+    }, {
+      "id" : 4,
+      "title" : "Maven, Gradle 빌드 경험 중심 이력서",
+      "username" : "손영민",
+      "exp" : "Spring Boot 환경 구축 경험",
+      "edu" : "부산대학교 컴퓨터공학과 졸업"
+    }, {
+      "id" : 3,
+      "title" : "AWS 클라우드 기반 백엔드 프로젝트",
+      "username" : "손영민",
+      "exp" : "AWS EC2 서버 구축 및 운영 경험",
+      "edu" : "부산대학교 컴퓨터공학과 졸업"
+    }, {
+      "id" : 2,
+      "title" : "Spring 기반 개발 프로젝트 경험",
+      "username" : "손영민",
+      "exp" : "팀 프로젝트 백엔드 담당",
+      "edu" : "부산대학교 컴퓨터공학과 졸업"
+    } ],
+    "prev" : 0,
+    "next" : 2,
+    "size" : 5,
+    "totalPage" : 2,
+    "isFirst" : true,
+    "isLast" : false,
+    "numbers" : [ 1, 2 ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_이력서_상세보기">2. 이력서 상세보기</h3>
+<div class="sect4">
+<h5 id="_request_example_15">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/resume/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyOCwidXNlcm5hbWUiOiJzc2FyIn0.gypNkUgZSx_SbgnSCBVEZTQ0Gtr4XO5TOVkgJyKBfwdrPMOLo5VQAOyr6GM_2VWWRTUYq9D7lm_Yl1CbtKxkLg
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_15">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 1204
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "employmentList" : [ ],
+    "isScrap" : false,
+    "scrapId" : 0,
+    "sessionUserId" : 1,
+    "sessionUserRole" : 0,
+    "isOwner" : true,
+    "isCompanyUser" : false,
+    "isApplicant" : false,
+    "id" : 1,
+    "username" : "손영민",
+    "email" : "ssar@nate.com",
+    "phone" : "01012345678",
+    "userId" : 1,
+    "job" : {
+      "id" : 1,
+      "name" : "백엔드 개발자"
+    },
+    "resumeStack" : [ {
+      "skill" : "java"
+    } ],
+    "jobId" : null,
+    "title" : "백엔드 신입 개발자 지원서",
+    "exp" : "컴퓨터공학 전공, 인턴 경험 3개월",
+    "edu" : "부산대학교 컴퓨터공학과 졸업",
+    "location" : "서울",
+    "qualified" : "정보처리기사",
+    "activity" : "멋쟁이사자처럼 10기 활동",
+    "imgUrl" : null,
+    "letter" : "사용자 중심의 웹 서비스를 만드는 것이 저의 목표입니다. HTML, CSS, JavaScript를 활용해 여러 웹 프로젝트를 진행했으며, 특히 반응형 UI 구현에 강점을 가지고 있습니다. 새로운 기술에 대한 학습을 즐기며 팀과의 소통을 중요시합니다."
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_이력서_작성">3. 이력서 작성</h3>
+<div class="sect4">
+<h5 id="_request_example_16">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /s/api/resume HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyOCwidXNlcm5hbWUiOiJzc2FyIn0.gypNkUgZSx_SbgnSCBVEZTQ0Gtr4XO5TOVkgJyKBfwdrPMOLo5VQAOyr6GM_2VWWRTUYq9D7lm_Yl1CbtKxkLg
+Content-Length: 485
+Host: localhost:8080
+
+{
+  "user_id" : null,
+  "title" : "title",
+  "personalHistory" : "경력",
+  "experiencedDate" : "1 ~ 3년 차",
+  "educationLevel" : "대학교 / 졸업",
+  "schoolName" : "부산대학교",
+  "jobId" : 2,
+  "region" : "부산광역시",
+  "regionDetail" : "해운대구",
+  "qualified" : null,
+  "activity" : null,
+  "uploadingImg" : null,
+  "imgUrl" : null,
+  "letter" : "웹 서비스를 만드는 것이 저의 목표입니다.",
+  "skills" : [ "Java", "mySql" ]
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_16">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 456
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "id" : 31,
+    "title" : "title",
+    "userId" : 1,
+    "exp" : "경력 1 ~ 3년 차",
+    "edu" : "대학교 / 졸업 $부산대학교",
+    "jobId" : 2,
+    "location" : "부산광역시 해운대구",
+    "qualified" : "없음",
+    "activity" : "없음",
+    "img_url" : null,
+    "letter" : "웹 서비스를 만드는 것이 저의 목표입니다.",
+    "imgUrl" : null
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_이력서_수정_화면">4. 이력서 수정 화면</h3>
+<div class="sect4">
+<h5 id="_request_example_17">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /s/api/resume/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyOCwidXNlcm5hbWUiOiJzc2FyIn0.gypNkUgZSx_SbgnSCBVEZTQ0Gtr4XO5TOVkgJyKBfwdrPMOLo5VQAOyr6GM_2VWWRTUYq9D7lm_Yl1CbtKxkLg
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_17">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 3986
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "jobList" : [ {
+      "id" : 1,
+      "name" : "백엔드 개발자",
+      "jobSelected" : true
+    }, {
+      "id" : 2,
+      "name" : "프론트엔드 개발자",
+      "jobSelected" : false
+    }, {
+      "id" : 3,
+      "name" : "풀스택 개발자",
+      "jobSelected" : false
+    }, {
+      "id" : 4,
+      "name" : "데이터 엔지니어",
+      "jobSelected" : false
+    }, {
+      "id" : 5,
+      "name" : "ai 엔지니어",
+      "jobSelected" : false
+    }, {
+      "id" : 6,
+      "name" : "웹 퍼블리셔",
+      "jobSelected" : false
+    }, {
+      "id" : 7,
+      "name" : "앱 개발자",
+      "jobSelected" : false
+    }, {
+      "id" : 8,
+      "name" : "qa 엔지니어",
+      "jobSelected" : false
+    }, {
+      "id" : 9,
+      "name" : "devops 엔지니어",
+      "jobSelected" : false
+    }, {
+      "id" : 10,
+      "name" : "보안 엔지니어",
+      "jobSelected" : false
+    }, {
+      "id" : 11,
+      "name" : "프로덕트 매니저",
+      "jobSelected" : false
+    }, {
+      "id" : 12,
+      "name" : "ui 디자이너",
+      "jobSelected" : false
+    }, {
+      "id" : 13,
+      "name" : "ux 디자이너",
+      "jobSelected" : false
+    }, {
+      "id" : 14,
+      "name" : "데이터 분석가",
+      "jobSelected" : false
+    }, {
+      "id" : 15,
+      "name" : "기획자",
+      "jobSelected" : false
+    } ],
+    "stackList" : [ {
+      "skill" : "java",
+      "stackChecked" : true
+    }, {
+      "skill" : "spring boot",
+      "stackChecked" : false
+    }, {
+      "skill" : "mysql",
+      "stackChecked" : false
+    }, {
+      "skill" : "javascript",
+      "stackChecked" : false
+    }, {
+      "skill" : "react",
+      "stackChecked" : false
+    }, {
+      "skill" : "html",
+      "stackChecked" : false
+    }, {
+      "skill" : "css",
+      "stackChecked" : false
+    }, {
+      "skill" : "node.js",
+      "stackChecked" : false
+    }, {
+      "skill" : "typescript",
+      "stackChecked" : false
+    }, {
+      "skill" : "python",
+      "stackChecked" : false
+    }, {
+      "skill" : "postgresql",
+      "stackChecked" : false
+    }, {
+      "skill" : "aws",
+      "stackChecked" : false
+    }, {
+      "skill" : "git",
+      "stackChecked" : false
+    }, {
+      "skill" : "figma",
+      "stackChecked" : false
+    }, {
+      "skill" : "next.js",
+      "stackChecked" : false
+    }, {
+      "skill" : "tailwind css",
+      "stackChecked" : false
+    } ],
+    "id" : 1,
+    "title" : "백엔드 신입 개발자 지원서",
+    "selectedJobId" : 1,
+    "selectedStacks" : [ "java" ],
+    "exp" : "컴퓨터공학",
+    "expYear" : "전공, 인턴 경험 3개월",
+    "edu" : "",
+    "schoolName" : "",
+    "location" : "서울",
+    "region" : "서울",
+    "regionDetail" : "",
+    "qualified" : "정보처리기사",
+    "activity" : "멋쟁이사자처럼 10기 활동",
+    "letter" : "사용자 중심의 웹 서비스를 만드는 것이 저의 목표입니다. HTML, CSS, JavaScript를 활용해 여러 웹 프로젝트를 진행했으며, 특히 반응형 UI 구현에 강점을 가지고 있습니다. 새로운 기술에 대한 학습을 즐기며 팀과의 소통을 중요시합니다.",
+    "principal" : false,
+    "manager" : false,
+    "univGraduated" : false,
+    "gyeongbuk" : false,
+    "gyeonggi" : false,
+    "highGraduated" : false,
+    "gyeongnam" : false,
+    "univEnrolled" : false,
+    "chungbuk" : false,
+    "chungnam" : false,
+    "gangwon" : false,
+    "newbie" : false,
+    "master" : false,
+    "daejeon" : false,
+    "junior" : false,
+    "incheon" : false,
+    "ulsan" : false,
+    "senior" : false,
+    "seoul" : false,
+    "gwangju" : false,
+    "sejong" : false,
+    "jeonbuk" : false,
+    "jeonnam" : false,
+    "busan" : false,
+    "jeju" : false,
+    "daegu" : false
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_5_이력서_수정">5. 이력서 수정</h3>
+<div class="sect4">
+<h5 id="_request_example_18">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">PUT /s/api/resume/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyOCwidXNlcm5hbWUiOiJzc2FyIn0.gypNkUgZSx_SbgnSCBVEZTQ0Gtr4XO5TOVkgJyKBfwdrPMOLo5VQAOyr6GM_2VWWRTUYq9D7lm_Yl1CbtKxkLg
+Content-Length: 533
+Host: localhost:8080
+
+{
+  "user_id" : null,
+  "title" : "title",
+  "personalHistory" : "경력",
+  "experiencedDate" : "1 ~ 3년 차",
+  "educationLevel" : "대학교 / 졸업",
+  "schoolName" : "부산대학교",
+  "jobId" : 2,
+  "region" : "부산광역시",
+  "regionDetail" : "해운대구",
+  "qualified" : "정보처리기사",
+  "activity" : "멋쟁이사자처럼 10기 활동",
+  "uploadingImg" : null,
+  "imgUrl" : null,
+  "letter" : "웹 서비스를 만드는 것이 저의 목표입니다.",
+  "skills" : [ "Java", "mySql" ]
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_18">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 495
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "id" : 1,
+    "title" : "title",
+    "userId" : 1,
+    "exp" : "경력 1 ~ 3년 차",
+    "edu" : "대학교 / 졸업 $부산대학교",
+    "jobId" : 2,
+    "location" : "부산광역시 해운대구",
+    "qualified" : "정보처리기사",
+    "activity" : "멋쟁이사자처럼 10기 활동",
+    "img_url" : null,
+    "letter" : "웹 서비스를 만드는 것이 저의 목표입니다.",
+    "imgUrl" : null
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_이력서_삭제">6. 이력서 삭제</h3>
+<div class="sect4">
+<h5 id="_request_example_19">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">DELETE /s/api/resume/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyOCwidXNlcm5hbWUiOiJzc2FyIn0.gypNkUgZSx_SbgnSCBVEZTQ0Gtr4XO5TOVkgJyKBfwdrPMOLo5VQAOyr6GM_2VWWRTUYq9D7lm_Yl1CbtKxkLg
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_19">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 61
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : null
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_추천">추천</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_받은_제안_및_추천_채용_공고">1. 받은 제안 및 추천 채용 공고</h3>
+<div class="sect4">
+<h5 id="_request_example_20">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /s/api/match HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiJzc2FyIn0.61P02m-xE-yOwj39CIuY7StEgwm7PQWDQscgv4Rf_C3rgtPsINTgyoHpk-RDLy5U_mq3hmEkE_euTXQiaHnEyQ
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_20">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 16359
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "proposalList" : [ {
+      "id" : 21,
+      "title" : "HOG에서 UX 디자이너 찾습니다",
+      "comName" : "HOG",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 성동구"
+    }, {
+      "id" : 32,
+      "title" : "보안 엔지니어 팀원 채용합니다",
+      "comName" : "에이펙스 테크놀로지",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 노원구"
+    }, {
+      "id" : 43,
+      "title" : "수진소프트에서 보안 엔지니어 찾습니다",
+      "comName" : "넥스트소프트",
+      "exp" : "5 ~ 7년 차",
+      "location" : "서울특별시 강서구"
+    } ],
+    "recommendationList" : [ {
+      "id" : 1,
+      "title" : "Spring 백엔드 개발자 모집",
+      "comName" : "WWY",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 강남구"
+    }, {
+      "id" : 2,
+      "title" : "프론트엔드 React 개발자 채용",
+      "comName" : "WWY",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 마포구"
+    }, {
+      "id" : 3,
+      "title" : "신입 백엔드 인턴 모집",
+      "comName" : "WWY",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 종로구"
+    }, {
+      "id" : 4,
+      "title" : "데이터 분석가 채용",
+      "comName" : "WWY",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 성동구"
+    }, {
+      "id" : 5,
+      "title" : "AI 엔지니어 팀원 채용합니다",
+      "comName" : "WWY",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 강서구"
+    }, {
+      "id" : 6,
+      "title" : "함께 성장할 DevOps 엔지니어 구인",
+      "comName" : "WWY",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 마포구"
+    }, {
+      "id" : 7,
+      "title" : "신입 기획자 채용",
+      "comName" : "WWY",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 용산구"
+    }, {
+      "id" : 9,
+      "title" : "신입 QA 엔지니어 채용",
+      "comName" : "WWY",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 마포구"
+    }, {
+      "id" : 11,
+      "title" : "데이터 분석가 팀원 채용합니다",
+      "comName" : "WWY",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 성동구"
+    }, {
+      "id" : 12,
+      "title" : "백엔드 개발자 팀원 채용합니다",
+      "comName" : "WWY",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 종로구"
+    }, {
+      "id" : 13,
+      "title" : "WWY에서 DevOps 엔지니어 찾습니다",
+      "comName" : "WWY",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 종로구"
+    }, {
+      "id" : 14,
+      "title" : "보안 엔지니어 팀원 채용합니다",
+      "comName" : "WWY",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 은평구"
+    }, {
+      "id" : 15,
+      "title" : "웹 프론트엔드 인턴 채용",
+      "comName" : "HOG",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 강남구"
+    }, {
+      "id" : 16,
+      "title" : "데이터 분석 인턴 모집",
+      "comName" : "HOG",
+      "exp" : "5 ~ 7년 차",
+      "location" : "서울특별시 마포구"
+    }, {
+      "id" : 17,
+      "title" : "3년 이상 풀스택 개발자 채용",
+      "comName" : "HOG",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 마포구"
+    }, {
+      "id" : 18,
+      "title" : "HOG에서 데이터 분석가 찾습니다",
+      "comName" : "HOG",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 노원구"
+    }, {
+      "id" : 19,
+      "title" : "백엔드 개발자 팀원 채용합니다",
+      "comName" : "HOG",
+      "exp" : "5 ~ 7년 차",
+      "location" : "서울특별시 중구"
+    }, {
+      "id" : 20,
+      "title" : "HOG에서 UX 디자이너 찾습니다",
+      "comName" : "HOG",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 마포구"
+    }, {
+      "id" : 21,
+      "title" : "HOG에서 UX 디자이너 찾습니다",
+      "comName" : "HOG",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 성동구"
+    }, {
+      "id" : 22,
+      "title" : "보안 엔지니어 팀원 채용합니다",
+      "comName" : "HOG",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 중구"
+    }, {
+      "id" : 23,
+      "title" : "데이터 분석가 신입/경력자 모집",
+      "comName" : "HOG",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 강남구"
+    }, {
+      "id" : 25,
+      "title" : "데이터 분석가 팀원 채용합니다",
+      "comName" : "HOG",
+      "exp" : "5 ~ 7년 차",
+      "location" : "서울특별시 용산구"
+    }, {
+      "id" : 27,
+      "title" : "풀스택 개발자 팀원 채용합니다",
+      "comName" : "에이펙스 테크놀로지",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 마포구"
+    }, {
+      "id" : 28,
+      "title" : "백엔드 개발자 신입/경력자 모집",
+      "comName" : "에이펙스 테크놀로지",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 강서구"
+    }, {
+      "id" : 29,
+      "title" : "프론트엔드 개발자 신입/경력자 모집",
+      "comName" : "에이펙스 테크놀로지",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 중구"
+    }, {
+      "id" : 30,
+      "title" : "UI 디자이너 팀원 채용합니다",
+      "comName" : "에이펙스 테크놀로지",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 은평구"
+    }, {
+      "id" : 31,
+      "title" : "에이펙스 테크놀로지에서 UX 디자이너 찾습니다",
+      "comName" : "에이펙스 테크놀로지",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 마포구"
+    }, {
+      "id" : 32,
+      "title" : "보안 엔지니어 팀원 채용합니다",
+      "comName" : "에이펙스 테크놀로지",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 노원구"
+    }, {
+      "id" : 33,
+      "title" : "프론트엔드 개발자 팀원 채용합니다",
+      "comName" : "에이펙스 테크놀로지",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 종로구"
+    }, {
+      "id" : 34,
+      "title" : "함께 성장할 DevOps 엔지니어 구인",
+      "comName" : "에이펙스 테크놀로지",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 중구"
+    }, {
+      "id" : 35,
+      "title" : "웹 퍼블리셔 신입/경력자 모집",
+      "comName" : "에이펙스 테크놀로지",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 강서구"
+    }, {
+      "id" : 36,
+      "title" : "함께 성장할 풀스택 개발자 구인",
+      "comName" : "에이펙스 테크놀로지",
+      "exp" : "5 ~ 7년 차",
+      "location" : "서울특별시 마포구"
+    }, {
+      "id" : 37,
+      "title" : "신입 데이터 엔지니어 채용",
+      "comName" : "넥스트소프트",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 용산구"
+    }, {
+      "id" : 38,
+      "title" : "신입 AI 엔지니어 채용",
+      "comName" : "넥스트소프트",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 마포구"
+    }, {
+      "id" : 39,
+      "title" : "3년 이상 DevOps 엔지니어 채용",
+      "comName" : "넥스트소프트",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 노원구"
+    }, {
+      "id" : 41,
+      "title" : "프론트엔드 개발자 신입/경력자 모집",
+      "comName" : "넥스트소프트",
+      "exp" : "5 ~ 7년 차",
+      "location" : "서울특별시 은평구"
+    }, {
+      "id" : 43,
+      "title" : "수진소프트에서 보안 엔지니어 찾습니다",
+      "comName" : "넥스트소프트",
+      "exp" : "5 ~ 7년 차",
+      "location" : "서울특별시 강서구"
+    }, {
+      "id" : 44,
+      "title" : "함께 성장할 풀스택 개발자 구인",
+      "comName" : "넥스트소프트",
+      "exp" : "5 ~ 7년 차",
+      "location" : "서울특별시 노원구"
+    }, {
+      "id" : 45,
+      "title" : "앱 개발자 신입/경력자 모집",
+      "comName" : "넥스트소프트",
+      "exp" : "5 ~ 7년 차",
+      "location" : "서울특별시 성동구"
+    }, {
+      "id" : 46,
+      "title" : "웹 퍼블리셔 신입/경력자 모집",
+      "comName" : "넥스트소프트",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 중구"
+    }, {
+      "id" : 47,
+      "title" : "1년 이상 프로덕트 매니저 채용",
+      "comName" : "씨에스 솔루션즈",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 강서구"
+    }, {
+      "id" : 48,
+      "title" : "3년 이상 앱 개발자 채용",
+      "comName" : "씨에스 솔루션즈",
+      "exp" : "5 ~ 7년 차",
+      "location" : "서울특별시 서초구"
+    }, {
+      "id" : 49,
+      "title" : "신입 DevOps 엔지니어 채용",
+      "comName" : "씨에스 솔루션즈",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 은평구"
+    }, {
+      "id" : 50,
+      "title" : "3년 이상 데이터 분석가 채용",
+      "comName" : "씨에스 솔루션즈",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 강서구"
+    }, {
+      "id" : 51,
+      "title" : "데이터 엔지니어 신입/경력자 모집",
+      "comName" : "씨에스 솔루션즈",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 노원구"
+    }, {
+      "id" : 52,
+      "title" : "프로덕트 매니저 팀원 채용합니다",
+      "comName" : "씨에스 솔루션즈",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 마포구"
+    }, {
+      "id" : 53,
+      "title" : "AI 엔지니어 신입/경력자 모집",
+      "comName" : "씨에스 솔루션즈",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 서초구"
+    }, {
+      "id" : 54,
+      "title" : "웹 퍼블리셔 팀원 채용합니다",
+      "comName" : "씨에스 솔루션즈",
+      "exp" : "5 ~ 7년 차",
+      "location" : "서울특별시 은평구"
+    }, {
+      "id" : 55,
+      "title" : "씨에스 솔루션즈에서 기획자 찾습니다",
+      "comName" : "씨에스 솔루션즈",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 은평구"
+    }, {
+      "id" : 57,
+      "title" : "UX 디자이너 팀원 채용합니다",
+      "comName" : "이지커머스",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 성동구"
+    }, {
+      "id" : 59,
+      "title" : "함께 성장할 QA 엔지니어 구인",
+      "comName" : "이지커머스",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 노원구"
+    }, {
+      "id" : 60,
+      "title" : "기획자 신입/경력자 모집",
+      "comName" : "이지커머스",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 성동구"
+    }, {
+      "id" : 61,
+      "title" : "이지커머스에서 데이터 엔지니어 찾습니다",
+      "comName" : "이지커머스",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 성동구"
+    }, {
+      "id" : 62,
+      "title" : "이지커머스에서 DevOps 엔지니어 찾습니다",
+      "comName" : "이지커머스",
+      "exp" : "5 ~ 7년 차",
+      "location" : "서울특별시 성동구"
+    }, {
+      "id" : 63,
+      "title" : "UX 디자이너 신입/경력자 모집",
+      "comName" : "이지커머스",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 중구"
+    }, {
+      "id" : 64,
+      "title" : "웹 퍼블리셔 신입/경력자 모집",
+      "comName" : "이지커머스",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 종로구"
+    }, {
+      "id" : 65,
+      "title" : "프론트엔드 개발자 신입/경력자 모집",
+      "comName" : "이지커머스",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 강서구"
+    }, {
+      "id" : 66,
+      "title" : "함께 성장할 DevOps 엔지니어 구인",
+      "comName" : "이지커머스",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 중구"
+    }, {
+      "id" : 67,
+      "title" : "프론트엔드 개발자 신입/경력자 모집",
+      "comName" : "에버IT",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 중구"
+    }, {
+      "id" : 68,
+      "title" : "에버IT에서 웹 퍼블리셔 찾습니다",
+      "comName" : "에버IT",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 노원구"
+    }, {
+      "id" : 69,
+      "title" : "에버IT에서 데이터 분석가 찾습니다",
+      "comName" : "에버IT",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 용산구"
+    }, {
+      "id" : 70,
+      "title" : "함께 성장할 보안 엔지니어 구인",
+      "comName" : "에버IT",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 종로구"
+    }, {
+      "id" : 71,
+      "title" : "에버IT에서 웹 퍼블리셔 찾습니다",
+      "comName" : "에버IT",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 용산구"
+    }, {
+      "id" : 73,
+      "title" : "데이터 엔지니어 팀원 채용합니다",
+      "comName" : "에버IT",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 중구"
+    }, {
+      "id" : 75,
+      "title" : "에버IT에서 앱 개발자 찾습니다",
+      "comName" : "에버IT",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 용산구"
+    }, {
+      "id" : 76,
+      "title" : "함께 성장할 AI 엔지니어 구인",
+      "comName" : "에버IT",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 은평구"
+    }, {
+      "id" : 77,
+      "title" : "DevOps 엔지니어 팀원 채용합니다",
+      "comName" : "그림솔루션",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 강남구"
+    }, {
+      "id" : 78,
+      "title" : "AI 엔지니어 팀원 채용합니다",
+      "comName" : "그림솔루션",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 마포구"
+    }, {
+      "id" : 79,
+      "title" : "함께 성장할 기획자 구인",
+      "comName" : "그림솔루션",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 강남구"
+    }, {
+      "id" : 80,
+      "title" : "신입 백엔드 개발자 채용",
+      "comName" : "그림솔루션",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 종로구"
+    }, {
+      "id" : 81,
+      "title" : "신입 웹 퍼블리셔 채용",
+      "comName" : "그림솔루션",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 노원구"
+    }, {
+      "id" : 82,
+      "title" : "DevOps 엔지니어 팀원 채용합니다",
+      "comName" : "그림솔루션",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 서초구"
+    }, {
+      "id" : 83,
+      "title" : "풀스택 개발자 신입/경력자 모집",
+      "comName" : "그림솔루션",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 노원구"
+    }, {
+      "id" : 84,
+      "title" : "그림솔루션에서 DevOps 엔지니어 찾습니다",
+      "comName" : "그림솔루션",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 강남구"
+    }, {
+      "id" : 85,
+      "title" : "UI 디자이너 신입/경력자 모집",
+      "comName" : "그림솔루션",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 노원구"
+    }, {
+      "id" : 86,
+      "title" : "데이터 분석가 팀원 채용합니다",
+      "comName" : "그림솔루션",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 강서구"
+    } ],
+    "companyUser" : false
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_추천_이력서">2. 추천 이력서</h3>
+<div class="sect4">
+<h5 id="_request_example_21">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /s/api/match/com HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MSwiaWQiOjcsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiJIT0cifQ.hZXiYEI8lK_BHz6QcQWEewg9vbRP9T-o_ftkze4bbPEcaaYkzPnQcT2BudXp710MlyR1VdrRQ-04UnpA8gUlrw
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_21">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 3741
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "resumes" : [ {
+      "id" : 1,
+      "title" : "백엔드 신입 개발자 지원서",
+      "author" : "손영민"
+    }, {
+      "id" : 2,
+      "title" : "Spring 기반 개발 프로젝트 경험",
+      "author" : "손영민"
+    }, {
+      "id" : 3,
+      "title" : "AWS 클라우드 기반 백엔드 프로젝트",
+      "author" : "손영민"
+    }, {
+      "id" : 4,
+      "title" : "Maven, Gradle 빌드 경험 중심 이력서",
+      "author" : "손영민"
+    }, {
+      "id" : 5,
+      "title" : "Redis, Kafka 활용 경험",
+      "author" : "손영민"
+    }, {
+      "id" : 6,
+      "title" : "스프링 시큐리티 인증 인가 구축",
+      "author" : "손영민"
+    }, {
+      "id" : 7,
+      "title" : "프론트엔드 포지션 지원 이력서",
+      "author" : "서회정"
+    }, {
+      "id" : 8,
+      "title" : "웹 퍼블리셔 + 프론트엔드 복합 지원서",
+      "author" : "서회정"
+    }, {
+      "id" : 9,
+      "title" : "Figma 활용한 UX/UI 디자인 포트폴리오",
+      "author" : "서회정"
+    }, {
+      "id" : 10,
+      "title" : "Vue.js SPA 프로젝트 개발 이력서",
+      "author" : "서회정"
+    }, {
+      "id" : 11,
+      "title" : "반응형 웹 구축 프로젝트",
+      "author" : "서회정"
+    }, {
+      "id" : 12,
+      "title" : "웹 표준, 접근성 준수 개발 이력서",
+      "author" : "서회정"
+    }, {
+      "id" : 13,
+      "title" : "프론트와 백엔드를 넘나드는 풀스택 꿈나무",
+      "author" : "편준민"
+    }, {
+      "id" : 14,
+      "title" : "REST API 설계 및 DB 모델링 경험 중심",
+      "author" : "편준민"
+    }, {
+      "id" : 15,
+      "title" : "Vue.js 기반 대시보드 프로젝트 경험",
+      "author" : "편준민"
+    }, {
+      "id" : 16,
+      "title" : "Node.js와 Express.js를 활용한 REST API",
+      "author" : "편준민"
+    }, {
+      "id" : 17,
+      "title" : "MongoDB와 MySQL 데이터베이스 설계 경험",
+      "author" : "편준민"
+    }, {
+      "id" : 18,
+      "title" : "PM 경험을 통한 협업 리더십 강조 이력서",
+      "author" : "편준민"
+    }, {
+      "id" : 19,
+      "title" : "신입 백엔드 개발자 포지션 지원서",
+      "author" : "김민지"
+    }, {
+      "id" : 20,
+      "title" : "DB 설계 및 최적화 경험",
+      "author" : "김민지"
+    }, {
+      "id" : 21,
+      "title" : "AWS 인프라 구축 및 운영 경험",
+      "author" : "김민지"
+    }, {
+      "id" : 22,
+      "title" : "Spring Security + OAuth2.0 로그인 구현",
+      "author" : "김민지"
+    }, {
+      "id" : 23,
+      "title" : "ElasticSearch 연동 검색 서비스 개발",
+      "author" : "김민지"
+    }, {
+      "id" : 24,
+      "title" : "Redis 세션 클러스터링 프로젝트",
+      "author" : "김민지"
+    }, {
+      "id" : 25,
+      "title" : "프론트엔드 신입 지원 이력서",
+      "author" : "박서준"
+    }, {
+      "id" : 26,
+      "title" : "UI/UX 포트폴리오 기반 이력서",
+      "author" : "박서준"
+    }, {
+      "id" : 27,
+      "title" : "Typescript 기반 React 개발 경험",
+      "author" : "박서준"
+    }, {
+      "id" : 28,
+      "title" : "반응형 웹사이트 구축 실습 중심",
+      "author" : "박서준"
+    }, {
+      "id" : 29,
+      "title" : "React Native 앱 개발 경험",
+      "author" : "박서준"
+    }, {
+      "id" : 30,
+      "title" : "GraphQL API 연동 경험",
+      "author" : "박서준"
+    } ],
+    "sessionUserId" : 7,
+    "isCompanyUser" : true
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_스크랩">스크랩</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_스크랩_리스트">1. 스크랩 리스트</h3>
+<div class="sect4">
+<h5 id="_request_example_22">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /s/api/mypage/scrap?page=1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyOCwidXNlcm5hbWUiOiJzc2FyIn0.gypNkUgZSx_SbgnSCBVEZTQ0Gtr4XO5TOVkgJyKBfwdrPMOLo5VQAOyr6GM_2VWWRTUYq9D7lm_Yl1CbtKxkLg
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_22">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 2246
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "scraps" : [ {
+      "title" : "Spring 백엔드 개발자 모집",
+      "comName" : "WWY",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 강남구",
+      "name" : "백엔드 개발자",
+      "employmentId" : 1
+    }, {
+      "title" : "AI 엔지니어 팀원 채용합니다",
+      "comName" : "WWY",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 강서구",
+      "name" : "ai 엔지니어",
+      "employmentId" : 5
+    }, {
+      "title" : "UX 디자이너 팀원 채용합니다",
+      "comName" : "WWY",
+      "exp" : "1 ~ 3년 차",
+      "location" : "서울특별시 강서구",
+      "name" : "ux 디자이너",
+      "employmentId" : 8
+    }, {
+      "title" : "신입 데이터 분석가 채용",
+      "comName" : "WWY",
+      "exp" : "7 ~ 9년 차",
+      "location" : "서울특별시 강남구",
+      "name" : "데이터 분석가",
+      "employmentId" : 10
+    }, {
+      "title" : "데이터 분석가 팀원 채용합니다",
+      "comName" : "WWY",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 성동구",
+      "name" : "데이터 분석가",
+      "employmentId" : 11
+    }, {
+      "title" : "HOG에서 데이터 분석가 찾습니다",
+      "comName" : "HOG",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 노원구",
+      "name" : "데이터 분석가",
+      "employmentId" : 18
+    }, {
+      "title" : "HOG에서 UX 디자이너 찾습니다",
+      "comName" : "HOG",
+      "exp" : "10년 이상",
+      "location" : "서울특별시 성동구",
+      "name" : "ux 디자이너",
+      "employmentId" : 21
+    }, {
+      "title" : "프론트엔드 개발자 신입/경력자 모집",
+      "comName" : "에이펙스 테크놀로지",
+      "exp" : "3 ~ 5년 차",
+      "location" : "서울특별시 중구",
+      "name" : "프론트엔드 개발자",
+      "employmentId" : 29
+    } ],
+    "current" : 1,
+    "totalCount" : 10,
+    "prev" : 0,
+    "next" : 2,
+    "resumeId" : null,
+    "size" : 8,
+    "totalPage" : 2,
+    "isFirst" : true,
+    "isLast" : false,
+    "numbers" : [ 1, 2 ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_스크랩">2. 스크랩</h3>
+<div class="sect4">
+<h5 id="_request_example_23">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /s/api/scrap HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyOCwidXNlcm5hbWUiOiJzc2FyIn0.gypNkUgZSx_SbgnSCBVEZTQ0Gtr4XO5TOVkgJyKBfwdrPMOLo5VQAOyr6GM_2VWWRTUYq9D7lm_Yl1CbtKxkLg
+Content-Length: 73
+Host: localhost:8080
+
+{
+  "sessionUser" : null,
+  "employmentId" : 1,
+  "resumeId" : null
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_23">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 84
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "scrapId" : 101
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_스크랩_삭제">3. 스크랩 삭제</h3>
+<div class="sect4">
+<h5 id="_request_example_24">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">DELETE /s/api/scrap/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyOCwidXNlcm5hbWUiOiJzc2FyIn0.gypNkUgZSx_SbgnSCBVEZTQ0Gtr4XO5TOVkgJyKBfwdrPMOLo5VQAOyr6GM_2VWWRTUYq9D7lm_Yl1CbtKxkLg
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_24">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 61
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : null
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_제안">제안</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_제안하기">1. 제안하기</h3>
+<div class="sect4">
+<h5 id="_request_example_25">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /s/api/recommend/1?resumeId=1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MSwiaWQiOjYsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiLrrLjsoJXspIAifQ.AO3af2CtpSi_iW9DtPIXJ0tc14QWMC6QWsNfzDQGBRUNaHPsS2vNOnMyMR45wY2W2ILl6SLA1atiy59LaC6FNg
+Content-Length: 45
+Host: localhost:8080
+
+{
+  "resumeId" : 1,
+  "employmentId" : 1
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_25">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 191
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "id" : 4,
+    "userId" : 6,
+    "resumeId" : 1,
+    "employmentId" : 1,
+    "createdAt" : "2025-05-21 15:38:47.886616"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_지원">지원</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_지원_목록">1. 지원 목록</h3>
+<div class="sect4">
+<h5 id="_request_example_26">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /s/api/apply HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyNiwidXNlcm5hbWUiOiJzc2FyIn0.SbjYBkVMoHl1A1mI86rBCcZeYr7gGCdLLOjvKLY1q4YpnbxQLhPsdciVb2bxEAUJjcw_etCL2albbgyrmR2LCg
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_26">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 564
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "userApplyList" : [ {
+      "comName" : "WWY",
+      "name" : "ai 엔지니어",
+      "createdAt" : "2025-05-21",
+      "progress" : "대기"
+    }, {
+      "comName" : "WWY",
+      "name" : "백엔드 개발자",
+      "createdAt" : "2025-05-21",
+      "progress" : "대기"
+    }, {
+      "comName" : "WWY",
+      "name" : "프론트엔드 개발자",
+      "createdAt" : "2025-05-21",
+      "progress" : "완료"
+    } ],
+    "sessionUserId" : 1,
+    "isCompanyUser" : false
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_지원_현황_관리">2. 지원 현황 관리</h3>
+<div class="sect4">
+<h5 id="_request_example_27">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /s/api/apply/com HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MSwiaWQiOjcsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiJIT0cifQ.hZXiYEI8lK_BHz6QcQWEewg9vbRP9T-o_ftkze4bbPEcaaYkzPnQcT2BudXp710MlyR1VdrRQ-04UnpA8gUlrw
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_27">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 141
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "comApplys" : [ ],
+    "sessionUserId" : 7,
+    "isCompanyUser" : true
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_지원하기">3. 지원하기</h3>
+<div class="sect4">
+<h5 id="_request_example_28">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /s/api/apply?resumeId=1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyNiwidXNlcm5hbWUiOiJzc2FyIn0.SbjYBkVMoHl1A1mI86rBCcZeYr7gGCdLLOjvKLY1q4YpnbxQLhPsdciVb2bxEAUJjcw_etCL2albbgyrmR2LCg
+Content-Length: 45
+Host: localhost:8080
+
+{
+  "resumeId" : 1,
+  "employmentId" : 1
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_28">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 219
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "id" : 6,
+    "userId" : 1,
+    "resumeId" : 1,
+    "employmentId" : 1,
+    "createdAt" : "2025-05-21 15:38:46.982556",
+    "progress" : "대기"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_지원_상태_수정">4. 지원 상태 수정</h3>
+<div class="sect4">
+<h5 id="_request_example_29">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">PUT /s/api/apply HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyNiwidXNlcm5hbWUiOiJzc2FyIn0.SbjYBkVMoHl1A1mI86rBCcZeYr7gGCdLLOjvKLY1q4YpnbxQLhPsdciVb2bxEAUJjcw_etCL2albbgyrmR2LCg
+Content-Length: 53
+Host: localhost:8080
+
+{
+  "applyId" : "1",
+  "progress" : "진행 중"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_29">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 223
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "id" : 1,
+    "userId" : 1,
+    "resumeId" : 1,
+    "employmentId" : 1,
+    "createdAt" : "2025-05-21 15:38:46.546456",
+    "progress" : "진행 중"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_커뮤니티">커뮤니티</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_게시글_목록">1. 게시글 목록</h3>
+<div class="sect4">
+<h5 id="_request_example_30">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/board?page=1&amp;keyword= HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiJzc2FyIn0.61P02m-xE-yOwj39CIuY7StEgwm7PQWDQscgv4Rf_C3rgtPsINTgyoHpk-RDLy5U_mq3hmEkE_euTXQiaHnEyQ
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_30">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 2257
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "boards" : [ {
+      "id" : 10,
+      "title" : "중소기업 채용 어려운 이유, 어떻게 극복할까요?",
+      "content" : "최근 구직자들의 지원율이 너무 낮아 고민입니다. 우리 같은 중소기업이 매력적으로 보일 방법이 궁금합니다.",
+      "username" : "박정수",
+      "createdAt" : "2025-05-21 15:38:46.547456"
+    }, {
+      "id" : 9,
+      "title" : "광고비 아껴서 채용 홍보하는 방법 있을까요?",
+      "content" : "광고 예산이 한정되어 있는데 채용 공고를 널리 알릴 수 있는 방법이 있을지 고민하고 있습니다. 아이디어가 필요합니다.",
+      "username" : "김수진",
+      "createdAt" : "2025-05-21 15:38:46.547456"
+    }, {
+      "id" : 8,
+      "title" : "스타트업 기업 문화 매력 어필하는 방법?",
+      "content" : "복지나 연봉이 대기업에 비해 약한 스타트업입니다. 대신 성장 기회를 어필하고 싶은데 효과적인 방법이 있을까요?",
+      "username" : "이상훈",
+      "createdAt" : "2025-05-21 15:38:46.547456"
+    }, {
+      "id" : 7,
+      "title" : "인턴 채용 후 정규직 전환율 높이는 방법?",
+      "content" : "인턴 채용은 많은데 정규직 전환까지 이어지는 경우가 드뭅니다. 전환율을 높이려면 어떤 관리 포인트가 필요한지 궁금합니다.",
+      "username" : "홍길동",
+      "createdAt" : "2025-05-21 15:38:46.547456"
+    }, {
+      "id" : 6,
+      "title" : "신입 개발자 채용 시 가장 중요하게 보는 역량은?",
+      "content" : "신입 채용 시 스펙보다는 실질적인 역량을 평가하려고 합니다. 실무 역량을 어떤 식으로 검증하는 게 좋을지 고민입니다.",
+      "username" : "문정준",
+      "createdAt" : "2025-05-21 15:38:46.547456"
+    } ],
+    "current" : 1,
+    "totalCount" : 15,
+    "keyword" : "",
+    "sessionUserId" : null,
+    "isCompanyUser" : false,
+    "prev" : 0,
+    "next" : 2,
+    "prevPage" : 1,
+    "nextPage" : 3,
+    "size" : 5,
+    "totalPage" : 3,
+    "isFirst" : false,
+    "isLast" : false,
+    "numbers" : [ 1, 2, 3 ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_게시글_상세보기">2. 게시글 상세보기</h3>
+<div class="sect4">
+<h5 id="_request_example_31">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/board/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiJzc2FyIn0.61P02m-xE-yOwj39CIuY7StEgwm7PQWDQscgv4Rf_C3rgtPsINTgyoHpk-RDLy5U_mq3hmEkE_euTXQiaHnEyQ
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_31">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 1048
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "replyList" : [ {
+      "boardId" : 1,
+      "id" : 1,
+      "username" : "서회정",
+      "content" : "저도 포폴 준비중인데 개빡세요ㅠㅠ 같이 힘내요!",
+      "createdAt" : "2025-05-21T06:38:46.547+00:00",
+      "isOwner" : false
+    }, {
+      "boardId" : 1,
+      "id" : 2,
+      "username" : "편준민",
+      "content" : "포폴은 진짜 필수 같아요 ㅠ 저 포폴 없어서 떨어진 적 있음..",
+      "createdAt" : "2025-05-21T06:38:46.547+00:00",
+      "isOwner" : false
+    } ],
+    "sessionUserId" : null,
+    "isOwner" : false,
+    "isCompanyUser" : false,
+    "id" : 1,
+    "userId" : 1,
+    "username" : "손영민",
+    "title" : "첫 이직 준비 넘 힘든데 포폴 꼭 해야 하나요?",
+    "content" : "첫 이직 준비 중인데 포트폴리오 꼭 만들어야 하나요 ㅠㅠ 아무리 해도 부족한 느낌이라 너무 스트레스받아요..",
+    "createdAt" : "2025-05-21T06:38:46.547+00:00"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_게시글_작성">3. 게시글 작성</h3>
+<div class="sect4">
+<h5 id="_request_example_32">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /s/api/board HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiJzc2FyIn0.61P02m-xE-yOwj39CIuY7StEgwm7PQWDQscgv4Rf_C3rgtPsINTgyoHpk-RDLy5U_mq3hmEkE_euTXQiaHnEyQ
+Content-Length: 72
+Host: localhost:8080
+
+{
+  "user_id" : null,
+  "title" : "title",
+  "content" : "content"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_32">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 197
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "id" : 16,
+    "title" : "title",
+    "content" : "content",
+    "userId" : 1,
+    "createdAt" : "2025-05-21 15:38:47.49108"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_게시글_수정화면">4. 게시글 수정화면</h3>
+<div class="sect4">
+<h5 id="_request_example_33">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /s/api/board/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiJzc2FyIn0.61P02m-xE-yOwj39CIuY7StEgwm7PQWDQscgv4Rf_C3rgtPsINTgyoHpk-RDLy5U_mq3hmEkE_euTXQiaHnEyQ
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_33">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 355
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "id" : 1,
+    "title" : "첫 이직 준비 넘 힘든데 포폴 꼭 해야 하나요?",
+    "content" : "첫 이직 준비 중인데 포트폴리오 꼭 만들어야 하나요 ㅠㅠ 아무리 해도 부족한 느낌이라 너무 스트레스받아요..",
+    "isCompanyUser" : false
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_5_게시글_수정">5. 게시글 수정</h3>
+<div class="sect4">
+<h5 id="_request_example_34">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">PUT /s/api/board/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiJzc2FyIn0.61P02m-xE-yOwj39CIuY7StEgwm7PQWDQscgv4Rf_C3rgtPsINTgyoHpk-RDLy5U_mq3hmEkE_euTXQiaHnEyQ
+Content-Length: 51
+Host: localhost:8080
+
+{
+  "title" : "title",
+  "content" : "content"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_34">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 197
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "id" : 1,
+    "title" : "title",
+    "content" : "content",
+    "userId" : 1,
+    "createdAt" : "2025-05-21 15:38:46.547456"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_게시글_삭제">6. 게시글 삭제</h3>
+<div class="sect4">
+<h5 id="_request_example_35">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">DELETE /s/api/board/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiJzc2FyIn0.61P02m-xE-yOwj39CIuY7StEgwm7PQWDQscgv4Rf_C3rgtPsINTgyoHpk-RDLy5U_mq3hmEkE_euTXQiaHnEyQ
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_35">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 61
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : null
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_댓글">댓글</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_댓글_작성">1. 댓글 작성</h3>
+<div class="sect4">
+<h5 id="_request_example_36">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /s/api/reply HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiJzc2FyIn0.61P02m-xE-yOwj39CIuY7StEgwm7PQWDQscgv4Rf_C3rgtPsINTgyoHpk-RDLy5U_mq3hmEkE_euTXQiaHnEyQ
+Content-Length: 47
+Host: localhost:8080
+
+{
+  "boardId" : 1,
+  "content" : "content"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_36">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 193
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : {
+    "id" : 12,
+    "boardId" : 1,
+    "userId" : 1,
+    "content" : "content",
+    "createdAt" : "2025-05-21 15:38:47.92278"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_댓글_삭제">2. 댓글 삭제</h3>
+<div class="sect4">
+<h5 id="_request_example_37">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">DELETE /s/api/reply/3 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJibG9nIiwicm9sZSI6MCwiaWQiOjEsImV4cCI6MTc0NzgxMzEyNywidXNlcm5hbWUiOiJzc2FyIn0.61P02m-xE-yOwj39CIuY7StEgwm7PQWDQscgv4Rf_C3rgtPsINTgyoHpk-RDLy5U_mq3hmEkE_euTXQiaHnEyQ
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_37">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Origin, X-Key, Content-Type, Accept, Authorization
+Access-Control-Allow-Credentials: true
+Content-Type: application/json;charset=UTF-8
+Content-Length: 61
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "body" : null
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 0.0.1-SNAPSHOT<br>
+Last updated 2025-05-21 15:17:25 +0900
+</div>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

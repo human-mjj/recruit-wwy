@@ -76,7 +76,7 @@ public class Resume {
         this.imgUrl = imgUrl;
     }
 
-    public void update(ResumeRequest.SaveDTO dto, String savedImgUrl) {
+    public void update(ResumeRequest.SaveDTO dto, Job job, String savedImgUrl) {
         this.title = dto.getTitle();
         this.exp = "신입".equals(dto.getPersonalHistory())
                 ? "신입"
@@ -87,6 +87,6 @@ public class Resume {
         this.activity = dto.getActivity() == null ? "없음" : dto.getActivity();
         this.letter = dto.getLetter();
         this.imgUrl = savedImgUrl;
-        this.job = Job.builder().id(dto.getJobId()).build();
+        this.job = job;
     }
 }

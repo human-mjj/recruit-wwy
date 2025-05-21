@@ -1,5 +1,6 @@
-package com.example.recruit_page_wwy.integre.user;
+package com.example.recruit_page_wwy.integre;
 
+import com.example.recruit_page_wwy.RestDoc;
 import com.example.recruit_page_wwy._core.util.JwtUtil;
 import com.example.recruit_page_wwy.user.User;
 import com.example.recruit_page_wwy.user.UserRequest;
@@ -11,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,13 +25,10 @@ import static org.hamcrest.Matchers.nullValue;
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class UserControllerTest {
+public class UserControllerTest extends RestDoc {
 
     @Autowired
     private ObjectMapper om;
-
-    @Autowired
-    private MockMvc mvc;
 
     private String accessToken;
 
@@ -54,7 +52,7 @@ public class UserControllerTest {
 
 
     @Test
-    public void Mypage_test() throws Exception {
+    public void mypage_test() throws Exception {
 
         // when
         ResultActions actions = mvc.perform(
@@ -87,10 +85,11 @@ public class UserControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.email").value(nullValue()));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isCompanyUser").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.imgUrl").value("/img/Screenshot_14.png"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
-    public void MypageUpdate_test() throws Exception {
+    public void update_test() throws Exception {
         // given
         UserRequest.UpdateDTO reqDTO = new UserRequest.UpdateDTO();
         reqDTO.setPhone("01033331111");
@@ -125,10 +124,11 @@ public class UserControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.comName").value(""));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.industryId").value(nullValue()));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.companyUser").value(false));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
-    public void UserJoin_test() throws Exception {
+    public void join_user_test() throws Exception {
         // given
         UserRequest.UserDTO reqDTO = new UserRequest.UserDTO();
         reqDTO.setUsername("하하");
@@ -166,10 +166,11 @@ public class UserControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.comName").value(""));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.industryId").value(nullValue()));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.companyUser").value(false));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
-    public void ComJoin_test() throws Exception {
+    public void join_com_test() throws Exception {
         // given
         UserRequest.ComDTO reqDTO = new UserRequest.ComDTO();
         reqDTO.setUsername("하하");
@@ -209,10 +210,11 @@ public class UserControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.comName").value("하하컴퍼"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.industryId").value(2));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.companyUser").value(true));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
-    public void Login_test() throws Exception {
+    public void login_test() throws Exception {
         // given
         UserRequest.LoginDTO reqDTO = new UserRequest.LoginDTO();
         reqDTO.setEmail("ssar@nate.com");
@@ -241,5 +243,6 @@ public class UserControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.accessToken",
                 matchesPattern("^[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+$")));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

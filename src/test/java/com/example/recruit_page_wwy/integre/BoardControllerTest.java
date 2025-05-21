@@ -1,5 +1,6 @@
-package com.example.recruit_page_wwy.integre.board;
+package com.example.recruit_page_wwy.integre;
 
+import com.example.recruit_page_wwy.RestDoc;
 import com.example.recruit_page_wwy._core.util.JwtUtil;
 import com.example.recruit_page_wwy.board.BoardRequest;
 import com.example.recruit_page_wwy.user.User;
@@ -12,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,13 +25,10 @@ import static org.hamcrest.Matchers.*;
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class BoardControllerTest {
+public class BoardControllerTest extends RestDoc {
 
     @Autowired
     private ObjectMapper om;
-
-    @Autowired
-    private MockMvc mvc;
 
     private String accessToken;
 
@@ -95,6 +93,7 @@ public class BoardControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isLast").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.numbers", hasSize(3)));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.keyword").value(""));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -130,6 +129,7 @@ public class BoardControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.userId").value(1));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.createdAt",
                 matchesPattern("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d+")));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
@@ -162,6 +162,7 @@ public class BoardControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.title").value("title"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.content").value("content"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.userId").value(1));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -186,6 +187,7 @@ public class BoardControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body").value(nullValue()));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -218,6 +220,35 @@ public class BoardControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.username").value("손영민"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.title").value("첫 이직 준비 넘 힘든데 포폴 꼭 해야 하나요?"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.content").value("첫 이직 준비 중인데 포트폴리오 꼭 만들어야 하나요 ㅠㅠ 아무리 해도 부족한 느낌이라 너무 스트레스받아요.."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @Test
+    public void update_view_test() throws Exception {
+        // given
+        Integer id = 1;
+
+        // when
+        ResultActions actions = mvc.perform(
+                MockMvcRequestBuilders
+                        .get("/s/api/board/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + accessToken)
+        );
+
+//        // eye
+        String responseBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println(responseBody);
+
+
+        // then
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("성공"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.id").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.title").value("첫 이직 준비 넘 힘든데 포폴 꼭 해야 하나요?"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.content").value("첫 이직 준비 중인데 포트폴리오 꼭 만들어야 하나요 ㅠㅠ 아무리 해도 부족한 느낌이라 너무 스트레스받아요.."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+
     }
 
 }
